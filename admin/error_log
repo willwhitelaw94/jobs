@@ -1,0 +1,71 @@
+[30-Jan-2022 02:53:27 Asia/Kolkata] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 284
+[30-Jan-2022 02:53:27 Asia/Kolkata] PHP Notice:  Undefined variable: sesuserpic in /home/trilogycarecom/public_html/jobs/admin/header.php on line 285
+[30-Jan-2022 02:53:27 Asia/Kolkata] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 285
+[30-Jan-2022 02:53:27 Asia/Kolkata] PHP Notice:  Undefined index: purchase_key in /home/trilogycarecom/public_html/jobs/admin/header.php on line 302
+[30-Jan-2022 02:54:10 Asia/Kolkata] PHP Notice:  Undefined index: purchase_key in /home/trilogycarecom/public_html/jobs/admin/header.php on line 302
+[30-Jan-2022 02:54:21 Asia/Kolkata] PHP Notice:  Undefined index: purchase_key in /home/trilogycarecom/public_html/jobs/admin/header.php on line 302
+[30-Jan-2022 02:54:53 Asia/Kolkata] PHP Notice:  Undefined index: purchase_key in /home/trilogycarecom/public_html/jobs/admin/header.php on line 302
+[30-Jan-2022 02:55:23 Asia/Kolkata] PHP Notice:  Undefined index: purchase_key in /home/trilogycarecom/public_html/jobs/admin/header.php on line 302
+[30-Jan-2022 02:56:07 Asia/Kolkata] PHP Notice:  Undefined index: purchase_key in /home/trilogycarecom/public_html/jobs/admin/header.php on line 302
+[30-Jan-2022 02:56:40 Asia/Kolkata] PHP Notice:  Undefined index: purchase_key in /home/trilogycarecom/public_html/jobs/admin/header.php on line 302
+[30-Jan-2022 02:57:21 Asia/Kolkata] PHP Notice:  Undefined index: purchase_key in /home/trilogycarecom/public_html/jobs/admin/header.php on line 302
+[30-Jan-2022 02:57:40 Asia/Kolkata] PHP Notice:  Undefined index: purchase_key in /home/trilogycarecom/public_html/jobs/admin/header.php on line 302
+[30-Jan-2022 02:57:44 Asia/Kolkata] PHP Notice:  Undefined index: purchase_key in /home/trilogycarecom/public_html/jobs/admin/header.php on line 302
+[30-Jan-2022 02:58:14 Asia/Kolkata] PHP Notice:  Undefined index: purchase_key in /home/trilogycarecom/public_html/jobs/admin/header.php on line 302
+[30-Jan-2022 02:59:53 Asia/Kolkata] PHP Notice:  Undefined index: photo_show in /home/trilogycarecom/public_html/jobs/admin/qjmu71kteq.php on line 2036
+[30-Jan-2022 02:59:53 Asia/Kolkata] PHP Notice:  Undefined index: price_show in /home/trilogycarecom/public_html/jobs/admin/qjmu71kteq.php on line 2037
+[30-Jan-2022 10:01:39 Pacific/Norfolk] PHP Notice:  Undefined index: photo_show in /home/trilogycarecom/public_html/jobs/admin/qjmu71kteq.php on line 2036
+[30-Jan-2022 10:01:39 Pacific/Norfolk] PHP Notice:  Undefined index: price_show in /home/trilogycarecom/public_html/jobs/admin/qjmu71kteq.php on line 2037
+[30-Jan-2022 10:02:02 Pacific/Norfolk] PHP Notice:  Undefined index: photo_show in /home/trilogycarecom/public_html/jobs/admin/qjmu71kteq.php on line 2036
+[30-Jan-2022 10:02:02 Pacific/Norfolk] PHP Notice:  Undefined index: price_show in /home/trilogycarecom/public_html/jobs/admin/qjmu71kteq.php on line 2037
+[30-Jan-2022 10:02:06 Pacific/Norfolk] PHP Notice:  Undefined index: photo_show in /home/trilogycarecom/public_html/jobs/admin/qjmu71kteq.php on line 2036
+[30-Jan-2022 10:02:06 Pacific/Norfolk] PHP Notice:  Undefined index: price_show in /home/trilogycarecom/public_html/jobs/admin/qjmu71kteq.php on line 2037
+[30-Jan-2022 10:02:28 Pacific/Norfolk] PHP Notice:  Undefined index: photo_show in /home/trilogycarecom/public_html/jobs/admin/qjmu71kteq.php on line 2036
+[30-Jan-2022 10:02:28 Pacific/Norfolk] PHP Notice:  Undefined index: price_show in /home/trilogycarecom/public_html/jobs/admin/qjmu71kteq.php on line 2037
+[30-Jan-2022 10:02:40 Pacific/Norfolk] PHP Notice:  Undefined index: photo_show in /home/trilogycarecom/public_html/jobs/admin/qjmu71kteq.php on line 2036
+[30-Jan-2022 10:02:40 Pacific/Norfolk] PHP Notice:  Undefined index: price_show in /home/trilogycarecom/public_html/jobs/admin/qjmu71kteq.php on line 2037
+[30-Jan-2022 10:17:07 Pacific/Norfolk] PHP Warning:  file_put_contents(../plugins/quickchat-ajax/wwh1rhp8zp.php): failed to open stream: No such file or directory in /home/trilogycarecom/public_html/jobs/admin/chat_setting.php on line 116
+[30-Jan-2022 10:17:07 Pacific/Norfolk] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/trilogycarecom/public_html/jobs/admin/header.php:20) in /home/trilogycarecom/public_html/jobs/includes/functions/func.global.php on line 1113
+[30-Jan-2022 10:17:34 Pacific/Norfolk] PHP Warning:  file_put_contents(../plugins/quickchat-ajax/wwh1rhp8zp.php): failed to open stream: No such file or directory in /home/trilogycarecom/public_html/jobs/admin/chat_setting.php on line 116
+[30-Jan-2022 10:17:34 Pacific/Norfolk] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/trilogycarecom/public_html/jobs/admin/header.php:20) in /home/trilogycarecom/public_html/jobs/includes/functions/func.global.php on line 1113
+[30-Jan-2022 10:20:08 Pacific/Norfolk] PHP Warning:  file_put_contents(../plugins/quickchat-ajax/wwh1rhp8zp.php): failed to open stream: No such file or directory in /home/trilogycarecom/public_html/jobs/admin/chat_setting.php on line 116
+[30-Jan-2022 10:20:08 Pacific/Norfolk] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/trilogycarecom/public_html/jobs/admin/header.php:20) in /home/trilogycarecom/public_html/jobs/includes/functions/func.global.php on line 1113
+[30-Jan-2022 10:21:40 Pacific/Norfolk] PHP Warning:  unlink(../storage/profile/): Is a directory in /home/trilogycarecom/public_html/jobs/admin/ajax_sidepanel.php on line 494
+[30-Jan-2022 10:21:40 Pacific/Norfolk] PHP Warning:  unlink(../storage/profile/small): No such file or directory in /home/trilogycarecom/public_html/jobs/admin/ajax_sidepanel.php on line 495
+[30-Jan-2022 10:23:48 Pacific/Norfolk] PHP Warning:  PDOStatement::execute(): SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'AU' for key 'code' in /home/trilogycarecom/public_html/jobs/includes/sql_builder/idiorm.php on line 505
+[30-Jan-2022 10:23:52 Pacific/Norfolk] PHP Warning:  PDOStatement::execute(): SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'AU' for key 'code' in /home/trilogycarecom/public_html/jobs/includes/sql_builder/idiorm.php on line 505
+[30-Jan-2022 10:24:04 Pacific/Norfolk] PHP Warning:  PDOStatement::execute(): SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'AU' for key 'code' in /home/trilogycarecom/public_html/jobs/includes/sql_builder/idiorm.php on line 505
+[30-Jan-2022 10:24:39 Pacific/Norfolk] PHP Warning:  PDOStatement::execute(): SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'code' at row 1 in /home/trilogycarecom/public_html/jobs/includes/sql_builder/idiorm.php on line 505
+[30-Jan-2022 10:24:49 Pacific/Norfolk] PHP Warning:  PDOStatement::execute(): SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'code' at row 1 in /home/trilogycarecom/public_html/jobs/includes/sql_builder/idiorm.php on line 505
+[30-Jan-2022 10:24:54 Pacific/Norfolk] PHP Warning:  PDOStatement::execute(): SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'code' at row 1 in /home/trilogycarecom/public_html/jobs/includes/sql_builder/idiorm.php on line 505
+[30-Jan-2022 10:25:05 Pacific/Norfolk] PHP Warning:  PDOStatement::execute(): SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'AU' for key 'code' in /home/trilogycarecom/public_html/jobs/includes/sql_builder/idiorm.php on line 505
+[30-Jan-2022 10:25:34 Pacific/Norfolk] PHP Warning:  PDOStatement::execute(): SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'AU' for key 'code' in /home/trilogycarecom/public_html/jobs/includes/sql_builder/idiorm.php on line 505
+[30-Jan-2022 17:17:07 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 284
+[30-Jan-2022 17:17:07 Pacific/Norfolk] PHP Notice:  Undefined variable: sesuserpic in /home/trilogycarecom/public_html/jobs/admin/header.php on line 285
+[30-Jan-2022 17:17:07 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 285
+[30-Jan-2022 17:19:49 Pacific/Norfolk] PHP Warning:  PDOStatement::execute(): SQLSTATE[01000]: Warning: 1265 Data truncated for column 'sub_amount' at row 1 in /home/trilogycarecom/public_html/jobs/includes/sql_builder/idiorm.php on line 505
+[30-Jan-2022 17:19:54 Pacific/Norfolk] PHP Warning:  PDOStatement::execute(): SQLSTATE[01000]: Warning: 1265 Data truncated for column 'sub_amount' at row 1 in /home/trilogycarecom/public_html/jobs/includes/sql_builder/idiorm.php on line 505
+[30-Jan-2022 19:24:43 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 284
+[30-Jan-2022 19:24:43 Pacific/Norfolk] PHP Notice:  Undefined variable: sesuserpic in /home/trilogycarecom/public_html/jobs/admin/header.php on line 285
+[30-Jan-2022 19:24:43 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 285
+[30-Jan-2022 19:27:41 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 284
+[30-Jan-2022 19:27:41 Pacific/Norfolk] PHP Notice:  Undefined variable: sesuserpic in /home/trilogycarecom/public_html/jobs/admin/header.php on line 285
+[30-Jan-2022 19:27:41 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 285
+[30-Jan-2022 19:30:25 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 284
+[30-Jan-2022 19:30:25 Pacific/Norfolk] PHP Notice:  Undefined variable: sesuserpic in /home/trilogycarecom/public_html/jobs/admin/header.php on line 285
+[30-Jan-2022 19:30:25 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 285
+[10-Feb-2022 23:22:59 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 284
+[10-Feb-2022 23:22:59 Pacific/Norfolk] PHP Notice:  Undefined variable: sesuserpic in /home/trilogycarecom/public_html/jobs/admin/header.php on line 285
+[10-Feb-2022 23:22:59 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 285
+[10-Feb-2022 23:25:12 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 284
+[10-Feb-2022 23:25:12 Pacific/Norfolk] PHP Notice:  Undefined variable: sesuserpic in /home/trilogycarecom/public_html/jobs/admin/header.php on line 285
+[10-Feb-2022 23:25:12 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 285
+[11-Feb-2022 08:05:45 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 284
+[11-Feb-2022 08:05:45 Pacific/Norfolk] PHP Notice:  Undefined variable: sesuserpic in /home/trilogycarecom/public_html/jobs/admin/header.php on line 285
+[11-Feb-2022 08:05:45 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 285
+[11-Feb-2022 08:05:46 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 284
+[11-Feb-2022 08:05:46 Pacific/Norfolk] PHP Notice:  Undefined variable: sesuserpic in /home/trilogycarecom/public_html/jobs/admin/header.php on line 285
+[11-Feb-2022 08:05:46 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 285
+[11-Feb-2022 16:16:38 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 284
+[11-Feb-2022 16:16:38 Pacific/Norfolk] PHP Notice:  Undefined variable: sesuserpic in /home/trilogycarecom/public_html/jobs/admin/header.php on line 285
+[11-Feb-2022 16:16:38 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 285

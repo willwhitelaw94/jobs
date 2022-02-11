@@ -1,0 +1,9 @@
+[30-Jan-2022 10:09:18 Pacific/Norfolk] PHP Notice:  Undefined index: city in /home/trilogycarecom/public_html/jobs/includes/functions/func.global.php on line 299
+[10-Feb-2022 23:24:42 Pacific/Norfolk] PHP Notice:  Undefined index: city in /home/trilogycarecom/public_html/jobs/includes/functions/func.global.php on line 299
+[10-Feb-2022 23:33:27 Pacific/Norfolk] PHP Notice:  Undefined index: gender in /home/trilogycarecom/public_html/jobs/php/dashboard.php on line 130
+[11-Feb-2022 08:06:45 Pacific/Norfolk] PHP Notice:  Undefined index: city in /home/trilogycarecom/public_html/jobs/includes/functions/func.global.php on line 299
+[11-Feb-2022 08:07:53 Pacific/Norfolk] PHP Notice:  Undefined index: city in /home/trilogycarecom/public_html/jobs/includes/functions/func.global.php on line 299
+[11-Feb-2022 16:26:54 Pacific/Norfolk] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/trilogycarecom/public_html/jobs/php/job-seekers.php on line 116
+[11-Feb-2022 16:26:54 Pacific/Norfolk] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/trilogycarecom/public_html/jobs/php/job-seekers.php on line 126
+[11-Feb-2022 16:26:59 Pacific/Norfolk] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/trilogycarecom/public_html/jobs/php/job-seekers.php on line 116
+[11-Feb-2022 16:26:59 Pacific/Norfolk] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, bool given in /home/trilogycarecom/public_html/jobs/php/job-seekers.php on line 126
