@@ -41,6 +41,7 @@ if(checkloggedin()) {
         $page->SetParameter('CHAT_FULLNAME',$chat_fullname);
         $page->SetParameter('CHAT_USERIMG',$chat_userimg);
         $page->SetParameter('CHAT_USERSTATUS',$chat_userstatus);
+        $page->SetParameter('USER_SIDEBAR',create_user_sidebar());
         $page->SetParameter('COPYRIGHT_TEXT', $config['copyright_text']);
         $page->CreatePageEcho();
     }
@@ -60,6 +61,7 @@ if(checkloggedin()) {
         $page->SetParameter('CHAT_FULLNAME',$chat_fullname);
         $page->SetParameter('CHAT_USERIMG',$chat_userimg);
         $page->SetParameter('CHAT_USERSTATUS',$chat_userstatus);
+        $page->SetParameter('USER_SIDEBAR',create_user_sidebar());
         $page->SetParameter('COPYRIGHT_TEXT', $config['copyright_text']);
         $page->CreatePageEcho();
     }else

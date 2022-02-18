@@ -1,14 +1,19 @@
 <?php
-
 if (checkloggedin()) {
     update_lastactive();
     $ses_userdata = get_user_data($_SESSION['user']['username']);
-
     $author_image = $ses_userdata['image'];
     $username_error = $email_error = $password_error = $type_error = $avatar_error = '';
     $avatarName = null;
     $errors = 0;
+
+    $author_lastactive = date('d M Y H:i', strtotime($ses_userdata['lastactive']));
+
+    $country_code = !empty($ses_userdata['country_code']) ? $ses_userdata['country_code'] : check_user_country();
+    $currency_info = set_user_currency($country_code);
+    $currency_sign = $currency_info['html_entity'];
     if (isset($_POST['submit'])) {
+     // print_r($_POST);die;
 
         if ($_POST["username"] != $_SESSION['user']['username']) {
             if (empty($_POST["username"])) {
@@ -55,11 +60,11 @@ if (checkloggedin()) {
             }
         }
 
-        if (!empty($_POST["gender"])) {
-            if (!in_array($_POST["gender"], array('Male', 'Female', 'Other'))) {
-                $_POST["gender"] = 'Male';
-            }
-        }
+        // if (!empty($_POST["gender"])) {
+        //     if (!in_array($_POST["gender"], array('Male', 'Female', 'Other'))) {
+        //         $_POST["gender"] = 'Male';
+        //     }
+        // }
 
         if ($errors == 0) {
             if (!empty($_FILES['avatar'])) {
@@ -98,19 +103,20 @@ if (checkloggedin()) {
 
         if ($errors == 0) {
 
-            $salary_min = $salary_max = 0;
+            // $salary_min = $salary_max = 0;
             $dob = null;
 
             if (!empty($_POST['dob'])) {
                 $dob = date("Y-m-d", strtotime($_POST['dob']));
             }
 
-            if (!empty($_POST['salary_min']) or !empty($_POST['salary_max'])) {
-                $salary_min = is_numeric($_POST['salary_min']) ? $_POST['salary_min'] : 0;
-                $salary_max = is_numeric($_POST['salary_max']) ? $_POST['salary_max'] : 0;
-            }
+            // if (!empty($_POST['salary_min']) or !empty($_POST['salary_max'])) {
+            //     $salary_min = is_numeric($_POST['salary_min']) ? $_POST['salary_min'] : 0;
+            //     $salary_max = is_numeric($_POST['salary_max']) ? $_POST['salary_max'] : 0;
+            // }
 
             $city = $_POST['city'];
+           // dd($city);
             $citydata = get_cityDetail_by_id($city);
             $country = $citydata['country_code'];
             $state = $citydata['subadmin1_code'];
@@ -138,26 +144,28 @@ if (checkloggedin()) {
             $user_update->set('youtube', validate_input($_POST["youtube"]));
             $user_update->set('city_code', $city);
             $user_update->set('state_code', $state);
-            $user_update->set('country_code', $country);
+             $user_update->set('country_code', $country);
             $user_update->set('category', isset($_POST["category"]) ? $_POST['category'] : null);
             $user_update->set('subcategory', isset($_POST["subcategory"]) ? $_POST['subcategory'] : null);
-            $user_update->set('salary_min', $salary_min);
-            $user_update->set('salary_max', $salary_max);
+           // $user_update->set('salary_min', $salary_min);
+            //$user_update->set('salary_max', $salary_max);
             $user_update->set('dob', $dob);
             $user_update->set('updated_at', $now);
             if ($avatarName) {
                 $user_update->set('image', $avatarName);
             }
+           // dd($user_update);
             $user_update->save();
 
             $loggedin = get_user_data("", $_SESSION['user']['id']);
             create_user_session($loggedin['id'], $loggedin['username'], $loggedin['password'], $loggedin['user_type']);
 
-            transfer($link['DASHBOARD'], $lang['PROFILE_UPDATED'], $lang['PROFILE_UPDATED']);
+            transfer($link['EDITPROFILE'], $lang['PROFILE_UPDATED'], $lang['PROFILE_UPDATED']);
             exit;
         }
 
-    } else if (isset($_POST['password-submit'])) {
+    }else if (isset($_POST['password-submit'])) {
+        //print_r($_POST);die;
         if (!empty($_POST["password"]) && !empty($_POST["re_password"])) {
             if ($_POST["password"] != $_POST["re_password"]) {
                 $errors++;
@@ -168,8 +176,10 @@ if (checkloggedin()) {
             }
 
             if ($errors == 0) {
+              
                 $now = date("Y-m-d H:i:s");
                 $user_update = ORM::for_table($config['db']['pre'] . 'user')->find_one($_SESSION['user']['id']);
+               // print_r($user_update);die;
                 $user_update->set('updated_at', $now);
 
                 $password = $_POST["password"];
@@ -177,56 +187,49 @@ if (checkloggedin()) {
 
                 $user_update->set('password_hash', $pass_hash);
 
-                //$user_update->save();
+                $user_update->save();
 
                 $loggedin = get_user_data("", $_SESSION['user']['id']);
                 create_user_session($loggedin['id'], $loggedin['username'], $loggedin['password'], $loggedin['user_type']);
 
-                transfer($link['DASHBOARD'], $lang['PROFILE_UPDATED'], $lang['PROFILE_UPDATED']);
+                transfer($link['EDITPROFILE'], $lang['PROFILE_UPDATED'], $lang['PROFILE_UPDATED']);
                 exit;
             }
         }
-    } else if (isset($_POST['submit_type'])) {
-        $errors = 0;
-        if (empty($_POST["user-type"])) {
-            $errors++;
-            $type_error = "<span class='status-not-available'> " . $lang['SELECT_USER_TYPE'] . "</span>";
-        } else {
-            if (!in_array($_POST["user-type"], array(1, 2))) {
-                $errors++;
-                $type_error = "<span class='status-not-available'> " . $lang['INVALID_USER_TYPE'] . "</span>";
-            }
-        }
-
-        if ($errors == 0) {
-            $now = date("Y-m-d H:i:s");
-            $user_update = ORM::for_table($config['db']['pre'] . 'user')->find_one($_SESSION['user']['id']);
-            if($_POST["user-type"] == 1){
-                $user_update->user_type = 'user';
-            }else{
-                $user_update->user_type = 'employer';
-            }
-            $user_update->set('updated_at', $now);
-            $user_update->save();
-
-            $loggedin = get_user_data("", $_SESSION['user']['id']);
-            create_user_session($loggedin['id'], $loggedin['username'], $loggedin['password'], $loggedin['user_type']);
-
-            transfer($link['DASHBOARD'], $lang['PROFILE_UPDATED'], $lang['PROFILE_UPDATED']);
-            exit;
-        }
     }
 
-    $author_lastactive = date('d M Y H:i', strtotime($ses_userdata['lastactive']));
+    // else if (isset($_POST['submit_type'])) {
+    //     $errors = 0;
+    //     if (empty($_POST["user-type"])) {
+    //         $errors++;
+    //         $type_error = "<span class='status-not-available'> " . $lang['SELECT_USER_TYPE'] . "</span>";
+    //     } else {
+    //         if (!in_array($_POST["user-type"], array(1, 2))) {
+    //             $errors++;
+    //             $type_error = "<span class='status-not-available'> " . $lang['INVALID_USER_TYPE'] . "</span>";
+    //         }
+    //     }
 
-    $country_code = !empty($ses_userdata['country_code']) ? $ses_userdata['country_code'] : check_user_country();
-    $currency_info = set_user_currency($country_code);
-    $currency_sign = $currency_info['html_entity'];
+    //     if ($errors == 0) {
+    //         $now = date("Y-m-d H:i:s");
+    //         $user_update = ORM::for_table($config['db']['pre'] . 'user')->find_one($_SESSION['user']['id']);
+    //         if($_POST["user-type"] == 1){
+    //             $user_update->user_type = 'user';
+    //         }else{
+    //             $user_update->user_type = 'employer';
+    //         }
+    //         $user_update->set('updated_at', $now);
+    //         $user_update->save();
 
+    //         $loggedin = get_user_data("", $_SESSION['user']['id']);
+    //         create_user_session($loggedin['id'], $loggedin['username'], $loggedin['password'], $loggedin['user_type']);
 
-    // Output to template
-    $page = new HtmlTemplate ('templates/' . $config['tpl_name'] . '/dashboard.tpl');
-    $page->SetParameter('OVERALL_HEADER', create_header($lang['DASHBOARD']));
+    //         transfer($link['DASHBOARD'], $lang['PROFILE_UPDATED'], $lang['PROFILE_UPDATED']);
+    //         exit;
+    //     }
+    // }
+    $page = new HtmlTemplate ('templates/' . $config['tpl_name'] . '/edit-profile.tpl');
+    $page->SetParameter('OVERALL_HEADER', create_header($lang['Edit Profile']));
     $page->SetParameter('RESUBMITADS', resubmited_ads_count($_SESSION['user']['id']));
     $page->SetParameter('HIDDENADS', hidden_ads_count($_SESSION['user']['id']));
     $page->SetParameter('PENDINGADS', pending_ads_count($_SESSION['user']['id']));
@@ -280,10 +283,15 @@ if (checkloggedin()) {
     $page->SetParameter('NOTIFY', $ses_userdata['notify']);
     $page->SetLoop('ERRORS', "");
     $page->SetLoop('CATEGORIES', get_maincategory($ses_userdata['category']));
-    $page->SetParameter('OVERALL_FOOTER', create_footer());
+    
+    $page->SetParameter('USER_DASHBOARD_CARD', create_user_dashboard_card());
     $page->SetParameter('USER_SIDEBAR', create_user_sidebar());
+    $page->SetParameter('OVERALL_FOOTER', create_footer());
+   
+
     $page->CreatePageEcho();
-} else {
-    headerRedirect($link['LOGIN']);
+}else{
+    headerRedirect($link['LOGIN']);  
 }
+
 ?>

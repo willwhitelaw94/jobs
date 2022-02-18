@@ -568,6 +568,8 @@ function get_user_data($username=null,$userid=null){
         $userinfo['notify']     = $info['notify'];
         $userinfo['notify_cat'] = $info['notify_cat'];
         $userinfo['website']    = $info['website'];
+        $userinfo['available_to_work']   = $info['available_to_work'];
+        $userinfo['is_session_willing']  = $info['is_session_willing'];
         return $userinfo;
     }
     else{
@@ -726,6 +728,70 @@ function esc_url($url) {
         return '';
     } else {
         return $url;
+    }
+}
+
+function create_user_sidebar(){
+    global $config,$lang,$link;
+    $uriSegments = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+    $pageUri = $uriSegments[3] ?? "";
+    $page = new HtmlTemplate ("templates/" . $config['tpl_name'] . "/sidebar.tpl");
+    $page->SetParameter('QUICKAJAXCHAT', (isset($config['quickchat_ajax_on_off'])) ? $config['quickchat_ajax_on_off'] : "");
+    $page->SetParameter('RESUBMITADS', resubmited_ads_count($_SESSION['user']['id']));
+    $page->SetParameter('HIDDENADS', hidden_ads_count($_SESSION['user']['id']));
+    $page->SetParameter('PENDINGADS', pending_ads_count($_SESSION['user']['id']));
+    $page->SetParameter('EXPIREADS', expire_ads_count($_SESSION['user']['id']));
+    $page->SetParameter('FAVORITEADS', favorite_ads_count($_SESSION['user']['id']));
+    $page->SetParameter('APPLIEDJOBS', applied_jobs_count($_SESSION['user']['id']));
+    $page->SetParameter('RESUMES', resumes_count($_SESSION['user']['id']));
+    $page->SetParameter('COMPANIES', companies_count($_SESSION['user']['id']));
+    $page->SetParameter('MYADS', active_ads_count($_SESSION['user']['id']));
+    $page->SetParameter ('FAVORITEUSERSS', favorite_users_count($_SESSION['user']['id']));
+    $page->SetParameter ('URISEGMENT',$uriSegments[2]);
+    $page->SetParameter ('PAGEURI',$pageUri);
+    return $page->CreatePageReturn($lang,$config,$link);
+}
+
+function create_user_dashboard_card(){
+    global $config,$lang,$link;
+    $ses_userdata = get_user_data($_SESSION['user']['username']);
+    $author_lastactive = date('d M Y H:i', strtotime($ses_userdata['lastactive']));
+    $page = new HtmlTemplate ("templates/" . $config['tpl_name'] . "/user-dashboard-card.tpl");
+    if (check_user_upgrades($_SESSION['user']['id'])) {
+        $sub_info = get_user_membership_detail($_SESSION['user']['id']);
+        $page->SetParameter('SUB_TITLE', $sub_info['sub_title']);
+        $page->SetParameter('SUB_IMAGE', $sub_info['sub_image']);
+    } else {
+        $page->SetParameter('SUB_TITLE', '');
+        $page->SetParameter('SUB_IMAGE', '');
+    }
+    $page->SetParameter('AUTHORNAME', ucfirst($ses_userdata['name']));
+    $page->SetParameter('LASTACTIVE', $author_lastactive);
+    $page->SetParameter('RESUMES', resumes_count($_SESSION['user']['id']));
+    $page->SetParameter('FAVORITEADS', favorite_ads_count($_SESSION['user']['id']));
+    $page->SetParameter('MYADS', active_ads_count($_SESSION['user']['id']));
+    $page->SetParameter('AVATAR', !empty($ses_userdata['image']) ? 'small_' . $ses_userdata['image'] : 'small_default_user.png');
+    return $page->CreatePageReturn($lang,$config,$link);
+
+}
+    function dd($data){
+       echo "<pre>";
+       print_r($data);
+       die();
+    }
+
+if (!function_exists('getDays')) {
+    function getDays()
+    {
+       return  Array(
+                ['id'=>0,'day'=>'Monday'],
+                ['id'=>1,'day'=>'Tuesday'],
+                ['id'=>2,'day'=>'Wednesday'],
+                ['id'=>3,'day'=>'Thursday'],
+                ['id'=>4,'day'=>'Friday'],
+                ['id'=>5,'day'=>'Saturday'],
+                ['id'=>6,'day'=>'Sunday']
+        );
     }
 }
 ?>

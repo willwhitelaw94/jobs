@@ -56,4 +56,8 @@ $link['HTML'] = $config['site_url'] . 'html';
 $link['MEMBERSHIP'] = $config['site_url'] . 'membership';
 $link['PAYMENT'] = $config['site_url'] . 'payment';
 $link['IPN'] = $config['site_url'] . 'ipn';
+$link['EDITPROFILE'] = $config['site_url'] . 'edit-profile';
+$link['BANK_DETAILS'] = $config['site_url'] . 'edit-profile/bank-account';
+$link['RATE_AVAILABILITY'] = $config['site_url'] . 'edit-profile/rate-and-availability';
+
 ?>

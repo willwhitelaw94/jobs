@@ -80,6 +80,7 @@ function msg_oddtpl(chatid,message_content,msgtype,time,position,icontype){
 }
 
 $(document).ready(function(){
+ 
     originalTitle = document.title;
     $([window, document]).blur(function(){
         windowFocus = false;
@@ -94,7 +95,7 @@ $(document).ready(function(){
 
         var searchbox = $(this).val();
         var dataString = 'searchword1='+ searchbox;
-
+      
         if(searchbox == '') {
             $("#display").css('display','block');
             $("#display").html("<div class='cssload-speeding-wheel' style='margin-top: 100px;'></div>");

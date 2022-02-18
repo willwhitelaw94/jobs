@@ -544,3 +544,31 @@ $lang['ABOUT'] = 'About';
 $lang['FIELD_REQUIRED'] = 'This field is required.';
 $lang['TYPE_ENTER'] = 'type and hit enter';
 $lang['LOGGED_IN_SUCCESS'] = 'Logged in successfully. Redirecting...';
+$lang['EDITPROFILE'] = 'Edit your profile';
+$lang['PROFILE_DETAILS'] = 'Profile Details';
+$lang['PUBLIC_PROFILE'] = 'Public Profile';
+$lang['BANK_ACCOUNT'] = 'Bank Account';
+
+$lang['LANGUAGES'] = 'Languages';
+// Bank Details page
+$lang['BANK_DETAILS']='Bank  Details';
+$lang['ACCOUNTNAME']='Account Name';
+$lang['BANKNAME']='Bank Name';
+$lang['BSB']='BSB';
+$lang['ACCOUNTNUMBER']='Account Number';
+$lang['ENTERACCOUNTNAME'] = 'Please enter your account name';
+$lang['ENTERBANKNAME'] = 'Please enter your Bank name';
+$lang['ENTERBSBNAME'] = 'Please enter BSB name';
+$lang['ENTERACCOUNTNUMBER'] = 'Please enter your account number';
+$lang['ACC_PRIVACY_MSG']='Your bank details <strong> will not be displayed on your profile and only used to process your payemnts by the Trilogy</strong>';
+// End Bank Details page
+
+//Rate and Availability page
+$lang['RATE_AVAILABILITY'] = 'Rate & Availability';
+$lang['NOT_AVAILABLE'] = 'Not available for work';
+$lang['IS_AVAILABLE_MSG'] = 'By setting yourself as not available, you won\'t appear in search results and receive job alerts.';
+$lang['MIN_SALARY_PER_HOUR'] = 'Minimum Rate per hour.';
+$lang['MAX_SALARY_PER_HOUR'] = 'Maximum Rate per hour.';
+$lang['WILLING_MSG'] = 'I\'m willing to offer a free great & meet session to potential clients.';
+$lang['DAY_REQ'] = 'Please choose your prefered work days.';
+//Rate and Availability page

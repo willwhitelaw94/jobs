@@ -99,11 +99,14 @@ $router->map('GET|POST','/blog/?', 'blog.php');
 $router->map('GET|POST','/blog/category/[*:keyword]/?', 'blog-category.php');
 $router->map('GET|POST','/blog/author/[*:keyword]/?', 'blog-author.php');
 $router->map('GET|POST','/blog/[i:id]?/[*:slug]?/?', 'blog-single.php');
-
+$router->map('GET|POST','/edit-profile/?', 'edit-profile.php');
+$router->map('GET|POST','/edit-profile/bank-account?', 'bank-account-details.php');
+$router->map('GET|POST','/edit-profile/rate-and-availability', 'rate-and-availability.php');
 // API Routes
 
 /* Match the current request */
 $match=$router->match();
+
 
 if($match) {
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
@@ -141,7 +144,6 @@ if($match) {
 
     sec_session_start();
     $mysqli = db_connect();
-
     require APPPATH.$match['target'];
 }
 else {

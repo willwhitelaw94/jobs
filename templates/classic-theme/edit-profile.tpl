@@ -1,14 +1,15 @@
+
 {OVERALL_HEADER}
 <div id="titlebar" class="margin-bottom-0">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2>{LANG_DASHBOARD}</h2>
+                <h2>{LANG_EDITPROFILE}</h2>
                 <!-- Breadcrumbs -->
                 <nav id="breadcrumbs">
                     <ul>
                         <li><a href="{LINK_INDEX}">{LANG_HOME}</a></li>
-                        <li>{LANG_DASHBOARD}</li>
+                        <li>{LANG_EDITPROFILE}</li>
                     </ul>
                 </nav>
 
@@ -21,138 +22,17 @@
         <div class="row">
             <div class="col-lg-3 col-md-12">
                {USER_SIDEBAR}
-               <!-- <div class="dashboard-sidebar">
-                    <div class="dashboard-sidebar-inner">
-                        <div class="dashboard-nav-container">
-                            <a href="#" class="dashboard-responsive-nav-trigger">
-                                <span class="hamburger hamburger--collapse">
-                                <span class="hamburger-box">
-                                    <span class="hamburger-inner"></span>
-                                </span>
-                                </span>
-                                <span class="trigger-title">{LANG_DASH_NAVIGATION}</span>
-                            </a>
-                            
-                            <div class="dashboard-nav">
-                                <div class="dashboard-nav-inner">
-                                    <ul data-submenu-title="{LANG_MY_ACCOUNT}">
-                                        <li class="active"><a href="{LINK_DASHBOARD}"><i
-                                                        class="icon-feather-grid"></i> {LANG_DASHBOARD}</a></li>
-                                        <li class=""><a href="{LINK_EDITPROFILE}"><i
-                                            class="icon-feather-edit"></i> {LANG_EDITPROFILE}</a></li>
-                                        <li><a href="{LINK_PROFILE}/{USERNAME}"><i
-                                                        class="icon-feather-user"></i> {LANG_PROFILE_PUBLIC}</a></li>
-
-                                        IF('{USERTYPE}' == "employer"){
-                                        <li><a href="{LINK_MEMBERSHIP}"><i
-                                                        class="icon-feather-gift"></i> {LANG_MEMBERSHIP}</a></li>
-                                        {:IF}
-                                    </ul>
-                                    IF('{USERTYPE}'){
-                                    <ul data-submenu-title="{LANG_MY_JOBS}">
-                                        IF('{USERTYPE}' == "user"){
-                                        IF({RESUME_ENABLE}){
-                                        <li><a href="{LINK_RESUMES}"><i
-                                                        class="icon-feather-paperclip"></i> {LANG_MY_RESUMES} <span
-                                                        class="nav-tag">{RESUMES}</span></a></li>
-                                        {:IF}
-                                        <li><a href="{LINK_EXPERIENCES}"><i class="icon-feather-award"></i> {LANG_MY_EXPERIENCES}</a></li>
-                                        <li><a href="{LINK_APPLIED_JOBS}"><i class="icon-feather-briefcase"></i> {LANG_APPLIED_JOBS}
-                                                <span class="nav-tag">{APPLIEDJOBS}</span></a></li>
-                                        <li><a href="{LINK_FAVJOBS}"><i class="icon-feather-heart"></i> {LANG_FAV_JOBS}
-                                                <span class="nav-tag">{FAVORITEADS}</span></a></li>
-                                        <li><a href="{LINK_JOBALERT}"><i class="icon-feather-bell"></i> {LANG_JOB_ALERT}
-                                            </a></li>
-                                        ELSEIF('{USERTYPE}' == "employer"){
-                                        IF({COMPANY_ENABLE}){
-                                        <li><a href="{LINK_MYCOMPANIES}"><i
-                                                        class="icon-feather-box"></i> {LANG_MY_COMPANIES} <span
-                                                        class="nav-tag">{COMPANIES}</span></a></li>
-                                        {:IF}
-                                        <li><a href="{LINK_MYJOBS}"><i
-                                                        class="icon-feather-briefcase"></i> {LANG_MY_JOBS} <span
-                                                        class="nav-tag">{MYADS}</span></a></li>
-                                        <li><a href="{LINK_PENDINGJOBS}"><i
-                                                        class="icon-feather-clock"></i> {LANG_PENDING_JOBS} <span
-                                                        class="nav-tag">{PENDINGADS}</span></a></li>
-                                        <li><a href="{LINK_HIDDENJOBS}"><i
-                                                        class="icon-feather-eye-off"></i> {LANG_HIDDEN_JOBS} <span
-                                                        class="nav-tag">{HIDDENADS}</span></a></li>
-                                        <li><a href="{LINK_EXPIREJOBS}"><i
-                                                        class="icon-feather-alert-octagon"></i> {LANG_EXPIRED_JOBS}
-                                                <span class="nav-tag">{EXPIREADS}</span></a></li>
-                                        <li><a href="{LINK_RESUBMITJOBS}"><i
-                                                        class="icon-feather-rotate-cw"></i> {LANG_RESUBMITTED_JOBS}
-                                                <span class="nav-tag">{RESUBMITADS}</span></a></li>
-                                        <li><a href="{LINK_FAVUSERS}"><i class="icon-feather-heart"></i> {LANG_FAV_USERS}
-                                                <span class="nav-tag">{FAVORITEUSERSS}</span></a></li>
-                                        {:IF}
-                                    </ul>
-                                    {:IF}
-
-                                    <ul data-submenu-title="{LANG_ACCOUNT}">
-                                        IF('{WCHAT}'=='on'){
-                                        <li><a href="{LINK_MESSAGE}"><i
-                                                        class="icon-feather-message-circle"></i> {LANG_MESSAGE}</a></li>
-                                        {:IF}
-                                        IF('{USERTYPE}' == "employer"){
-                                        <li><a href="{LINK_TRANSACTION}"><i
-                                                        class="icon-feather-file-text"></i> {LANG_TRANSACTIONS}</a></li>
-                                        {:IF}
-                                        <li><a href="{LINK_LOGOUT}"><i class="icon-feather-log-out"></i> {LANG_LOGOUT}
-                                            </a></li>
-                                    </ul>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
             </div>
             <div class="col-lg-9 col-md-12 js-accordion">
-                <div class="dashboard-box margin-top-0">
-                    <div class="content with-padding">
-                        <div class="row dashboard-profile">
-                            <div class="col-xl-6 col-md-6 col-sm-12">
-                                <div class="dashboard-avatar-box">
-                                    <img src="{SITE_URL}storage/profile/{AVATAR}" alt="{LANG_NAME}">
-                                    <div>
-                                        <h2>{AUTHORNAME}</h2>
-                                        <small>{LANG_YOU_LOGIN}: {LASTACTIVE}</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-md-6 col-sm-12 text-right">
-                                IF('{USERTYPE}' == "user"){
-                                IF({RESUME_ENABLE}){
-                                <span class="dashboard-badge"><strong>{RESUMES}</strong><i
-                                            class="icon-feather-paperclip"></i> {LANG_MY_RESUMES}</span>
-                                            {:IF}
-                                <span class="dashboard-badge"><strong>{FAVORITEADS}</strong><i
-                                            class="icon-feather-heart"></i> {LANG_FAV_JOBS}</span>
-                                ELSEIF('{USERTYPE}' == "employer"){
-                                <span class="dashboard-badge"><strong>{MYADS}</strong><i
-                                            class="icon-feather-briefcase"></i> {LANG_JOBS}</span>
-                <span class="dashboard-badge"><strong>
-                        IF("{SUB_TITLE}"!=""){
-                        {SUB_TITLE}
-                        {ELSE}
-                        {LANG_FREE}
-                        {:IF}
-                    </strong><i class="icon-feather-gift"></i> {LANG_MEMBERSHIP}</span>
-                                {:IF}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                 <!--
+                {USER_DASHBOARD_CARD}
+                
                 <div class="dashboard-box js-accordion-item active">
-                   
+                    <!-- Headline -->
                     <div class="headline js-accordion-header">
-                        <h3><i class="icon-feather-user"></i> {LANG_ACCOUNT_DETAILS}</h3>
+                        <h3><i class="icon-feather-user"></i> {LANG_PROFILE_DETAILS}</h3>
                     </div>
                     <div class="content with-padding js-accordion-body">
-                        IF(!'{USERTYPE}'){
+                    IF(!'{USERTYPE}'){
                         <form method="post" accept-charset="UTF-8">
                             <div class="row">
                                 <div class="col-xl-6 col-md-12">
@@ -191,7 +71,7 @@
                                         <div class="input-with-icon-left">
                                             <i class="la la-user"></i>
                                             <input type="text" class="with-border" id="username" name="username"
-                                                   value="{USERNAME}" onBlur="checkAvailabilityUsername()">
+                                                value="{USERNAME}" onBlur="checkAvailabilityUsername()">
                                         </div>
                                         <span id="user-availability-status">
                                             IF("{USERNAME_ERROR}"!=""){ {USERNAME_ERROR} {:IF}</span>
@@ -204,7 +84,7 @@
                                         <div class="input-with-icon-left">
                                             <i class="la la-envelope"></i>
                                             <input type="text" class="with-border" id="email" name="email"
-                                                   value="{EMAIL}" onBlur="checkAvailabilityEmail()">
+                                                value="{EMAIL}" onBlur="checkAvailabilityEmail()">
                                         </div>
                                         <span id="email-availability-status">
                                             IF("{EMAIL_ERROR}"!=""){ {EMAIL_ERROR} {:IF}</span>
@@ -217,7 +97,7 @@
                                         <div class="input-with-icon-left">
                                             <i class="la la-phone"></i>
                                             <input type="text" name="phone" class="with-border margin-bottom-0"
-                                                   value="{PHONE}">
+                                                value="{PHONE}">
                                         </div>
                                     </div>
                                 </div>
@@ -227,9 +107,9 @@
 
                                         <div class="uploadButton">
                                             <input class="uploadButton-input" type="file" accept="images/*" id="avatar"
-                                                   name="avatar"/>
+                                                name="avatar"/>
                                             <label class="uploadButton-button ripple-effect"
-                                                   for="avatar">{LANG_UPLOAD_AVATAR}</label>
+                                                for="avatar">{LANG_UPLOAD_AVATAR}</label>
                                             <span class="uploadButton-file-name">{LANG_AVATAR_HINT}</span>
                                         </div>
                                         <span id="email-availability-status">
@@ -250,10 +130,12 @@
                                             <input class="with-gap" type="radio" name="gender" id="Other" value="Other" IF('{GENDER}'=='Other'){ checked {:IF} />
                                             <label for="Other"><span class="radio-label"></span>{LANG_GENDER_OTHER}</label>
                                         </div>
+                                        
                                     </div>
+                                    
                                     <div class="submit-field">
                                         <h5>{LANG_CITY}</h5>
-                                        <select id="jobcity" class="with-border" name="city" data-size="7" title="{LANG_SELECT} {LANG_CITY}">
+                                        <select id="jobcity" class="with-border" name="city" data-size="7" title="{LANG_SELECT} {LANG_CITY}" >
                                             <option value="0" selected="selected">{LANG_SELECT} {LANG_CITY}</option>
                                             IF('{CITY}' != ''){
                                             <option value="{CITY}" selected="selected">{CITYNAME}</option>
@@ -264,11 +146,11 @@
                                         <h5>{LANG_ADDRESS} *</h5>
                                         <textarea class="with-border" name="address" required="">{ADDRESS}</textarea>
                                     </div>
-                                    IF('{USERTYPE}' == "user"){
+                                IF('{USERTYPE}' == "user"){
                                     <div class="submit-field">
                                         <h5>{LANG_TAGLINE}</h5>
                                         <input type="text" name="tagline" class="with-border margin-bottom-0"
-                                               value="{TAGLINE}">
+                                            value="{TAGLINE}">
                                         <small>{LANG_TAGLINE_HINT}</small>
                                     </div>
                                 </div>
@@ -292,37 +174,18 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-md-12">
-                                    <div class="submit-field">
-                                        <h5>{LANG_EXPECTED_SALARY}</h5>
-                                        <div class="input-with-icon">
-                                            <input class="with-border margin-bottom-0" type="number" placeholder="{LANG_MIN}"
-                                                   name="salary_min" value="{SALARY_MIN}" >
-                                            <i class="currency">{USER_CURRENCY_SIGN}</i>
-                                        </div>
-                                        <small>{LANG_SALARY_PER_MONTH}</small>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-md-12">
-                                    <div class="submit-field">
-                                        <h5>&nbsp;</h5>
-                                        <div class="input-with-icon">
-                                            <input class="with-border margin-bottom-0" type="number" placeholder="{LANG_MAX}"
-                                                   name="salary_max" value="{SALARY_MAX}">
-                                            <i class="currency">{USER_CURRENCY_SIGN}</i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-md-12">
+                                <div class="col-xl-6 col-md-12">
                                     <div class="submit-field">
                                         <h5>{LANG_DOB}</h5>
                                         <input type="text" class="with-border margin-bottom-0" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-autoclose="true" data-date-language="{LANG_CODE}" name="dob" value="{DOB}" IF('{LANGUAGE_DIRECTION}'=='rtl'){ data-date-rtl="true" {:IF}>
                                     </div>
                                 </div>
+                            
+                                
                                 <div class="col-md-12">
                                     {:IF}
                                     <div class="submit-field">
-                                        <h5>{LANG_ABOUT_ME}</h5>
+                                        <h5>{LANG_DESCRIPTION}</h5>
                                         <textarea class="with-border" id="pageContent" name="aboutme" >{ABOUTME}</textarea>
                                     </div>
                                     <div class="submit-field">
@@ -330,7 +193,7 @@
                                         <div class="input-with-icon-left">
                                             <i class="la la-link"></i>
                                             <input type="url" name="website" class="with-border margin-bottom-0"
-                                                   value="{WEBSITE}">
+                                                value="{WEBSITE}">
                                         </div>
                                     </div>
                                     <div class="submit-field">
@@ -338,7 +201,7 @@
                                         <div class="input-with-icon-left">
                                             <i class="fa fa-facebook"></i>
                                             <input type="url" name="facebook" class="with-border margin-bottom-0"
-                                                   value="{FACEBOOK}">
+                                                value="{FACEBOOK}">
                                         </div>
                                     </div>
                                     <div class="submit-field">
@@ -346,7 +209,7 @@
                                         <div class="input-with-icon-left">
                                             <i class="fa fa-twitter"></i>
                                             <input type="url" name="twitter" class="with-border margin-bottom-0"
-                                                   value="{TWITTER}">
+                                                value="{TWITTER}">
                                         </div>
                                     </div>
                                     <div class="submit-field">
@@ -354,7 +217,7 @@
                                         <div class="input-with-icon-left">
                                             <i class="fa fa-instagram"></i>
                                             <input type="url" name="instagram" class="with-border margin-bottom-0"
-                                                   value="{INSTAGRAM}">
+                                                value="{INSTAGRAM}">
                                         </div>
                                     </div>
                                     <div class="submit-field">
@@ -362,7 +225,7 @@
                                         <div class="input-with-icon-left">
                                             <i class="fa fa-linkedin"></i>
                                             <input type="url" name="linkedin" class="with-border margin-bottom-0"
-                                                   value="{LINKEDIN}">
+                                                value="{LINKEDIN}">
                                         </div>
                                     </div>
                                     <div class="submit-field">
@@ -370,7 +233,7 @@
                                         <div class="input-with-icon-left">
                                             <i class="fa fa-youtube-play"></i>
                                             <input type="url" name="youtube" class="with-border margin-bottom-0"
-                                                   value="{YOUTUBE}">
+                                                value="{YOUTUBE}">
                                         </div>
                                     </div>
                                 </div>
@@ -380,10 +243,10 @@
                         </form>
                         {:IF}
                     </div>
-                </div>  -->
+                </div>
 
-                <!--<div class="dashboard-box js-accordion-item">
-                 
+                <div class="dashboard-box js-accordion-item">
+                    <!-- Headline -->
                     <div class="headline js-accordion-header">
                         <h3><i class="icon-feather-lock"></i> {LANG_PASSWORD}</h3>
                     </div>
@@ -395,7 +258,7 @@
                                     <div class="submit-field">
                                         <h5>{LANG_NEW_PASSWORD}</h5>
                                         <input type="password" id="password" name="password" class="with-border"
-                                               onkeyup="checkAvailabilityPassword()">
+                                            onkeyup="checkAvailabilityPassword()">
                                     </div>
                                 </div>
 
@@ -403,7 +266,7 @@
                                     <div class="submit-field">
                                         <h5>{LANG_RE_NEW_PASSWORD}</h5>
                                         <input type="password" id="re_password" name="re_password" class="with-border"
-                                               onkeyup="checkRePassword()">
+                                            onkeyup="checkRePassword()">
                                     </div>
                                 </div>
                             </div>
@@ -413,12 +276,11 @@
                                     class="button ripple-effect">{LANG_UPDATE}</button>
                         </form>
                     </div>
-                </div>-->
-            </div>
+                </div>
+            </div>   
         </div>
     </div>
 </div>
-
 
 <link media="all" rel="stylesheet" type="text/css"
       href="{SITE_URL}templates/{TPL_NAME}/assets/plugins/simditor/styles/simditor.css"/>
