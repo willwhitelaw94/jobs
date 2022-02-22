@@ -122,6 +122,8 @@ if(isset($_GET['action'])){
 
     if ($_GET['action'] == "deleteTestimonial") { deleteTestimonial(); }
 
+    if ($_GET['action'] == "deletereligion") { deleteReligion(); }
+
 }
 
 if(isset($_POST['action'])){
@@ -3664,4 +3666,47 @@ function deleteTestimonial(){
         die();
     }
 }
+
+function deleteReligion(){
+    global $con,$config;
+    
+    if(isset($_POST['id']))
+    {
+        $_POST['list'][] = $_POST['id'];
+    }
+
+  
+    if (is_array($_POST['list'])) {
+       
+        $count = 0;
+        $sql = "DELETE FROM `".$config['db']['pre']."religions` ";
+
+        foreach ($_POST['list'] as $value)
+        {
+            if($count == 0)
+            {
+                $sql.= "WHERE `id` = '" . $value . "'";
+            }
+            else
+            {
+                $sql.= " OR `id` = '" . $value . "'";
+            }
+
+            $count++;
+        }
+        $sql.= " LIMIT " . count($_POST['list']);
+
+        if(check_allow())
+            mysqli_query($con,$sql);
+
+        echo 1;
+        die();
+    } else {
+        echo 0;
+        die();
+    }
+
+}
+
+
 ?>

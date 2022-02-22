@@ -196,6 +196,19 @@ if(isset($_SESSION['admin']['id'])){
                                 <li><a href="themes.php">Change Theme</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item nav-item-has-subnav">
+                            <a href="#"><i class="ion-android-settings"></i>Core Setting</a>
+                            <ul class="nav nav-subnav">
+                                <li><a href="language.php">Language</a></li>
+                                <li><a href="religion.php">Religion</a></li>
+                                <li><a href="interest.php">Interest & Hobbies</a></li>
+                                <li><a href="cultural_background.php">Cultural Background</a></li>
+                                <li><a href="about_me.php">About Me<Menu></Menu></a></li>
+                                <li><a href="care_experience.php">Care Expirences</a></li>
+                                <li><a href="preference.php">Preferences</a></li>
+                             
+                            </ul>
+                        </li>
                         <li class="nav-item nav-drawer-header">Content</li>
                         <li class="nav-item nav-item-has-subnav">
                             <a href="#"><i class="ion-ios-paper-outline"></i> Blog <span class="label label-success">New</span></a>

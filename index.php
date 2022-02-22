@@ -104,6 +104,7 @@ $router->map('GET|POST','/edit-profile/bank-account?', 'bank-account-details.php
 $router->map('GET|POST','/edit-profile/rate-and-availability', 'rate-and-availability.php');
 $router->map('GET|POST','/edit-profile/languages', 'languages.php');
 $router->map('GET|POST','/edit-profile/cultural-backgrounds', 'cultural-backgrounds.php');
+$router->map('GET|POST','/edit-profile/religion', 'religion.php');
 // API Routes
 
 /* Match the current request */

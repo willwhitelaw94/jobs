@@ -25,7 +25,8 @@
                                     <li class="IF('{PAGEURI}' == 'rate-and-availability'){ active {:IF}"><a href="{LINK_RATE_AVAILABILITY}">{LANG_RATE_AVAILABILITY}</a></li>
                                     <li class="IF('{PAGEURI}' == 'languages'){ active {:IF}"><a href="{LINK_LANGUAGES}">{LANG_LANGUAGES}</a></li>
                                     <li class="IF('{PAGEURI}' == 'cultural-backgrounds'){ active {:IF}"><a href="{LINK_CULTURAL_BACKGROUNDS}">{LANG_CULTURAL_BACKGROUNDS}</a></li>
-                                    
+                                    <li class="IF('{PAGEURI}' == 'religion'){ active {:IF}"><a href="{LINK_RELIGION}">{LANG_RELIGION}</a></li>
+                                  
                                 </ul>
                             {:IF}     
                         </li>

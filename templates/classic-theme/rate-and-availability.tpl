@@ -107,13 +107,16 @@
                                                                         Indicative rates provide a guide to your potential clients to help them make an informed decision about who
                                                                         supports them. Consider your rates based on:
                                                                     </p>
-                                                                    <p class="ps-4">
+                                                                    <div class="ps-4">
                                                                         <ul class="ms-4">
                                                                             <li class="pb-3 ">Your experience, qualifications, other skills (such as languages) and services</li>
                                                                             <li class="pb-3 ">Your ratings and reviews from clients</li>
                                                                             <li class="pb-3 ">Your holiday pay, taxes and contributions to superannuation</li>
                                                                         </ul>
-                                                                    </p>
+                                                                    </div>
+
+                                                                       
+                                                                
                                                                     <p class="ps-4">
                                                                         Don't forget that the actual rate you receive will be 10% less than the agreed rate while your clients will
                                                                         pay 5% more, for the support and services Trilogy Contractor Facilitates.

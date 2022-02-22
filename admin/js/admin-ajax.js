@@ -809,3 +809,25 @@ $(document).on("submit", "#blog_form_ajax", function (e) {
     loader.addClass('bookme-progress').prop('disabled',true);
     $('#blog_form_ajax').ajaxSubmit(options);
 });
+
+$(document).on('click','#religion_sidePanel_data',function(){
+    // console.log(sidepanel_ajaxurl);
+    // return false;
+    var loader = $('#religion_sidePanel_data'),
+    action = $('#sidePanel_form').data('ajax-action'),
+    options = {
+        url:  sidepanel_ajaxurl + '?action='+action,
+        dataType:  'json',
+        success:   function(data, statusText, xhr, $form){
+            if(data.status == 'error'){
+                alertify.error(data.message);
+            }else if(data.status == 'success'){
+                alertify.success(data.message);
+                refreshAjaxTable();
+            }
+            loader.removeClass('bookme-progress').prop('disabled',false);
+        }
+    };
+    loader.addClass('bookme-progress');
+    $('#sidePanel_form').ajaxSubmit(options);
+})

@@ -81,6 +81,8 @@ if(isset($_GET['action'])){
     if ($_GET['action'] == "addTestimonial") { addTestimonial(); }
     if ($_GET['action'] == "editTestimonial") { editTestimonial(); }
 
+    if ($_GET['action'] == "addReligion") { addReligion(); }
+    if ($_GET['action'] == "editReligion") { editReligion(); }
 }
 
 function companyEdit(){
@@ -2780,6 +2782,74 @@ function testEmailTemplate(){
     }else{
         $status = "Error";
         $message = 'Problem in sent e-mail.';
+    }
+
+    echo $json = '{"status" : "' . $status . '","message" : "' . $message . '"}';
+    die();
+}
+
+function addReligion(){
+    global $config,$lang;
+    $error=[];
+    if (isset($_POST['submit'])) {
+        if ($_POST['name'] == "") {
+            $error = "Religion Name Required";
+            $status = "error";
+            $message = $error;
+        }
+        if(empty($error)) {
+            $now=date("Y-m-d");
+            $insert_religion = ORM::for_table($config['db']['pre'].'religions')->create();
+            $insert_religion->name = $_POST['name'];
+            $insert_religion->created_at = $now;
+            $insert_religion->updated_at = $now;
+            $insert_religion->save();
+            if ($insert_religion->id()) {
+                $status = "success";
+                $message = $lang['SAVED_SUCCESS'];
+            } 
+        }else {
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+    }else{
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+    
+    $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
+    echo $json;
+    die();
+
+    
+}
+
+function editReligion(){
+    global $config,$lang;
+    
+    if (isset($_POST['id'])) {
+  
+        $info = ORM::for_table($config['db']['pre'].'religions')
+            ->select('id')
+            ->where('id', $_POST['id'])
+            ->find_one();
+
+        $update_rel = ORM::for_table($config['db']['pre'].'religions')->find_one($_POST['id']);
+        $update_rel->set('name', $_POST['name']);
+        $update_rel->set('updated_at',date('Y-m-d'));
+        $update_rel->save();
+
+        if ($update_rel) {
+            $status = "success";
+            $message = $lang['SAVED_SUCCESS'];
+        } else{
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+
+    } else {
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
     }
 
     echo $json = '{"status" : "' . $status . '","message" : "' . $message . '"}';

@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 'On');
 if(checkloggedin()){
     update_lastactive();
     $user_id= $_SESSION['user']['id'];
@@ -31,7 +29,7 @@ if(checkloggedin()){
     }
  
     if(isset($_POST['submit_details'])){
-      
+
         $backs =$_POST['background']??[];
         $background_options = $_POST['back_options']??[];
 
