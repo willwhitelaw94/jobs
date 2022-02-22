@@ -571,4 +571,17 @@ $lang['MIN_SALARY_PER_HOUR'] = 'Minimum Rate per hour.';
 $lang['MAX_SALARY_PER_HOUR'] = 'Maximum Rate per hour.';
 $lang['WILLING_MSG'] = 'I\'m willing to offer a free great & meet session to potential clients.';
 $lang['DAY_REQ'] = 'Please choose your prefered work days.';
-//Rate and Availability page
+//End Rate and Availability page
+
+//Languages page
+$lang['EDITLANGUAGE'] = 'Edit your language';
+$lang['MAIN_LANGUAGES'] = 'Main Languages';
+$lang['OTHER_LANGUAGES'] = 'Other Languages';
+$lang['LANGUAGE_UPDATED'] = 'Language updated successfully';
+//End Languages page
+
+//Cultural-backgrounds page
+$lang['CULTURAL_BACKGROUNDS'] = 'Cultural Backgrounds';
+$lang['CULTURAL_BACKGROUNDS_UPDATED'] = 'Cultural Backgrounds updated';
+$lang['CULTURAL_BACK_MSG']='Select your cultural background, this will help clients search for Support Workers who share a similar cultural background.';
+//End Cultural-backgrounds page

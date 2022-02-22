@@ -67,9 +67,15 @@
                                         <div class="submit-field">
                                             <h4 style="font-weight: 700;">Type in a city</h4>
                                             <select id="jobcity" class="with-border" name="city[]" data-size="7" title="{LANG_SELECT} {LANG_CITY}" multiple>    
+                                                IF('{USER_CITY}' != ''){
+                                                    {LOOP: USER_CITY}
+                                                    <option value="{USER_CITY.id}" selected="selected">{USER_CITY.text}</option>
+        
+                                                    {/LOOP: USER_CITY} 
+                                             
+                                                {:IF}
                                             </select>
                                         </div>
-                                
                                     </div>
                                     <div class="col-xl-12 col-md-12">
                                         <h3>Prefered Days:</h3>
@@ -77,8 +83,7 @@
                                             <div class="submit-field"  id="prefered_days">
                                                 <select id="days" class="with-border" name="days[]" data-size="7" title="{LANG_SELECT} {LANG_DAY}" multiple>   
                                                 {LOOP: DAYSLIST}
-                                                <option value="{DAYSLIST.id}">{DAYSLIST.day}</option>
-                                            
+                                                <option value="{DAYSLIST.code}">{DAYSLIST.day}</option>
                                                 {/LOOP: DAYSLIST} 
                                                 </select>
                                                 IF("{DAY_ERROR}"!=""){ {DAY_ERROR} {:IF}
@@ -150,7 +155,7 @@
                                     </div>
                                     <div class="col-xl-12 col-md-12">
                                         <div class="checkbox submit-field">
-                                            <input type="checkbox" id="session_willing" name="agree_for_term" value="1" IF({SESSION_WILLING}){ checked {:IF}>
+                                            <input type="checkbox" id="session_willing" name="session_willing" value="1" IF({SESSION_WILLING}){ checked {:IF}>
                                             <label for="session_willing"><span class="checkbox-icon"></span>{LANG_WILLING_MSG}</label>
                                         </div>
                                     </div>
@@ -187,11 +192,14 @@
 <script src="{SITE_URL}templates/{TPL_NAME}/js/bootstrap-datepicker.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.{LANG_CODE}.min.js" charset="UTF-8"></script>
 {OVERALL_FOOTER}
-<script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify@4.9.7/dist/tagify.min.js"></script>
+
 
 <script>
+ 
     /* Get and Bind cities */
+
     $('#jobcity').select2({
+        multiple:true,
         ajax: {
             url: ajaxurl + '?action=searchCityFromCountry',
             dataType: 'json',
@@ -229,16 +237,18 @@
             return data.text;
         }
     });
-    //var input = document.querySelector('input[name=tags-outside]');
-var data = ["Apple", "Banana", "Cherry", "Date", "ElderberriesElderberry"]; // Programatically-generated options array with > 5 options
-var placeholder = "select";
+ 
+ 
+let string = '{USER_PRE_DAYS}';
+let arr = string.split(',');
+    
 $("#days").select2({
     placeholder:'Select Days'
     // tags: true,
     // tokenSeparators: [',', ' '],
     // minimumResultsForSearch: Infinity,
    
-});
+}).val(arr).trigger('change');
 // .on('select2:open', function (e) {
 //    $('.select2-container--open .select2-dropdown--below').css('display','none');;
 

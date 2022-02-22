@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 'On');
 if (checkloggedin()) {
     
     update_lastactive();
@@ -11,14 +9,16 @@ if (checkloggedin()) {
     $day_error='';
     $errors = 0;
     $user_id= $_SESSION['user']['id'];
-    $user_city=(array)$user_city=ORM::for_table($config['db']['pre'] . 'user_cities')->where('user_id',$user_id)->find_many()->as_array();
+    $user_city=ORM::for_table($config['db']['pre'] . 'user_cities')->where('user_id',$user_id)->find_array();
+    $city_codes=array_column($user_city,'city_code');
+    $user_pr_days=ORM::for_table($config['db']['pre'] . 'user_prefered_days')->where('user_id',$user_id)->find_array();
+    
     if (isset($_POST['submit_details'])) {
-       
-        //dd($_POST['city']);
         if(empty($_POST['days'])){
             $errors++;
             $day_error= "<span class='status-not-available'> " . $lang['DAY_REQ'] . "</span>";   
         }
+    
         if ($errors == 0) {
             $salary_min = $salary_max = 0;
             if (!empty($_POST['salary_min']) or !empty($_POST['salary_max'])) {
@@ -32,14 +32,13 @@ if (checkloggedin()) {
             $user_update->set('available_to_work',$_POST['available_to_work']??"0");
             $user_update->set('is_session_willing',$_POST['session_willing']??"0");
             $user_update->save();
+
             $cities = $_POST['city'];
-            $city_arr=[];
-            ////dd(get_cityDetail_by_id());die;
-            $city_codes=array_column($user_city,'city_code');
-            //dd($city_codes);
-            foreach ($city_code as $c_code) {
+           
+            foreach ($city_codes as $c_code) {
                 if(!in_array($c_code,$cities)){
-                    ORM::for_table($config['db']['pre'] . 'user_cities')->where(['user_id'=>$user_id,'city_code'=>$c_code])->delete_one();
+                    $c=ORM::for_table($config['db']['pre'] . 'user_cities')->where(['user_id'=>$user_id,'city_code'=>$c_code])->find_one();
+                    $c->delete();
                 }
             }
             foreach ($cities as $key => $city) {
@@ -55,15 +54,25 @@ if (checkloggedin()) {
                     $u_city->country_code= $country;
                     $u_city->save();
                 }
-               
-                //array_push($city_arr,['user_id'=>$_SESSION['user']['id'],'city_code'=>$city,'state_code'=>$state, 'country_code'=>$country]); 
             }
-           // ORM::for_table($config['db']['pre'] . 'user')->find_one($_SESSION['user']['id']);
-          
-           // print_r($user_city);
-            // if($user_city->count()>0){
-            //     ORM::for_table($config['db']['pre'] . 'user_cities')->where('user_id',$_SESSION['user']['id'])->delete_many();
-            // } 
+
+            $days = $_POST['days'];
+            $day_codes=array_column($user_pr_days,'day');
+            foreach ($day_codes as $day) {
+                if(!in_array($day,$days)){
+                    $c=ORM::for_table($config['db']['pre'] . 'user_prefered_days')->where(['user_id'=>$user_id,'day'=>$day])->find_one();
+                    $c->delete();
+                }
+            }
+            foreach ($days as $key => $day) {
+                $exist=ORM::for_table($config['db']['pre'] . 'user_prefered_days')->where(['user_id'=>$user_id,'day'=>$day])->find_one();
+                if(!$exist){
+                    $u_day=ORM::for_table($config['db']['pre'] .'user_prefered_days')->create();
+                    $u_day->user_id=$user_id;
+                    $u_day->day = $day;
+                    $u_day->save();
+                }
+            }
             transfer($link['RATE_AVAILABILITY'], $lang['DETAILS_UPDATED'], $lang['DETAILS_UPDATED']);
             exit;
         }
@@ -77,7 +86,8 @@ if (checkloggedin()) {
     $page->SetParameter('SALARY_MAX', $ses_userdata['salary_max']);
     $page->SetParameter('SESSION_WILLING', $ses_userdata['is_session_willing']);
     $page->SetParameter('AVLTOWORK', $ses_userdata['available_to_work']);
-    $page->SetLoop('USER_CITY',$user_city);
+    $page->SetLoop('USER_CITY', get_citite($city_codes));
+    $page->SetParameter('USER_PRE_DAYS',implode(',',array_column($user_pr_days,'day')));
     $page->SetParameter('USER_CURRENCY_SIGN', $currency_sign);
     $page->SetParameter('DAY_ERROR', $day_error);
     $page->SetParameter('OVERALL_FOOTER', create_footer());

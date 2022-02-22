@@ -1,71 +1,90 @@
+
 {OVERALL_HEADER}
-<script async>
-var themecolor = '{THEME_COLOR}';
-var mapcolor = '{MAP_COLOR}';
-var siteurl = '{SITE_URL}';
-var template_name = '{TPL_NAME}';
-var ajaxurl = "{APP_URL}user-ajax.php";
-</script>
-<link rel="stylesheet" href="{SITE_URL}includes/assets/css/icons.css">
 IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
-<link href="{SITE_URL}plugins/quickchat-socket/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-<link href="{SITE_URL}plugins/quickchat-socket/assets/chatcss/inbox.css" rel="stylesheet" id="style" type="text/css">
-<link href="{SITE_URL}plugins/quickchat-socket/plugins/smiley/assets/sprites/emojione.sprites.css" rel="stylesheet" type="text/css"/>
-<link href="{SITE_URL}plugins/quickchat-socket/plugins/uploader/jquery.ui.plupload/css/jquery-ui.css" rel="stylesheet" type="text/css"/>
-<link href="{SITE_URL}plugins/quickchat-socket/plugins/uploader/jquery.ui.plupload/css/jquery.ui.plupload.css" rel="stylesheet" type="text/css"/>
-<script src="{SITE_URL}plugins/quickchat-socket/assets/chatjs/jquery.min.js"></script>
-<script src="{SITE_URL}plugins/quickchat-socket/plugins/smiley/js/emojione.min.js"></script>
-{ELSE}
-<link href="{SITE_URL}plugins/quickchat-ajax/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-<link href="{SITE_URL}plugins/quickchat-ajax/assets/chatcss/inbox.css" rel="stylesheet" id="style" type="text/css">
-<link href="{SITE_URL}plugins/quickchat-ajax/plugins/smiley/assets/sprites/emojione.sprites.css" rel="stylesheet" type="text/css"/>
-<link href="{SITE_URL}plugins/quickchat-ajax/plugins/uploader/jquery.ui.plupload/css/jquery-ui.css" rel="stylesheet" type="text/css"/>
-<link href="{SITE_URL}plugins/quickchat-ajax/plugins/uploader/jquery.ui.plupload/css/jquery.ui.plupload.css" rel="stylesheet" type="text/css"/>
-<script src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/jquery.min.js"></script>
-<script src="{SITE_URL}plugins/quickchat-ajax/plugins/smiley/js/emojione.min.js"></script>
-{:IF}
+    <link href="{SITE_URL}plugins/quickchat-socket/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="{SITE_URL}plugins/quickchat-socket/assets/chatcss/inbox.css" rel="stylesheet" id="style" type="text/css">
+    <link href="{SITE_URL}plugins/quickchat-socket/plugins/smiley/assets/sprites/emojione.sprites.css" rel="stylesheet" type="text/css"/>
+    <link href="{SITE_URL}plugins/quickchat-socket/plugins/uploader/jquery.ui.plupload/css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+    <link href="{SITE_URL}plugins/quickchat-socket/plugins/uploader/jquery.ui.plupload/css/jquery.ui.plupload.css" rel="stylesheet" type="text/css"/>
+    <script src="{SITE_URL}plugins/quickchat-socket/assets/chatjs/jquery.min.js"></script>
+    <script src="{SITE_URL}plugins/quickchat-socket/plugins/smiley/js/emojione.min.js"></script>
+    {ELSE}
+    <link href="{SITE_URL}plugins/quickchat-ajax/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="{SITE_URL}plugins/quickchat-ajax/assets/chatcss/inbox.css" rel="stylesheet" id="style" type="text/css">
+    <link href="{SITE_URL}plugins/quickchat-ajax/plugins/smiley/assets/sprites/emojione.sprites.css" rel="stylesheet" type="text/css"/>
+    <link href="{SITE_URL}plugins/quickchat-ajax/plugins/uploader/jquery.ui.plupload/css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+    <link href="{SITE_URL}plugins/quickchat-ajax/plugins/uploader/jquery.ui.plupload/css/jquery.ui.plupload.css" rel="stylesheet" type="text/css"/>
+    <script src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/jquery.min.js"></script>
+    <script src="{SITE_URL}plugins/quickchat-ajax/plugins/smiley/js/emojione.min.js"></script>
+    {:IF}
+
 <style>
-#header {
-    position: relative;
-    z-index: 999;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .12);
-    font-size: 16px;
-    height: 60px;
-    background-color: #fff;
-    padding: 10px 0;
-    margin-bottom: 10px;
-}
-#header .container {
-    display: flex; align-items: center;
-}
-#header #logo {
-    flex-grow: 1;
-}
-#header #logo img {
-    height: 42px;
-    width: auto;
-}
-#header a {
-    color: #666;
-    text-decoration: none;
-}
-#header a:hover {
-    color: {THEME_COLOR};
+.zechat-contacts{
+display:none !important;
 }
 #wchat{
-    height: calc(100vh - 70px);
+      box-shadow: 0 1px 1px 0 rgb(0 0 0 / 6%), 0 2px 5px 0 rgb(0 0 0 / 20%);
+        }
+
+        .wchat-wrapper-web .wchat{
+    width: 100% !important;    
+    top: 0; height: calc(100% - 0px) !important;}
+
+
+
+.chatboxblink {
+    background: #353c48 !important;
 }
+.chatonline li.chatboxblink a {
+    color: #FFF;
+}
+
+
+
+.chatboxcontent {
+    height: auto !important;}
+
+    .wchat .chat-right-aside .chat-list {
+    padding-top: 0px !important;
+}
+
+
+.chatboxcontent {
+}
+
+
+.chatboxcontent {
+
+    background: #ffffff !important;
+    box-shadow: inherit !important;
+}
+
 </style>
+<!--<div id="titlebar" class="margin-bottom-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{LANG_MESSAGE}</h2>
+            
+                <nav id="breadcrumbs">
+                    <ul>
+                        <li><a href="{LINK_INDEX}">{LANG_HOME}</a></li>
+                        <li>{LANG_MESSAGE}</li>
+                    </ul>
+                </nav>
 
-<div id="quickchat-rtl"></div>
+            </div>
+        </div>
+    </div>
+</div>-->
 
-<div class="section gray padding-bottom-50">
-      <div class="container">
+<div class="section gray padding-bottom-50 padding-top-50">
+    <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-12">
                {USER_SIDEBAR}
             </div>
-            <div class="col-lg-9 col-md-12 ">
+            <div class="col-lg-9 col-md-12 js-accordion">
                   <div id="wchat">
                         <div class="wchat-wrapper wchat-wrapper-web wchat-wrapper-main">
                               <div class="wchat two">
@@ -5767,14 +5786,29 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
                               </div>
                         </div>
                   </div>
-            </div>
+            </div> 
         </div>
-      </div>
+    </div>
+    
 </div>
 
+<link media="all" rel="stylesheet" type="text/css"
+      href="{SITE_URL}templates/{TPL_NAME}/assets/plugins/simditor/styles/simditor.css"/>
+<script src="{SITE_URL}templates/{TPL_NAME}/assets/plugins/simditor/scripts/mobilecheck.js"></script>
+<script src="{SITE_URL}templates/{TPL_NAME}/assets/plugins/simditor/scripts/module.js"></script>
+<script src="{SITE_URL}templates/{TPL_NAME}/assets/plugins/simditor/scripts/uploader.js"></script>
+<script src="{SITE_URL}templates/{TPL_NAME}/assets/plugins/simditor/scripts/hotkeys.js"></script>
+<script src="{SITE_URL}templates/{TPL_NAME}/assets/plugins/simditor/scripts/simditor.js"></script>
 
-<!--Style Switcher -->
-<!--ChatJs -->
+
+<link href="{SITE_URL}templates/{TPL_NAME}/css/select2.min.css" rel="stylesheet"/>
+<script src="{SITE_URL}templates/{TPL_NAME}/js/select2.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/i18n/{LANG_CODE}.js"></script>
+
+<link href="{SITE_URL}templates/{TPL_NAME}/css/bootstrap-datepicker3.min.css" rel="stylesheet"/>
+<script src="{SITE_URL}templates/{TPL_NAME}/js/bootstrap-datepicker.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.{LANG_CODE}.min.js" charset="UTF-8"></script>
+{OVERALL_FOOTER}
 <script>
     var siteurl = '{SITE_URL}';
     // Chat start with
@@ -5808,62 +5842,6 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
     var LANG_GENDER = "{LANG_GENDER}";
     var LANG_ABOUT = "{LANG_ABOUT}";
 </script>
-IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
-<script>
-    var ws_protocol = window.location.href.indexOf("https://")==0?"wss":"ws";
-    var ws_host = '{SOCKET_HOST}';
-    var ws_port = '{SOCKET_PORT}';
-    var WEBSOCKET_URL = ws_protocol+'://'+ws_host+':'+ws_port+'/quickchat';
-    var filename = "{QUICKCHAT_SOCKET_SECRET_FILE}.php";
-    var plugin_directory = "plugins/quickchat-socket/"+filename;
-
-    if ($("body").hasClass("rtl")) {
-        $('#quickchat-rtl').append('<link rel="stylesheet" type="text/css" href="{SITE_URL}plugins/quickchat-socket/assets/chatcss/inbox-rtl.css">');
-    }
-</script>
-<!--Websocket Version Js-->
-<script type="text/javascript" src="{SITE_URL}plugins/quickchat-socket/assets/chatjs/quickchat-websocket.js"></script>
-<script type="text/javascript" src="{SITE_URL}plugins/quickchat-socket/assets/bootstrap/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="{SITE_URL}plugins/quickchat-socket/plugins/smiley/smiley.js"></script>
-<script type="text/javascript" src="{SITE_URL}plugins/quickchat-socket/assets/chatjs/lightbox.js"></script>
-<script type="text/javascript" src="{SITE_URL}plugins/quickchat-socket/assets/chatjs/inbox.js"></script>
-<script type="text/javascript" src="{SITE_URL}plugins/quickchat-socket/assets/chatjs/inbox_custom.js"></script>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-<script type="text/javascript" src="{SITE_URL}plugins/quickchat-socket/plugins/uploader/plupload.full.min.js"></script>
-<script type="text/javascript"
-        src="{SITE_URL}plugins/quickchat-socket/plugins/uploader/jquery.ui.plupload/jquery.ui.plupload.js"></script>
-<!--This div for modal light box chat box image-->
-<div id="lightbox" style="display: none;">
-    <p><img src="{SITE_URL}plugins/quickchat-socket/plugins/images/close-icon-white.png" width="30px" style="cursor: pointer"/></p>
-    <div id="content"><img src="#"/></div>
-</div>
-<!--This div for modal light box chat box image-->
-{ELSE}
-<script>
-    var filename = "{QUICKCHAT_AJAX_SECRET_FILE}.php";
-    var plugin_directory = "plugins/quickchat-ajax/"+filename;
-
-    if ($("body").hasClass("rtl")) {
-        $('#quickchat-rtl').append('<link rel="stylesheet" type="text/css" href="{SITE_URL}plugins/quickchat-ajax/assets/chatcss/inbox-rtl.css">');
-    }
-</script>
-
-<script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/bootstrap/dist/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/plugins/smiley/smiley.js"></script>
-<script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/lightbox.js"></script>
-<script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/inbox.js"></script>
-<script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/inbox_custom.js"></script>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-<script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/plugins/uploader/plupload.full.min.js"></script>
-<script type="text/javascript"
-        src="{SITE_URL}plugins/quickchat-ajax/plugins/uploader/jquery.ui.plupload/jquery.ui.plupload.js"></script>
-<!--This div for modal light box chat box image-->
-<div id="lightbox" style="display: none;">
-    <p><img src="{SITE_URL}plugins/quickchat-ajax/plugins/images/close-icon-white.png" width="30px" style="cursor: pointer"/></p>
-    <div id="content"><img src="#"/></div>
-</div>
-<!--This div for modal light box chat box image-->
-{:IF}
 
 <script type="text/javascript">
     $(window).bind("load", function () {
@@ -5872,5 +5850,3 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
         }
     });
 </script>
-</body>
-</html>

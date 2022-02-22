@@ -47,6 +47,7 @@
         var mapcolor = '{MAP_COLOR}';
         var siteurl = '{SITE_URL}';
         var template_name = '{TPL_NAME}';
+        var ajaxurl = "{APP_URL}user-ajax.php";
     </script>
     <style>
         :root{{LOOP: COLORS}--theme-color-{COLORS.id}: {COLORS.value};{/LOOP: COLORS}}

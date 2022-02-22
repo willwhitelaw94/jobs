@@ -102,6 +102,8 @@ $router->map('GET|POST','/blog/[i:id]?/[*:slug]?/?', 'blog-single.php');
 $router->map('GET|POST','/edit-profile/?', 'edit-profile.php');
 $router->map('GET|POST','/edit-profile/bank-account?', 'bank-account-details.php');
 $router->map('GET|POST','/edit-profile/rate-and-availability', 'rate-and-availability.php');
+$router->map('GET|POST','/edit-profile/languages', 'languages.php');
+$router->map('GET|POST','/edit-profile/cultural-backgrounds', 'cultural-backgrounds.php');
 // API Routes
 
 /* Match the current request */

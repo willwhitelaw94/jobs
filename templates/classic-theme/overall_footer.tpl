@@ -311,6 +311,7 @@ ELSEIF({LOGGED_IN} && '{QUICKCHAT_AJAX_ON_OFF}'=='on'){
 <script>
     var filename = "{QUICKCHAT_AJAX_SECRET_FILE}.php";
     var plugin_directory = "plugins/quickchat-ajax/"+filename;
+  
 </script>
 <link type="text/css" rel="stylesheet" media="all" href="{SITE_URL}plugins/quickchat-ajax/assets/chatcss/chatbox.css"/>
 <div id="quickchat-rtl"></div>
@@ -322,18 +323,21 @@ ELSEIF({LOGGED_IN} && '{QUICKCHAT_AJAX_ON_OFF}'=='on'){
         var rtl = false;
     }
 </script>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-<script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/plugins/smiley/js/emojione.min.js"></script>
+
+<script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/plugins/smiley/smiley.js"></script>
 <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/lightbox.js"></script>
-<script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/chatbox.js"></script>
-<script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/chatbox_custom.js"></script>
+<script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/inbox.js"></script>
+<script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/inbox_custom.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
 <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/plugins/uploader/plupload.full.min.js"></script>
-<script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/plugins/uploader/jquery.ui.plupload/jquery.ui.plupload.js"></script>
-<table id="lightbox" style="display: none;height: 100%">
-    <tr><td height="10px"><p><img src="{SITE_URL}plugins/quickchat-ajax/plugins/images/close-icon-white.png" width="30px" style="cursor: pointer"/></p></td></tr>
-    <tr><td valign="middle"><div id="content"><img src="#"/></div></td></tr>
-</table>
+<script type="text/javascript"
+        src="{SITE_URL}plugins/quickchat-ajax/plugins/uploader/jquery.ui.plupload/jquery.ui.plupload.js"></script>
+<!--This div for modal light box chat box image-->
+<div id="lightbox" style="display: none;">
+    <p><img src="{SITE_URL}plugins/quickchat-ajax/plugins/images/close-icon-white.png" width="30px" style="cursor: pointer"/></p>
+    <div id="content"><img src="#"/></div>
+</div>
 
 ELSEIF({LOGGED_IN} && '{ZECHAT_ON_OFF}'=='on'){
 <script>

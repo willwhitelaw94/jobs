@@ -14,7 +14,6 @@
             <div class="dashboard-nav">
                 <div class="dashboard-nav-inner">
                     <ul data-submenu-title="{LANG_MY_ACCOUNT}">
-                    
                         <li class="IF('{URISEGMENT}' == 'dashboard'){ echo active {:IF}"><a href="{LINK_DASHBOARD}"><i
                                         class="icon-feather-grid"></i> {LANG_DASHBOARD}</a></li>
                         <li  class="IF('{URISEGMENT}' == 'edit-profile'){ active active-submenu{:IF}"><a href="#"><i
@@ -24,7 +23,9 @@
                                     <li class="IF(('{URISEGMENT}' == 'edit-profile') AND ('{PAGEURI}' == '') ){ active {:IF}"><a href="{LINK_EDITPROFILE}">{LANG_PROFILE_DETAILS}</a></li>
                                     <li class="IF('{PAGEURI}' == 'bank-account'){ active {:IF}"><a href="{LINK_BANK_DETAILS}">{LANG_BANK_DETAILS}</a></li>
                                     <li class="IF('{PAGEURI}' == 'rate-and-availability'){ active {:IF}"><a href="{LINK_RATE_AVAILABILITY}">{LANG_RATE_AVAILABILITY}</a></li>
-                                    <li class=""><a href="">{LANG_LANGUAGES}</a></li>
+                                    <li class="IF('{PAGEURI}' == 'languages'){ active {:IF}"><a href="{LINK_LANGUAGES}">{LANG_LANGUAGES}</a></li>
+                                    <li class="IF('{PAGEURI}' == 'cultural-backgrounds'){ active {:IF}"><a href="{LINK_CULTURAL_BACKGROUNDS}">{LANG_CULTURAL_BACKGROUNDS}</a></li>
+                                    
                                 </ul>
                             {:IF}     
                         </li>

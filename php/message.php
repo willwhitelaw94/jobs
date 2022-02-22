@@ -28,7 +28,8 @@ if(checkloggedin()) {
     $ses_userdata = get_user_data($_SESSION['user']['username']);
     $author_image = $ses_userdata['image'];
     if($config['quickchat_ajax_on_off'] == 'on' || $config['quickchat_socket_on_off'] == 'on') {
-        $page = new HtmlTemplate ("templates/" . $config['tpl_name'] . "/quickchat.tpl");
+      //$page = new HtmlTemplate ("templates/" . $config['tpl_name'] . "/quickchat.tpl");
+    $page = new HtmlTemplate ("templates/" . $config['tpl_name'] . "/quickchat_new.tpl");
         $page->SetParameter ('OVERALL_HEADER', create_header($lang['MESSAGE']));
         $page->SetParameter('PAGE_TITLE', $lang['MESSAGE']);
         $page->SetParameter('PAGE_META_KEYWORDS', $config['meta_keywords']);
@@ -42,6 +43,7 @@ if(checkloggedin()) {
         $page->SetParameter('CHAT_USERIMG',$chat_userimg);
         $page->SetParameter('CHAT_USERSTATUS',$chat_userstatus);
         $page->SetParameter('USER_SIDEBAR',create_user_sidebar());
+        $page->SetParameter('OVERALL_FOOTER', create_footer());
         $page->SetParameter('COPYRIGHT_TEXT', $config['copyright_text']);
         $page->CreatePageEcho();
     }

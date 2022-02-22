@@ -74,11 +74,11 @@ h1,h2,h3,h4,h5{
   }
   
   input:checked + .slider_avb {
-    background-color: #2196F3;
+    background-color: #ffbd36;
   }
   
   input:focus + .slider_avb {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #ffbd36;
   }
   
   input:checked + .slider_avb:before {
@@ -109,6 +109,103 @@ h1,h2,h3,h4,h5{
   padding-bottom: 1rem !important;
 }
 
+.container_checkbox {
+  display: block;
+  position: relative;
+
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding: 6px 16px;}
+
+/* Hide the browser's default checkbox */
+.container_checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark_lable {
+  position: absolute;
+  top: 20%;
+  right: 16px;
+  height: 30px;
+  width: 30px;
+  background-color: transparent;
+  z-index: 99;
+  border-radius: 50%;
+  text-align: center;
+}
+
+/* On mouse-over, add a grey background color */
+.container_checkbox:hover input ~ .checkmark_lable {
+  background-color: transparent;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container_checkbox input:checked ~ .checkmark_lable {
+  background-color: #ffbd36;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark_lable:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container_checkbox input:checked ~ .checkmark_lable:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container_checkbox .checkmark_lable:after {
+  left: 12px;
+  top: 7px;
+  width: 5px;
+  height: 13px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.checkmark_list{position: absolute;
+    height: auto;
+    width: auto;
+    border-radius: 31px;
+    border: 1px solid #cdcdcd;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.container_checkbox input:checked ~ .checkmark_list {
+      background-color: rgba(255,189,54,0.04);
+      border: 1px solid rgba(255,189,54,0.04);
+}
+
+.container_checkbox b {
+  position: relative;
+  z-index: 999;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.d-none{
+  display: none;
+}
+.d-block{
+  display: block;
+}
 
 
 

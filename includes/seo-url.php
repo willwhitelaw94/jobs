@@ -59,5 +59,6 @@ $link['IPN'] = $config['site_url'] . 'ipn';
 $link['EDITPROFILE'] = $config['site_url'] . 'edit-profile';
 $link['BANK_DETAILS'] = $config['site_url'] . 'edit-profile/bank-account';
 $link['RATE_AVAILABILITY'] = $config['site_url'] . 'edit-profile/rate-and-availability';
-
+$link['LANGUAGES'] = $config['site_url'] . 'edit-profile/languages';
+$link['CULTURAL_BACKGROUNDS'] = $config['site_url'] . 'edit-profile/cultural-backgrounds';
 ?>

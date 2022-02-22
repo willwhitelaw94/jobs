@@ -784,14 +784,55 @@ if (!function_exists('getDays')) {
     function getDays()
     {
        return  Array(
-                ['id'=>0,'day'=>'Monday'],
-                ['id'=>1,'day'=>'Tuesday'],
-                ['id'=>2,'day'=>'Wednesday'],
-                ['id'=>3,'day'=>'Thursday'],
-                ['id'=>4,'day'=>'Friday'],
-                ['id'=>5,'day'=>'Saturday'],
-                ['id'=>6,'day'=>'Sunday']
+                ['code'=>'MON','day'=>'Monday'],
+                ['code'=>'TUE','day'=>'Tuesday'],
+                ['code'=>'WED','day'=>'Wednesday'],
+                ['code'=>'THU','day'=>'Thursday'],
+                ['code'=>'FRI','day'=>'Friday'],
+                ['code'=>'SAT','day'=>'Saturday'],
+                ['code'=>'SUN','day'=>'Sunday']
         );
     }
 }
+
+if (!function_exists('get_citite')) {
+    function get_citite($city_codes)
+    {
+        global $config;
+          $city_codes = implode(',',$city_codes);
+          $sql ="SELECT c.id, c.asciiname, c.latitude, c.longitude, c.subadmin1_code, s.name AS statename
+          FROM `".$config['db']['pre']."cities` AS c
+          INNER JOIN `".$config['db']['pre']."subadmin1` AS s ON s.code = c.subadmin1_code 
+           WHERE  c.id IN (".$city_codes.")";
+        // $user_cities=ORM::for_table($config['db']['pre'] . '')->where_in('city_code',$city_codes)->find_array();
+        $pdo = ORM::get_db();
+        $rows = $pdo->query($sql);
+
+        $i = 0;
+        $MyCity =[];
+        foreach ($rows as $row) {
+            $cityid = $row['id'];
+            $cityname = $row['asciiname'];
+            $latitude = $row['latitude'];
+            $longitude = $row['longitude'];
+            $statename = $row['statename'];
+    
+            $MyCity[$i]["id"]   = $cityid;
+            $MyCity[$i]["text"] = $cityname.", ".$statename;
+            $MyCity[$i]["latitude"]   = $latitude;
+            $MyCity[$i]["longitude"]   = $longitude;
+            $i++;
+           
+        }
+        return $MyCity;
+        
+        
+    }
+}
 ?>
+
+
+
+
+
+

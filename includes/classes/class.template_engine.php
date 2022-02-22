@@ -51,6 +51,7 @@ class HtmlTemplate
 		$return = '';
 		if(preg_match('/{LOOP: ' . $name . '\}(.*)\{\/LOOP: ' . $name . '\}/s', $this->html, $parts))
 		{
+			// var_dump($parts);
 			if(is_array($values))
 			{
 				foreach ($values as $value)

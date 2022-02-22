@@ -1722,4 +1722,36 @@ function escape($text,$htmlspecialchars = true) {
 function sanitize_string($text) {
     return filter_var($text, FILTER_SANITIZE_STRING);
 }
+
+
+function create_culture_background_options($bgs,$userBack)
+{
+    global $config,$lang,$link;
+    $data = [];
+    $userBackgroundOptions = ORM::for_table($config['db']['pre'] . 'user_cultural_backgrounds')->select('cultural_background_option_id')->where('user_id', $_SESSION['user']['id'])->where_raw('NOT(cultural_background_option_id <=> NULL)')->find_array();
+    $userBackgroundOptionsIds=array_column($userBackgroundOptions,'cultural_background_option_id');
+    if(is_array($bgs)) {
+        foreach($bgs as $key => $val) {
+            $dis_class = (!in_array( $val['id'],$userBack)) ? 'd-none': '';
+            if($val['total_options'] > 0) {
+                $page = new HtmlTemplate ("templates/" . $config['tpl_name'] . "/culture_background_options.tpl");
+                $page->SetLoop ('CL_OPTIONS', $val['options']);
+                $page->SetLoop ('CL_OPTIONS_TOTAL', $val['total_options']);
+                $page->SetParameter('CL_NAME', $val['name']);
+                $page->SetParameter('CL_ID', $val['id']);
+                $page->SetParameter('DIS_CLASS', $dis_class);
+                $page->SetParameter('USER_BCK_OPTIONS',implode(",",$userBackgroundOptionsIds));
+                array_push($data, $page->CreatePageReturn($lang,$config,$link));
+            }
+        }
+    }
+    return implode(" ", $data);
+}
+
+function parent_culture($option_id){
+    global $config;
+    $parent= ORM::for_table($config['db']['pre'] . 'cultural_background_options')->select('cultural_background_id')->where('id',$option_id)->find_one();
+    return $parent['cultural_background_id'];
+}
+
 ?>
