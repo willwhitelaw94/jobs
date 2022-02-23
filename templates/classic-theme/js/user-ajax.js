@@ -16,7 +16,7 @@ jQuery(function ($) {
             data: form_data,
             success: function (response) {
                 $('#login-button').removeClass('button-progress').prop('disabled', false);
-                if (response == "success") {
+                if ($.trim(response) == "success") {
                     $("#login-status").addClass('success').removeClass('error').html('<p>'+LANG_LOGGED_IN_SUCCESS+'</p>').slideDown();
                     location.reload();
                 }

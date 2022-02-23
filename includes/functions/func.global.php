@@ -92,7 +92,8 @@ function create_header($page_title='',$meta_desc = '',$meta_image = '',$meta_art
 function create_footer()
 {
     global $config,$lang,$link;
-
+    $uriSegments = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+    $pageUri = $uriSegments[2] ?? "";
     $page = new HtmlTemplate ("templates/" . $config['tpl_name'] . "/overall_footer.tpl");
     $page->SetLoop ('HTMLPAGE', get_html_pages());
     $page->SetParameter('SITE_TITLE', $config['site_title']);
@@ -102,6 +103,7 @@ function create_footer()
     $page->SetParameter('EMAIL', $config['contact_email']);
     $page->SetParameter ('SWITCHER', $config['color_switcher']);
     $page->SetParameter ('REF_URL', $_SERVER['REQUEST_URI']);
+    $page->setParameter("PAGE_URI",$pageUri);
     return $page->CreatePageReturn($lang,$config,$link);
 }
 

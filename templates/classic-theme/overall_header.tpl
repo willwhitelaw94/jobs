@@ -33,15 +33,12 @@
     IF("{META_CONTENT}"=="website"){
     <meta property="og:image" content="{META_IMAGE}"/>
     {:IF}
-
     <meta property="twitter:card" content="summary">
     <meta property="twitter:title" content="{PAGE_TITLE} - {SITE_TITLE}">
     <meta property="twitter:description" content="{PAGE_META_DESCRIPTION}">
     <meta property="twitter:domain" content="{SITE_URL}">
     <meta name="twitter:image:src" content="{META_IMAGE}"/>
-
     <link rel="shortcut icon" href="{SITE_URL}storage/logo/{SITE_FAVICON}">
-
     <script async>
         var themecolor = '{THEME_COLOR}';
         var mapcolor = '{MAP_COLOR}';
@@ -53,7 +50,6 @@
         :root{{LOOP: COLORS}--theme-color-{COLORS.id}: {COLORS.value};{/LOOP: COLORS}}
     </style>
     
-
     <link rel="stylesheet" href="{SITE_URL}templates/{TPL_NAME}/css/flags/flags.min.css?ver={VERSION}">
     <link rel="stylesheet" href="{SITE_URL}templates/{TPL_NAME}/css/slick.css">
     <link rel="stylesheet" href="{SITE_URL}includes/assets/css/icons.css">
@@ -65,7 +61,6 @@
     IF("{LANGUAGE_DIRECTION}"=="rtl"){
     <link rel="stylesheet" href="{SITE_URL}templates/{TPL_NAME}/css/rtl.css?ver={VERSION}">
     {:IF}
-
     <script async>var ajaxurl = "{APP_URL}user-ajax.php";</script>
     <script async type="text/javascript">
         $(document).ready(function() {
@@ -84,14 +79,15 @@
                         $("span#resend_count"+the_id).fadeIn();
                         //remove the spinner
                         $("a.resend_buttons"+the_id).remove();
-
                     }
                 });
                 return false;
             });
         });
     </script>
-
+     <link href="{SITE_URL}plugins/quickchat-ajax/plugins/smiley/assets/sprites/emojione.sprites.css" rel="stylesheet" type="text/css"/>
+    <script src="{SITE_URL}plugins/quickchat-ajax/plugins/smiley/js/emojione.min.js"></script>
+ 
     <!-- ===External Code=== -->
     {EXTERNAL_CODE}
     <!-- ===/External Code=== -->
@@ -118,7 +114,6 @@
                                 <a href="#countryModal" class="country-flag popup-with-zoom-anim"
                                    title="{LANG_CHANGE_COUNTRY}"
                                    data-tippy-placement="right">
-
                                     <img src="{SITE_URL}templates/{TPL_NAME}/images/flags/{USER_COUNTRY}.png"/>
                                 </a>
                             </li>
@@ -224,7 +219,6 @@
                                     <li><a href="{LINK_LOGOUT}"><i class="icon-feather-log-out"></i> {LANG_LOGOUT}</a>
                                     </li>
                                 </ul>
-
                             </div>
                         </div>
                     </div>
@@ -277,10 +271,8 @@
                 </button>
             </span>
                 </div>
-
             </div>
         </div>
-
     </header>
     <div class="clearfix"></div>
     IF("{USERSTATUS}"=="0" && "{NON_ACTIVE_MSG}"=="1"){
@@ -307,7 +299,6 @@
         </ul>
         <div class="popup-tabs-container">
             <div class="popup-tab-content" id="country">
-
                 <div class="row">
                     <div class="col-md-6">
                         <div class="input-with-icon margin-bottom-30">

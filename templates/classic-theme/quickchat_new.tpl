@@ -11,17 +11,13 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
     {ELSE}
     <link href="{SITE_URL}plugins/quickchat-ajax/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="{SITE_URL}plugins/quickchat-ajax/assets/chatcss/inbox.css" rel="stylesheet" id="style" type="text/css">
-    <link href="{SITE_URL}plugins/quickchat-ajax/plugins/smiley/assets/sprites/emojione.sprites.css" rel="stylesheet" type="text/css"/>
     <link href="{SITE_URL}plugins/quickchat-ajax/plugins/uploader/jquery.ui.plupload/css/jquery-ui.css" rel="stylesheet" type="text/css"/>
     <link href="{SITE_URL}plugins/quickchat-ajax/plugins/uploader/jquery.ui.plupload/css/jquery.ui.plupload.css" rel="stylesheet" type="text/css"/>
     <script src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/jquery.min.js"></script>
-    <script src="{SITE_URL}plugins/quickchat-ajax/plugins/smiley/js/emojione.min.js"></script>
+ 
     {:IF}
-
 <style>
-.zechat-contacts{
-display:none !important;
-}
+
 #wchat{
       box-shadow: 0 1px 1px 0 rgb(0 0 0 / 6%), 0 2px 5px 0 rgb(0 0 0 / 20%);
         }

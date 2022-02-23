@@ -586,3 +586,5 @@ $lang['CULTURAL_BACKGROUNDS_UPDATED'] = 'Cultural Backgrounds updated';
 $lang['CULTURAL_BACK_MSG']='Select your cultural background, this will help clients search for Support Workers who share a similar cultural background.';
 //End Cultural-backgrounds page
 $lang['RELIGION'] = 'Religion';
+$lang['RELIGION_UPDATED'] = 'Religion Updated';
+$lang['RELIGIONREQ'] = 'Please choose your religion';

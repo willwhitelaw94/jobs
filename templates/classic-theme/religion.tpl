@@ -27,21 +27,33 @@
                 <div class="dashboard-box js-accordion-item active">
                     <!-- Headline -->
                     <div class="headline js-accordion-header">
-                        <h3><i class="icon-feather-user"></i> {LANG_CULTURAL_BACKGROUNDS}</h3>
+                        <h3><i class="icon-feather-user"></i> {LANG_RELIGION}</h3>
                     </div>
                     <div class="content with-padding js-accordion-body">
                         <div class="py-0">
                             <form method="post" accept-charset="UTF-8">
                                 <div class="row">
-                                    <div class="col-12" >
-                                    <h4>{LANG_CULTURAL_BACKGROUNDS} :</h4>
-                                    <p>{LANG_CULTURAL_BACK_MSG}</p>
-                                    </div>
-                                       
+									<div class="col-12" >
+										<h4>{LANG_RELIGION} :</h4>
+									</div>
+									IF('{RELIGIONS}' != ''){
+										{LOOP: RELIGIONS}
+										<div class="col-sm-3">
+											
+											<label class="container_checkbox">
+											<b>{RELIGIONS.name}</b>
+												<input type="checkbox" class='religions' value="{RELIGIONS.id}" name="religion[]" IF(in_array('{RELIGIONS.id}',explode(",",'{USER_RELIGIONS}'))){ checked  {:IF}  id="religion{RELIGIONS.id}">
+												<span class="checkmark_lable"></span>
+												<small class="checkmark_list"></small>
+											</label>
+										</div>
+										{/LOOP: RELIGIONS} 
+									{:IF} 
                                 </div>
+								<span id="type-availability-status">
+									IF("{RELERROR}"!=""){ {RELERROR} {:IF}</span>
                                 <hr><br>
-                               
-                                
+                             
                                 <div class="col-sm-12">
                                     <button type="submit" name="submit_details" class="button ripple-effect">{LANG_SAVE_CHANGES}</button>
                                 </div>
