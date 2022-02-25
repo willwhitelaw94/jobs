@@ -12,6 +12,24 @@
 .badge-warning-light{
 
 }
+.selected_languages{}
+.selected_languages li{    width: 29%;     margin-bottom: 5px;}
+.selected_languages li span{      background-color: rgb(255 189 54 / 21%);
+    border-radius: 31px;
+    padding: 6px 13px;
+    color: #2e2e2e;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid #ffc14380;}
+
+    .selected_languages li span i{    background-color: #ffbd36;
+    color: white;
+    height: 20px;
+    display: inherit;
+    width: 20px;
+    border-radius: 50%;
+    line-height: 20px;}
+
 </style>
 
 <div id="titlebar">
@@ -93,11 +111,14 @@
                             <div class="card-header">
                             <h3><i class="icon-feather-alert-circle"></i> {LANG_LANGUAGES}</h3>
                             </div>
-                            <div class="card-body">
-                            <span class="badge badge-pill badge-warning-light ">Warning</span>
-                            <span class="badge badge-pill badge-warning">Warning</span>
-                            <span class="badge badge-pill badge-warning">Warning</span>
-                            <span class="badge badge-pill badge-warning">Warning</span>   
+                            <div class="card-body p-2">
+                            <ul class="list-inline selected_languages">
+                            <li class="list-inline-item"><span class="badge badge-pill">Warning </span></li>
+                            <li class="list-inline-item"><span class="badge badge-pill">Warning </span></li>
+                            <li class="list-inline-item"><span class="badge badge-pill">Warning </span></li>
+                            <li class="list-inline-item"><span class="badge badge-pill">Warning </span></li>
+                            <li class="list-inline-item"><span class="badge badge-pill">Warning </span></li>
+                          </ul>
                             </div>
                         </div>
                     </div>
