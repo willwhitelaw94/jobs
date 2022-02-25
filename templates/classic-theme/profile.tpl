@@ -1,4 +1,19 @@
 {OVERALL_HEADER}
+
+<style>
+
+.card_box_cl .card-header h3{font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  line-height: 26px;}
+.card_box_cl {
+    margin-bottom: 15px;
+}
+.badge-warning-light{
+
+}
+</style>
+
 <div id="titlebar">
     <div class="container">
         <div class="row">
@@ -70,6 +85,42 @@
             <div class="single-page-section">
                 {ABOUT}
             </div>
+            
+            <div class="row">
+                <div class=" col-lg-6">
+                    <div class="card_box_cl">
+                        <div class="card">
+                            <div class="card-header">
+                            <h3><i class="icon-feather-alert-circle"></i> {LANG_LANGUAGES}</h3>
+                            </div>
+                            <div class="card-body">
+                            <span class="badge badge-pill badge-warning-light ">Warning</span>
+                            <span class="badge badge-pill badge-warning">Warning</span>
+                            <span class="badge badge-pill badge-warning">Warning</span>
+                            <span class="badge badge-pill badge-warning">Warning</span>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" col-lg-6">
+                <div class="card_box_cl">
+                    <div class="card">
+                        <div class="card-header">
+                        <h3><i class="icon-feather-alert-circle"></i> Details</h3>
+                        </div>
+                        <div class="card-body">
+                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+               
+               
+            </div>
+            
+         
+          
+
             IF({TOTALITEM}){
             <div class="boxed-list margin-bottom-60" id="all-jobs">
                 <div class="boxed-list-headline">
@@ -245,4 +296,7 @@
     </div>
 </div>
 <div class="margin-top-15"></div>
+
+
+
 {OVERALL_FOOTER}

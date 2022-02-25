@@ -32,5 +32,14 @@
                 {:IF}
             </div>
         </div>
+        <div class="row py-3">
+            <div class="col-xl-12 col-md-12 col-sm-12 text-right">
+              
+                <a class="btn btn-sm btn-outline-warning" href="{LINK_PROFILE}/{USERNAME}">{LANG_PROFILE_PUBLIC}</a>
+            </div>
+        </div>
+
+       
+        
     </div>
 </div>
