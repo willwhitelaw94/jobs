@@ -1,1 +1,5 @@
 /includes/config.php
+error_log
+/admin/error_log
+/includes/lib/curl/curl_cookie.txt
+.htaccess
