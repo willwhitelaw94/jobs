@@ -1755,5 +1755,3 @@ function parent_culture($option_id){
     $parent= ORM::for_table($config['db']['pre'] . 'cultural_background_options')->select('cultural_background_id')->where('id',$option_id)->find_one();
     return $parent['cultural_background_id'];
 }
-
-?>

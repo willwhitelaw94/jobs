@@ -2,7 +2,6 @@
 /*
 Copyright (c) 2020 Bylancer.com
 */
-
 require_once('../includes/config.php');
 require_once('../includes/sql_builder/idiorm.php');
 require_once('../includes/db.php');
@@ -2855,4 +2854,3 @@ function editReligion(){
     echo $json = '{"status" : "' . $status . '","message" : "' . $message . '"}';
     die();
 }
-?>

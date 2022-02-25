@@ -3707,6 +3707,3 @@ function deleteReligion(){
     }
 
 }
-
-
-?>

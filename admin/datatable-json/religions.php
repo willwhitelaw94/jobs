@@ -84,4 +84,3 @@ $json_data = array(
 );
 
 echo json_encode($json_data);  // send data as json format
-?>

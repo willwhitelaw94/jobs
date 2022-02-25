@@ -70,4 +70,3 @@ if(checkloggedin()) {
         error($lang['PAGE_NOT_FOUND'], __LINE__, __FILE__, 1);
 }else
     headerRedirect($link['LOGIN']);
-?>
