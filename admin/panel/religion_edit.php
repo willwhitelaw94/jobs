@@ -9,7 +9,7 @@ $info = ORM::for_table($config['db']['pre'].'religions')->find_one($relId);
 <header class="slidePanel-header overlay">
     <div class="overlay-panel overlay-background vertical-align">
         <div class="service-heading">
-            <h2>Edit Admin</h2>
+            <h2>Edit Religion</h2>
         </div>
         <div class="slidePanel-actions">
             <div class="btn-group-flat">
