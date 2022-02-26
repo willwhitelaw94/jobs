@@ -82,6 +82,7 @@ if (checkloggedin()) {
     $page->SetParameter('USER_DASHBOARD_CARD', create_user_dashboard_card());
     $page->SetParameter('USER_SIDEBAR', create_user_sidebar());
     $page->SetLoop('DAYSLIST', getDays());
+    $page->SetLoop('DAYSLISTFORTIME', getDays());
     $page->SetParameter('SALARY_MIN', $ses_userdata['salary_min']);
     $page->SetParameter('SALARY_MAX', $ses_userdata['salary_max']);
     $page->SetParameter('SESSION_WILLING', $ses_userdata['is_session_willing']);

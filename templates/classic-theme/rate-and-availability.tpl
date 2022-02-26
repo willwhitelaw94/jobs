@@ -89,6 +89,34 @@
                                                 IF("{DAY_ERROR}"!=""){ {DAY_ERROR} {:IF}
                                             </div>
                                     </div>
+                                   
+                                        {LOOP: DAYSLISTFORTIME}
+                                        <div class="col-xl-12 col-md-12 IF(!in_array('{DAYSLISTFORTIME.code}',explode(',','{USER_PRE_DAYS}'))){ d-none  {:IF}" >
+                                            <h4>{DAYSLISTFORTIME.day}</h4>
+                                            <div class="row">
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="submit-field">
+                                                        <div class="input-with-icon">
+                                                            <input class="with-border margin-bottom-0" type="time" placeholder="{LANG_START_TIME}"
+                                                                name="start_time['{DAYSLISTFORTIME.code}']" value="" >
+                                                        </div>
+                                                        <small>{LANG_START_TIME}</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-3 col-md-6">
+                                                    <div class="submit-field">
+                                                        <div class="input-with-icon">
+                                                            <input class="with-border margin-bottom-0" type="time" placeholder="{LANG_END_TIME}"
+                                                                name="end_time['{DAYSLISTFORTIME.code}']" value="" >
+                                                        </div>
+                                                        <small>{LANG_END_TIME}</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                               
+                                        </div>
+                                        {/LOOP: DAYSLISTFORTIME} 
+                                   
                                 </div>
                                 <div class="row">
                                      <div class="col-xl-12 ">
@@ -243,19 +271,15 @@
  
  
 let string = '{USER_PRE_DAYS}';
-let arr = string.split(',');
-    
+let arr = string.split(',');   
 $("#days").select2({
     placeholder:'Select Days'
     // tags: true,
     // tokenSeparators: [',', ' '],
-    // minimumResultsForSearch: Infinity,
-   
+    // minimumResultsForSearch: Infinity,   
 }).val(arr).trigger('change');
-// .on('select2:open', function (e) {
-//    $('.select2-container--open .select2-dropdown--below').css('display','none');;
 
-// });
+
 
 
 

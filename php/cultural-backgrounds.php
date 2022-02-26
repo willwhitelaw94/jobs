@@ -4,7 +4,7 @@ if(checkloggedin()){
     $user_id= $_SESSION['user']['id'];
     $userBackgrounds = ORM::for_table($config['db']['pre'] . 'user_cultural_backgrounds')->select('cultural_background_id')->where('user_id', $user_id)->where_raw('NOT(cultural_background_id <=> NULL)')->find_array();
     $userBackgroundIds=array_column($userBackgrounds,'cultural_background_id');
-    $backgroundOptions = ORM::for_table($config['db']['pre'] .'cultural_background_options')->find_array();
+    //$backgroundOptions = ORM::for_table($config['db']['pre'] .'cultural_background_options')->find_array();
     $backgrounds = ORM::for_table($config['db']['pre'] .'cultural_backgrounds')->table_alias('c_back')
     ->select_many('c_back.id','c_back.name',array('bck_opt_id'=>'bck_opt.id','bck_opt_name'=>'bck_opt.name'))
     ->select_expr('(SELECT COUNT(cultural_background_id) FROM '.$config['db']['pre'].'cultural_background_options WHERE cultural_background_id=c_back.id)','total_options')
