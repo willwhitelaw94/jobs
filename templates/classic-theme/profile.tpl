@@ -1,4 +1,37 @@
 {OVERALL_HEADER}
+
+<style>
+
+.card_box_cl .card-header h3{font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  line-height: 26px;}
+.card_box_cl {
+    margin-bottom: 15px;
+}
+.badge-warning-light{
+
+}
+.selected_languages{}
+.selected_languages li{    width: 29%;     margin-bottom: 5px;}
+.selected_languages li span{      background-color: rgb(255 189 54 / 21%);
+    border-radius: 31px;
+    padding: 6px 13px;
+    color: #2e2e2e;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid #ffc14380;}
+
+    .selected_languages li span i{    background-color: #ffbd36;
+    color: white;
+    height: 20px;
+    display: inherit;
+    width: 20px;
+    border-radius: 50%;
+    line-height: 20px;}
+
+</style>
+
 <div id="titlebar">
     <div class="container">
         <div class="row">
@@ -70,6 +103,45 @@
             <div class="single-page-section">
                 {ABOUT}
             </div>
+            
+            <div class="row">
+                <div class=" col-lg-6">
+                    <div class="card_box_cl">
+                        <div class="card">
+                            <div class="card-header">
+                            <h3><i class="icon-feather-alert-circle"></i> {LANG_LANGUAGES}</h3>
+                            </div>
+                            <div class="card-body p-2">
+                            <ul class="list-inline selected_languages">
+                            <li class="list-inline-item"><span class="badge badge-pill">Warning </span></li>
+                            <li class="list-inline-item"><span class="badge badge-pill">Warning </span></li>
+                            <li class="list-inline-item"><span class="badge badge-pill">Warning </span></li>
+                            <li class="list-inline-item"><span class="badge badge-pill">Warning </span></li>
+                            <li class="list-inline-item"><span class="badge badge-pill">Warning </span></li>
+                          </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" col-lg-6">
+                <div class="card_box_cl">
+                    <div class="card">
+                        <div class="card-header">
+                        <h3><i class="icon-feather-alert-circle"></i> Details</h3>
+                        </div>
+                        <div class="card-body">
+                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+               
+               
+            </div>
+            
+         
+          
+
             IF({TOTALITEM}){
             <div class="boxed-list margin-bottom-60" id="all-jobs">
                 <div class="boxed-list-headline">
@@ -245,4 +317,7 @@
     </div>
 </div>
 <div class="margin-top-15"></div>
+
+
+
 {OVERALL_FOOTER}

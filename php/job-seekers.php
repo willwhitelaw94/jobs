@@ -83,7 +83,8 @@ if (!empty($_GET['age_range1'])) {
 
 if(isset($_GET['city']) && !empty($_GET['city']))
 {
-    $where.= "AND (u.city_code = '".$_GET['city']."') ";
+   // $where.= "AND (u.city_code = '".$_GET['city']."') ";
+   $where.="AND exists(SELECT city_code FROM `".$config['db']['pre']."user_cities` WHERE city_code='".$_GET['city']."' and user_id = u.id)";
 }
 elseif(isset($_GET['location']) && !empty($_GET['location']))
 {
@@ -91,11 +92,16 @@ elseif(isset($_GET['location']) && !empty($_GET['location']))
     $placeid = $_GET['placeid'];
 
     if($placetype == "country"){
-        $where.= "AND (u.country_code = '$placeid') ";
+       // $where.= "AND (u.country_code = '$placeid') ";
+       $where.= "AND exists(SELECT country_code FROM `".$config['db']['pre']."user_cities` WHERE country_code='".$placeid."' and user_id = u.id)";
+
     }elseif($placetype == "state"){
-        $where.= "AND (u.state_code = '$placeid') ";
+        //$where.= "AND (u.state_code = '$placeid') ";
+        $where.= "AND exists(SELECT state_code FROM `".$config['db']['pre']."user_cities` WHERE state_code='".$placeid."' and user_id = u.id)";
+
     }else{
-        $where.= "AND (u.city_code = '$placeid') ";
+       // $where.= "AND (u.city_code = '$placeid') ";
+        $where.= "AND exists(SELECT city_code FROM `".$config['db']['pre']."user_cities` WHERE city_code=$placeid and user_id = u.id)";
     }
 }
 else{
@@ -118,6 +124,7 @@ $total = mysqli_num_rows(mysqli_query($mysqli, "SELECT 1 FROM `".$config['db']['
 $query = "SELECT u.* FROM `".$config['db']['pre']."user` u
      where u.status = '1' AND u.user_type = 'user' $where ORDER BY $order_by LIMIT ".($page_number-1)*$limit.",$limit";
 
+//echo $query;die;
 $count = 0;
 $noresult_id = "";
 //Loop for list view

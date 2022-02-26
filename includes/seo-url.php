@@ -62,4 +62,3 @@ $link['RATE_AVAILABILITY'] = $config['site_url'] . 'edit-profile/rate-and-availa
 $link['LANGUAGES'] = $config['site_url'] . 'edit-profile/languages';
 $link['CULTURAL_BACKGROUNDS'] = $config['site_url'] . 'edit-profile/cultural-backgrounds';
 $link['RELIGION'] = $config['site_url'] . 'edit-profile/religion';
-?>

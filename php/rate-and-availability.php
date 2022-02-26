@@ -95,4 +95,3 @@ if (checkloggedin()) {
 }else{
     headerRedirect($link['LOGIN']);  
 }
-?>
