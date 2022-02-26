@@ -83,6 +83,11 @@ if(isset($_GET['action'])){
 
     if ($_GET['action'] == "addReligion") { addReligion(); }
     if ($_GET['action'] == "editReligion") { editReligion(); }
+
+    if ($_GET['action'] == "addUserLanguage") { addUserLanguage(); }
+    if ($_GET['action'] == "editUserLanguage") { editUserLanguage(); }
+
+    if ($_GET['action'] == "addCulturalBackground") { addCulturalBackground(); }
 }
 
 function companyEdit(){
@@ -2829,10 +2834,10 @@ function editReligion(){
     
     if (isset($_POST['id'])) {
   
-        $info = ORM::for_table($config['db']['pre'].'religions')
-            ->select('id')
-            ->where('id', $_POST['id'])
-            ->find_one();
+        // $info = ORM::for_table($config['db']['pre'].'religions')
+        //     ->select('id')
+        //     ->where('id', $_POST['id'])
+        //     ->find_one();
 
         $update_rel = ORM::for_table($config['db']['pre'].'religions')->find_one($_POST['id']);
         $update_rel->set('name', $_POST['name']);
@@ -2855,4 +2860,153 @@ function editReligion(){
     echo $json = '{"status" : "' . $status . '","message" : "' . $message . '"}';
     die();
 }
+function addUserLanguage(){
+    global $config,$lang;
+   // print_r($_POST);die;
+    $error=[];
+    if (isset($_POST['submit'])) {
+        if ($_POST['name'] == "") {
+            $error = "Language Name Required";
+            $status = "error";
+            $message = $error;
+        }
+        if ($_POST['type'] == "") {
+            $error = "Language type Required";
+            $status = "error";
+            $message = $error;
+        }
+        if(empty($error)) {
+            $now=date("Y-m-d");
+            $insert_lang = ORM::for_table($config['db']['pre'].'language')->create();
+            $insert_lang->name = $_POST['name'];
+            $insert_lang->type = $_POST['type'];
+            $insert_lang->created_at = $now;
+            $insert_lang->updated_at = $now;
+            $insert_lang->save();
+            if ($insert_lang->id()) {
+                $status = "success";
+                $message = $lang['SAVED_SUCCESS'];
+            } 
+        }else {
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+    }else{
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+    
+    $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
+    echo $json;
+    die();
+
+    
+}
+function editUserLanguage(){
+    global $config,$lang;
+   
+    $error=[];
+    if (isset($_POST['submit'])) {
+        if ($_POST['name'] == "") {
+            $error = "Language Name Required";
+            $status = "error";
+            $message = $error;
+        }
+        if ($_POST['type'] == "") {
+            $error = "Language type Required";
+            $status = "error";
+            $message = $error;
+        }
+        if(empty($error)) {
+           
+            $update_lang = ORM::for_table($config['db']['pre'].'language')->find_one($_POST['id']);
+          
+            $update_lang->set('name', $_POST['name']);
+            $update_lang->set('type', $_POST['type']);
+            $update_lang->set('updated_at',date('Y-m-d'));
+            $update_lang->save();
+    
+            if ($update_lang) {
+               
+                $status = "success";
+                $message = $lang['SAVED_SUCCESS'];
+            } else{
+                $status = "error";
+                $message = $lang['ERROR_TRY_AGAIN'];
+            }
+        }else {
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+    }else{
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+    
+    $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
+    echo $json;
+    die();
+
+    
+}
+
+function addCulturalBackground(){
+    global $config,$lang;
+   // print_r($_POST);die;
+    $error=[];
+    if (isset($_POST['submit'])) {
+        if ($_POST['name'] == "") {
+            $error = "Language Name Required";
+            $status = "error";
+            $message = $error;
+        }
+
+        if(empty($error)) {
+            $now=date("Y-m-d");
+            $insert_cl = ORM::for_table($config['db']['pre'].'cultural_backgrounds')->create();
+            $insert_cl->name = $_POST['name'];
+            $insert_cl->created_at = $now;
+            $insert_cl->updated_at = $now;
+            $insert_cl->save();
+            
+            $cl_id = $insert_cl->id();
+            $insert_cl_op = ORM::for_table($config['db']['pre'].'cultural_background_options')->create();
+            $background_options= $_POST['options'];
+           // print_r($background_options);die;
+            $backgroundOptions=[];
+            foreach($background_options as $background_option) {
+              
+                array_push($backgroundOptions,'('.$cl_id.',"'.$background_option['name'].'",'.date('Y-m-d').')');
+               
+            }
+          
+             $u_c_backopt = implode(',',$backgroundOptions); 
+        // print_r($u_c_backopt);die;
+            //$userBackg = ORM::for_table($config['db']['pre'] . 'user_cultural_backgrounds')->where('user_id', $user_id)->find_array();
+           
+            ORM::raw_execute('INSERT INTO '.$config['db']['pre'].'cultural_background_options (cultural_background_id,name,created_at) VALUES'.$u_c_backopt.'');
+            // echo ORM::get_last_query();die;
+
+
+            if ($insert_cl->id()) {
+                $status = "success";
+                $message = $lang['SAVED_SUCCESS'];
+            } 
+            
+        }else {
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+    }else{
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+    
+    $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
+    echo $json;
+    die();
+
+    
+}
+
 ?>

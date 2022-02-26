@@ -66,6 +66,7 @@ if(isset($_SESSION['admin']['id'])){
     <!--alerts CSS -->
     <link href="assets/js/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
     <link href="assets/js/plugins/alertify/alertify.min.css" rel="stylesheet" type="text/css">
+  
     <?php
     if(!empty($config['quickad_secret_file'])){
         ?>

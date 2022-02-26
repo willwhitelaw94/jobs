@@ -124,6 +124,10 @@ if(isset($_GET['action'])){
 
     if ($_GET['action'] == "deletereligion") { deleteReligion(); }
 
+    if ($_GET['action'] == "deleteUserLanguage") { deleteUserLanguage(); }
+
+    if ($_GET['action'] == "deleteCulturalBackground") { deleteCulturalBackground(); }
+
 }
 
 if(isset($_POST['action'])){
@@ -3708,5 +3712,72 @@ function deleteReligion(){
 
 }
 
+function deleteUserLanguage(){
+    global $con,$config;
+    
+    if(isset($_POST['id']))
+    {
+        $_POST['list'][] = $_POST['id'];
+    }
 
+  
+    if (is_array($_POST['list'])) {
+       
+        $count = 0;
+        $sql = "DELETE FROM `".$config['db']['pre']."language` ";
+
+        foreach ($_POST['list'] as $value)
+        {
+            if($count == 0)
+            {
+                $sql.= "WHERE `id` = '" . $value . "'";
+            }
+            else
+            {
+                $sql.= " OR `id` = '" . $value . "'";
+            }
+
+            $count++;
+        }
+        $sql.= " LIMIT " . count($_POST['list']);
+
+        if(check_allow())
+            mysqli_query($con,$sql);
+
+        echo 1;
+        die();
+    } else {
+        echo 0;
+        die();
+    }
+
+}
+
+function deleteCulturalBackground(){
+    global $con,$config;
+    
+    if(isset($_POST['id']))
+    {
+        $_POST['list'][] = $_POST['id'];
+       
+    }
+
+  
+    if (is_array($_POST['list'])) {
+       
+        $count = 0;
+        $sql = "DELETE from `".$config['db']['pre']."cultural_backgrounds` where id in(".implode(',', $_POST['list']).") ";
+        if(check_allow())
+            mysqli_query($con,$sql);
+            $sql1 = "DELETE from `".$config['db']['pre']."cultural_background_options` where cultural_background_id in(".implode(',', $_POST['list']).") ";
+            mysqli_query($con,$sql1);
+
+        echo 1;
+        die();
+    } else {
+        echo 0;
+        die();
+    }
+
+}
 ?>
