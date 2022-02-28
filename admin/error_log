@@ -77,3 +77,12 @@
 [26-Feb-2022 11:02:47 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 297
 [26-Feb-2022 11:02:47 Pacific/Norfolk] PHP Notice:  Undefined variable: sesuserpic in /home/trilogycarecom/public_html/jobs/admin/header.php on line 298
 [26-Feb-2022 11:02:47 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 298
+<<<<<<< HEAD
+[27-Feb-2022 13:13:51 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 298
+[27-Feb-2022 13:13:51 Pacific/Norfolk] PHP Notice:  Undefined variable: sesuserpic in /home/trilogycarecom/public_html/jobs/admin/header.php on line 299
+[27-Feb-2022 13:13:51 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 299
+[27-Feb-2022 13:13:51 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 298
+[27-Feb-2022 13:13:51 Pacific/Norfolk] PHP Notice:  Undefined variable: sesuserpic in /home/trilogycarecom/public_html/jobs/admin/header.php on line 299
+[27-Feb-2022 13:13:51 Pacific/Norfolk] PHP Notice:  Undefined variable: adminname in /home/trilogycarecom/public_html/jobs/admin/header.php on line 299
+=======
+>>>>>>> 975f591e9a6a7decfa9c391436454700b1d4859f
