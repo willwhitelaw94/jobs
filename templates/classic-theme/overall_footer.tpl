@@ -376,5 +376,6 @@ ELSEIF({LOGGED_IN} && '{ZECHAT_ON_OFF}'=='on'){
     <tr><td valign="middle"><div id="content"><img src="#"/></div></td></tr>
 </table>
 {:IF}
+<script type="text/javascript" src="{SITE_URL}/includes/assets/js/repeater.min.js"></script>
 </body>
 </html>

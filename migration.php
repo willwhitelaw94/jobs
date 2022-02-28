@@ -1,2 +1,2 @@
 <?php
-ALTER TABLE `job_user_prefered_days` ADD `start_time` TIME NULL DEFAULT NULL AFTER `day`, ADD `end_time` TIME NULL DEFAULT NULL AFTER `start_time`;
+CREATE TABLE `jobs_db`.`job_user_time_slots` ( `id` INT NOT NULL AUTO_INCREMENT , `user_id` INT NOT NULL , `day_id` INT NOT NULL , `start_time` TIME NOT NULL , `end_time` TIME NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;

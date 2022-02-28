@@ -90,33 +90,10 @@
                                             </div>
                                     </div>
                                    
-                                        {LOOP: DAYSLISTFORTIME}
-                                        <div class="col-xl-12 col-md-12 IF(!in_array('{DAYSLISTFORTIME.code}',explode(',','{USER_PRE_DAYS}'))){ d-none  {:IF}" >
-                                            <h4>{DAYSLISTFORTIME.day}</h4>
-                                            <div class="row">
-                                                <div class="col-xl-3 col-md-6">
-                                                    <div class="submit-field">
-                                                        <div class="input-with-icon">
-                                                            <input class="with-border margin-bottom-0" type="time" placeholder="{LANG_START_TIME}"
-                                                                name="start_time['{DAYSLISTFORTIME.code}']" value="" >
-                                                        </div>
-                                                        <small>{LANG_START_TIME}</small>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-3 col-md-6">
-                                                    <div class="submit-field">
-                                                        <div class="input-with-icon">
-                                                            <input class="with-border margin-bottom-0" type="time" placeholder="{LANG_END_TIME}"
-                                                                name="end_time['{DAYSLISTFORTIME.code}']" value="" >
-                                                        </div>
-                                                        <small>{LANG_END_TIME}</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                               
-                                        </div>
-                                        {/LOOP: DAYSLISTFORTIME} 
-                                   
+                                 
+                                    {TIME_SLOTS}
+
+                                       
                                 </div>
                                 <div class="row">
                                      <div class="col-xl-12 ">
@@ -279,7 +256,12 @@ $("#days").select2({
     // minimumResultsForSearch: Infinity,   
 }).val(arr).trigger('change');
 
+$(function(){
+    $('.repeater').repeater({
+        isFirstItemUndeletable: true
+});
 
+});
 
 
 
