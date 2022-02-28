@@ -571,6 +571,8 @@ $lang['MIN_SALARY_PER_HOUR'] = 'Minimum Rate per hour.';
 $lang['MAX_SALARY_PER_HOUR'] = 'Maximum Rate per hour.';
 $lang['WILLING_MSG'] = 'I\'m willing to offer a free great & meet session to potential clients.';
 $lang['DAY_REQ'] = 'Please choose your prefered work days.';
+$lang['START_TIME'] = 'Start time';
+$lang['END_TIME'] = 'End time';
 //End Rate and Availability page
 
 //Languages page
@@ -588,3 +590,5 @@ $lang['CULTURAL_BACK_MSG']='Select your cultural background, this will help clie
 $lang['RELIGION'] = 'Religion';
 $lang['RELIGION_UPDATED'] = 'Religion Updated';
 $lang['RELIGIONREQ'] = 'Please choose your religion';
+
+$lang['NOTIFICATIONS'] = 'Notifications';

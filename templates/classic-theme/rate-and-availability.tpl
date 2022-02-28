@@ -141,7 +141,6 @@
                                         IF("{DAY_ERROR}"!=""){ {DAY_ERROR} {:IF}
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="row">
                                      <div class="col-xl-12 ">
@@ -296,19 +295,20 @@
  
  
 let string = '{USER_PRE_DAYS}';
-let arr = string.split(',');
-    
+let arr = string.split(',');   
 $("#days").select2({
     placeholder:'Select Days'
     // tags: true,
     // tokenSeparators: [',', ' '],
-    // minimumResultsForSearch: Infinity,
-   
+    // minimumResultsForSearch: Infinity,   
 }).val(arr).trigger('change');
-// .on('select2:open', function (e) {
-//    $('.select2-container--open .select2-dropdown--below').css('display','none');;
 
-// });
+$(function(){
+    $('.repeater').repeater({
+        isFirstItemUndeletable: true
+});
+
+});
 
 
 

@@ -56,31 +56,14 @@
                                                   
                                                     <input type="text"  class="form-control" name="name" placeholder="Add Option"/>
                                                     <div class="input-group-addon btn-danger" data-repeater-delete type="button" value="Delete"><i class="fa fa-trash"></i></div>
-                                                    <!-- <input data-repeater-delete type="button" value="Delete"/> -->
                                                 </div>
                                         </div>
+                                      
                                         <div class="input-group-addon btn-primary rpt_click" data-repeater-create type="button" value="Add"><i class="fa fa-plus"></i></div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <!-- <div class="col-md-10"> -->
-                                       
-                                <!-- </div> -->
-                                <!-- <div class="col-md-2 mt-4">
-                                    <button class="btn btn-primary"><i class="fa fa-plus"></i></button>
-                                </div> -->
-                                    <!-- <div class="form-group">
-                                        <div class="col-sm-12">
-                                        <label for="exampleInputfulltype">Language type:</label>
-                                            <select name="type" id="exampleInputfulltype" class="form-control">
-                                                <option value="main">main</option>
-                                                <option value="others">others</option>
-                                            </select>
-                                        </div>
-                                    </div> -->
-                            </div>
                             <input type="hidden" name="submit">
                         </div>
                     </form>

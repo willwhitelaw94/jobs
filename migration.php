@@ -1,0 +1,2 @@
+<?php
+CREATE TABLE `jobs_db`.`job_user_time_slots` ( `id` INT NOT NULL AUTO_INCREMENT , `user_id` INT NOT NULL , `day_id` INT NOT NULL , `start_time` TIME NOT NULL , `end_time` TIME NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;

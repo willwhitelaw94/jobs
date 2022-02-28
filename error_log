@@ -19,3 +19,11 @@
 [25-Feb-2022 09:39:53 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/trilogycarecom/public_html/jobs/includes/config.php' (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/trilogycarecom/public_html/jobs/index.php on line 119
 [25-Feb-2022 09:39:53 UTC] PHP Warning:  require_once(/home/trilogycarecom/public_html/jobs/includes/config.php): failed to open stream: No such file or directory in /home/trilogycarecom/public_html/jobs/index.php on line 119
 [25-Feb-2022 09:39:53 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/trilogycarecom/public_html/jobs/includes/config.php' (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home/trilogycarecom/public_html/jobs/index.php on line 119
+[27-Feb-2022 15:07:58 Pacific/Norfolk] PHP Notice:  Undefined index: city in /home/trilogycarecom/public_html/jobs/includes/functions/func.global.php on line 301
+[27-Feb-2022 15:08:03 Pacific/Norfolk] PHP Notice:  Undefined offset: 2 in /home/trilogycarecom/public_html/jobs/includes/functions/func.users.php on line 750
+[27-Feb-2022 15:08:07 Pacific/Norfolk] PHP Notice:  Undefined index: Edit Profile in /home/trilogycarecom/public_html/jobs/php/edit-profile.php on line 232
+[27-Feb-2022 15:08:07 Pacific/Norfolk] PHP Notice:  Undefined offset: 2 in /home/trilogycarecom/public_html/jobs/includes/functions/func.users.php on line 750
+[27-Feb-2022 16:10:46 Pacific/Norfolk] PHP Notice:  Undefined index: city in /home/trilogycarecom/public_html/jobs/includes/functions/func.global.php on line 301
+[27-Feb-2022 16:10:51 Pacific/Norfolk] PHP Notice:  Undefined offset: 2 in /home/trilogycarecom/public_html/jobs/includes/functions/func.users.php on line 750
+[27-Feb-2022 16:10:55 Pacific/Norfolk] PHP Notice:  Undefined index: Edit Profile in /home/trilogycarecom/public_html/jobs/php/edit-profile.php on line 232
+[27-Feb-2022 16:10:55 Pacific/Norfolk] PHP Notice:  Undefined offset: 2 in /home/trilogycarecom/public_html/jobs/includes/functions/func.users.php on line 750
