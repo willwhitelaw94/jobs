@@ -22,7 +22,9 @@ if(checkloggedin())
 	    $page->SetLoop ('CATEGORY',$category);
 	    $page->SetParameter ('NOTIFY', $ses_userdata['notify']);
 	    $page->SetParameter ('OVERALL_FOOTER', create_footer());
-	    $page->CreatePageEcho();
+        $page->SetParameter('USER_SIDEBAR', create_user_sidebar());
+
+        $page->CreatePageEcho();
     }else{
     	$notify = isset($_POST['notify']) ? '1' : '0';
 

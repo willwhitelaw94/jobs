@@ -1,68 +1,194 @@
 {OVERALL_HEADER}
+
 IF({SHOW_SEARCH_HOME}){
 <div class="intro-banner" data-background-image="{SITE_URL}storage/banner/{BANNER_IMAGE}">
     <div class="container">
+      
         <div class="row">
             <div class="col-md-12">
-                <div class="banner-headline">
-                    <h3><strong>{LANG_HOME_BANNER_HEADING}</strong>
+                <div class=" mb-5">
+                    <h1><strong>{LANG_HOME_BANNER_HEADING}</strong>
                         <br>
-                        <span>{LANG_HOME_BANNER_TAGLINE}</span></h3>
+                        <span>{LANG_HOME_BANNER_TAGLINE}</span></h1>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
-                <form autocomplete="off" method="get" action="{LINK_LISTING}" accept-charset="UTF-8">
-                    <div class="intro-banner-search-form margin-top-45">
-                        <div class="intro-search-field">
-                            <input id="intro-keywords" type="text" class="qucikad-ajaxsearch-input"
-                                   placeholder="{LANG_JOBTITLE_KEYWORD}" data-prev-value="0"
-                                   data-noresult="{LANG_MORE_RESULTS_FOR}">
-                            <i class="qucikad-ajaxsearch-close fa fa-times-circle" aria-hidden="true" style="display: none;"></i>
-                            <div id="qucikad-ajaxsearch-dropdown" size="0" tabindex="0">
-                                <ul>
-                                    {LOOP: CATEGORY}
-                                        <li class="qucikad-ajaxsearch-li-cats" data-catid="{CATEGORY.slug}">
-                                            IF("{CATEGORY.picture}"==""){
-                                            <i class="qucikad-as-caticon {CATEGORY.icon}"></i>
-                                            {:IF}
-                                            IF("{CATEGORY.picture}"!=""){
-                                            <img src="{CATEGORY.picture}"/>
-                                            {:IF}
-                                            <span class="qucikad-as-cat">{CATEGORY.name}</span>
-                                        </li>
-                                    {/LOOP: CATEGORY}
-                                </ul>
 
-                                <div style="display:none" id="def-cats">
+            <!-- Tabs Container -->
+            <div class="tabs">
+                <div class="tabs-header">
+                    <ul>
+                        <li class="active"><a href="#tab-1" data-tab-id="1">Find Workers</a></li>
+                        <li><a href="#tab-2" data-tab-id="2">Find Jobs</a></li>
+                        <li><a href="#tab-3" data-tab-id="3">Find Coordinators</a></li>
+                    </ul>
+                    <div class="tab-hover"></div>
+                    <nav class="tabs-nav">
+                        <span class="tab-prev"><i class="fa fa-arrow-left"></i></span>
+                        <span class="tab-next"><i class="fa fa-arrow-right"></i></span>
+                    </nav>
+                </div>
+                <!-- Tab Content -->
+                <div class="tabs-content">
+                    <div class="tab active" data-tab-id="1">
+                    [{Insert Worker Search Bar}
 
+
+
+                    </div>
+                    <div class="tab" data-tab-id="2">
+
+                        <form autocomplete="off" method="get" action="{LINK_LISTING}" accept-charset="UTF-8">
+                            <div class="intro-banner-search-form">
+                                <div class="intro-search-field with-label">
+                                    <input id="intro-keywords" type="text" class="qucikad-ajaxsearch-input"
+                                           placeholder="{LANG_JOBTITLE_KEYWORD}" data-prev-value="0"
+                                           data-noresult="{LANG_MORE_RESULTS_FOR}">
+                                    <i class="qucikad-ajaxsearch-close fa fa-times-circle" aria-hidden="true" style="display: none;"></i>
+                                    <div id="qucikad-ajaxsearch-dropdown" size="0" tabindex="0">
+                                        <ul>
+                                            {LOOP: CATEGORY}
+                                                <li class="qucikad-ajaxsearch-li-cats" data-catid="{CATEGORY.slug}">
+                                                    IF("{CATEGORY.picture}"==""){
+                                                    <i class="qucikad-as-caticon {CATEGORY.icon}"></i>
+                                                    {:IF}
+                                                    IF("{CATEGORY.picture}"!=""){
+                                                    <img src="{CATEGORY.picture}"/>
+                                                    {:IF}
+                                                    <span class="qucikad-as-cat">{CATEGORY.name}</span>
+                                                </li>
+                                            {/LOOP: CATEGORY}
+                                        </ul>
+
+                                        <div style="display:none" id="def-cats">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="intro-search-field live-location-search with-autocomplete with-label">
+
+                                    <div class="input-with-icon">
+                                        <input type="text" id="searchStateCity" name="location" placeholder="{LANG_WHERE}">
+                                        <i class="icon-feather-map-pin"></i>
+                                        <div data-option="{AUTO_DETECT_LOCATION}" class="loc-tracking"><i class="la la-crosshairs"></i></div>
+                                        <input type="hidden" name="latitude" id="latitude" value="">
+                                        <input type="hidden" name="longitude" id="longitude" value="">
+                                        <input type="hidden" name="placetype" id="searchPlaceType" value="">
+                                        <input type="hidden" name="placeid" id="searchPlaceId" value="">
+                                        <input type="hidden" id="input-keywords" name="keywords" value="">
+                                        <input type="hidden" id="input-maincat" name="cat" value=""/>
+                                        <input type="hidden" id="input-subcat" name="subcat" value=""/>
+                                    </div>
+                                </div>
+                                <div class="intro-search-button">
+                                    <button class="button ripple-effect ">{LANG_SEARCH}</button>
+                                </div>
+                            </div>
+                        </form>
+
+
+
+
+                    </div>
+                    <div class="tab" data-tab-id="3">
+                        <!-- How it Works -->
+                        <div class="section padding-top-65 padding-bottom-65">
+                            <div class="container">
+                                <div class="tab-pane active" id="1a">
+                                    <div class="row">
+
+                                        <div class="col-xl-12">
+                                            <!-- Section Headline -->
+
+                                            <div class="section-headline centered margin-top-0 margin-bottom-5">
+                                                <h3>How It Works?</h3>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-xl-4 col-md-4">
+                                            <!-- Icon Box -->
+                                            <div class="icon-box with-line">
+                                                <!-- Icon -->
+                                                <div class="icon-box-circle">
+                                                    <div class="icon-box-circle-inner">
+                                                        <i class="fa fa-home"></i>
+                                                        <div class="icon-box-check">1</div>
+                                                    </div>
+                                                </div>
+                                                <h3>Register as a Carer</h3>
+                                                <p>Build your Carer profile and add your locations, availability and rate range.</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-4 col-md-4">
+                                            <!-- Icon Box -->
+                                            <div class="icon-box with-line">
+                                                <!-- Icon -->
+                                                <div class="icon-box-circle">
+                                                    <div class="icon-box-circle-inner">
+                                                        <i class="fa fa-home"></i>
+                                                        <div class="icon-box-check">2</div>
+                                                    </div>
+                                                </div>
+                                                <h3>Search Jobs</h3>
+                                                <p>Browse Jobs in your region..</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-4 col-md-4">
+                                            <!-- Icon Box -->
+                                            <div class="icon-box">
+                                                <!-- Icon -->
+                                                <div class="icon-box-circle">
+                                                    <div class="icon-box-circle-inner">
+                                                        <i class="fa fa-home"></i>
+                                                        <div class="icon-box-check">3</div>
+                                                    </div>
+                                                </div>
+                                                <h3>Message and Agree</h3>
+                                                <p>Nanotechnology immersion along the information highway will close the loop on focusing solely.</p>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="intro-search-field live-location-search with-autocomplete">
-                            <div class="input-with-icon">
-                                <input type="text" id="searchStateCity" name="location" placeholder="{LANG_WHERE}">
-                                <i class="icon-feather-map-pin"></i>
-                                <div data-option="{AUTO_DETECT_LOCATION}" class="loc-tracking"><i class="la la-crosshairs"></i></div>
-                                <input type="hidden" name="latitude" id="latitude" value="">
-                                <input type="hidden" name="longitude" id="longitude" value="">
-                                <input type="hidden" name="placetype" id="searchPlaceType" value="">
-                                <input type="hidden" name="placeid" id="searchPlaceId" value="">
-                                <input type="hidden" id="input-keywords" name="keywords" value="">
-                                <input type="hidden" id="input-maincat" name="cat" value=""/>
-                                <input type="hidden" id="input-subcat" name="subcat" value=""/>
-                            </div>
-                        </div>
-                        <div class="intro-search-button">
-                            <button class="button ripple-effect">{LANG_SEARCH}</button>
-                        </div>
+                        <!-- How it Works -->
                     </div>
-                </form>
+                </div>
             </div>
+            <!-- Tabs Container / End -->
+
+            <ul class="intro-stats margin-top-45 hide-under-992px">
+                <li>
+                    <strong class="counter">1,586</strong>
+                    <span>Jobs Posted</span>
+                </li>
+                <li>
+                    <strong class="counter">3,543</strong>
+                    <span>Tasks Posted</span>
+                </li>
+                <li>
+                    <strong class="counter">1,232</strong>
+                    <span>Freelancers</span>
+                </li>
+            </ul>
+
+
+
         </div>
+        
+
+        
     </div>
 </div>
+
+<!-- Modal Cities -->
+
 <a class="popup-with-zoom-anim hidden" href="#citiesModal" id="change-city">city</a>
 <div class="zoom-anim-dialog mfp-hide popup-dialog big-dialog" id="citiesModal">
     <div class="popup-tab-content padding-0">
@@ -126,6 +252,9 @@ IF({SHOW_SEARCH_HOME}){
 </div>
 {:IF}
 
+
+
+
 IF({SHOW_CATEGORIES_HOME}){
 <!-- Category Boxes -->
 <div class="section padding-top-65 padding-bottom-45 IF(!{SHOW_FEATURED_JOBS_HOME}){ gray {:IF}">
@@ -142,7 +271,7 @@ IF({SHOW_CATEGORIES_HOME}){
                     <div class="advertisement" id="quickjob-top">{TOP_ADSCODE}</div>
                 </div>
                 {:IF}
-                <div class="section-headline centered margin-bottom-15">
+                <div class="section-headline centered margin-bottom-25">
                     <h3>{LANG_JOB_CATEGORIES}</h3>
                 </div>
                 <div class="categories-container">
@@ -158,6 +287,7 @@ IF({SHOW_CATEGORIES_HOME}){
                             <div class="category-box-counter">{CAT.main_ads_count}</div>
                             <div class="category-box-content">
                                 <h3>{CAT.main_title} <small>({CAT.main_ads_count})</small></h3>
+                                <p>Including {SUBCATEGORY}</p>
                             </div>
                             <div class="category-box-arrow">
                                 <i class="fa fa-chevron-right"></i>
@@ -180,6 +310,72 @@ IF({SHOW_CATEGORIES_HOME}){
     </div>
 </div>
 {:IF}
+
+
+<!-- Features Cities -->
+<div class="section margin-top-65 margin-bottom-65">
+    <div class="container">
+        <div class="row">
+
+            <!-- Section Headline -->
+            <div class="col-xl-12">
+                <div class="section-headline centered margin-top-0 margin-bottom-45">
+                    <h3>Featured Cities</h3>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <!-- Photo Box -->
+                <a href="{LINK_JOB_SEEKERS}" class="photo-box" data-background-image="images/featured-city-01.jpg">
+                    <div class="photo-box-content">
+                        <h3>Sydney</h3>
+                        <span>376 Carers</span>
+                        <span>376 Jobs</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <!-- Photo Box -->
+                <a href="{LINK_JOB_SEEKERS}" class="photo-box" data-background-image="images/featured-city-01.jpg">
+                    <div class="photo-box-content">
+                        <h3>Melbourne</h3>
+                        <span>376 Carers</span>
+                        <span>376 Jobs</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <!-- Photo Box -->
+                <a href="{LINK_JOB_SEEKERS}" class="photo-box" data-background-image="images/featured-city-01.jpg">
+                    <div class="photo-box-content">
+                        <h3>Brisbane</h3>
+                        <span>376 Carers</span>
+                        <span>376 Jobs</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <!-- Photo Box -->
+                <a href="{LINK_JOB_SEEKERS}" class="photo-box" data-background-image="images/featured-city-01.jpg">
+                    <div class="photo-box-content">
+                        <h3>Perth</h3>
+                        <span>376 Carers</span>
+                        <span>376 Jobs</span>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Features Cities / End -->
+
+
+
+
 
 IF({SHOW_FEATURED_JOBS_HOME}){
 <!-- Features Jobs -->
@@ -212,7 +408,7 @@ IF({SHOW_FEATURED_JOBS_HOME}){
                                         <div class="badge yellow"> {LANG_URGENT}</div> {:IF}
                                     </h3>
                                 </div>
-                                <span class="job-type">{ITEM.product_type}</span>
+                                <span class="job-type"></span>
                             </div>
                             <div class="job-listing-footer">
                                 <ul>
@@ -222,9 +418,13 @@ IF({SHOW_FEATURED_JOBS_HOME}){
                                         -{ITEM.salary_max} {LANG_PER} {ITEM.salary_type}</li>
                                     {:IF}
                                     <li><i class="la la-clock-o"></i> {ITEM.created_at}</li>
+                                    <li><i class="la la-clock-o"></i> {ITEM.product_type}</li>
+
                                 </ul>
                             </div>
                         </div>
+                           <span class=" job-type"><a href="{ITEM.link}">View Job</a></span>
+
                     {/LOOP: ITEM}
                 </div>
             </div>
@@ -233,6 +433,33 @@ IF({SHOW_FEATURED_JOBS_HOME}){
 </div>
 <!-- Featured Jobs / End -->
 {:IF}
+
+
+
+<!-- Photo Section -->
+<div class="photo-section" data-background-image="images/section-background.jpg">
+
+    <!-- Infobox -->
+    <div class="text-content white-font">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <h2>Hire experts or be hired. <br> For any job, any time.</h2>
+                    <p>Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation is on the runway towards.</p>
+                    <a href="pages-pricing-plans.html" class="button button-sliding-icon ripple-effect big margin-top-20">Get Started <i class="icon-material-outline-arrow-right-alt"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Infobox / End -->
+
+</div>
+<!-- Photo Section / End -->
+
+
 
 IF({SHOW_LATEST_JOBS_HOME}){
 <!-- Latest Jobs -->
@@ -271,10 +498,13 @@ IF({SHOW_LATEST_JOBS_HOME}){
                                                 -{ITEM2.salary_max} {LANG_PER} {ITEM2.salary_type}</li>
                                             {:IF}
                                             <li><i class="la la-clock-o"></i> {ITEM2.created_at}</li>
+                                            <li><i class="la la-clock-o"></i> {ITEM2.product_type}</li>
+
                                         </ul>
                                     </div>
                                 </div>
-                                <span class="job-type">{ITEM2.product_type}</span>
+                                <span class=" job-type"><a href="{ITEM2.link}">View Job</a></span>
+
                             </div>
                         </div>
                     {/LOOP: ITEM2}
@@ -363,8 +593,47 @@ IF({BLOG_ENABLE} && {SHOW_BLOG_HOME}){
     </div>
 </div>
 {:IF}
+
+
+<div class="section border-top padding-top-45 padding-bottom-45">
+    <!-- Logo Carousel -->
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <!-- Carousel -->
+                <div class="col-md-12">
+                    <div class="logo-carousel">
+                        <div class="carousel-item">
+                            <a href="http://acmelogos.com/" target="_blank" title="http://acmelogos.com/"><img src="{SITE_URL}storage/profile/{RECENT_BLOG.author_pic}" alt="Image 1"></a>
+                        </div>
+                        <div class="carousel-item">
+                            <a href="http://acmelogos.com/" target="_blank" title="http://acmelogos.com/"><img src="{SITE_URL}storage/profile/{RECENT_BLOG.author_pic}" alt="Image 2"></a>
+                        </div>
+                        <div class="carousel-item">
+                            <a href="http://acmelogos.com/" target="_blank" title="http://acmelogos.com/"><img src="{SITE_URL}storage/profile/{RECENT_BLOG.author_pic}" alt="Image 2"></a>
+                        </div>
+                        <div class="carousel-item">
+                            <a href="http://acmelogos.com/" target="_blank" title="http://acmelogos.com/"><img src="{SITE_URL}storage/profile/{RECENT_BLOG.author_pic}" alt="Image 2"></a>
+                        </div>
+                        <div class="carousel-item">
+                            <a href="http://acmelogos.com/" target="_blank" title="http://acmelogos.com/"><img src="{SITE_URL}storage/profile/{RECENT_BLOG.author_pic}" alt="Image 2"></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Carousel / End -->
+            </div>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     var loginurl = "{LINK_LOGIN}?ref=index.php";
 </script>
 <script type='text/javascript' src='//maps.google.com/maps/api/js?key={GMAP_API_KEY}&#038;libraries=places%2Cgeometry&#038;ver=2.2.1'></script>
+
 {OVERALL_FOOTER}

@@ -206,6 +206,10 @@ if (checkloggedin()) {
     $page->SetLoop('USER_TIMESLOTS',$time_slots);
     $page->SetParameter('TIME_SLOTS',$user_time_slots);
     $page->SetParameter('OVERALL_FOOTER', create_footer());
+
+
+    $page->SetLoop('USER_CITY', get_citite($city_codes));
+
     $page->CreatePageEcho();
 }else{
     headerRedirect($link['LOGIN']);  

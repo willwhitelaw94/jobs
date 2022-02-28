@@ -1,4 +1,6 @@
 {OVERALL_HEADER}
+
+
 <form method="get" action="{LINK_LISTING}" name="locationForm" id="ListingForm">
     <div id="titlebar">
         <div class="container">
@@ -293,6 +295,118 @@
         </div>
     </div>
 </form>
+
+<div class="gray section padding-top-65 padding-bottom-65">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-xl-12">
+                <!-- Section Headline -->
+                <div class="section-headline centered margin-top-0 margin-bottom-5">
+                    <h3>How It Works?</h3>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-md-4">
+                <!-- Icon Box -->
+                <div class="icon-box with-line">
+                    <!-- Icon -->
+                    <div class="icon-box-circle">
+                        <div class="icon-box-circle-inner">
+                            <i class="fa fa-home"></i>
+                            <div class="icon-box-check">1</div>
+                        </div>
+                    </div>
+                    <h3>Register as a Carer</h3>
+                    <p>Build your Carer profile and add your locations, availability and rate range.</p>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-md-4">
+                <!-- Icon Box -->
+                <div class="icon-box with-line">
+                    <!-- Icon -->
+                    <div class="icon-box-circle">
+                        <div class="icon-box-circle-inner">
+                            <i class="fa fa-home"></i>
+                            <div class="icon-box-check">2</div>
+                        </div>
+                    </div>
+                    <h3>Search Jobs</h3>
+                    <p>Browse Jobs in your region..</p>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-md-4">
+                <!-- Icon Box -->
+                <div class="icon-box">
+                    <!-- Icon -->
+                    <div class="icon-box-circle">
+                        <div class="icon-box-circle-inner">
+                            <i class="fa fa-home"></i>
+                            <div class="icon-box-check">3</div>
+                        </div>
+                    </div>
+                    <h3>Message and Agree</h3>
+                    <p>Nanotechnology immersion along the information highway will close the loop on focusing solely.</p>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!-- Counters -->
+<div class="hide-on-menu section padding-bottom-75">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-xl-12">
+                <div class="counters-container">
+
+                    <!-- Counter -->
+                    <div class="single-counter">
+                        <i class="icon-line-awesome-suitcase"></i>
+                        <div class="counter-inner">
+                            <h3><span class="counter">1,586</span></h3>
+                            <span class="counter-title">Jobs Posted</span>
+                        </div>
+                    </div>
+
+                    <!-- Counter -->
+                    <div class="single-counter">
+                        <i class="icon-line-awesome-legal"></i>
+                        <div class="counter-inner">
+                            <h3><span class="counter">3,543</span></h3>
+                            <span class="counter-title">Tasks Posted</span>
+                        </div>
+                    </div>
+
+                    <!-- Counter -->
+                    <div class="single-counter">
+                        <i class="icon-line-awesome-user"></i>
+                        <div class="counter-inner">
+                            <h3><span class="counter">2,413</span></h3>
+                            <span class="counter-title">Active Members</span>
+                        </div>
+                    </div>
+
+                    <!-- Counter -->
+                    <div class="single-counter">
+                        <i class="icon-line-awesome-trophy"></i>
+                        <div class="counter-inner">
+                            <h3><span class="counter">99</span>%</h3>
+                            <span class="counter-title">Satisfaction Rate</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Counters / End -->
+
 <script type="text/javascript">
 
     $('#sort-filter').on('change', function (e) {

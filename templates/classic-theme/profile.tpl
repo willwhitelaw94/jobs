@@ -51,17 +51,41 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2>{FULLNAME}</h2>
-                <!-- Breadcrumbs -->
-                <nav id="breadcrumbs">
-                    <ul>
-                        <li><a href="{LINK_INDEX}">
-                                {LANG_HOME}
-                            </a></li>
-                        <li>{FULLNAME}</li>
-                    </ul>
-                </nav>
+                <div class="single-page-section">
+                    <div class="single-page-inner">
+                        <div class="single-page-image"><img src="{SITE_URL}storage/profile/{USERIMAGE}" alt="{FULLNAME}"></div>
+                        <div class="single-page-details">
+                            <h3>{FULLNAME}</h3>
+                            <li><div class="ml-2 verified-badge-with-title">Verified</div></li>
 
+                            <ul>
+                                <li>
+                                    <span>
+                                    <i class="icon-feather-map-pin"></i>
+                                   {CITYNAME}{STATENAME}</span>
+                                </li>
+                                IF('{CATEGORY}' != ''){
+                                <li>
+                                    <span>
+                                    <i class="icon-feather-folder"></i>
+                                    {CATEGORY}
+                                    IF('{SUBCATEGORY}' != ''){
+                                    / {SUBCATEGORY}
+                                        {:IF}
+                                </span>
+                                </li>
+                                {:IF}
+                                <li>
+                                    <span>
+                                    <i class="icon-feather-clock"></i>
+                                    {LANG_MEMBER_SINCE} {CREATED}</span>
+                                </li>
+
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -70,55 +94,6 @@
     <div class="row">
         <!-- Content -->
         <div class="col-xl-8 col-lg-8">
-            <div class="single-page-section">
-                <div class="single-page-inner">
-                    <div class="single-page-image"><img src="{SITE_URL}storage/profile/{USERIMAGE}" alt="{FULLNAME}"></div>
-                    <div class="single-page-details">
-                        <h3>{FULLNAME}</h3>
-                        <ul>
-                            <li>
-                                <i class="icon-feather-map-pin"></i>
-                                <span>{CITYNAME}{STATENAME}</span>
-                            </li>
-                            IF('{CATEGORY}' != ''){
-                            <li>
-                                <i class="icon-feather-folder"></i>
-                                <span>{CATEGORY}
-                                    IF('{SUBCATEGORY}' != ''){
-                                    / {SUBCATEGORY}
-                                    {:IF}
-                                </span>
-                            </li>
-                            {:IF}
-                            <li>
-                                <i class="icon-feather-clock"></i>
-                                <span>{LANG_MEMBER_SINCE} {CREATED}</span>
-                            </li>
-                        </ul>
-                        <ul class="social-icons">
-                            IF('{FACEBOOK}' != ''){
-                            <li><a href="{FACEBOOK}" title="{LANG_FACEBOOK}" data-tippy-placement="top" rel="nofollow" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                            {:IF}
-                            IF('{TWITTER}' != ''){
-                            <li><a href="{TWITTER}" title="{LANG_TWITTER}" data-tippy-placement="top" rel="nofollow" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                            {:IF}
-                            IF('{LINKEDIN}' != ''){
-                            <li><a href="{LINKEDIN}" title="{LANG_LINKEDIN}" data-tippy-placement="top" rel="nofollow" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-                            {:IF}
-                            IF('{INSTAGRAM}' != ''){
-                            <li><a href="{INSTAGRAM}" title="{LANG_INSTAGRAM}" data-tippy-placement="top" rel="nofollow" target="_blank"><i class="fa fa-instagram"></i></a></li>
-                            {:IF}
-                            IF('{YOUTUBE}' != ''){
-                            <li><a href="{YOUTUBE}" title="{LANG_YOUTUBE}" data-tippy-placement="top" rel="nofollow" target="_blank"><i class="fa fa-youtube-play"></i></a></li>
-                            {:IF}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="single-page-section">
-                {ABOUT}
-            </div>
-            
             <div class="row">
                 
                
@@ -139,6 +114,43 @@
                 
             </div>
             
+            <div class="col-md-6">
+                <div class="single-page-section">
+                    <h3 class="margin-bottom-25">About Me</h3>
+
+                    {ABOUT}
+                </div>
+
+            </div>
+
+            <!-- Boxed List / End -->
+            IF({TOTAL_EXPERIENCES}){
+            <div class="boxed-list margin-bottom-60" id="all-jobs">
+                <div class="boxed-list-headline">
+                    <h3><i class="icon-feather-award"></i> {LANG_EXPERIENCES}</h3>
+                </div>
+                <div class="listings-container compact-list-layout margin-top-30">
+                    {LOOP: EXPERIENCES}
+                        <div class="job-listing">
+                            <div class="job-listing-details">
+                                <div class="job-listing-description">
+                                    <h4 class="job-listing-company">{EXPERIENCES.company}</h4>
+                                    <h3 class="job-listing-title">{EXPERIENCES.title}</h3>
+                                    <p class="job-listing-text read-more-toggle" data-read-more="{LANG_READ_MORE}" data-read-less="{LANG_READ_LESS}">{EXPERIENCES.description}</p>
+                                </div>
+                            </div>
+                            <div class="job-listing-footer margin-top-10">
+                                <ul>
+                                    <li><i class="la la-clock-o"></i> {EXPERIENCES.start_date} - {EXPERIENCES.end_date}</li>
+                                    <li><i class="la la-map-marker"></i> {EXPERIENCES.city}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    {/LOOP: EXPERIENCES}
+                </div>
+            </div>
+            {:IF}
+
             IF({TOTALITEM}){
             <div class="boxed-list margin-bottom-60" id="all-jobs">
                 <div class="boxed-list-headline">
@@ -188,35 +200,118 @@
             </div>
             {:IF}
 
-            IF({TOTAL_EXPERIENCES}){
-            <div class="boxed-list margin-bottom-60" id="all-jobs">
+
+            <!-- Boxed List -->
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 class="">Reviews</h3>
+                    <div class="boxed-list margin-bottom-60">
+
+
                 <div class="boxed-list-headline">
-                    <h3><i class="icon-feather-award"></i> {LANG_EXPERIENCES}</h3>
+                    <h3><i class="icon-material-outline-thumb-up"></i> Ratings</h3>
                 </div>
-                <div class="listings-container compact-list-layout margin-top-30">
-                    {LOOP: EXPERIENCES}
-                        <div class="job-listing">
-                            <div class="job-listing-details">
-                                <div class="job-listing-description">
-                                    <h4 class="job-listing-company">{EXPERIENCES.company}</h4>
-                                    <h3 class="job-listing-title">{EXPERIENCES.title}</h3>
-                                    <p class="job-listing-text read-more-toggle" data-read-more="{LANG_READ_MORE}" data-read-less="{LANG_READ_LESS}">{EXPERIENCES.description}</p>
+                <ul class="boxed-list-ul">
+                    <li>
+                        <div class="boxed-list-item m-t-15">
+                            <!-- Content -->
+                            <div class="item-content">
+                                <h4>Web, Database and API Developer <span>Rated as Freelancer</span></h4>
+                                <div class="item-details margin-top-10">
+                                    <div class="star-rating" data-rating="5.0"></div>
+                                    <div class="detail-item"><i class="icon-material-outline-date-range"></i> August 2019</div>
+                                </div>
+                                <div class="item-description">
+                                    <p>Excellent programmer - fully carried out my project in a very professional manner. </p>
                                 </div>
                             </div>
-                            <div class="job-listing-footer margin-top-10">
-                                <ul>
-                                    <li><i class="la la-clock-o"></i> {EXPERIENCES.start_date} - {EXPERIENCES.end_date}</li>
-                                    <li><i class="la la-map-marker"></i> {EXPERIENCES.city}</li>
-                                </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="boxed-list-item">
+                            <!-- Content -->
+                            <div class="item-content">
+                                <h4>WordPress Theme Installation <span>Rated as Freelancer</span></h4>
+                                <div class="item-details margin-top-10">
+                                    <div class="star-rating" data-rating="5.0"></div>
+                                    <div class="detail-item"><i class="icon-material-outline-date-range"></i> June 2019</div>
+                                </div>
                             </div>
                         </div>
-                    {/LOOP: EXPERIENCES}
+                    </li>
+
+                </ul>
+
+                <!-- Pagination -->
+                <div class="clearfix"></div>
+                <div class="pagination-container margin-top-40 margin-bottom-10">
+                    <nav class="pagination">
+                        <ul>
+                            <li><a href="#" class="ripple-effect current-page">1</a></li>
+                            <li><a href="#" class="ripple-effect">2</a></li>
+                            <li class="pagination-arrow"><a href="#" class="ripple-effect"><i class="icon-material-outline-keyboard-arrow-right"></i></a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="clearfix"></div>
+                <!-- Pagination / End -->
+
+            </div>
+                </div>
+                <div class="col-md-6">
+                <div class="single-page-section margin-bottom-25">
+                    <h3 class="">Availability</h3>
+                    <table class="basic-table">
+                        <tr>
+                            <th>Day</th>
+                            <th>Times</th>
+                        </tr>
+                        <tr>
+                            <td data-label="Column 1">Monday</td>
+                            <td data-label="Column 2">9am - 5pm</td>
+                        </tr>
+
+                        <tr>
+                            <td data-label="Column 1">Tuesday</td>
+                            <td data-label="Column 2">9am - 5pm</td>
+                        </tr>
+
+                        <tr>
+                            <td data-label="Column 1">Wednesday</td>
+                            <td data-label="Column 2 "><i class="fa fa-times-circle text-danger"></i><span class="text-danger"> Not Available </span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="Column 1">Thursday</td>
+                            <td data-label="Column 2">9am - 5pm</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Column 1">Friday</td>
+                            <td data-label="Column 2">9am - 5pm</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Column 1">Saturday</td>
+                            <td data-label="Column 2">9am - 5pm</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Column 1">Sunday</td>
+                            <td data-label="Column 2">9am - 5pm</td>
+                        </tr>
+                    </table>
+                </div>
                 </div>
             </div>
-            {:IF}
+
         </div>
         <!-- Sidebar -->
         <div class="col-xl-4 col-lg-4">
+
+            <!-- Profile Overview -->
+            <div class="profile-overview">
+                <div class="overview-item"><strong>$35</strong><span>Hourly Rate</span></div>
+                <div class="overview-item"><strong>53</strong><span>Jobs Done</span></div>
+                <div class="overview-item"><strong>22</strong><span>Rehired</span></div>
+            </div>
+            <a href="#small-dialog" class="apply-now-button popup-with-zoom-anim margin-bottom-50">Chat with #Name<i class="icon-material-outline-arrow-right-alt"></i></a>
             <div class="dashboard-box small-box margin-top-0 margin-bottom-30">
                 <!-- Headline -->
                 <div class="headline">
@@ -324,7 +419,76 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Freelancer Indicators -->
+            <div class="sidebar-widget">
+                <div class="freelancer-indicators">
+
+                    <!-- Indicator -->
+                    <div class="indicator">
+                        <strong>88%</strong>
+                        <div class="indicator-bar" data-indicator-percentage="88"><span></span></div>
+                        <span>Job Success</span>
+                    </div>
+
+                    <!-- Indicator -->
+                    <div class="indicator">
+                        <strong>100%</strong>
+                        <div class="indicator-bar" data-indicator-percentage="100"><span></span></div>
+                        <span>Recommendation</span>
+                    </div>
+
+                    <!-- Indicator -->
+                    <div class="indicator">
+                        <strong>90%</strong>
+                        <div class="indicator-bar" data-indicator-percentage="90"><span></span></div>
+                        <span>On Time</span>
+                    </div>
+
+                    <!-- Indicator -->
+                    <div class="indicator">
+                        <strong>80%</strong>
+                        <div class="indicator-bar" data-indicator-percentage="80"><span></span></div>
+                        <span>On Budget</span>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <!-- Widget -->
+            <div class="sidebar-widget">
+                <h3>Languages</h3>
+                <div class="task-tags">
+                    <span>English</span>
+                    <span>Spanish</span>
+                    <span>French</span>
+
+                </div>
+            </div>
+
+            <!-- Widget -->
+            <div class="sidebar-widget">
+                <h3>Skills</h3>
+                <div class="task-tags">
+                    <span>Android</span>
+                    <span>mobile apps</span>
+                    <span>design</span>
+                </div>
+            </div>
+
+            <!-- Widget -->
+            <div class="sidebar-widget">
+                <h3>Attachments</h3>
+                <div class="attachments-container">
+                    <a href="#" class="attachment-box ripple-effect"><span>Cover Letter</span><i>PDF</i></a>
+                    <a href="#" class="attachment-box ripple-effect"><span>Contract</span><i>DOCX</i></a>
+                </div>
+            </div>
+
             <div class="sidebar-container">
+
                 <div class="sidebar-widget">
                     <h3>{LANG_BOOKMARK_SHARE}</h3>
                     IF('{USERTYPE}' == 'employer'){
@@ -340,14 +504,10 @@
                     <!-- Share Buttons -->
                     <ul class="share-buttons-icons">
                         <li><a href="mailto:?subject={FULLNAME}&body={LINK_PROFILE}/{USERNAME}" data-button-color="#dd4b39" title="{LANG_SHARE_EMAIL}" data-tippy-placement="top" rel="nofollow" target="_blank"><i class="fa fa-envelope"></i></a></li>
-                        <li><a href="https://facebook.com/sharer/sharer.php?u={LINK_PROFILE}/{USERNAME}" data-button-color="#3b5998" title="{LANG_SHARE_FACEBOOK}" data-tippy-placement="top" rel="nofollow" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="https://twitter.com/share?url={LINK_PROFILE}/{USERNAME}&text={FULLNAME}" data-button-color="#1da1f2" title="{LANG_SHARE_TWITTER}" data-tippy-placement="top" rel="nofollow" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="https://www.linkedin.com/shareArticle?mini=true&url={LINK_PROFILE}/{USERNAME}" data-button-color="#0077b5" title="{LANG_SHARE_LINKEDIN}" data-tippy-placement="top" rel="nofollow" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-                        <li><a href="https://pinterest.com/pin/create/bookmarklet/?&url={LINK_PROFILE}/{USERNAME}&description={FULLNAME}" data-button-color="#bd081c" title="{LANG_SHARE_PINTEREST}" data-tippy-placement="top" rel="nofollow" target="_blank"><i class="fa fa-pinterest-p"></i></a></li>
-                        <li><a href="https://web.whatsapp.com/send?text={LINK_PROFILE}/{USERNAME}" data-button-color="#25d366" title="{LANG_SHARE_WHATSAPP}" data-tippy-placement="top" rel="nofollow" target="_blank"><i class="fa fa-whatsapp"></i></a></li>
                     </ul>
                 </div>
             </div>
+
         </div>
 
        
@@ -357,6 +517,94 @@
 </div>
 <div class="margin-top-15"></div>
 
+
+<!-- Make an Offer Popup
+================================================== -->
+<div id="small-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
+
+    <!--Tabs -->
+    <div class="sign-in-form">
+
+        <ul class="popup-tabs-nav">
+            <li><a href="#tab">Make an Offer</a></li>
+        </ul>
+
+        <div class="popup-tabs-container">
+
+            <!-- Tab -->
+            <div class="popup-tab-content" id="tab">
+
+                <!-- Welcome Text -->
+                <div class="welcome-text">
+                    <h3>Discuss your project with David</h3>
+                </div>
+
+                <!-- Form -->
+                <form method="post">
+
+                    <div class="input-with-icon-left">
+                        <i class="icon-material-outline-account-circle"></i>
+                        <input type="text" class="input-text with-border" name="name" id="name" placeholder="First and Last Name"/>
+                    </div>
+
+                    <div class="input-with-icon-left">
+                        <i class="icon-material-baseline-mail-outline"></i>
+                        <input type="text" class="input-text with-border" name="emailaddress" id="emailaddress" placeholder="Email Address"/>
+                    </div>
+
+                    <textarea name="textarea" cols="10" placeholder="Message" class="with-border"></textarea>
+
+                    <div class="uploadButton margin-top-25">
+                        <input class="uploadButton-input" type="file" accept="image/*, application/pdf" id="upload" multiple/>
+                        <label class="uploadButton-button ripple-effect" for="upload">Add Attachments</label>
+                        <span class="uploadButton-file-name">Allowed file types: zip, pdf, png, jpg <br> Max. files size: 50 MB.</span>
+                    </div>
+
+                </form>
+
+                <!-- Button -->
+                <button class="button margin-top-35 full-width button-sliding-icon ripple-effect" type="submit">Make an Offer <i class="icon-material-outline-arrow-right-alt"></i></button>
+
+            </div>
+            <!-- Login -->
+            <div class="popup-tab-content" id="loginn">
+
+                <!-- Welcome Text -->
+                <div class="welcome-text">
+                    <h3>Discuss Your Project With Tom</h3>
+                </div>
+
+                <!-- Form -->
+                <form method="post" id="make-an-offer-form">
+
+                    <div class="input-with-icon-left">
+                        <i class="icon-material-outline-account-circle"></i>
+                        <input type="text" class="input-text with-border" name="name2" id="name2" placeholder="First and Last Name" required/>
+                    </div>
+
+                    <div class="input-with-icon-left">
+                        <i class="icon-material-baseline-mail-outline"></i>
+                        <input type="text" class="input-text with-border" name="emailaddress2" id="emailaddress2" placeholder="Email Address" required/>
+                    </div>
+
+                    <textarea name="textarea" cols="10" placeholder="Message" class="with-border"></textarea>
+
+                    <div class="uploadButton margin-top-25">
+                        <input class="uploadButton-input" type="file" accept="image/*, application/pdf" id="upload-cv" multiple/>
+                        <label class="uploadButton-button" for="upload-cv">Add Attachments</label>
+                        <span class="uploadButton-file-name">Allowed file types: zip, pdf, png, jpg <br> Max. files size: 50 MB.</span>
+                    </div>
+
+                </form>
+
+                <!-- Button -->
+                <button class="button full-width button-sliding-icon ripple-effect" type="submit" form="make-an-offer-form">Make an Offer <i class="icon-material-outline-arrow-right-alt"></i></button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
 
 
 {OVERALL_FOOTER}

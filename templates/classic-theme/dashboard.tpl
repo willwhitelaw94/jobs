@@ -2,17 +2,22 @@
 <div id="titlebar" class="margin-bottom-0">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <h2>{LANG_DASHBOARD}</h2>
-                <!-- Breadcrumbs -->
-                <nav id="breadcrumbs">
-                    <ul>
-                        <li><a href="{LINK_INDEX}">{LANG_HOME}</a></li>
-                        <li>{LANG_DASHBOARD}</li>
-                    </ul>
-                </nav>
-
-            </div>
+                    <div class="col-lg-8">
+                        <h2>{LANG_DASHBOARD}</h2>
+                        <!-- Breadcrumbs -->
+                        <nav id="breadcrumbs">
+                            <ul>
+                                <li><a href="{LINK_INDEX}">{LANG_HOME}</a></li>
+                                <li>{LANG_DASHBOARD}</li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="d-flex justify-content-end">
+                        <a class="button ripple-effect" rel="nofollow" target="_blank" role="button" href="{LINK_PROFILE}/{USERNAME}">{LANG_PROFILE_PUBLIC}</a>
+                        <span class="resend_count" id="resend_count16"></span>
+                        </div>
+                    </div>
         </div>
     </div>
 </div>
@@ -21,93 +26,6 @@
         <div class="row">
             <div class="col-lg-3 col-md-12">
                {USER_SIDEBAR}
-               <!-- <div class="dashboard-sidebar">
-                    <div class="dashboard-sidebar-inner">
-                        <div class="dashboard-nav-container">
-                            <a href="#" class="dashboard-responsive-nav-trigger">
-                                <span class="hamburger hamburger--collapse">
-                                <span class="hamburger-box">
-                                    <span class="hamburger-inner"></span>
-                                </span>
-                                </span>
-                                <span class="trigger-title">{LANG_DASH_NAVIGATION}</span>
-                            </a>
-                            
-                            <div class="dashboard-nav">
-                                <div class="dashboard-nav-inner">
-                                    <ul data-submenu-title="{LANG_MY_ACCOUNT}">
-                                        <li class="active"><a href="{LINK_DASHBOARD}"><i
-                                                        class="icon-feather-grid"></i> {LANG_DASHBOARD}</a></li>
-                                        <li class=""><a href="{LINK_EDITPROFILE}"><i
-                                            class="icon-feather-edit"></i> {LANG_EDITPROFILE}</a></li>
-                                        <li><a href="{LINK_PROFILE}/{USERNAME}"><i
-                                                        class="icon-feather-user"></i> {LANG_PROFILE_PUBLIC}</a></li>
-
-                                        IF('{USERTYPE}' == "employer"){
-                                        <li><a href="{LINK_MEMBERSHIP}"><i
-                                                        class="icon-feather-gift"></i> {LANG_MEMBERSHIP}</a></li>
-                                        {:IF}
-                                    </ul>
-                                    IF('{USERTYPE}'){
-                                    <ul data-submenu-title="{LANG_MY_JOBS}">
-                                        IF('{USERTYPE}' == "user"){
-                                        IF({RESUME_ENABLE}){
-                                        <li><a href="{LINK_RESUMES}"><i
-                                                        class="icon-feather-paperclip"></i> {LANG_MY_RESUMES} <span
-                                                        class="nav-tag">{RESUMES}</span></a></li>
-                                        {:IF}
-                                        <li><a href="{LINK_EXPERIENCES}"><i class="icon-feather-award"></i> {LANG_MY_EXPERIENCES}</a></li>
-                                        <li><a href="{LINK_APPLIED_JOBS}"><i class="icon-feather-briefcase"></i> {LANG_APPLIED_JOBS}
-                                                <span class="nav-tag">{APPLIEDJOBS}</span></a></li>
-                                        <li><a href="{LINK_FAVJOBS}"><i class="icon-feather-heart"></i> {LANG_FAV_JOBS}
-                                                <span class="nav-tag">{FAVORITEADS}</span></a></li>
-                                        <li><a href="{LINK_JOBALERT}"><i class="icon-feather-bell"></i> {LANG_JOB_ALERT}
-                                            </a></li>
-                                        ELSEIF('{USERTYPE}' == "employer"){
-                                        IF({COMPANY_ENABLE}){
-                                        <li><a href="{LINK_MYCOMPANIES}"><i
-                                                        class="icon-feather-box"></i> {LANG_MY_COMPANIES} <span
-                                                        class="nav-tag">{COMPANIES}</span></a></li>
-                                        {:IF}
-                                        <li><a href="{LINK_MYJOBS}"><i
-                                                        class="icon-feather-briefcase"></i> {LANG_MY_JOBS} <span
-                                                        class="nav-tag">{MYADS}</span></a></li>
-                                        <li><a href="{LINK_PENDINGJOBS}"><i
-                                                        class="icon-feather-clock"></i> {LANG_PENDING_JOBS} <span
-                                                        class="nav-tag">{PENDINGADS}</span></a></li>
-                                        <li><a href="{LINK_HIDDENJOBS}"><i
-                                                        class="icon-feather-eye-off"></i> {LANG_HIDDEN_JOBS} <span
-                                                        class="nav-tag">{HIDDENADS}</span></a></li>
-                                        <li><a href="{LINK_EXPIREJOBS}"><i
-                                                        class="icon-feather-alert-octagon"></i> {LANG_EXPIRED_JOBS}
-                                                <span class="nav-tag">{EXPIREADS}</span></a></li>
-                                        <li><a href="{LINK_RESUBMITJOBS}"><i
-                                                        class="icon-feather-rotate-cw"></i> {LANG_RESUBMITTED_JOBS}
-                                                <span class="nav-tag">{RESUBMITADS}</span></a></li>
-                                        <li><a href="{LINK_FAVUSERS}"><i class="icon-feather-heart"></i> {LANG_FAV_USERS}
-                                                <span class="nav-tag">{FAVORITEUSERSS}</span></a></li>
-                                        {:IF}
-                                    </ul>
-                                    {:IF}
-
-                                    <ul data-submenu-title="{LANG_ACCOUNT}">
-                                        IF('{WCHAT}'=='on'){
-                                        <li><a href="{LINK_MESSAGE}"><i
-                                                        class="icon-feather-message-circle"></i> {LANG_MESSAGE}</a></li>
-                                        {:IF}
-                                        IF('{USERTYPE}' == "employer"){
-                                        <li><a href="{LINK_TRANSACTION}"><i
-                                                        class="icon-feather-file-text"></i> {LANG_TRANSACTIONS}</a></li>
-                                        {:IF}
-                                        <li><a href="{LINK_LOGOUT}"><i class="icon-feather-log-out"></i> {LANG_LOGOUT}
-                                            </a></li>
-                                    </ul>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
             </div>
             <div class="col-lg-9 col-md-12 js-accordion">
                 <div class="dashboard-box margin-top-0">
@@ -145,280 +63,340 @@
                         </div>
                     </div>
                 </div>
-                 <!--
-                <div class="dashboard-box js-accordion-item active">
-                   
-                    <div class="headline js-accordion-header">
-                        <h3><i class="icon-feather-user"></i> {LANG_ACCOUNT_DETAILS}</h3>
+                <div>
+                    <div class="margin-top-20 row">
+                        <div class=" col-xl-6 col-md-6">
+                            <div class="notification error closeable">
+                            <p>Please fill in all the fields required</p>
+                            <a class="close" href="#"></a>
+                        </div>
+                        </div>
+                        <div class=" col-xl-6 col-md-6">
+
+                            <div class="notification success closeable">
+                                <p>You did it, now relax and enjoy it</p>
+                                <a class="close" href="#"></a>
+                            </div>
+                            </div>
+                        <div class=" col-xl-6 col-md-6">
+                            <div class="notification warning closeable">
+                                <p>Change this and that and try again</p>
+                                <a class="close" href="#"></a>
+                            </div>
+                        </div>
+                        <div class=" col-xl-6 col-md-6">
+                             <div class="notification notice closeable">
+                                <p>Please check the information below</p>
+                                <a class="close" href="#"></a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="content with-padding js-accordion-body">
-                        IF(!'{USERTYPE}'){
-                        <form method="post" accept-charset="UTF-8">
-                            <div class="row">
-                                <div class="col-xl-6 col-md-12">
-                                    <div class="submit-field">
-                                        <h5>{LANG_USERTYPE} *</h5>
-                                        <select name="user-type" class="with-border selectpicker" required="">
-                                            <option>{LANG_SELECT}</option>
-                                            <option value="1">{LANG_JOB_SEEKER}</option>
-                                            <option value="2">{LANG_EMPLOYER}</option>
-                                        </select>
-                                        <span id="type-availability-status">
-                                            IF("{TYPE_ERROR}"!=""){ {TYPE_ERROR} {:IF}</span>
-                                    </div>
+                </div>
+
+                <!-- Fun Facts Container -->
+                <div class="fun-facts-container">
+                    <div class="fun-fact" data-fun-fact-color="#36bd78">
+                        <div class="fun-fact-text">
+                            <span>Task Bids Won</span>
+                            <h3>22</h3>
+                        </div>
+                        <div class="fun-fact-icon"><i class="icon-material-outline-gavel"></i></div>
+                    </div>
+                    <div class="fun-fact" data-fun-fact-color="#b81b7f">
+                        <div class="fun-fact-text">
+                            <span>Jobs Applied</span>
+                            <h3>4</h3>
+                        </div>
+                        <div class="fun-fact-icon"><i class="icon-material-outline-business-center"></i></div>
+                    </div>
+                    <div class="fun-fact" data-fun-fact-color="#efa80f">
+                        <div class="fun-fact-text">
+                            <span>Reviews</span>
+                            <h3>28</h3>
+                        </div>
+                        <div class="fun-fact-icon"><i class="icon-material-outline-rate-review"></i></div>
+                    </div>
+
+                    <!-- Last one has to be hidden below 1600px, sorry :( -->
+                    <div class="fun-fact" data-fun-fact-color="#2a41e6">
+                        <div class="fun-fact-text">
+                            <span>This Month Views</span>
+                            <h3>987</h3>
+                        </div>
+                        <div class="fun-fact-icon"><i class="icon-feather-trending-up"></i></div>
+                    </div>
+                </div>
+
+
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-xl-8">
+                        <!-- Dashboard Box -->
+                        <div class="dashboard-box main-box-in-row">
+                            <div class="headline">
+                                <h3><i class="icon-feather-bar-chart-2"></i> Your Profile Views</h3>
+                                <div class="sort-by">
+                                    <select class="selectpicker hide-tick">
+                                        <option>Last 6 Months</option>
+                                        <option>This Year</option>
+                                        <option>This Month</option>
+                                    </select>
                                 </div>
                             </div>
-                            <button type="submit" name="submit_type"
-                                    class="button ripple-effect">{LANG_SAVE_CHANGES}</button>
-                        </form>
-                        {ELSE}
-                        <form method="post" accept-charset="UTF-8" enctype="multipart/form-data">
-                            <div class="row">
-                                <div class="col-xl-6 col-md-12">
-                                    <div class="submit-field">
-                                        <h5>{LANG_NAME} *</h5>
+                            <div class="content">
+                                <!-- Chart -->
+                                <div class="chart">
+                                    <canvas id="chart" width="100" height="45"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Dashboard Box / End -->
+                    </div>
+                    <div class="col-xl-4">
 
-                                        <div class="input-with-icon-left">
-                                            <i class="la la-user"></i>
-                                            <input type="text" class="with-border" name="name" value="{AUTHORNAME}">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-md-12">
-                                    <div class="submit-field">
-                                        <h5>{LANG_USERNAME} *</h5>
+                        <!-- Dashboard Box -->
+                        <!-- If you want adjust height of two boxes
+                             add to the lower box 'main-box-in-row'
+                             and 'child-box-in-row' to the higher box -->
+                        <div class="dashboard-box child-box-in-row">
+                            <div class="headline">
+                                <h3><i class="icon-material-outline-note-add"></i> Notes</h3>
+                            </div>
 
-                                        <div class="input-with-icon-left">
-                                            <i class="la la-user"></i>
-                                            <input type="text" class="with-border" id="username" name="username"
-                                                   value="{USERNAME}" onBlur="checkAvailabilityUsername()">
-                                        </div>
-                                        <span id="user-availability-status">
-                                            IF("{USERNAME_ERROR}"!=""){ {USERNAME_ERROR} {:IF}</span>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-md-12">
-                                    <div class="submit-field">
-                                        <h5>{LANG_EMAIL} *</h5>
-
-                                        <div class="input-with-icon-left">
-                                            <i class="la la-envelope"></i>
-                                            <input type="text" class="with-border" id="email" name="email"
-                                                   value="{EMAIL}" onBlur="checkAvailabilityEmail()">
-                                        </div>
-                                        <span id="email-availability-status">
-                                            IF("{EMAIL_ERROR}"!=""){ {EMAIL_ERROR} {:IF}</span>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-md-12">
-                                    <div class="submit-field">
-                                        <h5>{LANG_PHONE_NUMBER} *</h5>
-
-                                        <div class="input-with-icon-left">
-                                            <i class="la la-phone"></i>
-                                            <input type="text" name="phone" class="with-border margin-bottom-0"
-                                                   value="{PHONE}">
+                            <div class="content with-padding">
+                                <!-- Note -->
+                                <div class="dashboard-note">
+                                    <p>Meeting with candidate at
+                                    <div class="note-footer">
+                                        <span class="note-priority high">High Priority</span>
+                                        <div class="note-buttons">
+                                            <a href="#" title="Edit" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
+                                            <a href="#" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="submit-field">
-                                        <h5>{LANG_AVATAR}</h5>
-
-                                        <div class="uploadButton">
-                                            <input class="uploadButton-input" type="file" accept="images/*" id="avatar"
-                                                   name="avatar"/>
-                                            <label class="uploadButton-button ripple-effect"
-                                                   for="avatar">{LANG_UPLOAD_AVATAR}</label>
-                                            <span class="uploadButton-file-name">{LANG_AVATAR_HINT}</span>
-                                        </div>
-                                        <span id="email-availability-status">
-                                            IF("{AVATAR_ERROR}"!=""){ {AVATAR_ERROR} {:IF}
-                                        </span>
-                                    </div>
-                                    <div class="submit-field">
-                                        <h5>{LANG_GENDER}</h5>
-                                        <div class="radio margin-right-20">
-                                            <input class="with-gap" type="radio" name="gender" id="Male" value="Male" IF('{GENDER}'=='Male'){ checked {:IF} />
-                                            <label for="Male"><span class="radio-label"></span>{LANG_GENDER_MALE}</label>
-                                        </div>
-                                        <div class="radio margin-right-20">
-                                            <input class="with-gap" type="radio" name="gender" id="Female" value="Female" IF('{GENDER}'=='Female'){ checked {:IF} />
-                                            <label for="Female"><span class="radio-label"></span>{LANG_GENDER_FEMALE}</label>
-                                        </div>
-                                        <div class="radio margin-right-20">
-                                            <input class="with-gap" type="radio" name="gender" id="Other" value="Other" IF('{GENDER}'=='Other'){ checked {:IF} />
-                                            <label for="Other"><span class="radio-label"></span>{LANG_GENDER_OTHER}</label>
-                                        </div>
-                                    </div>
-                                    <div class="submit-field">
-                                        <h5>{LANG_CITY}</h5>
-                                        <select id="jobcity" class="with-border" name="city" data-size="7" title="{LANG_SELECT} {LANG_CITY}">
-                                            <option value="0" selected="selected">{LANG_SELECT} {LANG_CITY}</option>
-                                            IF('{CITY}' != ''){
-                                            <option value="{CITY}" selected="selected">{CITYNAME}</option>
-                                            {:IF}
-                                        </select>
-                                    </div>
-                                    <div class="submit-field">
-                                        <h5>{LANG_ADDRESS} *</h5>
-                                        <textarea class="with-border" name="address" required="">{ADDRESS}</textarea>
-                                    </div>
-                                    IF('{USERTYPE}' == "user"){
-                                    <div class="submit-field">
-                                        <h5>{LANG_TAGLINE}</h5>
-                                        <input type="text" name="tagline" class="with-border margin-bottom-0"
-                                               value="{TAGLINE}">
-                                        <small>{LANG_TAGLINE_HINT}</small>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-md-12">
-                                    <div class="submit-field">
-                                        <h5>{LANG_CATEGORY}</h5>
-                                        <select class="selectpicker with-border" name="category" id="category" data-subcat="{SUBCAT}">
-                                            <option>-</option>
-                                            {LOOP: CATEGORIES}
-                                            <option value="{CATEGORIES.id}" {CATEGORIES.selected}>{CATEGORIES.name}</option>
-                                            {/LOOP: CATEGORIES}
-                                        </select>
-                                        <small>{LANG_USER_CATEGORY_HINT}</small>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-md-12">
-                                    <div class="submit-field">
-                                        <h5>{LANG_SUBCATEGORY}</h5>
-                                        <select class="selectpicker with-border" name="subcategory" id="sub_category">
-                                            <option>-</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-md-12">
-                                    <div class="submit-field">
-                                        <h5>{LANG_EXPECTED_SALARY}</h5>
-                                        <div class="input-with-icon">
-                                            <input class="with-border margin-bottom-0" type="number" placeholder="{LANG_MIN}"
-                                                   name="salary_min" value="{SALARY_MIN}" >
-                                            <i class="currency">{USER_CURRENCY_SIGN}</i>
-                                        </div>
-                                        <small>{LANG_SALARY_PER_MONTH}</small>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-md-12">
-                                    <div class="submit-field">
-                                        <h5>&nbsp;</h5>
-                                        <div class="input-with-icon">
-                                            <input class="with-border margin-bottom-0" type="number" placeholder="{LANG_MAX}"
-                                                   name="salary_max" value="{SALARY_MAX}">
-                                            <i class="currency">{USER_CURRENCY_SIGN}</i>
+                                <!-- Note -->
+                                <div class="dashboard-note">
+                                    <p>Extend premium </p>
+                                    <div class="note-footer">
+                                        <span class="note-priority low">Low Priority</span>
+                                        <div class="note-buttons">
+                                            <a href="#" title="Edit" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
+                                            <a href="#" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-md-12">
-                                    <div class="submit-field">
-                                        <h5>{LANG_DOB}</h5>
-                                        <input type="text" class="with-border margin-bottom-0" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-autoclose="true" data-date-language="{LANG_CODE}" name="dob" value="{DOB}" IF('{LANGUAGE_DIRECTION}'=='rtl'){ data-date-rtl="true" {:IF}>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    {:IF}
-                                    <div class="submit-field">
-                                        <h5>{LANG_ABOUT_ME}</h5>
-                                        <textarea class="with-border" id="pageContent" name="aboutme" >{ABOUTME}</textarea>
-                                    </div>
-                                    <div class="submit-field">
-                                        <h5>{LANG_WEBSITE}</h5>
-                                        <div class="input-with-icon-left">
-                                            <i class="la la-link"></i>
-                                            <input type="url" name="website" class="with-border margin-bottom-0"
-                                                   value="{WEBSITE}">
-                                        </div>
-                                    </div>
-                                    <div class="submit-field">
-                                        <h5>{LANG_FACEBOOK}</h5>
-                                        <div class="input-with-icon-left">
-                                            <i class="fa fa-facebook"></i>
-                                            <input type="url" name="facebook" class="with-border margin-bottom-0"
-                                                   value="{FACEBOOK}">
-                                        </div>
-                                    </div>
-                                    <div class="submit-field">
-                                        <h5>{LANG_TWITTER}</h5>
-                                        <div class="input-with-icon-left">
-                                            <i class="fa fa-twitter"></i>
-                                            <input type="url" name="twitter" class="with-border margin-bottom-0"
-                                                   value="{TWITTER}">
-                                        </div>
-                                    </div>
-                                    <div class="submit-field">
-                                        <h5>{LANG_INSTAGRAM}</h5>
-                                        <div class="input-with-icon-left">
-                                            <i class="fa fa-instagram"></i>
-                                            <input type="url" name="instagram" class="with-border margin-bottom-0"
-                                                   value="{INSTAGRAM}">
-                                        </div>
-                                    </div>
-                                    <div class="submit-field">
-                                        <h5>{LANG_LINKEDIN}</h5>
-                                        <div class="input-with-icon-left">
-                                            <i class="fa fa-linkedin"></i>
-                                            <input type="url" name="linkedin" class="with-border margin-bottom-0"
-                                                   value="{LINKEDIN}">
-                                        </div>
-                                    </div>
-                                    <div class="submit-field">
-                                        <h5>{LANG_YOUTUBE}</h5>
-                                        <div class="input-with-icon-left">
-                                            <i class="fa fa-youtube-play"></i>
-                                            <input type="url" name="youtube" class="with-border margin-bottom-0"
-                                                   value="{YOUTUBE}">
+                                <!-- Note -->
+                                <div class="dashboard-note">
+                                    <p>Send payment </p>
+                                    <div class="note-footer">
+                                        <span class="note-priority medium">Medium Priority</span>
+                                        <div class="note-buttons">
+                                            <a href="#" title="Edit" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
+                                            <a href="#" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" name="submit"
-                                    class="button ripple-effect">{LANG_SAVE_CHANGES}</button>
-                        </form>
-                        {:IF}
-                    </div>
-                </div>  -->
-
-                <!--<div class="dashboard-box js-accordion-item">
-                 
-                    <div class="headline js-accordion-header">
-                        <h3><i class="icon-feather-lock"></i> {LANG_PASSWORD}</h3>
-                    </div>
-
-                    <div class="content with-padding js-accordion-body">
-                        <form method="post" accept-charset="UTF-8">
-                            <div class="row">
-                                <div class="col-xl-6">
-                                    <div class="submit-field">
-                                        <h5>{LANG_NEW_PASSWORD}</h5>
-                                        <input type="password" id="password" name="password" class="with-border"
-                                               onkeyup="checkAvailabilityPassword()">
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-6">
-                                    <div class="submit-field">
-                                        <h5>{LANG_RE_NEW_PASSWORD}</h5>
-                                        <input type="password" id="re_password" name="re_password" class="with-border"
-                                               onkeyup="checkRePassword()">
-                                    </div>
-                                </div>
+                            <div class="add-note-button">
+                                <a href="#small-dialog" class="popup-with-zoom-anim button full-width button-sliding-icon">Add Note <i class="icon-material-outline-arrow-right-alt"></i></a>
                             </div>
-                            <span id="password-availability-status">IF("{PASSWORD_ERROR}
-                                "!=""){ {PASSWORD_ERROR} {:IF}</span>
-                            <button type="submit" name="password-submit"
-                                    class="button ripple-effect">{LANG_UPDATE}</button>
-                        </form>
+                        </div>
+                        <!-- Dashboard Box / End -->
                     </div>
-                </div>-->
+                </div>
+                <!-- Row / End -->
+
+
+                <!-- Row -->
+                <div class="row">
+
+                    <!-- Dashboard Box -->
+                    <div class="col-xl-6">
+                        <div class="dashboard-box">
+                            <div class="headline">
+                                <h3><i class="icon-material-baseline-notifications-none"></i> Notifications</h3>
+                                <button class="mark-as-read ripple-effect-dark" data-tippy-placement="left" title="Mark all as read">
+                                    <i class="icon-feather-check-square"></i>
+                                </button>
+                            </div>
+                            <div class="content">
+                                <ul class="dashboard-box-list">
+                                    <li>
+                                        <span class="notification-icon"><i class="icon-material-outline-group"></i></span>
+                                        <span class="notification-text">
+										<strong>Michael Shannah</strong> applied for a job <a href="#">Full Stack Software Engineer</a>
+									</span>
+                                        <!-- Buttons -->
+                                        <div class="buttons-to-right">
+                                            <a href="#" class="button ripple-effect ico" title="Mark as read" data-tippy-placement="left"><i class="icon-feather-check-square"></i></a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="notification-icon"><i class=" icon-material-outline-gavel"></i></span>
+                                        <span class="notification-text">
+										<strong>Gilber Allanis</strong> placed a bid on your <a href="#">iOS App Development</a> project
+									</span>
+                                        <!-- Buttons -->
+                                        <div class="buttons-to-right">
+                                            <a href="#" class="button ripple-effect ico" title="Mark as read" data-tippy-placement="left"><i class="icon-feather-check-square"></i></a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="notification-icon"><i class="icon-material-outline-autorenew"></i></span>
+                                        <span class="notification-text">
+										Your job listing <a href="#">Full Stack Software Engineer</a> is expiring
+									</span>
+                                        <!-- Buttons -->
+                                        <div class="buttons-to-right">
+                                            <a href="#" class="button ripple-effect ico" title="Mark as read" data-tippy-placement="left"><i class="icon-feather-check-square"></i></a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="notification-icon"><i class="icon-material-outline-group"></i></span>
+                                        <span class="notification-text">
+										<strong>Sindy Forrest</strong> applied for a job <a href="#">Full Stack Software Engineer</a>
+									</span>
+                                        <!-- Buttons -->
+                                        <div class="buttons-to-right">
+                                            <a href="#" class="button ripple-effect ico" title="Mark as read" data-tippy-placement="left"><i class="icon-feather-check-square"></i></a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="notification-icon"><i class="icon-material-outline-rate-review"></i></span>
+                                        <span class="notification-text">
+										<strong>David Peterson</strong> left you a <span class="star-rating no-stars" data-rating="5.0"></span> rating after finishing <a href="#">Logo Design</a> task
+									</span>
+                                        <!-- Buttons -->
+                                        <div class="buttons-to-right">
+                                            <a href="#" class="button ripple-effect ico" title="Mark as read" data-tippy-placement="left"><i class="icon-feather-check-square"></i></a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Box -->
+                    <div class="col-xl-6">
+                        <div class="dashboard-box">
+                            <div class="headline">
+                                <h3><i class="icon-material-outline-assignment"></i> Invoices</h3>
+                            </div>
+                            <div class="content">
+                                <ul class="dashboard-box-list">
+                                    <li>
+                                        <div class="invoice-list-item">
+                                            <strong>Professional Plan</strong>
+                                            <ul>
+                                                <li><span class="unpaid">Unpaid</span></li>
+                                                <li>Order: #326</li>
+                                                <li>Date: 12/08/2019</li>
+                                            </ul>
+                                        </div>
+                                        <!-- Buttons -->
+                                        <div class="buttons-to-right">
+                                            <a href="pages-checkout-page.html" class="button">Finish Payment</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="invoice-list-item">
+                                            <strong>Professional Plan</strong>
+                                            <ul>
+                                                <li><span class="paid">Paid</span></li>
+                                                <li>Order: #264</li>
+                                                <li>Date: 10/07/2019</li>
+                                            </ul>
+                                        </div>
+                                        <!-- Buttons -->
+                                        <div class="buttons-to-right">
+                                            <a href="pages-invoice-template.html" class="button gray">View Invoice</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="invoice-list-item">
+                                            <strong>Professional Plan</strong>
+                                            <ul>
+                                                <li><span class="paid">Paid</span></li>
+                                                <li>Order: #211</li>
+                                                <li>Date: 12/06/2019</li>
+                                            </ul>
+                                        </div>
+                                        <!-- Buttons -->
+                                        <div class="buttons-to-right">
+                                            <a href="pages-invoice-template.html" class="button gray">View Invoice</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="invoice-list-item">
+                                            <strong>Professional Plan</strong>
+                                            <ul>
+                                                <li><span class="paid">Paid</span></li>
+                                                <li>Order: #179</li>
+                                                <li>Date: 06/05/2019</li>
+                                            </ul>
+                                        </div>
+                                        <!-- Buttons -->
+                                        <div class="buttons-to-right">
+                                            <a href="pages-invoice-template.html" class="button gray">View Invoice</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Row / End --
+
             </div>
         </div>
     </div>
 </div>
 
+
+<!-- Apply for a job popup
+================================================== -->
+<div id="small-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
+
+    <!--Tabs -->
+    <div class="sign-in-form">
+
+        <ul class="popup-tabs-nav">
+            <li><a href="#tab">Add Note</a></li>
+        </ul>
+
+        <div class="popup-tabs-container">
+
+            <!-- Tab -->
+            <div class="popup-tab-content" id="tab">
+
+                <!-- Welcome Text -->
+                <div class="welcome-text">
+                    <h3>Do Not Forget 😎</h3>
+                </div>
+
+                <!-- Form -->
+                <form method="post" id="add-note">
+
+                    <select class="selectpicker with-border default margin-bottom-20" data-size="7" title="Priority">
+                        <option>Low Priority</option>
+                        <option>Medium Priority</option>
+                        <option>High Priority</option>
+                    </select>
+
+                    <textarea name="textarea" cols="10" placeholder="Note" class="with-border"></textarea>
+
+                </form>
+
+                <!-- Button -->
+                <button class="button full-width button-sliding-icon ripple-effect" type="submit" form="add-note">Add Note <i class="icon-material-outline-arrow-right-alt"></i></button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Apply for a job popup / End -->
 
 <link media="all" rel="stylesheet" type="text/css"
       href="{SITE_URL}templates/{TPL_NAME}/assets/plugins/simditor/styles/simditor.css"/>
@@ -587,5 +565,82 @@
 </script>
 <link href="{SITE_URL}templates/{TPL_NAME}/css/bootstrap-datepicker3.min.css" rel="stylesheet"/>
 <script src="{SITE_URL}templates/{TPL_NAME}/js/bootstrap-datepicker.min.js"></script>
+<script src="{SITE_URL}templates/{TPL_NAME}/js/chart.min.js"></script>
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.{LANG_CODE}.min.js" charset="UTF-8"></script>
+
+<script>
+    Chart.defaults.global.defaultFontFamily = "Nunito";
+    Chart.defaults.global.defaultFontColor = '#888';
+    Chart.defaults.global.defaultFontSize = '14';
+
+    var ctx = document.getElementById('chart').getContext('2d');
+
+    var chart = new Chart(ctx, {
+        type: 'line',
+
+        // The data for our dataset
+        data: {
+            labels: ["January", "February", "March", "April", "May", "June"],
+            // Information about the dataset
+            datasets: [{
+                label: "Views",
+                backgroundColor: 'rgba(42,65,232,0.08)',
+                borderColor: '#2a41e8',
+                borderWidth: "3",
+                data: [196,132,215,362,210,252],
+                pointRadius: 5,
+                pointHoverRadius:5,
+                pointHitRadius: 10,
+                pointBackgroundColor: "#fff",
+                pointHoverBackgroundColor: "#fff",
+                pointBorderWidth: "2",
+            }]
+        },
+
+        // Configuration options
+        options: {
+
+            layout: {
+                padding: 10,
+            },
+
+            legend: { display: false },
+            title:  { display: false },
+
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: false
+                    },
+                    gridLines: {
+                        borderDash: [6, 10],
+                        color: "#d8d8d8",
+                        lineWidth: 1,
+                    },
+                }],
+                xAxes: [{
+                    scaleLabel: { display: false },
+                    gridLines:  { display: false },
+                }],
+            },
+
+            tooltips: {
+                backgroundColor: '#333',
+                titleFontSize: 13,
+                titleFontColor: '#fff',
+                bodyFontColor: '#fff',
+                bodyFontSize: 13,
+                displayColors: false,
+                xPadding: 10,
+                yPadding: 10,
+                intersect: false
+            }
+        },
+
+
+    });
+
+</script>
+
 {OVERALL_FOOTER}
