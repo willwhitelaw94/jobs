@@ -62,3 +62,13 @@ $link['RATE_AVAILABILITY'] = $config['site_url'] . 'edit-profile/rate-and-availa
 $link['LANGUAGES'] = $config['site_url'] . 'edit-profile/languages';
 $link['CULTURAL_BACKGROUNDS'] = $config['site_url'] . 'edit-profile/cultural-backgrounds';
 $link['RELIGION'] = $config['site_url'] . 'edit-profile/religion';
+
+
+// Will Edit
+$link['ACCOUNT'] = $config['site_url'] . 'edit-profile/account';
+$link['ACCEPTED_JOBS'] = $config['site_url'] . 'accepted-jobs';
+$link['REVIEW'] = $config['site_url'] . 'reviews';
+$link['INVOICE'] = $config['site_url'] . 'invoices';
+$link['TIMESHEET'] = $config['site_url'] . 'timesheets';
+
+

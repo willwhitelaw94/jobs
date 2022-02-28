@@ -105,6 +105,16 @@ $router->map('GET|POST','/edit-profile/rate-and-availability', 'rate-and-availab
 $router->map('GET|POST','/edit-profile/languages', 'languages.php');
 $router->map('GET|POST','/edit-profile/cultural-backgrounds', 'cultural-backgrounds.php');
 $router->map('GET|POST','/edit-profile/religion', 'religion.php');
+
+// Wills Routes
+$router->map('GET|POST','/edit-profile/account', 'edit-account.php');
+$router->map('GET|POST','/accepted-jobs', 'accepted-job.php');
+
+$router->map('GET|POST','/reviews', 'review.php');
+$router->map('GET|POST','/invoices', 'invoice.php');
+$router->map('GET|POST','/timesheets', 'timesheet.php');
+
+
 // API Routes
 
 /* Match the current request */

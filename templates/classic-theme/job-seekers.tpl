@@ -23,7 +23,7 @@
                     <div class="intro-banner-search-form listing-page margin-top-30">
                         <!-- Search Field -->
                         <div class="intro-search-field">
-                            <div class="dropdown category-dropdown">
+                            <div class="dropudown category-dropdown">
                                 <a data-toggle="dropdown" href="#">
                                     <span class="change-text">{LANG_SELECT} {LANG_CATEGORY}</span><i
                                             class="fa fa-navicon"></i>
@@ -176,8 +176,44 @@
                 <h3 class="page-title">{LANG_SEARCH_RESULTS}</h3>
 
                 <div class="notify-box margin-top-15">
-                    <span class="font-weight-600">{USERSFOUND} {LANG_USERS_FOUND}</span>
+                    <span class="font-weight-600">{USERSFOUND} {LANG_USERS_FOUND} </span>.
+
+                        IF("{USERSFOUND}"== 0){ <span> Try Posting a <b><a href="#">Job</a></b> or fill the form below and we will find workers for you. </span> {:IF}
+
                 </div>
+                IF("{USERSFOUND}"== 0){
+
+                <div id="zf_div_ns8vUFATpUI0fnUHuNR1COcn6zVBuevaxaoaMQhU7Vw"></div><script type="text/javascript">(function() {
+                        try{
+                            var f = document.createElement("iframe");
+                            f.src = 'https://forms.zohopublic.com/trilogycare/form/ServiceReferralForm/formperma/ns8vUFATpUI0fnUHuNR1COcn6zVBuevaxaoaMQhU7Vw?zf_rszfm=1';
+                            f.style.border="none";
+                            f.style.height="1260px";
+                            f.style.width="100%";
+                            f.style.transition="all 0.5s ease";
+                            var d = document.getElementById("zf_div_ns8vUFATpUI0fnUHuNR1COcn6zVBuevaxaoaMQhU7Vw");
+                            d.appendChild(f);
+                            window.addEventListener('message', function (){
+                                var evntData = event.data;
+                                if( evntData && evntData.constructor == String ){
+                                    var zf_ifrm_data = evntData.split("|");
+                                    if ( zf_ifrm_data.length == 2 ) {
+                                        var zf_perma = zf_ifrm_data[0];
+                                        var zf_ifrm_ht_nw = ( parseInt(zf_ifrm_data[1], 10) + 15 ) + "px";
+                                        var iframe = document.getElementById("zf_div_ns8vUFATpUI0fnUHuNR1COcn6zVBuevaxaoaMQhU7Vw").getElementsByTagName("iframe")[0];
+                                        if ( (iframe.src).indexOf('formperma') > 0 && (iframe.src).indexOf(zf_perma) > 0 ) {
+                                            var prevIframeHeight = iframe.style.height;
+                                            if ( prevIframeHeight != zf_ifrm_ht_nw ) {
+                                                iframe.style.height = zf_ifrm_ht_nw;
+                                            }
+                                        }
+                                    }
+                                }
+                            }, false);
+                        }catch(e){}
+                    })();</script>
+
+                {:IF}
 
                 <div class="listings-container margin-top-35">
                     {LOOP: ITEM}
@@ -253,6 +289,119 @@
         </div>
     </div>
 </form>
+
+
+<div class="gray section padding-top-65 padding-bottom-65">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-xl-12">
+                <!-- Section Headline -->
+                <div class="section-headline centered margin-top-0 margin-bottom-5">
+                    <h3>How It Works?</h3>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-md-4">
+                <!-- Icon Box -->
+                <div class="icon-box with-line">
+                    <!-- Icon -->
+                    <div class="icon-box-circle">
+                        <div class="icon-box-circle-inner">
+                            <i class="fa fa-home"></i>
+                            <div class="icon-box-check">1</div>
+                        </div>
+                    </div>
+                    <h3>Register as a Carer</h3>
+                    <p>Build your Carer profile and add your locations, availability and rate range.</p>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-md-4">
+                <!-- Icon Box -->
+                <div class="icon-box with-line">
+                    <!-- Icon -->
+                    <div class="icon-box-circle">
+                        <div class="icon-box-circle-inner">
+                            <i class="fa fa-home"></i>
+                            <div class="icon-box-check">2</div>
+                        </div>
+                    </div>
+                    <h3>Search Jobs</h3>
+                    <p>Browse Jobs in your region..</p>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-md-4">
+                <!-- Icon Box -->
+                <div class="icon-box">
+                    <!-- Icon -->
+                    <div class="icon-box-circle">
+                        <div class="icon-box-circle-inner">
+                            <i class="fa fa-home"></i>
+                            <div class="icon-box-check">3</div>
+                        </div>
+                    </div>
+                    <h3>Message and Agree</h3>
+                    <p>Nanotechnology immersion along the information highway will close the loop on focusing solely.</p>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!-- Counters -->
+<div class="section  padding-bottom-75">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-xl-12">
+                <div class="counters-container">
+
+                    <!-- Counter -->
+                    <div class="single-counter">
+                        <i class="icon-line-awesome-suitcase"></i>
+                        <div class="counter-inner">
+                            <h3><span class="counter">1,586</span></h3>
+                            <span class="counter-title">Jobs Posted</span>
+                        </div>
+                    </div>
+
+                    <!-- Counter -->
+                    <div class="single-counter">
+                        <i class="icon-line-awesome-legal"></i>
+                        <div class="counter-inner">
+                            <h3><span class="counter">3,543</span></h3>
+                            <span class="counter-title">Tasks Posted</span>
+                        </div>
+                    </div>
+
+                    <!-- Counter -->
+                    <div class="single-counter">
+                        <i class="icon-line-awesome-user"></i>
+                        <div class="counter-inner">
+                            <h3><span class="counter">2,413</span></h3>
+                            <span class="counter-title">Active Members</span>
+                        </div>
+                    </div>
+
+                    <!-- Counter -->
+                    <div class="single-counter">
+                        <i class="icon-line-awesome-trophy"></i>
+                        <div class="counter-inner">
+                            <h3><span class="counter">99</span>%</h3>
+                            <span class="counter-title">Satisfaction Rate</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Counters / End -->
+
 <script type="text/javascript">
     var getMaincatId = '{MAINCAT}';
     var getSubcatId = '{SUBCAT}';

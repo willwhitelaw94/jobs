@@ -20,49 +20,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-12">
-                <div class="dashboard-sidebar">
-                    <div class="dashboard-sidebar-inner">
-                        <div class="dashboard-nav-container">
-                            <!-- Responsive Navigation Trigger -->
-                            <a href="#" class="dashboard-responsive-nav-trigger">
-                                <span class="hamburger hamburger--collapse" >
-                                    <span class="hamburger-box">
-                                        <span class="hamburger-inner"></span>
-                                    </span>
-                                </span>
-                                <span class="trigger-title">{LANG_DASH_NAVIGATION}</span>
-                            </a>
-
-                            <div class="dashboard-nav">
-                                <div class="dashboard-nav-inner">
-                                  <ul data-submenu-title="{LANG_MY_ACCOUNT}">
-                                    <li><a href="{LINK_DASHBOARD}"><i class="icon-feather-grid"></i> {LANG_DASHBOARD}</a></li>
-                                      <li><a href="{LINK_PROFILE}/{USERNAME}"><i
-                                                      class="icon-feather-user"></i> {LANG_PROFILE_PUBLIC}</a></li>
-                                </ul>
-                                <ul data-submenu-title="{LANG_MY_JOBS}">
-                                    IF({RESUME_ENABLE}){
-                                    <li><a href="{LINK_RESUMES}"><i
-                                                    class="icon-feather-paperclip"></i> {LANG_MY_RESUMES} <span
-                                                    class="nav-tag">{RESUMES}</span></a></li>
-                                    {:IF}
-                                    <li class="active"><a href="{LINK_FAVJOBS}"><i class="icon-feather-heart"></i> {LANG_FAV_JOBS} <span class="nav-tag fav-ad-count">{FAVORITEADS}</span></a></li>
-                                    <li><a href="{LINK_JOBALERT}"><i class="icon-feather-bell"></i> {LANG_JOB_ALERT}</a></li>
-                                </ul>
-
-                                <ul data-submenu-title="{LANG_ACCOUNT}">
-                                    IF('{WCHAT}'=='on'){
-                                    <li><a href="{LINK_MESSAGE}"><i class="icon-feather-message-circle"></i> {LANG_MESSAGE}</a></li>
-                                    {:IF}
-                                    <li><a href="{LINK_LOGOUT}"><i class="icon-feather-log-out"></i> {LANG_LOGOUT}</a></li>
-                                </ul>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {USER_SIDEBAR}
             </div>
-        </div>
         <div class="col-lg-9 col-md-12">
             <div class="dashboard-box margin-top-0">
                 <!-- Headline -->

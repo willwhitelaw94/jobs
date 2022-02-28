@@ -20,82 +20,141 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-12">
-                <div class="dashboard-sidebar">
-                    <div class="dashboard-sidebar-inner">
-                        <div class="dashboard-nav-container">
-                            <!-- Responsive Navigation Trigger -->
-                            <a href="#" class="dashboard-responsive-nav-trigger">
-                                <span class="hamburger hamburger--collapse" >
-                                    <span class="hamburger-box">
-                                        <span class="hamburger-inner"></span>
-                                    </span>
-                                </span>
-                                <span class="trigger-title">{LANG_DASH_NAVIGATION}</span>
-                            </a>
-
-                            <div class="dashboard-nav">
-                                <div class="dashboard-nav-inner">
-                                  <ul data-submenu-title="{LANG_MY_ACCOUNT}">
-                                    <li><a href="{LINK_DASHBOARD}"><i class="icon-feather-grid"></i> {LANG_DASHBOARD}</a></li>
-                                </ul>
-                                <ul data-submenu-title="{LANG_MY_JOBS}">
-                                    IF({RESUME_ENABLE}){
-                                    <li><a href="{LINK_RESUMES}"><i
-                                                    class="icon-feather-paperclip"></i> {LANG_MY_RESUMES} <span
-                                                    class="nav-tag">{RESUMES}</span></a></li>
-                                    {:IF}
-                                    <li><a href="{LINK_APPLIED_JOBS}"><i class="icon-feather-briefcase"></i> {LANG_APPLIED_JOBS}
-                                            <span class="nav-tag">{APPLIEDJOBS}</span></a></li>
-                                    <li><a href="{LINK_FAVJOBS}"><i class="icon-feather-heart"></i> {LANG_FAV_JOBS} <span class="nav-tag">{FAVORITEADS}</span></a></li>
-                                    <li class="active"><a href="{LINK_JOBALERT}"><i class="icon-feather-bell"></i> {LANG_JOB_ALERT}</a></li>
-                                </ul>
-
-                                <ul data-submenu-title="{LANG_ACCOUNT}">
-                                    IF('{WCHAT}'=='on'){
-                                    <li><a href="{LINK_MESSAGE}"><i class="icon-feather-message-circle"></i> {LANG_MESSAGE}</a></li>
-                                    {:IF}
-                                    <li><a href="{LINK_LOGOUT}"><i class="icon-feather-log-out"></i> {LANG_LOGOUT}</a></li>
-                                </ul>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {USER_SIDEBAR}
             </div>
-        </div>
         <div class="col-lg-9 col-md-12">
             <div class="dashboard-box margin-top-0">
                 <!-- Headline -->
                 <div class="headline">
-                    <h3><i class="icon-feather-bell"></i> {LANG_JOB_ALERT}</h3>
+                    <h3><i class="icon-feather-bell"></i> Notifications</h3>
                 </div>
                 <div class="content with-padding">
                     <form method="post">
-                    <div class="form-group">
-                        <div class="checkbox">
-                          <input type="checkbox" id="notify" name="notify" value="1" onchange="NotifyValueChanged()" IF({NOTIFY}){ checked {:IF}>
-                          <label for="notify"><span class="checkbox-icon"></span> {LANG_NOTIFYEMAIL}</label>
+
+                        IF('{USERTYPE}' == "user"){
+                        <!-- Notify me when a job gets posted that is relevant to my choice. -->
+
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <input type="checkbox" id="notify" name="notify" value="1" onchange="NotifyValueChanged()" IF({NOTIFY}){ checked {:IF}>
+                                <label for="notify"><span class="checkbox-icon"></span> {LANG_NOTIFYEMAIL}</label>
+                            </div>
+                            <ul class="skills margin-left-20">
+                                {LOOP: CATEGORY}
+                                    <li>
+                                        <div class="checkbox">
+                                            <input type="checkbox" id="{CATEGORY.id}" name="choice[{CATEGORY.id}]" value="{CATEGORY.id}" {CATEGORY.selected}>
+                                            <label for="{CATEGORY.id}"><span class="checkbox-icon"></span> {CATEGORY.name}</label>
+                                        </div>
+                                    </li>
+                                {/LOOP: CATEGORY}
+                            </ul>
                         </div>
-                      <ul class="skills margin-left-20">
-                        {LOOP: CATEGORY}
-                        <li>
-                         <div class="checkbox">
-                          <input type="checkbox" id="{CATEGORY.id}" name="choice[{CATEGORY.id}]" value="{CATEGORY.id}" {CATEGORY.selected}>
-                          <label for="{CATEGORY.id}"><span class="checkbox-icon"></span> {CATEGORY.name}</label>
-                      </div>
-                  </li>
-                  {/LOOP: CATEGORY}
-              </ul>
-          </div>
-          <button type="submit" name="submit" class="button ripple-effect">{LANG_SAVE_CHANGES}</button>
-          </form>
-      </div>
-  </div>
+                        <!-- Employer -->
+
+                        <!-- Notify me when somebody sends me a message. -->
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <input type="checkbox" id="notify2" name="notify2" value="1" onchange="NotifyValueChanged()" IF({NOTIFY}){ checked {:IF}>
+                                <label for="notify2"><span class="checkbox-icon"></span> Notify me when somebody sends me a message.</label>
+                            </div>
+                            <ul class="skills margin-left-20">
+
+                            </ul>
+                        </div>
+                        <!-- Notify me when somebody accepts a job I applied for. -->
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <input type="checkbox" id="notify3" name="notify3" value="1" onchange="NotifyValueChanged()" IF({NOTIFY}){ checked {:IF}>
+                                <label for="notify3"><span class="checkbox-icon"></span> Notify me when somebody accepts a job I applied for.</label>
+                            </div>
+                            <ul class="skills margin-left-20">
+
+                            </ul>
+                        </div>
+                        <!-- Notify me when somebody cancels a job. -->
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <input type="checkbox" id="notify4" name="notify4" value="1" onchange="NotifyValueChanged()" IF({NOTIFY}){ checked {:IF}>
+                                <label for="notify4"><span class="checkbox-icon"></span> Notify me when somebody cancels a job.</label>
+                            </div>
+                            <ul class="skills margin-left-20">
+
+                            </ul>
+                        </div>
+
+                        <!-- Notify me when somebody accepts a timesheet. -->
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <input type="checkbox" id="notify4" name="notify4" value="1" onchange="NotifyValueChanged()" IF({NOTIFY}){ checked {:IF}>
+                                <label for="notify4"><span class="checkbox-icon"></span> Notify me when somebody accepts a timesheet. </label>
+                            </div>
+                            <ul class="skills margin-left-20">
+
+                            </ul>
+                        </div>
+
+                        <!-- Notify me when an invoice is prepared. -->
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <input type="checkbox" id="notify4" name="notify4" value="1" onchange="NotifyValueChanged()" IF({NOTIFY}){ checked {:IF}>
+                                <label for="notify4"><span class="checkbox-icon"></span> Notify me when an invoice is prepared.</label>
+                            </div>
+                            <ul class="skills margin-left-20">
+
+                            </ul>
+                        </div>
+
+                        <!-- Notify me when an invoice is paid. -->
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <input type="checkbox" id="notify4" name="notify4" value="1" onchange="NotifyValueChanged()" IF({NOTIFY}){ checked {:IF}>
+                                <label for="notify4"><span class="checkbox-icon"></span> Notify me when an invoice is paid.</label>
+                            </div>
+                            <ul class="skills margin-left-20">
+                            </ul>
+                        </div>
+
+                        <!-- Notify me when somebody leaves a review. -->
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <input type="checkbox" id="notify4" name="notify4" value="1" onchange="NotifyValueChanged()" IF({NOTIFY}){ checked {:IF}>
+                                <label for="notify4"><span class="checkbox-icon"></span> Notify me when somebody leaves a review.</label>
+                            </div>
+                            <ul class="skills margin-left-20">
+                            </ul>
+                        </div>
+
+                        {:IF}
+                        IF('{USERTYPE}' == "user"){
+
+                        <!-- Notify me when somebody sends me a message. (shared) -->
+                        <!-- Notify me when somebody applies for a job. -->
+                        <!-- Notify me when somebody cancels a job (shared) -->
+                        <!-- Notify when somebody submits a timesheet. -->
+                        <!-- Notify me when an invoice is submitted. (shared) -->
+                        <!-- Notify me when an invoice is paid. -->
+                        <!-- Notify me when somebody leaves a review. (shared) -->
+
+                        {:IF}
+
+
+
+
+
+
+
+                      <button type="submit" name="submit" class="button ripple-effect">{LANG_SAVE_CHANGES}</button>
+                      </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-</div>
-</div>
+
+
+
 <script type="text/javascript">
     function NotifyValueChanged()
     {

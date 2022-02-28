@@ -246,6 +246,10 @@ IF(!{LOGGED_IN}){
 <script src="{SITE_URL}templates/{TPL_NAME}/js/mmenu.min.js"></script>
 <script src="{SITE_URL}templates/{TPL_NAME}/js/tippy.all.min.js"></script>
 <script src="{SITE_URL}templates/{TPL_NAME}/js/bootstrap-select.min.js"></script>
+
+<script src="{SITE_URL}templates/{TPL_NAME}/js/bootstrap-slider.min.js"></script>
+<script src="{SITE_URL}templates/{TPL_NAME}/js/simplebar.min.js"></script>
+
 <script src="{SITE_URL}templates/{TPL_NAME}/js/snackbar.js"></script>
 <script src="{SITE_URL}templates/{TPL_NAME}/js/magnific-popup.min.js"></script>
 <script src="{SITE_URL}templates/{TPL_NAME}/js/jquery.cookie.min.js"></script>
@@ -325,6 +329,10 @@ ELSEIF({LOGGED_IN} && '{QUICKCHAT_AJAX_ON_OFF}'=='on'){
     }
 </script>
 
+
+
+
+
 <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/plugins/smiley/smiley.js"></script>
 <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/lightbox.js"></script>
@@ -360,12 +368,14 @@ ELSEIF({LOGGED_IN} && '{ZECHAT_ON_OFF}'=='on'){
         var rtl = false;
     }
 </script>
+
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
 <script type="text/javascript" src="{SITE_URL}plugins/zechat/app/plugins/smiley/js/emojione.min.js"></script>
 <script type="text/javascript" src="{SITE_URL}plugins/zechat/app/plugins/smiley/smiley.js"></script>
 <script type="text/javascript" src="{SITE_URL}plugins/zechat/app/includes/chatjs/lightbox.js"></script>
 <script type="text/javascript" src="{SITE_URL}plugins/zechat/app/includes/chatjs/chat.js"></script>
 <script type="text/javascript" src="{SITE_URL}plugins/zechat/app/includes/chatjs/custom.js"></script>
+
 <script type="text/javascript"
         src="{SITE_URL}plugins/zechat/app/plugins/uploader/plupload.full.min.js"></script>
 <script type="text/javascript"

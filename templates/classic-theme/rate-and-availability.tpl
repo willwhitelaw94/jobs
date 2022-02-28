@@ -28,9 +28,9 @@
                {USER_SIDEBAR}
             </div>
             <div class="col-lg-9 col-md-12 js-accordion">
-                {USER_DASHBOARD_CARD}
+
                 
-                <div class="dashboard-box js-accordion-item active">
+                <div class="dashboard-box m-t-0 js-accordion-item active">
                     <!-- Headline -->
                     <div class="headline js-accordion-header">
                         <h3><i class="icon-feather-user"></i> {LANG_RATE_AVAILABILITY}</h3>
@@ -75,20 +75,73 @@
                                              
                                                 {:IF}
                                             </select>
+                                            <span class="hide-under-768px margin-top-20">
+                                                <ul class="categories-list">
+                                                    Cities close to my home:
+
+                                                    <li>
+                                                        <a href="#">
+                                                            City in District
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            City in District
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                                <ul class="categories-list">
+                                                    Cities close to my work location:
+
+                                                    <li>
+                                                        <a href="#">
+                                                            City in District
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            City in District
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            City in District
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            City in District
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            City in District
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </span>
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div class="col-xl-6 col-md-6">
+                                        <h3>Preferred Days:</h3>
+                                        <p>Make sure your available days are accurate and up-to-date so you get enquiries that suit you and your availability.</p>
+                                        <div class="submit-field"  id="prefered_days">
+
+                                        <select class="selectpicker" multiple data-selected-text-format="count > 1">
+                                            {LOOP: DAYSLIST}
+                                                <option value="{DAYSLIST.code}">{DAYSLIST.day}</option>
+                                            {/LOOP: DAYSLIST}
+                                        </select>
+                                        IF("{DAY_ERROR}"!=""){ {DAY_ERROR} {:IF}
                                         </div>
                                     </div>
-                                    <div class="col-xl-12 col-md-12">
-                                        <h3>Prefered Days:</h3>
-                                        <p>Make sure your available days are accurate and up-to-date so you get inquiries that suit you and your availability.</p>
-                                            <div class="submit-field"  id="prefered_days">
-                                                <select id="days" class="with-border" name="days[]" data-size="7" title="{LANG_SELECT} {LANG_DAY}" multiple>   
-                                                {LOOP: DAYSLIST}
-                                                <option value="{DAYSLIST.code}">{DAYSLIST.day}</option>
-                                                {/LOOP: DAYSLIST} 
-                                                </select>
-                                                IF("{DAY_ERROR}"!=""){ {DAY_ERROR} {:IF}
-                                            </div>
-                                    </div>
+
                                 </div>
                                 <div class="row">
                                      <div class="col-xl-12 ">
@@ -133,7 +186,7 @@
                                             </div>
                                         </div>
                                      </div>
-                                     <div class="col-xl-6 col-md-12">
+                                     <div class="col-xl-3 col-md-12">
                                         <div class="submit-field">
                                             <div class="input-with-icon">
                                                 <input class="with-border margin-bottom-0" type="number" placeholder="{LANG_MIN}"
@@ -145,7 +198,7 @@
                                            
                                         </div>
                                     </div>
-                                    <div class="col-xl-6 col-md-12">
+                                    <div class="col-xl-3 col-md-12">
                                         <div class="submit-field">
                                             
                                             <div class="input-with-icon">

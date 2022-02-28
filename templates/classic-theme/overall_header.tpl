@@ -49,16 +49,21 @@
     <style>
         :root{{LOOP: COLORS}--theme-color-{COLORS.id}: {COLORS.value};{/LOOP: COLORS}}
     </style>
+    <link rel="stylesheet" href="{SITE_URL}templates/{TPL_NAME}/css/invoice.css?ver={VERSION}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{SITE_URL}templates/{TPL_NAME}/css/flags/flags.min.css?ver={VERSION}">
     <link rel="stylesheet" href="{SITE_URL}templates/{TPL_NAME}/css/slick.css">
     <link rel="stylesheet" href="{SITE_URL}includes/assets/css/icons.css">
     <link rel="stylesheet" href="{SITE_URL}templates/{TPL_NAME}/css/style.css?ver={VERSION}">
     <link rel="stylesheet" href="{SITE_URL}templates/{TPL_NAME}/css/color.css?ver={VERSION}">
     <script src="{SITE_URL}templates/{TPL_NAME}/js/jquery-3.4.1.min.js"></script>
-    
-    
+
+
+    <link rel="stylesheet" href="{SITE_URL}templates/{TPL_NAME}/css/custom_style.css?ver={VERSION}">
+
+
+
     IF("{LANGUAGE_DIRECTION}"=="rtl"){
     <link rel="stylesheet" href="{SITE_URL}templates/{TPL_NAME}/css/rtl.css?ver={VERSION}">
     {:IF}
@@ -86,9 +91,9 @@
             });
         });
     </script>
-     <link href="{SITE_URL}plugins/quickchat-ajax/plugins/smiley/assets/sprites/emojione.sprites.css" rel="stylesheet" type="text/css"/>
+    <link href="{SITE_URL}plugins/quickchat-ajax/plugins/smiley/assets/sprites/emojione.sprites.css" rel="stylesheet" type="text/css"/>
     <script src="{SITE_URL}plugins/quickchat-ajax/plugins/smiley/js/emojione.min.js"></script>
- 
+
     <!-- ===External Code=== -->
     {EXTERNAL_CODE}
     <!-- ===/External Code=== -->
@@ -178,13 +183,108 @@
                 </div>
                 <div class="right-side">
                     IF({LOGGED_IN}){
-                    <div class="header-widget padding-right-0 d-none d-lg-block">
+                    <!--  User Notifications -->
+                    <div class="header-widget hide-on-mobile">
+                        <!-- Notifications add notification-->
+                        <div class="header-notifications">
+
+                            <!-- Trigger -->
+                            <div class="header-notifications-trigger">
+                                <a href="#"><i class="icon-feather-bell"></i><span>4</span></a>
+                            </div>
+
+                            <!-- Dropdown -->
+                            <div class="header-notifications-dropdown">
+
+                                <div class="header-notifications-headline">
+                                    <h4>Notifications</h4>
+                                    <button class="mark-as-read ripple-effect-dark" title="Mark all as read" data-tippy-placement="left">
+                                        <i class="icon-feather-check-square"></i>
+                                    </button>
+                                </div>
+
+                                <div class="header-notifications-content">
+                                    <div class="header-notifications-scroll" data-simplebar>
+                                        <ul>
+                                            <!-- Notification -->
+                                            <li class="notifications-not-read">
+                                                <a href="dashboard-manage-candidates.html">
+                                                    <span class="notification-icon"><i class="icon-material-outline-group"></i></span>
+                                                    <span class="notification-text">
+													<strong>Michael Shannah</strong> applied for a job <span class="color">Full Stack Software Engineer</span>
+												</span>
+                                                </a>
+                                            </li>
+
+                                            <!-- Notification -->
+                                            <li>
+                                                <a href="dashboard-manage-bidders.html">
+                                                    <span class="notification-icon"><i class=" icon-material-outline-gavel"></i></span>
+                                                    <span class="notification-text">
+													<strong>Gilbert Allanis</strong> placed a bid on your <span class="color">iOS App Development</span> project
+												</span>
+                                                </a>
+                                            </li>
+
+                                            <!-- Notification -->
+                                            <li>
+                                                <a href="dashboard-manage-jobs.html">
+                                                    <span class="notification-icon"><i class="icon-material-outline-autorenew"></i></span>
+                                                    <span class="notification-text">
+													Your job listing <span class="color">Full Stack PHP Developer</span> is expiring.
+												</span>
+                                                </a>
+                                            </li>
+
+                                            <!-- Notification -->
+                                            <li>
+                                                <a href="dashboard-manage-candidates.html">
+                                                    <span class="notification-icon"><i class="icon-material-outline-group"></i></span>
+                                                    <span class="notification-text">
+													<strong>Sindy Forrest</strong> applied for a job <span class="color">Full Stack Software Engineer</span>
+												</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Menu -->
+                    <div class="header-widget">
+
+                        <!-- Messages -->
                         <div class="header-notifications user-menu">
                             <div class="header-notifications-trigger">
                                 <a href="#"><i class="icon-feather-user"></i> {USERNAME}<i
                                             class="icon-feather-chevron-down"></i></a>
                             </div>
+
+                            <!-- Dropdown -->
                             <div class="header-notifications-dropdown">
+
+                                <!-- User Status -->
+                                <div class="user-status">
+
+                                    <!-- User Name / Avatar -->
+                                    <div class="user-details">
+                                        <div class="user-avatar status-online"><img src="images/user-avatar-small-01.jpg" alt=""></div>
+                                        <div class="user-name">
+                                            {USERNAME} <span>{ROLE}</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- User Status Switcher -->
+                                    <div class="status-switch" id="snackbar-user-status">
+                                        <label class="user-online current-status">Online</label>
+                                        <label class="user-invisible">Offline</label>
+                                        <!-- Status Indicator -->
+                                        <span class="status-indicator" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+
                                 <ul class="user-menu-small-nav">
                                     <li><a href="{LINK_DASHBOARD}"><i class="icon-feather-grid"></i> {LANG_DASHBOARD}
                                         </a></li>
@@ -219,6 +319,23 @@
                                     {:IF}
                                     <li><a href="{LINK_LOGOUT}"><i class="icon-feather-log-out"></i> {LANG_LOGOUT}</a>
                                     </li>
+                                </ul>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+
+                    <div class="header-widget padding-right-0 d-none d-lg-block">
+                        <div class="header-notifications user-menu">
+
+                            <div class="header-notifications-dropdown">
+                                <ul class="user-menu-small-nav">
+
                                 </ul>
                             </div>
                         </div>

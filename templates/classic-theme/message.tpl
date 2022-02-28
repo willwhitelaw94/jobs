@@ -1,5 +1,5 @@
 {OVERALL_HEADER}
-<div class="container margin-top-50 margin-bottom-50">
+<div class="container margin-top-20 margin-bottom-20">
 <div class="row">
     <div class="col-md-12">
     	<div class="margin-0-auto">
