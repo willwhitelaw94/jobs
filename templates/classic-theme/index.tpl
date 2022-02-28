@@ -2,12 +2,13 @@
 IF({SHOW_SEARCH_HOME}){
 <div class="intro-banner" data-background-image="{SITE_URL}storage/banner/{BANNER_IMAGE}">
     <div class="container">
+      
         <div class="row">
             <div class="col-md-12">
-                <div class="banner-headline">
-                    <h3><strong>{LANG_HOME_BANNER_HEADING}</strong>
+                <div class=" mb-5">
+                    <h1><strong>{LANG_HOME_BANNER_HEADING}</strong>
                         <br>
-                        <span>{LANG_HOME_BANNER_TAGLINE}</span></h3>
+                        <span>{LANG_HOME_BANNER_TAGLINE}</span></h1>
                 </div>
             </div>
         </div>
@@ -15,7 +16,9 @@ IF({SHOW_SEARCH_HOME}){
             <div class="col-md-12">
                 <form autocomplete="off" method="get" action="{LINK_LISTING}" accept-charset="UTF-8">
                     <div class="intro-banner-search-form margin-top-45">
-                        <div class="intro-search-field">
+                        <div class="intro-search-field with-label">
+                            <label for="intro-keywords" class="field-title ripple-effect"><a>What job you want?</a></label>
+                            
                             <input id="intro-keywords" type="text" class="qucikad-ajaxsearch-input"
                                    placeholder="{LANG_JOBTITLE_KEYWORD}" data-prev-value="0"
                                    data-noresult="{LANG_MORE_RESULTS_FOR}">
@@ -40,7 +43,9 @@ IF({SHOW_SEARCH_HOME}){
                                 </div>
                             </div>
                         </div>
-                        <div class="intro-search-field live-location-search with-autocomplete">
+                        <div class="intro-search-field live-location-search with-autocomplete with-label">
+                            
+                        <label for="intro-keywords" class="field-title ripple-effect">What job you want?</label>    
                             <div class="input-with-icon">
                                 <input type="text" id="searchStateCity" name="location" placeholder="{LANG_WHERE}">
                                 <i class="icon-feather-map-pin"></i>
@@ -55,12 +60,35 @@ IF({SHOW_SEARCH_HOME}){
                             </div>
                         </div>
                         <div class="intro-search-button">
-                            <button class="button ripple-effect">{LANG_SEARCH}</button>
+                            <button class="button ripple-effect ">{LANG_SEARCH}</button>
                         </div>
                     </div>
                 </form>
             </div>
+            
+            
         </div>
+        
+        <div class="row">
+			<div class="text-white col-md-12">
+				<ul class="intro-stats margin-top-45 hide-under-992px ">
+					<li>
+						<strong class="counter ">1,586</strong>
+						<span>Jobs Posted</span>
+					</li>
+					<li>
+						<strong class="counter ">3,543</strong>
+						<span>Tasks Posted</span>
+					</li>
+					<li>
+						<strong class="counter ">1,232</strong>
+						<span>Freelancers</span>
+					</li>
+				</ul>
+			</div>
+		</div>        
+        
+        
     </div>
 </div>
 <a class="popup-with-zoom-anim hidden" href="#citiesModal" id="change-city">city</a>
@@ -126,6 +154,7 @@ IF({SHOW_SEARCH_HOME}){
 </div>
 {:IF}
 
+
 IF({SHOW_CATEGORIES_HOME}){
 <!-- Category Boxes -->
 <div class="section padding-top-65 padding-bottom-45 IF(!{SHOW_FEATURED_JOBS_HOME}){ gray {:IF}">
@@ -142,7 +171,7 @@ IF({SHOW_CATEGORIES_HOME}){
                     <div class="advertisement" id="quickjob-top">{TOP_ADSCODE}</div>
                 </div>
                 {:IF}
-                <div class="section-headline centered margin-bottom-15">
+                <div class="section-headline centered margin-bottom-25">
                     <h3>{LANG_JOB_CATEGORIES}</h3>
                 </div>
                 <div class="categories-container">
@@ -158,6 +187,7 @@ IF({SHOW_CATEGORIES_HOME}){
                             <div class="category-box-counter">{CAT.main_ads_count}</div>
                             <div class="category-box-content">
                                 <h3>{CAT.main_title} <small>({CAT.main_ads_count})</small></h3>
+                                <p>Including {SUBCATEGORY}</p>
                             </div>
                             <div class="category-box-arrow">
                                 <i class="fa fa-chevron-right"></i>
@@ -212,7 +242,7 @@ IF({SHOW_FEATURED_JOBS_HOME}){
                                         <div class="badge yellow"> {LANG_URGENT}</div> {:IF}
                                     </h3>
                                 </div>
-                                <span class="job-type">{ITEM.product_type}</span>
+                                <span class="job-type"></span>
                             </div>
                             <div class="job-listing-footer">
                                 <ul>
@@ -222,9 +252,13 @@ IF({SHOW_FEATURED_JOBS_HOME}){
                                         -{ITEM.salary_max} {LANG_PER} {ITEM.salary_type}</li>
                                     {:IF}
                                     <li><i class="la la-clock-o"></i> {ITEM.created_at}</li>
+                                    <li><i class="la la-clock-o"></i> {ITEM.product_type}</li>
+
                                 </ul>
                             </div>
                         </div>
+                           <span class=" job-type"><a href="{ITEM.link}">View Job</a></span>
+
                     {/LOOP: ITEM}
                 </div>
             </div>
@@ -271,10 +305,13 @@ IF({SHOW_LATEST_JOBS_HOME}){
                                                 -{ITEM2.salary_max} {LANG_PER} {ITEM2.salary_type}</li>
                                             {:IF}
                                             <li><i class="la la-clock-o"></i> {ITEM2.created_at}</li>
+                                            <li><i class="la la-clock-o"></i> {ITEM2.product_type}</li>
+
                                         </ul>
                                     </div>
                                 </div>
-                                <span class="job-type">{ITEM2.product_type}</span>
+                                <span class=" job-type"><a href="{ITEM2.link}">View Job</a></span>
+
                             </div>
                         </div>
                     {/LOOP: ITEM2}
