@@ -1,10 +1,16 @@
 <?php
 require_once('../datatable-json/includes.php');
 
-$langId = isset($_GET['id'])? $_GET['id'] : "";
+$cbId = isset($_GET['id'])? $_GET['id'] : "";
 
-$info = ORM::for_table($config['db']['pre'].'cultural_backgrounds')->find_one($langId);
-//print_r($info);die;
+$info = ORM::for_table($config['db']['pre'].'cultural_backgrounds')->find_one($cbId);
+$c_option = ORM::for_table($config['db']['pre'].'cultural_background_options')->table_alias('b_opt')
+->select_many('b_opt.id','b_opt.name')
+->left_outer_join($config['db']['pre'].'cultural_backgrounds','b_opt.cultural_background_id=c_back.id','c_back')
+->where('c_back.id',$cbId)
+->find_array();
+//echo ORM::get_last_query();die;
+//print_r($c_option);die;
 ?>
 <header class="slidePanel-header overlay">
     <div class="overlay-panel overlay-background vertical-align">
@@ -38,16 +44,16 @@ $info = ORM::for_table($config['db']['pre'].'cultural_backgrounds')->find_one($l
             <div class="col-sm-12">
                 <div class="white-box">
                     <div id="post_error"></div>
-                    <form name="form2"  class="form form-horizontal" method="post" data-ajax-action="" id="sidePanel_form">
+                    <form name="form2"  class="form form-horizontal" method="post" data-ajax-action="editCulturalBackground" id="sidePanel_form">
                         <div class="form-body">
                             <input type="hidden" name="id" value="<?php echo $_GET['id']?>">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="exampleInputfullname">Country Name<code>*</code></label>
+                                        <label for="exampleInputfullname">Cultural Background Name<code>*</code></label>
                                         <div class="input-group">
                                             <div class="input-group-addon"><i class="ion-person"></i></div>
-                                            <input type="text" class="form-control" id="exampleInputfullname" placeholder="Religion Name" name="name" required=""  value="<?php echo $info['name'];?>">
+                                            <input type="text" class="form-control" id="exampleInputfullname" placeholder="Cultural Background Name" name="name" required=""  value="<?php echo $info['name'];?>">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
@@ -56,39 +62,37 @@ $info = ORM::for_table($config['db']['pre'].'cultural_backgrounds')->find_one($l
                                     <div class="repeater form-group">
                                     <label for="exampleInputfulltype">Add Cultural Option<code>*</code></label>
                                         <div data-repeater-list="options" class="option_repeat">
-                                                <div data-repeater-item class="input-group">
-                                                    <div class="input-group-addon"><i class="ion-person"></i></div>
-                                                  
-                                                    <input type="text"  class="form-control" name="name" placeholder="Add Cultural Name"/>
-                                                    <div class="input-group-addon btn-danger" data-repeater-delete type="button" value="Delete"><i class="fa fa-trash"></i></div>
-                                                    <!-- <input data-repeater-delete type="button" value="Delete"/> -->
-                                                </div>
+                                               <?php
+                                               if(empty($c_option)){?>
+                                                   <div data-repeater-item class="input-group">
+                                                         <div class="input-group-addon"><i class="ion-person"></i></div>
+                                                       
+                                                         <input type="text"  class="form-control" name="name" placeholder="Cultural Option" value="<?php echo $val['name']?>"/>
+                                                         <div class="input-group-addon btn-danger" data-repeater-delete type="button" value="Delete"><i class="fa fa-trash"></i></div>
+                                                        
+                                                    </div> 
+                                               <?php
+                                               }
+                                               else{
+                                                foreach($c_option as $k=>$val){?>
+                                                    <div data-repeater-item class="input-group">
+                                                         <div class="input-group-addon"><i class="ion-person"></i></div>
+                                                       
+                                                         <input type="text"  class="form-control" name="name" placeholder="Add Cultural Name" value="<?php echo $val['name']?>"/>
+                                                         <div class="input-group-addon btn-danger" data-repeater-delete type="button" value="Delete"><i class="fa fa-trash"></i></div>
+                                                        
+                                                     </div> 
+                                                    <?php 
+                                                     }
+                                                    
+                                               }  ?>     
                                         </div>
                                         <div class="input-group-addon btn-primary rpt_click" data-repeater-create type="button" value="Add"><i class="fa fa-plus"></i></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <!-- <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="exampleInputfulltype">Language Type<code>*</code></label>
-                                        <div class="input-group">
-                                            <div class="input-group-addon"><i class="ion-person"></i></div>
-                                            <input type="text" class="form-control" id="exampleInputreligionname" placeholder="Religion Name" name="type" required=""  value="<?php echo $info['type'];?>">
-                                            <span class="help-block"></span>
-                                        </div>
-                                    </div>
-                                </div> -->
-                                    <!-- <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <label for="exampleInputfulltype">Language Type</label>
-                                            <select name="type" id="exampleInputreligionname" class="form-control">
-                                                <option value="main" <?php if($info['type'] == 'main'){ echo 'selected'; } ?>>main</option>
-                                                <option value="others" <?php if($info['type'] == 'others'){ echo 'selected'; } ?>>others</option>
-                                            </select>
-                                         </div>
-                                    </div> -->
-                                </div>
+                            </div>
                             <input type="hidden" name="submit">
                         </div>
 

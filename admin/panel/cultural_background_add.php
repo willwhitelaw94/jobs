@@ -38,10 +38,10 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="exampleInputfullname">Country Name<code>*</code></label>
+                                        <label for="exampleInputfullname">Cultural Background Name<code>*</code></label>
                                         <div class="input-group">
                                             <div class="input-group-addon"><i class="ion-person"></i></div>
-                                            <input type="text" class="form-control" id="exampleInputreligionname" placeholder="Country Name" name="name" required="">
+                                            <input type="text" class="form-control" id="exampleInputreligionname" placeholder="Cultural Background Name" name="name" required="">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
@@ -54,7 +54,7 @@
                                                 <div data-repeater-item class="input-group">
                                                     <div class="input-group-addon"><i class="ion-person"></i></div>
                                                   
-                                                    <input type="text"  class="form-control" name="name" placeholder="Add Cultural Name"/>
+                                                    <input type="text"  class="form-control" name="name" placeholder="Add Option"/>
                                                     <div class="input-group-addon btn-danger" data-repeater-delete type="button" value="Delete"><i class="fa fa-trash"></i></div>
                                                     <!-- <input data-repeater-delete type="button" value="Delete"/> -->
                                                 </div>
@@ -91,24 +91,6 @@
     </div>
 </div>
 
-
-<!-- <script type="text/javascript">
-    // add row
-    $("#addRow").click(function () {
-        var html = '';
-        html += '<div class="col-md-12">';
-        html += '<div class="form-group">';
-        html += '<div class="input-group">';
-        html += '<div class="input-group-addon"><i class="ion-person"></i></div>';
-        html += '<input type="text" class="form-control" id="exampleInputreligionname" placeholder="Language Name" name="option" required="">';
-        html += '<span class="help-block"></span>';
-        html += '</div>';
-        html += '</div>';
-        html += '</div>';
-
-        $('#newRow').append(html);
-    });
-</script> -->
 <script type="text/javascript">
 $(function(){
     $('.repeater').repeater({

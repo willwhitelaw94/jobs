@@ -87,6 +87,7 @@ if(isset($_GET['action'])){
     if ($_GET['action'] == "editUserLanguage") { editUserLanguage(); }
 
     if ($_GET['action'] == "addCulturalBackground") { addCulturalBackground(); }
+    if ($_GET['action'] == "editCulturalBackground") { editCulturalBackground(); }
 }
 
 function companyEdit(){
@@ -2951,7 +2952,8 @@ function editUserLanguage(){
 
 function addCulturalBackground(){
     global $config,$lang;
-   // print_r($_POST);die;
+    // echo "<pre>";
+    // print_r($_POST);die;
     $error=[];
     if (isset($_POST['submit'])) {
         if ($_POST['name'] == "") {
@@ -2961,7 +2963,7 @@ function addCulturalBackground(){
         }
 
         if(empty($error)) {
-            $now=date("Y-m-d");
+            $now=date('Y-m-d H:i:s');
             $insert_cl = ORM::for_table($config['db']['pre'].'cultural_backgrounds')->create();
             $insert_cl->name = $_POST['name'];
             $insert_cl->created_at = $now;
@@ -2969,24 +2971,16 @@ function addCulturalBackground(){
             $insert_cl->save();
             
             $cl_id = $insert_cl->id();
-            $insert_cl_op = ORM::for_table($config['db']['pre'].'cultural_background_options')->create();
             $background_options= $_POST['options'];
-           // print_r($background_options);die;
             $backgroundOptions=[];
             foreach($background_options as $background_option) {
               
-                array_push($backgroundOptions,'('.$cl_id.',"'.$background_option['name'].'",'.date('Y-m-d').')');
+                array_push($backgroundOptions,'('.$cl_id.',"'.$background_option['name'].'","'.date('Y-m-d H:i:s').'")');
                
             }
-          
-             $u_c_backopt = implode(',',$backgroundOptions); 
-        // print_r($u_c_backopt);die;
-            //$userBackg = ORM::for_table($config['db']['pre'] . 'user_cultural_backgrounds')->where('user_id', $user_id)->find_array();
-           
+            $u_c_backopt = implode(',',$backgroundOptions); 
             ORM::raw_execute('INSERT INTO '.$config['db']['pre'].'cultural_background_options (cultural_background_id,name,created_at) VALUES'.$u_c_backopt.'');
-            // echo ORM::get_last_query();die;
-
-
+           // echo ORM::get_last_query();die;
             if ($insert_cl->id()) {
                 $status = "success";
                 $message = $lang['SAVED_SUCCESS'];
@@ -3005,6 +2999,51 @@ function addCulturalBackground(){
     echo $json;
     die();
 
+    
+}
+
+function editCulturalBackground(){
+    global $config,$lang;
+    // echo "<pre>";
+    // print_r($_POST);die;
+   // echo date('Y-m-d H:i:s');die;
+    $clId=$_POST['id'];
+    $error=[];
+    if(empty($error)) {
+        $now=date('Y-m-d H:i:s');
+        $update_cl = ORM::for_table($config['db']['pre'].'cultural_backgrounds')->find_one($clId);
+        $update_cl->name = $_POST['name'];
+        $update_cl->updated_at = $now;
+        $update_cl->save();
+        $background_options= $_POST['options'];
+        $backgroundOptions=[];
+        foreach($background_options as $background_option) {
+            array_push($backgroundOptions,'('.$clId.',"'.$background_option['name'].'","'.date('Y-m-d H:i:s').'")');  
+        }
+        
+        $u_c_backopt = implode(',',$backgroundOptions); 
+      
+        $userBackg = ORM::for_table($config['db']['pre'] . 'cultural_background_options')->where('cultural_background_id', $clId)->find_array();
+        if(count($userBackg)) {
+            ORM::for_table($config['db']['pre'] . 'cultural_background_options')->where_equal('cultural_background_id', $clId)->delete_many();
+        }
+        ORM::raw_execute('INSERT INTO '.$config['db']['pre'].'cultural_background_options (cultural_background_id,name,created_at) VALUES'.$u_c_backopt.'');
+       // echo ORM::get_last_query();die;
+        if ($update_cl->id()) {
+            $status = "success";
+            $message = $lang['SAVED_SUCCESS'];
+        }else {
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+    }else{
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+    
+    $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
+    echo $json;
+    die();
     
 }
 

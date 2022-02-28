@@ -204,10 +204,9 @@ if(isset($_SESSION['admin']['id'])){
                                 <li><a href="religion.php">Religion</a></li>
                                 <li><a href="interest.php">Interest & Hobbies</a></li>
                                 <li><a href="cultural_background.php">Cultural Background</a></li>
-                                <li><a href="about_me.php">About Me<Menu></Menu></a></li>
+                                <li><a href="about_me.php">About Me</a></li>
                                 <li><a href="care_experience.php">Care Expirences</a></li>
-                                <li><a href="preference.php">Preferences</a></li>
-                             
+                                <li><a href="preference.php">Preferences</a></li> 
                             </ul>
                         </li>
                         <li class="nav-item nav-drawer-header">Content</li>
