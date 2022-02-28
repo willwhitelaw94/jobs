@@ -22,6 +22,56 @@ if(isset($_GET['username'])){
         $user_image = !empty($get_userdata['image'])?$get_userdata['image']:'default_user.png';
         $created = date('d M Y', strtotime($get_userdata['created_at']));
         $lastactive = date('d M Y', strtotime($get_userdata['lastactive']));
+        $user_main_lang=ORM::for_table($config['db']['pre'] .'user_languages')->table_alias('u_lang')
+        ->select_many('lang.id','lang.name')
+        ->left_outer_join($config['db']['pre'] .'language','u_lang.language_id=lang.id','lang')
+        ->where('u_lang.user_id',$user_id)->where_raw('NOT(u_lang.language_id <=> NULL)')->find_array();
+
+        $user_other_lang=ORM::for_table($config['db']['pre'] .'user_languages')->table_alias('u_lang')
+        ->select_many('lang.id','lang.name','u_lang.language_other_id')
+        ->left_outer_join($config['db']['pre'] .'language','u_lang.language_other_id=lang.id','lang')
+        ->where('u_lang.user_id',$user_id)->where_raw('NOT(u_lang.language_other_id <=> NULL)')->find_array();
+
+
+        $backgrounds = ORM::for_table($config['db']['pre'] .'cultural_backgrounds')->table_alias('c_back')
+        ->select_many('c_back.id','c_back.name',array('bck_opt_id'=>'bck_opt.id','bck_opt_name'=>'bck_opt.name'))
+        ->select_expr('(SELECT COUNT(cultural_background_id) FROM '.$config['db']['pre'].'cultural_background_options WHERE cultural_background_id=c_back.id)','total_options')
+        ->left_outer_join($config['db']['pre'] . 'cultural_background_options','c_back.id=bck_opt.cultural_background_id AND (`bck_opt`.`id` IN (SELECT cultural_background_option_id FROM `job_user_cultural_backgrounds` WHERE user_id=9))','bck_opt')
+        ->where_raw('c_back.id IN (SELECT cultural_background_id FROM `job_user_cultural_backgrounds` WHERE user_id=9)')
+        ->order_by_asc('c_back.id')
+        ->find_array();
+
+       // echo ORM::get_last_query();die;        
+        $old_id=NULL;
+        $backgroundWithOptions=array();
+        foreach ($backgrounds as $key => $back) {
+            if($back['id']!=$old_id){
+              // $backgroundWithOptions[$back['id']]['id']=$back['id']; 
+               //$backgroundWithOptions[$back['id']]['name']=$back['name']; 
+               //$backgroundWithOptions[$back['id']]['total_options']=$back['total_options']; 
+               $backgroundWithOptions[$back['id']]['tpl'] .='<div class="card-body-heading"><h5>'.$back['name'].'</h5></div>';
+               $old_id=$back['id']; 
+            }
+            $card_data='';
+            if($back['total_options'] > 0){
+                $backgroundWithOptions[$back['id']]['options'][]= ['id'=>$back['bck_opt_id'],'name'=>$back['bck_opt_name']];
+                // $card_data 
+                $backgroundWithOptions[$back['id']]['tpl'] .= '<span class="badge badge-pill badge-pll-cl">'.$back['bck_opt_name'].'</span>';;
+                
+                // $backgroundWithOptions[$back['id']]['tpl'].='<span class="badge badge-pill badge-pll-cl">'.$back['bck_opt_name'].'</span';
+            }else{
+               // $backgroundWithOptions[$back['id']]['options']=[];
+            }    
+        }
+
+    //    dd($backgroundWithOptions);
+
+        $user_relegions=ORM::for_table($config['db']['pre'] .'user_religions')->table_alias('u_rel')
+        ->select_many('rel.id','rel.name')
+        ->left_outer_join($config['db']['pre'] .'religions','u_rel.religion_id=rel.id','rel')
+        ->where('u_rel.user_id',$user_id)->find_array();
+        //dd($user_relegions);
+
 
         $user_category = $user_subcategory = null;
         if(!empty($get_userdata['category'])){
@@ -156,6 +206,11 @@ if(isset($_GET['username'])){
         $page->SetParameter ('TOTAL_EXPERIENCES', count($experiences));
         $page->SetParameter('USER_FAVORITE', check_user_favorite($user_id));
         $page->SetParameter ('OVERALL_FOOTER', create_footer());
+        $page->SetLoop ('MAIN_LANG',$user_main_lang);
+        $page->SetLoop ('OTHER_LANG',$user_other_lang);
+        $page->SetLoop ('RELEGION',$user_relegions);
+        $page->SetLoop('CUL_BACKGROUND',$backgroundWithOptions);
+        
         $page->CreatePageEcho();
         exit();
     }

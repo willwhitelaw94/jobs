@@ -119,10 +119,10 @@ if(!empty($_GET['gender'])){
     $where.= "AND (u.sex = '$gender') ";
 }
 
-$total = mysqli_num_rows(mysqli_query($mysqli, "SELECT 1 FROM `".$config['db']['pre']."user` u where u.status = '1' AND u.user_type = 'user' $where"));
+$total = mysqli_num_rows(mysqli_query($mysqli, "SELECT 1 FROM `".$config['db']['pre']."user` u where u.status = '1' AND u.user_type = 'user' AND  u.available_to_work = '0' $where"));
 
 $query = "SELECT u.* FROM `".$config['db']['pre']."user` u
-     where u.status = '1' AND u.user_type = 'user' $where ORDER BY $order_by LIMIT ".($page_number-1)*$limit.",$limit";
+     where u.status = '1' AND u.user_type = 'user' AND  u.available_to_work = '0' $where ORDER BY $order_by LIMIT ".($page_number-1)*$limit.",$limit";
 
 //echo $query;die;
 $count = 0;

@@ -13,22 +13,37 @@
 
 }
 .selected_languages{}
-.selected_languages li{    width: 29%;     margin-bottom: 5px;}
-.selected_languages li span{      background-color: rgb(255 189 54 / 21%);
-    border-radius: 31px;
-    padding: 6px 13px;
+.selected_languages li{    width: 22%;     margin-bottom: 5px;}
+.badge-pll-cl{      background-color: #f8f9fa;
+    background-color:#f8f9fa;
+    border-radius: 5px;
+    padding: 0px 9px;
     color: #2e2e2e;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
-    border: 1px solid #ffc14380;}
+    border: 1px solid #f8f9fa;
 
-    .selected_languages li span i{    background-color: #ffbd36;
+}
+
+    /* .selected_languages li span i{    background-color: #ffbd36;
     color: white;
     height: 20px;
     display: inherit;
     width: 20px;
     border-radius: 50%;
-    line-height: 20px;}
+    line-height: 20px;} */
+
+
+.card-body-heading{
+    margin-bottom: 10px;
+}
+.card-body-heading h5{
+    color:#ffbd36;
+}
+
+.card_box_cl i{
+    color:#ffbd36;
+}
 
 </style>
 
@@ -80,7 +95,26 @@
         <!-- Content -->
         <div class="col-xl-8 col-lg-8">
             <div class="row">
-                <div class="col-md-6"
+                
+               
+                <div class=" col-lg-12">
+                    <div class="card_box_cl">
+                        <div class="card">
+                            <div class="card-header">
+                            <h3><i class="icon-feather-alert-circle"></i> {LANG_CULTURAL_BACKGROUNDS}</h3>
+                            </div>
+                            <div class="card-body">
+                                {LOOP: CUL_BACKGROUND}
+                                {CUL_BACKGROUND.tpl}
+                                {/LOOP: CUL_BACKGROUND}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="col-md-6">
                 <div class="single-page-section">
                     <h3 class="margin-bottom-25">About Me</h3>
 
@@ -288,7 +322,7 @@
                         IF(!{HIDE_CONTACT}){
                         IF('{PHONE}' != ''){
                         <tr>
-                            <td>{LANG_PHONE}</td>
+                            <td>{LANG_PHONE} </td>
                             <td><a href="tel:{PHONE}" rel="nofollow">{PHONE}</a></td>
                         </tr>
                         {:IF}
@@ -343,7 +377,46 @@
                             <td>{ADDRESS}</td>
                         </tr>
                         {:IF}
+                        IF('{RELEGION}' != ''){
+                            <tr>
+                                <td>{LANG_RELIGION}</td>
+                               
+                                <td> 
+                                    {LOOP: RELEGION}
+                                    <span class="badge badge-pill badge-pll-cl"> {RELEGION.name} </span>
+                                    {/LOOP: RELEGION}</td>
+                            </tr>
+                            {:IF}
+
+                       
                     </table>
+                </div>
+            </div>
+            <div class="card_box_cl">
+                <div class="card">
+                    <div class="card-header">
+                    <h3><i class="icon-feather-globe"></i> {LANG_LANGUAGES}</h3>
+                    </div>
+                    <div class="card-body p-2 selected_languages">
+                      IF('{MAIN_LANG}' !=''){
+                        <div class="card-body-heading">
+                            <h5 >Main Languages :</h5>
+                        </div>
+                        {LOOP: MAIN_LANG}
+                           <span class="badge badge-pill badge-pll-cl">{MAIN_LANG.name}</span>
+                        {/LOOP: MAIN_LANG}
+                        
+                      {:IF}    
+                      IF('{OTHER_LANG}' !=''){
+                        <div class="card-body-heading">
+                            <h5 >Others:</h5>
+                        </div>
+                        {LOOP: OTHER_LANG}
+                           <span class="badge badge-pill badge-pll-cl">{OTHER_LANG.name}</span>
+                        {/LOOP: OTHER_LANG}
+                        
+                      {:IF}    
+                    </div>
                 </div>
             </div>
 
@@ -436,6 +509,9 @@
             </div>
 
         </div>
+
+       
+
 
     </div>
 </div>
