@@ -14,7 +14,6 @@ IF({SHOW_SEARCH_HOME}){
             </div>
         </div>
         <div class="row">
-<<<<<<< HEAD
             <div class="col-md-12">
                 <form autocomplete="off" method="get" action="{LINK_LISTING}" accept-charset="UTF-8">
                     <div class="intro-banner-search-form margin-top-45">
@@ -39,8 +38,6 @@ IF({SHOW_SEARCH_HOME}){
                                         </li>
                                     {/LOOP: CATEGORY}
                                 </ul>
-=======
->>>>>>> 975f591e9a6a7decfa9c391436454700b1d4859f
 
             <!-- Tabs Container -->
             <div class="tabs">
@@ -112,7 +109,6 @@ IF({SHOW_SEARCH_HOME}){
                                     <button class="button ripple-effect ">{LANG_SEARCH}</button>
                                 </div>
                             </div>
-<<<<<<< HEAD
                         </div>
                         <div class="intro-search-field live-location-search with-autocomplete with-label">
                             
@@ -133,85 +129,9 @@ IF({SHOW_SEARCH_HOME}){
                         <div class="intro-search-button">
                             <button class="button ripple-effect ">{LANG_SEARCH}</button>
                         </div>
-=======
-                        </form>
-
-
-
-
-                    </div>
-                    <div class="tab" data-tab-id="3">
-                        <!-- How it Works -->
-                        <div class="section padding-top-65 padding-bottom-65">
-                            <div class="container">
-                                <div class="tab-pane active" id="1a">
-                                    <div class="row">
-
-                                        <div class="col-xl-12">
-                                            <!-- Section Headline -->
-
-                                            <div class="section-headline centered margin-top-0 margin-bottom-5">
-                                                <h3>How It Works?</h3>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="col-xl-4 col-md-4">
-                                            <!-- Icon Box -->
-                                            <div class="icon-box with-line">
-                                                <!-- Icon -->
-                                                <div class="icon-box-circle">
-                                                    <div class="icon-box-circle-inner">
-                                                        <i class="fa fa-home"></i>
-                                                        <div class="icon-box-check">1</div>
-                                                    </div>
-                                                </div>
-                                                <h3>Register as a Carer</h3>
-                                                <p>Build your Carer profile and add your locations, availability and rate range.</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-4 col-md-4">
-                                            <!-- Icon Box -->
-                                            <div class="icon-box with-line">
-                                                <!-- Icon -->
-                                                <div class="icon-box-circle">
-                                                    <div class="icon-box-circle-inner">
-                                                        <i class="fa fa-home"></i>
-                                                        <div class="icon-box-check">2</div>
-                                                    </div>
-                                                </div>
-                                                <h3>Search Jobs</h3>
-                                                <p>Browse Jobs in your region..</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-4 col-md-4">
-                                            <!-- Icon Box -->
-                                            <div class="icon-box">
-                                                <!-- Icon -->
-                                                <div class="icon-box-circle">
-                                                    <div class="icon-box-circle-inner">
-                                                        <i class="fa fa-home"></i>
-                                                        <div class="icon-box-check">3</div>
-                                                    </div>
-                                                </div>
-                                                <h3>Message and Agree</h3>
-                                                <p>Nanotechnology immersion along the information highway will close the loop on focusing solely.</p>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- How it Works -->
->>>>>>> 975f591e9a6a7decfa9c391436454700b1d4859f
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
             
             
         </div>
@@ -235,30 +155,6 @@ IF({SHOW_SEARCH_HOME}){
 			</div>
 		</div>        
         
-=======
-            <!-- Tabs Container / End -->
-
-            <ul class="intro-stats margin-top-45 hide-under-992px">
-                <li>
-                    <strong class="counter">1,586</strong>
-                    <span>Jobs Posted</span>
-                </li>
-                <li>
-                    <strong class="counter">3,543</strong>
-                    <span>Tasks Posted</span>
-                </li>
-                <li>
-                    <strong class="counter">1,232</strong>
-                    <span>Freelancers</span>
-                </li>
-            </ul>
-
-
-
-        </div>
-        
-
->>>>>>> 975f591e9a6a7decfa9c391436454700b1d4859f
         
     </div>
 </div>
@@ -329,11 +225,6 @@ IF({SHOW_SEARCH_HOME}){
 {:IF}
 
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 975f591e9a6a7decfa9c391436454700b1d4859f
 IF({SHOW_CATEGORIES_HOME}){
 <!-- Category Boxes -->
 <div class="section padding-top-65 padding-bottom-45 IF(!{SHOW_FEATURED_JOBS_HOME}){ gray {:IF}">

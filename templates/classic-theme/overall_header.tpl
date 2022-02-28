@@ -58,21 +58,12 @@
     <link rel="stylesheet" href="{SITE_URL}templates/{TPL_NAME}/css/style.css?ver={VERSION}">
     <link rel="stylesheet" href="{SITE_URL}templates/{TPL_NAME}/css/color.css?ver={VERSION}">
     <script src="{SITE_URL}templates/{TPL_NAME}/js/jquery-3.4.1.min.js"></script>
-<<<<<<< HEAD
     
     
     <link rel="stylesheet" href="{SITE_URL}templates/{TPL_NAME}/css/custom_style.css?ver={VERSION}">
 
 
     
-=======
-
-
-    <link rel="stylesheet" href="{SITE_URL}templates/{TPL_NAME}/css/custom_style.css?ver={VERSION}">
-
-
-
->>>>>>> 975f591e9a6a7decfa9c391436454700b1d4859f
     IF("{LANGUAGE_DIRECTION}"=="rtl"){
     <link rel="stylesheet" href="{SITE_URL}templates/{TPL_NAME}/css/rtl.css?ver={VERSION}">
     {:IF}
