@@ -590,3 +590,5 @@ $lang['CULTURAL_BACK_MSG']='Select your cultural background, this will help clie
 $lang['RELIGION'] = 'Religion';
 $lang['RELIGION_UPDATED'] = 'Religion Updated';
 $lang['RELIGIONREQ'] = 'Please choose your religion';
+
+$lang['NOTIFICATIONS'] = 'Notifications';

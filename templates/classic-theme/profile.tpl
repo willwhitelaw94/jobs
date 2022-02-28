@@ -95,30 +95,13 @@
         <!-- Content -->
         <div class="col-xl-8 col-lg-8">
             <div class="row">
-                
-               
-                <div class=" col-lg-12">
-                    <div class="card_box_cl">
-                        <div class="card">
-                            <div class="card-header">
-                            <h3><i class="icon-feather-alert-circle"></i> {LANG_CULTURAL_BACKGROUNDS}</h3>
-                            </div>
-                            <div class="card-body">
-                                {LOOP: CUL_BACKGROUND}
-                                {CUL_BACKGROUND.tpl}
-                                {/LOOP: CUL_BACKGROUND}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-            
-            <div class="col-md-6">
-                <div class="single-page-section">
-                    <h3 class="margin-bottom-25">About Me</h3>
+                <div class="col-md-6">
 
-                    {ABOUT}
+                    <div class="single-page-section">
+                        <h3 class="margin-bottom-25">About Me</h3>
+    
+                        {ABOUT}
+                    </div>
                 </div>
 
             </div>
@@ -390,33 +373,6 @@
 
                        
                     </table>
-                </div>
-            </div>
-            <div class="card_box_cl">
-                <div class="card">
-                    <div class="card-header">
-                    <h3><i class="icon-feather-globe"></i> {LANG_LANGUAGES}</h3>
-                    </div>
-                    <div class="card-body p-2 selected_languages">
-                      IF('{MAIN_LANG}' !=''){
-                        <div class="card-body-heading">
-                            <h5 >Main Languages :</h5>
-                        </div>
-                        {LOOP: MAIN_LANG}
-                           <span class="badge badge-pill badge-pll-cl">{MAIN_LANG.name}</span>
-                        {/LOOP: MAIN_LANG}
-                        
-                      {:IF}    
-                      IF('{OTHER_LANG}' !=''){
-                        <div class="card-body-heading">
-                            <h5 >Others:</h5>
-                        </div>
-                        {LOOP: OTHER_LANG}
-                           <span class="badge badge-pill badge-pll-cl">{OTHER_LANG.name}</span>
-                        {/LOOP: OTHER_LANG}
-                        
-                      {:IF}    
-                    </div>
                 </div>
             </div>
 

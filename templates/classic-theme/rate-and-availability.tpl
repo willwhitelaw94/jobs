@@ -141,24 +141,6 @@
                                         IF("{DAY_ERROR}"!=""){ {DAY_ERROR} {:IF}
                                         </div>
                                     </div>
-                                    <div class="col-xl-12 col-md-12">
-                                        <h3>Prefered Days:</h3>
-                                        <p>Make sure your available days are accurate and up-to-date so you get inquiries that suit you and your availability.</p>
-                                            <div class="submit-field"  id="prefered_days">
-                                                <select id="days" class="with-border" name="days[]" data-size="7" title="{LANG_SELECT} {LANG_DAY}" multiple>   
-                                                {LOOP: DAYSLIST}
-                                                <option value="{DAYSLIST.code}">{DAYSLIST.day}</option>
-                                                {/LOOP: DAYSLIST} 
-                                                </select>
-                                                IF("{DAY_ERROR}"!=""){ {DAY_ERROR} {:IF}
-                                            </div>
-                                    </div>
-                                   
-                                 
-                                    {TIME_SLOTS}
-
-                                       
-
                                 </div>
                                 <div class="row">
                                      <div class="col-xl-12 ">
