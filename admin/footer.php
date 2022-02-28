@@ -77,4 +77,6 @@
 <script src="assets/js/slidepanel/selectable.min.js"></script>
 <script src="assets/js/slidepanel/components.js"></script>
 <script src="assets/js/slidepanel/app.min.js"></script>
+<script src="assets/js/slidepanel/app.min.js"></script>
+<script src="../includes/assets/js/repeater.min.js"></script>
 
