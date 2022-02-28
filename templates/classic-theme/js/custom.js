@@ -543,8 +543,6 @@
     });
 
 
-
-
 })(this.jQuery);
 
 var w = screen.width - (screen.width*25/100);
@@ -558,3 +556,7 @@ function fblogin() {
 function gmlogin() {
     var newWin = window.open(siteurl + "includes/social_login/google/index.php", "gmlogin", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
 }
+
+// Will Edits
+// Notes & Messages Scrollbar
+

@@ -24,12 +24,10 @@
                {USER_SIDEBAR}
             </div>
             <div class="col-lg-9 col-md-12 js-accordion">
-                {USER_DASHBOARD_CARD}
-                
-                <div class="dashboard-box js-accordion-item active">
+                <div class="dashboard-box  mt-0 js-accordion-item active">
                     <!-- Headline -->
                     <div class="headline js-accordion-header">
-                        <h3><i class="icon-feather-user"></i> {LANG_PROFILE_DETAILS}</h3>
+                        <h3><i class="icon-feather-user"></i> Profile Overview</h3>
                     </div>
                     <div class="content with-padding js-accordion-body">
                     IF(!'{USERTYPE}'){
@@ -54,68 +52,83 @@
                         {ELSE}
                         <form method="post" accept-charset="UTF-8" enctype="multipart/form-data">
                             <div class="row">
+                                    <div class="col-auto">
+                                        <div class="submit-field mb-0">
+                                            <h5>{LANG_AVATAR}</h5>
+                                            <div class="row">
+                                            <div class="col-auto">
+                                                <div class="avatar-wrapper" data-tippy-placement="bottom" title="{LANG_UPLOAD_AVATAR} - {LANG_AVATAR_HINT}">
+                                                    <img class="profile-pic" src="images/user-avatar-placeholder.png" alt="" />
+                                                    <div class="upload-button"></div>
+                                                    <input class="file-upload" type="file" accept="image/*" id="avatar"
+                                                           name="avatar"/>
+
+
+                                                </div>
+                                                <label class="uploadButton-button ripple-effect"
+                                                       for="avatar"></label>
+                                                <span class="uploadButton-file-name"></span>
+                                                <span id="email-availability-status">
+                                                IF("{AVATAR_ERROR}"!=""){ {AVATAR_ERROR} {:IF}
+                                            </span>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                                <div class="row">
+                                        <div class="col-xl-6 col-md-12">
+                                                        <div class="submit-field mb-0">
+                                                            <h5>{LANG_USERNAME} *</h5>
+                                                            <div class="input-with-icon-left">
+                                                                <i class="la la-user"></i>
+                                                                <input type="text" class="with-border" id="username" name="username"
+                                                                       value="{USERNAME}" onBlur="checkAvailabilityUsername()">
+                                                            </div>
+                                                            <span id="user-availability-status">
+                                                        IF("{USERNAME_ERROR}"!=""){ {USERNAME_ERROR} {:IF}</span>
+                                                        </div>
+                                        </div>
+                                        <div class="col-xl-6 col-md-12">
+                                                <div class="submit-field m-b-0">
+                                                    <h5>{LANG_TAGLINE}</h5>
+                                                    <input type="text" name="tagline" class="with-border margin-bottom-0"
+                                                           value="{TAGLINE}">
+                                                    <small>{LANG_TAGLINE_HINT}</small>
+                                                </div>
+                                        </div>
+                                </div>
+                            <div class="row">
+                                <div class="col-xl-6 col-md-6">
+                                    <div class="section-headline margin-bottom-12">
+                                        <h5>{LANG_CATEGORY}</h5>
+                                    </div>
+                                    <select class="selectpicker" multiple data-selected-text-format="count > 1" name="category" id="category" data-subcat="{SUBCAT}">
+                                        <option>-</option>
+                                        {LOOP: CATEGORIES}
+                                            <option value="{CATEGORIES.id}" {CATEGORIES.selected}>{CATEGORIES.name}</option>
+                                        {/LOOP: CATEGORIES}
+                                    </select>
+                                    <small>{LANG_USER_CATEGORY_HINT}</small>
+
+                                </div>
+
+                                <div class="col-xl-6 col-md-6">
+                                    <div class="section-headline margin-bottom-12">
+                                        <h5>{LANG_SUBCATEGORY}</h5>
+                                    </div>
+                                    <select class="selectpicker with-border" name="subcategory" id="sub_category">
+                                        <option>-</option>
+                                    </select>
+                                </div>
+
                                 <div class="col-xl-6 col-md-12">
                                     <div class="submit-field">
-                                        <h5>{LANG_NAME} *</h5>
-
-                                        <div class="input-with-icon-left">
-                                            <i class="la la-user"></i>
-                                            <input type="text" class="with-border" name="name" value="{AUTHORNAME}">
-                                        </div>
+                                        <h5>{LANG_DOB}</h5>
+                                        <input type="text" class="with-border margin-bottom-0" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-autoclose="true" data-date-language="{LANG_CODE}" name="dob" value="{DOB}" IF('{LANGUAGE_DIRECTION}'=='rtl'){ data-date-rtl="true" {:IF}>
                                     </div>
                                 </div>
-                                <div class="col-xl-6 col-md-12">
-                                    <div class="submit-field">
-                                        <h5>{LANG_USERNAME} *</h5>
-
-                                        <div class="input-with-icon-left">
-                                            <i class="la la-user"></i>
-                                            <input type="text" class="with-border" id="username" name="username"
-                                                value="{USERNAME}" onBlur="checkAvailabilityUsername()">
-                                        </div>
-                                        <span id="user-availability-status">
-                                            IF("{USERNAME_ERROR}"!=""){ {USERNAME_ERROR} {:IF}</span>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-md-12">
-                                    <div class="submit-field">
-                                        <h5>{LANG_EMAIL} *</h5>
-
-                                        <div class="input-with-icon-left">
-                                            <i class="la la-envelope"></i>
-                                            <input type="text" class="with-border" id="email" name="email"
-                                                value="{EMAIL}" onBlur="checkAvailabilityEmail()">
-                                        </div>
-                                        <span id="email-availability-status">
-                                            IF("{EMAIL_ERROR}"!=""){ {EMAIL_ERROR} {:IF}</span>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-md-12">
-                                    <div class="submit-field">
-                                        <h5>{LANG_PHONE_NUMBER} *</h5>
-
-                                        <div class="input-with-icon-left">
-                                            <i class="la la-phone"></i>
-                                            <input type="text" name="phone" class="with-border margin-bottom-0"
-                                                value="{PHONE}">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="submit-field">
-                                        <h5>{LANG_AVATAR}</h5>
-
-                                        <div class="uploadButton">
-                                            <input class="uploadButton-input" type="file" accept="images/*" id="avatar"
-                                                name="avatar"/>
-                                            <label class="uploadButton-button ripple-effect"
-                                                for="avatar">{LANG_UPLOAD_AVATAR}</label>
-                                            <span class="uploadButton-file-name">{LANG_AVATAR_HINT}</span>
-                                        </div>
-                                        <span id="email-availability-status">
-                                            IF("{AVATAR_ERROR}"!=""){ {AVATAR_ERROR} {:IF}
-                                        </span>
-                                    </div>
+                                <div class="col-xl-6 mt-0 col-md-12">
                                     <div class="submit-field">
                                         <h5>{LANG_GENDER}</h5>
                                         <div class="radio margin-right-20">
@@ -130,154 +143,38 @@
                                             <input class="with-gap" type="radio" name="gender" id="Other" value="Other" IF('{GENDER}'=='Other'){ checked {:IF} />
                                             <label for="Other"><span class="radio-label"></span>{LANG_GENDER_OTHER}</label>
                                         </div>
-                                        
-                                    </div>
-                                    
-                                    <div class="submit-field">
-                                        <h5>{LANG_CITY}</h5>
-                                        <select id="jobcity" class="with-border" name="city" data-size="7" title="{LANG_SELECT} {LANG_CITY}" >
-                                            <option value="0" selected="selected">{LANG_SELECT} {LANG_CITY}</option>
-                                            IF('{CITY}' != ''){
-                                            <option value="{CITY}" selected="selected">{CITYNAME}</option>
-                                            {:IF}
-                                        </select>
-                                    </div>
-                                    <div class="submit-field">
-                                        <h5>{LANG_ADDRESS} *</h5>
-                                        <textarea class="with-border" name="address" required="">{ADDRESS}</textarea>
-                                    </div>
-                                IF('{USERTYPE}' == "user"){
-                                    <div class="submit-field">
-                                        <h5>{LANG_TAGLINE}</h5>
-                                        <input type="text" name="tagline" class="with-border margin-bottom-0"
-                                            value="{TAGLINE}">
-                                        <small>{LANG_TAGLINE_HINT}</small>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-md-12">
-                                    <div class="submit-field">
-                                        <h5>{LANG_CATEGORY}</h5>
-                                        <select class="selectpicker with-border" name="category" id="category" data-subcat="{SUBCAT}">
-                                            <option>-</option>
-                                            {LOOP: CATEGORIES}
-                                            <option value="{CATEGORIES.id}" {CATEGORIES.selected}>{CATEGORIES.name}</option>
-                                            {/LOOP: CATEGORIES}
-                                        </select>
-                                        <small>{LANG_USER_CATEGORY_HINT}</small>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-md-12">
-                                    <div class="submit-field">
-                                        <h5>{LANG_SUBCATEGORY}</h5>
-                                        <select class="selectpicker with-border" name="subcategory" id="sub_category">
-                                            <option>-</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-md-12">
-                                    <div class="submit-field">
-                                        <h5>{LANG_DOB}</h5>
-                                        <input type="text" class="with-border margin-bottom-0" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-autoclose="true" data-date-language="{LANG_CODE}" name="dob" value="{DOB}" IF('{LANGUAGE_DIRECTION}'=='rtl'){ data-date-rtl="true" {:IF}>
-                                    </div>
-                                </div>
-                            
-                                
-                                <div class="col-md-12">
-                                    {:IF}
-                                    <div class="submit-field">
-                                        <h5>{LANG_DESCRIPTION}</h5>
-                                        <textarea class="with-border" id="pageContent" name="aboutme" >{ABOUTME}</textarea>
-                                    </div>
-                                    <div class="submit-field">
-                                        <h5>{LANG_WEBSITE}</h5>
-                                        <div class="input-with-icon-left">
-                                            <i class="la la-link"></i>
-                                            <input type="url" name="website" class="with-border margin-bottom-0"
-                                                value="{WEBSITE}">
-                                        </div>
-                                    </div>
-                                    <div class="submit-field">
-                                        <h5>{LANG_FACEBOOK}</h5>
-                                        <div class="input-with-icon-left">
-                                            <i class="fa fa-facebook"></i>
-                                            <input type="url" name="facebook" class="with-border margin-bottom-0"
-                                                value="{FACEBOOK}">
-                                        </div>
-                                    </div>
-                                    <div class="submit-field">
-                                        <h5>{LANG_TWITTER}</h5>
-                                        <div class="input-with-icon-left">
-                                            <i class="fa fa-twitter"></i>
-                                            <input type="url" name="twitter" class="with-border margin-bottom-0"
-                                                value="{TWITTER}">
-                                        </div>
-                                    </div>
-                                    <div class="submit-field">
-                                        <h5>{LANG_INSTAGRAM}</h5>
-                                        <div class="input-with-icon-left">
-                                            <i class="fa fa-instagram"></i>
-                                            <input type="url" name="instagram" class="with-border margin-bottom-0"
-                                                value="{INSTAGRAM}">
-                                        </div>
-                                    </div>
-                                    <div class="submit-field">
-                                        <h5>{LANG_LINKEDIN}</h5>
-                                        <div class="input-with-icon-left">
-                                            <i class="fa fa-linkedin"></i>
-                                            <input type="url" name="linkedin" class="with-border margin-bottom-0"
-                                                value="{LINKEDIN}">
-                                        </div>
-                                    </div>
-                                    <div class="submit-field">
-                                        <h5>{LANG_YOUTUBE}</h5>
-                                        <div class="input-with-icon-left">
-                                            <i class="fa fa-youtube-play"></i>
-                                            <input type="url" name="youtube" class="with-border margin-bottom-0"
-                                                value="{YOUTUBE}">
-                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" name="submit"
-                                    class="button ripple-effect">{LANG_SAVE_CHANGES}</button>
+                            <button type="submit" name="submit" class="button ripple-effect">{LANG_SAVE_CHANGES}</button>
                         </form>
                         {:IF}
                     </div>
                 </div>
+                IF('{USERTYPE}' == "user"){
 
                 <div class="dashboard-box js-accordion-item">
                     <!-- Headline -->
                     <div class="headline js-accordion-header">
-                        <h3><i class="icon-feather-lock"></i> {LANG_PASSWORD}</h3>
+                        <h3><i class="icon-feather-lock"></i> Worker Details</h3>
                     </div>
-
                     <div class="content with-padding js-accordion-body">
-                        <form method="post" accept-charset="UTF-8">
-                            <div class="row">
-                                <div class="col-xl-6">
-                                    <div class="submit-field">
-                                        <h5>{LANG_NEW_PASSWORD}</h5>
-                                        <input type="password" id="password" name="password" class="with-border"
-                                            onkeyup="checkAvailabilityPassword()">
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-6">
-                                    <div class="submit-field">
-                                        <h5>{LANG_RE_NEW_PASSWORD}</h5>
-                                        <input type="password" id="re_password" name="re_password" class="with-border"
-                                            onkeyup="checkRePassword()">
-                                    </div>
-                                </div>
-                            </div>
-                            <span id="password-availability-status">IF("{PASSWORD_ERROR}
-                                "!=""){ {PASSWORD_ERROR} {:IF}</span>
-                            <button type="submit" name="password-submit"
-                                    class="button ripple-effect">{LANG_UPDATE}</button>
-                        </form>
                     </div>
                 </div>
-            </div>   
+                {:IF}
+                IF('{USERTYPE}' == "employer"){
+
+                <div class="dashboard-box js-accordion-item">
+                    <!-- Headline -->
+                    <div class="headline js-accordion-header">
+                        <h3><i class="icon-feather-lock"></i> Employer Details</h3>
+                    </div>
+                    <div class="content with-padding js-accordion-body">
+                    </div>
+                </div>
+                {:IF}
+
+            </div>
         </div>
     </div>
 </div>

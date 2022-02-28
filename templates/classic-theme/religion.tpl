@@ -23,8 +23,8 @@
             {USER_SIDEBAR}
             </div>
             <div class="col-lg-9 col-md-12 js-accordion">
-                {USER_DASHBOARD_CARD}
-                <div class="dashboard-box js-accordion-item active">
+
+                <div class="dashboard-box mt-0  js-accordion-item active">
                     <!-- Headline -->
                     <div class="headline js-accordion-header">
                         <h3><i class="icon-feather-user"></i> {LANG_RELIGION}</h3>

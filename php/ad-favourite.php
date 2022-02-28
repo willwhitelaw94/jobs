@@ -82,6 +82,8 @@ LEFT JOIN `".$config['db']['pre']."companies` c on p.company_id = c.id
     $page->SetLoop ('PAGES', $pagging);
     $page->SetParameter ('TOTALITEM', $total_item);
     $page->SetParameter ('OVERALL_FOOTER', create_footer());
+    $page->SetParameter('USER_SIDEBAR', create_user_sidebar());
+
     $page->CreatePageEcho();
 }
 else{

@@ -59,6 +59,8 @@ if(checkloggedin())
     $page->SetParameter ('TOTALITEM', $total);
     $page->SetParameter ('KEYWORDS', $keywords);
     $page->SetParameter ('OVERALL_FOOTER', create_footer());
+    $page->SetParameter('USER_SIDEBAR', create_user_sidebar());
+
     $page->CreatePageEcho();
 }else{
 	headerRedirect($link['LOGIN']);

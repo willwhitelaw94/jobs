@@ -556,7 +556,7 @@ body #backtotop a {color: #fff }
 @media (max-width: 768px){#titlebar .right-side {position: static;margin-top: 20px;transform: none;text-align: center;}
 #titlebar .right-side .button {width: 100%;}
 }
-#titlebar span a, #titlebar span {font-size: 20px;color: #888;margin-bottom: 3px;margin-top: 3px;display: block }
+#titlebar span a, #titlebar span {font-size: 14px;color: #888;margin-bottom: 3px;margin-top: 3px;display: block }
 #titlebar #breadcrumbs span {font-size: 14px }
 #titlebar h1, #titlebar h2 {font-size: 30px;line-height: 40px;margin: 1px 0 3px }
 #breadcrumbs {display: inline-block;font-size: 14px;font-weight: 600;color: #555;}
@@ -580,7 +580,7 @@ body #backtotop a {color: #fff }
 .single-page-section .single-page-image img {width: 100% }
 }
 .single-page-section .single-page-details {flex: 1 }
-.single-page-section .single-page-details h3 {color: #333;font-size: 26px;margin: 0;padding: 0;margin-bottom: 10px;position: relative;padding-right: 0;display: inline-block }
+.single-page-section .single-page-details h3 {color: #333;font-size: 26px;margin: 0;padding: 0;margin-bottom: 0px;position: relative;padding-right: 0;display: inline-block }
 .single-page-section .single-page-details h3 span {color: gray;display: block;font-size: 20px;font-weight: 300;margin-top: -3px }
 .single-page-section .single-page-details h5 {font-size: 16px;font-weight: 600;color: #333 }
 .single-page-section .single-page-details h5 {font-size: 16px;font-weight: 600;color: #333 }

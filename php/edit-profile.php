@@ -13,7 +13,6 @@ if (checkloggedin()) {
     $currency_info = set_user_currency($country_code);
     $currency_sign = $currency_info['html_entity'];
     if (isset($_POST['submit'])) {
-     // print_r($_POST);die;
 
         if ($_POST["username"] != $_SESSION['user']['username']) {
             if (empty($_POST["username"])) {

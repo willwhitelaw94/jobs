@@ -92,6 +92,8 @@ if(checkloggedin())
     $page->SetParameter ('ID', $id);
     $page->SetParameter ('ERROR', $error);
     $page->SetParameter ('OVERALL_FOOTER', create_footer());
+    $page->SetParameter('USER_SIDEBAR', create_user_sidebar());
+
     $page->CreatePageEcho();
 }else{
     headerRedirect($link['LOGIN']);
