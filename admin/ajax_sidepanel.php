@@ -88,8 +88,20 @@ if(isset($_GET['action'])){
 
     if ($_GET['action'] == "addCulturalBackground") { addCulturalBackground(); }
     if ($_GET['action'] == "editCulturalBackground") { editCulturalBackground(); }
-}
 
+    if ($_GET['action'] == "addAboutMe") { addAboutMe(); }
+    if ($_GET['action'] == "editAboutMe") { editAboutMe(); }
+
+    if ($_GET['action'] == "addPreference") { addPreference(); }
+    if ($_GET['action'] == "editPreference") { editPreference(); }
+
+    if ($_GET['action'] == "addInterest") { addInterest(); }
+    if ($_GET['action'] == "editInterest") { editInterest(); }
+
+    if ($_GET['action'] == "addCareExperience") { addCareExperience(); }
+    if ($_GET['action'] == "editCareExperience") { editCareExperience(); }
+
+}
 function companyEdit(){
     global $config,$lang;
     $errors = array();
@@ -3047,4 +3059,362 @@ function editCulturalBackground(){
     
 }
 
+function addAboutMe(){
+    global $config,$lang;
+    // echo "<pre>";
+    // print_r($_POST);die;
+    $error=[];
+    if (isset($_POST['submit'])) {
+        if ($_POST['name'] == "") {
+            $error = "Language Name Required";
+            $status = "error";
+            $message = $error;
+        }
+
+        if(empty($error)) {
+            $now=date('Y-m-d H:i:s');
+            $insert_ab = ORM::for_table($config['db']['pre'].'about_mes')->create();
+            $insert_ab->name = $_POST['name'];
+            $insert_ab->created_at = $now;
+            $insert_ab->updated_at = $now;
+            $insert_ab->save();
+            
+            $ab_id = $insert_ab->id();
+            $aboutme_options= $_POST['options'];
+            $aboutmeOptions=[];
+            foreach($aboutme_options as $aboutme_option) {
+              
+                array_push($aboutmeOptions,'('.$ab_id.',"'.$aboutme_option['name'].'")');
+               
+            }
+            $u_c_backopt = implode(',',$aboutmeOptions); 
+            ORM::raw_execute('INSERT INTO '.$config['db']['pre'].'about_me_options (about_me_id,name) VALUES'.$u_c_backopt.'');
+           // echo ORM::get_last_query();die;
+            if ($insert_ab->id()) {
+                $status = "success";
+                $message = $lang['SAVED_SUCCESS'];
+            } 
+            
+        }else {
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+    }else{
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+    
+    $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
+    echo $json;
+    die();   
+}
+
+function editAboutMe(){
+    global $config,$lang;
+    // echo "<pre>";
+    // print_r($_POST);die;
+   // echo date('Y-m-d H:i:s');die;
+    $abId=$_POST['id'];
+    $error=[];
+    if(empty($error)) {
+        $now=date('Y-m-d H:i:s');
+        $update_ab = ORM::for_table($config['db']['pre'].'about_mes')->find_one($abId);
+        $update_ab->name = $_POST['name'];
+        $update_ab->updated_at = $now;
+        $update_ab->save();
+        $background_options= $_POST['options'];
+        $backgroundOptions=[];
+        foreach($background_options as $background_option) {
+            array_push($backgroundOptions,'('.$abId.',"'.$background_option['name'].'")');  
+        }
+        
+        $u_c_backopt = implode(',',$backgroundOptions); 
+      
+        $userBackg = ORM::for_table($config['db']['pre'] . 'about_me_options')->where('about_me_id', $abId)->find_array();
+        if(count($userBackg)) {
+            ORM::for_table($config['db']['pre'] . 'about_me_options')->where_equal('about_me_id', $abId)->delete_many();
+        }
+        ORM::raw_execute('INSERT INTO '.$config['db']['pre'].'about_me_options (about_me_id,name) VALUES'.$u_c_backopt.'');
+       // echo ORM::get_last_query();die;
+        if ($update_ab->id()) {
+            $status = "success";
+            $message = $lang['SAVED_SUCCESS'];
+        }else {
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+    }else{
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+    
+    $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
+    echo $json;
+    die();   
+}
+
+function addPreference(){
+    global $config,$lang;
+    // echo "<pre>";
+    // print_r($_POST);die;
+    $error=[];
+    if (isset($_POST['submit'])) {
+        if ($_POST['name'] == "") {
+            $error = "Language Name Required";
+            $status = "error";
+            $message = $error;
+        }
+
+        if(empty($error)) {
+            $now=date('Y-m-d H:i:s');
+            $insert_pr = ORM::for_table($config['db']['pre'].'preferences')->create();
+            $insert_pr->question = $_POST['name'];
+            $insert_pr->created_at = $now;
+            $insert_pr->updated_at = $now;
+            $insert_pr->save();
+            
+            $ab_id = $insert_pr->id();
+            $pre_options= $_POST['options'];
+            $preOptions=[];
+            foreach($pre_options as $pre_option) {
+              
+                array_push($preOptions,'('.$ab_id.',"'.$pre_option['name'].'","'.date('Y-m-d H:i:s').'")');
+               
+            }
+            $pre_opt = implode(',',$preOptions); 
+            ORM::raw_execute('INSERT INTO '.$config['db']['pre'].'preference_options (preference_id,name,created_at) VALUES'.$pre_opt.'');
+           // echo ORM::get_last_query();die;
+            if ($insert_pr->id()) {
+                $status = "success";
+                $message = $lang['SAVED_SUCCESS'];
+            } 
+            
+        }else {
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+    }else{
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+    
+    $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
+    echo $json;
+    die();    
+}
+
+function editPreference(){
+    global $config,$lang;
+    // echo "<pre>";
+    // print_r($_POST);die;
+   // echo date('Y-m-d H:i:s');die;
+    $prId=$_POST['id'];
+    $error=[];
+    if(empty($error)) {
+        $now=date('Y-m-d H:i:s');
+        $update_pr = ORM::for_table($config['db']['pre'].'preferences')->find_one($prId);
+        $update_pr->question = $_POST['name'];
+        $update_pr->updated_at = $now;
+        $update_pr->save();
+        $pre_options= $_POST['options'];
+        $preOptions=[];
+        foreach($pre_options as $pre_option) {
+            array_push($preOptions,'('.$prId.',"'.$pre_option['name'].'","'.date('Y-m-d H:i:s').'")');  
+        }
+        
+        $pr_opt = implode(',',$preOptions); 
+      
+        $userBackg = ORM::for_table($config['db']['pre'] . 'preference_options')->where('preference_id', $prId)->find_array();
+        if(count($userBackg)) {
+            ORM::for_table($config['db']['pre'] . 'preference_options')->where_equal('preference_id', $prId)->delete_many();
+        }
+        ORM::raw_execute('INSERT INTO '.$config['db']['pre'].'preference_options (preference_id,name,updated_at) VALUES'.$pr_opt.'');
+       // echo ORM::get_last_query();die;
+        if ($update_pr->id()) {
+            $status = "success";
+            $message = $lang['SAVED_SUCCESS'];
+        }else {
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+    }else{
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+    
+    $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
+    echo $json;
+    die();    
+}
+
+function addInterest(){
+    global $config,$lang;
+   // print_r($_POST);die;
+    $error=[];
+    if (isset($_POST['submit'])) {
+        if ($_POST['name'] == "") {
+            $error = "Language Name Required";
+            $status = "error";
+            $message = $error;
+        }
+        if(empty($error)) {
+            $now=date('Y-m-d H:i:s');
+            $insert_int = ORM::for_table($config['db']['pre'].'interests')->create();
+            $insert_int->name = $_POST['name'];
+            $insert_int->icon = $_POST['icon'];
+            $insert_int->created_at = $now;
+            $insert_int->updated_at = $now;
+            $insert_int->save();
+            if ($insert_int->id()) {
+                $status = "success";
+                $message = $lang['SAVED_SUCCESS'];
+            } 
+        }else {
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+    }else{
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+    
+    $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
+    echo $json;
+    die();  
+}
+
+function editInterest(){
+    global $config,$lang;
+   
+    $error=[];
+    if (isset($_POST['submit'])) {
+        if ($_POST['name'] == "") {
+            $error = "Language Name Required";
+            $status = "error";
+            $message = $error;
+        }
+        if(empty($error)) {
+           
+            $update_int = ORM::for_table($config['db']['pre'].'interests')->find_one($_POST['id']);
+          
+            $update_int->set('name', $_POST['name']);
+            $update_int->set('icon', $_POST['icon']);
+            $update_int->set('updated_at',date('Y-m-d'));
+            $update_int->save();
+    
+            if ($update_int) {
+               
+                $status = "success";
+                $message = $lang['SAVED_SUCCESS'];
+            } else{
+                $status = "error";
+                $message = $lang['ERROR_TRY_AGAIN'];
+            }
+        }else {
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+    }else{
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+    
+    $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
+    echo $json;
+    die();    
+}
+
+function addCareExperience(){
+    global $config,$lang;
+    // echo "<pre>";
+    // print_r($_POST);die;
+    $error=[];
+    if (isset($_POST['submit'])) {
+        if ($_POST['name'] == "") {
+            $error = "Language Name Required";
+            $status = "error";
+            $message = $error;
+        }
+
+        if(empty($error)) {
+            $now=date('Y-m-d H:i:s');
+            $insert_ce = ORM::for_table($config['db']['pre'].'care_experiences')->create();
+            $insert_ce->name = $_POST['name'];
+            $insert_ce->created_at = $now;
+            $insert_ce->updated_at = $now;
+            $insert_ce->save();
+            
+            $ab_id = $insert_ce->id();
+            $careexp_options= $_POST['options'];
+            $CareExpOptions=[];
+            foreach($careexp_options as $careexp_option) {
+              
+                array_push($CareExpOptions,'('.$ab_id.',"'.$careexp_option['name'].'","'.date('Y-m-d H:i:s').'")');
+               
+            }
+            $c_e_opt = implode(',',$CareExpOptions); 
+            ORM::raw_execute('INSERT INTO '.$config['db']['pre'].'care_experience_options (care_experience_id,name,created_at) VALUES'.$c_e_opt.'');
+           // echo ORM::get_last_query();die;
+            if ($insert_ce->id()) {
+                $status = "success";
+                $message = $lang['SAVED_SUCCESS'];
+            } 
+            
+        }else {
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+    }else{
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+    
+    $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
+    echo $json;
+    die();   
+}
+
+function editCareExperience(){
+    global $config,$lang;
+    // echo "<pre>";
+    // print_r($_POST);die;
+   // echo date('Y-m-d H:i:s');die;
+    $ceId=$_POST['id'];
+    $error=[];
+    if(empty($error)) {
+        $now=date('Y-m-d H:i:s');
+        $update_ce = ORM::for_table($config['db']['pre'].'care_experiences')->find_one($ceId);
+        $update_ce->name = $_POST['name'];
+        $update_ce->updated_at = $now;
+        $update_ce->save();
+        $careexp_options= $_POST['options'];
+        $careexpOptions=[];
+        foreach($careexp_options as $careexp_option) {
+            array_push($careexpOptions,'('.$ceId.',"'.$careexp_option['name'].'","'.date('Y-m-d H:i:s').'")');  
+        }
+        
+        $c_e_kopt = implode(',',$careexpOptions); 
+      
+        $careexp = ORM::for_table($config['db']['pre'] . 'care_experience_options')->where('care_experience_id', $ceId)->find_array();
+        if(count($careexp)) {
+            ORM::for_table($config['db']['pre'] . 'care_experience_options')->where_equal('care_experience_id', $ceId)->delete_many();
+        }
+        ORM::raw_execute('INSERT INTO '.$config['db']['pre'].'care_experience_options (care_experience_id,name,updated_at) VALUES'.$c_e_kopt.'');
+       // echo ORM::get_last_query();die;
+        if ($update_ce->id()) {
+            $status = "success";
+            $message = $lang['SAVED_SUCCESS'];
+        }else {
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+    }else{
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+    
+    $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
+    echo $json;
+    die();   
+}
 ?>

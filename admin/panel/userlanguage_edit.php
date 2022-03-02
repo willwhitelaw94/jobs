@@ -35,7 +35,7 @@ $info = ORM::for_table($config['db']['pre'].'language')->find_one($langId);
                                         <label for="exampleInputfullname">Language Name<code>*</code></label>
                                         <div class="input-group">
                                             <div class="input-group-addon"><i class="ion-person"></i></div>
-                                            <input type="text" class="form-control" id="exampleInputfullname" placeholder="Religion Name" name="name" required=""  value="<?php echo $info['name'];?>">
+                                            <input type="text" class="form-control" id="exampleInputfullname" placeholder="Name" name="name" required=""  value="<?php echo $info['name'];?>">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>

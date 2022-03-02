@@ -11,9 +11,9 @@ if($params['draw'] == 1)
     $params['order'][0]['dir'] = "desc";
 //define index of column
 $columns = array(
-    0 =>'c.id',
-    1 =>'c.name',
-    2 =>'c.created_at',  
+    0 =>'p.id',
+    1 =>'p.question',
+    2 =>'p.created_at',  
 );
 
 $where = $sqlTot = $sqlRec = "";
@@ -21,16 +21,10 @@ $where = $sqlTot = $sqlRec = "";
 // check search value exist
 if( !empty($params['search']['value']) ){
     $where .=" WHERE ";
-    $where .=" (c.name LIKE '%".$params['search']['value']."%' ";  
+    $where .=" (p.name LIKE '%".$params['search']['value']."%' ";  
 }
-
-
-// getting total number records without any search
-// $sql = "SELECT r.id,r.name,r.type
-// FROM `".$config['db']['pre']."language` as r ";
-// $sql="select c.id,c.name,c.created_at, cop.id as opt_id,cop.name as opt_name FROM job_cultural_backgrounds as c LEFT JOIN job_cultural_background_options as cop ON c.id= cop.cultural_background_id";
-$sql = "SELECT c.id,c.name,c.created_at
- FROM `".$config['db']['pre']."cultural_backgrounds` as c ";
+$sql = "SELECT p.id,p.question,p.created_at
+ FROM `".$config['db']['pre']."preferences` as p ";
 $sqlTot .= $sql;
 $sqlRec .= $sql;
 //concatenate search sql if value exist
@@ -47,15 +41,15 @@ $totalRecords = $queryTot->rowCount();
 $queryRecords = $pdo->query($sqlRec);
 //die('dbdjfh');
 //iterate on results row and create new index array of data
-$backgroundOption='';
+$preferenceOption='';
 
 foreach ($queryRecords as $row) {
     $id = $row['id'];
-    $backgroundOptions = ORM::for_table($config['db']['pre'] .'cultural_background_options')->where('cultural_background_id',$row['id'])->find_array();
-    //$backgroundOption=implode('<span>',array_column($backgroundOptions,'name'))."</span>";
-    $backgroundOption="<span class='label label-info label-rounded'>" . implode("</span>&nbsp;<span class='label label-info label-rounded'>", array_column($backgroundOptions,'name')) . "</span>";
+    $preferenceOptions = ORM::for_table($config['db']['pre'] .'preference_options')->where('preference_id',$row['id'])->find_array();
+    //$preferenceOption=implode('<span>',array_column($preferenceOptions,'name'))."</span>";
+    $preferenceOption="<span class='label label-info label-rounded'>" . implode("</span>&nbsp;<span class='label label-info label-rounded'>", array_column($preferenceOptions,'name')) . "</span>";
   
-    $name = $row['name'];
+    $question = $row['question'];
     $created_at = $row['created_at'];
     $row0 = '<td>
                 <label class="css-input css-checkbox css-checkbox-default">
@@ -63,13 +57,13 @@ foreach ($queryRecords as $row) {
                 </label>
             </td>';
     $row1 =  '<td class="hidden-xs">'.$id.'</td>';
-    $row2 = '<td class="hidden-xs">'.$name.'</td>';
-    $row3 = '<td class="hidden-xs " ><div class="lable_bg_c">'.$backgroundOption.'</div></td>';
+    $row2 = '<td class="hidden-xs">'.$question.'</td>';
+    $row3 = '<td class="hidden-xs " ><div class="lable_bg_c">'.$preferenceOption.'</div></td>';
     $row4 = '<td class="hidden-xs">'.$created_at.'</td>';
     $row5 = '<td class="text-center">
         <div class="btn-group">
-            <a href="#" data-url="panel/cultural_background_edit.php?id='.$id.'" data-toggle="slidePanel" class="btn btn-xs btn-default"> <i class="ion-edit"></i> Edit</a>
-            <a href="javascript:void(0)" class="btn btn-xs btn-default item-js-delete" data-ajax-action="deleteCulturalBackground"><i class="ion-close"></i></a>
+            <a href="#" data-url="panel/preference_edit.php?id='.$id.'" data-toggle="slidePanel" class="btn btn-xs btn-default"> <i class="ion-edit"></i> Edit</a>
+            <a href="javascript:void(0)" class="btn btn-xs btn-default item-js-delete" data-ajax-action="deletePreference"><i class="ion-close"></i></a>
         </div>
     </td>';
     $value = array(
@@ -95,4 +89,4 @@ $json_data = array(
 );
 
 echo json_encode($json_data);  // send data as json format
-?>
+

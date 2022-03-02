@@ -61,7 +61,9 @@ if(isset($_SESSION['admin']['id'])){
     <link rel="stylesheet" href="assets/js/plugins/asscrollable/asScrollable.min.css">
     <link rel="stylesheet" href="assets/js/plugins/slidepanel/slidePanel.min.css">
     <link rel="stylesheet" href="assets/js/plugins/datatables/jquery.dataTables.min.css" />
-
+    <link rel="stylesheet" href="../includes/assets/css/theme_icons.css" />
+    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+    <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
 
     <!--alerts CSS -->
     <link href="assets/js/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
