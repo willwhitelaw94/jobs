@@ -576,19 +576,42 @@ $lang['END_TIME'] = 'End time';
 //End Rate and Availability page
 
 //Languages page
-$lang['EDITLANGUAGE'] = 'Edit your language';
+$lang['MY_LANGUAGES'] = 'My Languages';
 $lang['MAIN_LANGUAGES'] = 'Main Languages';
 $lang['OTHER_LANGUAGES'] = 'Other Languages';
 $lang['LANGUAGE_UPDATED'] = 'Language updated successfully';
 //End Languages page
 
 //Cultural-backgrounds page
+$lang['MY_CULTURAL_BACKGROUNDS'] = 'My Cultural Backgrounds';
 $lang['CULTURAL_BACKGROUNDS'] = 'Cultural Backgrounds';
 $lang['CULTURAL_BACKGROUNDS_UPDATED'] = 'Cultural Backgrounds updated';
 $lang['CULTURAL_BACK_MSG']='Select your cultural background, this will help clients search for Support Workers who share a similar cultural background.';
 //End Cultural-backgrounds page
+$lang['MY_RELIGION'] = 'My Religion';
 $lang['RELIGION'] = 'Religion';
 $lang['RELIGION_UPDATED'] = 'Religion Updated';
 $lang['RELIGIONREQ'] = 'Please choose your religion';
 
 $lang['NOTIFICATIONS'] = 'Notifications';
+$lang['ACC_SETTINGS'] = 'Account Settings';
+
+$lang['EDUCATIONS'] = 'Educations';
+$lang['MY_EDUCATIONS'] = 'My Educations';
+$lang['ADD_EDUCATION'] = 'Add New Education';
+$lang['EDIT_EDUCATION'] = 'Edit Education';
+$lang['INSTITUTION'] = 'Insitution ';
+$lang['COURSE'] = 'Degree/Course';
+$lang['EDUCATION_UPDATED'] = 'Education Updated.';
+$lang['EDUCATION_DELETED'] = 'Education Deleted.';
+
+$lang['ACTIVE'] = 'Active';
+$lang['VERIFIED'] = 'Verified';
+$lang['BANNED'] = 'Banned';
+$lang['INVALID_END_TIME']='Invalid end time';
+$lang['SKILLS']='Skills';
+$lang['MY_SKILLS']='My Skills';
+$lang['SKILLS_UPDATED']='Skills Updated';
+$lang['SKILLS_DELETED']='Skills Deleted';
+
+

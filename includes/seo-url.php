@@ -20,7 +20,7 @@ $link['MYJOBS'] = $config['site_url'] . 'my-jobs';
 $link['MYCOMPANIES'] = $config['site_url'] . 'my-companies';
 $link['CREATE-COMPANY'] = $config['site_url'] . 'create-company';
 $link['EDIT-COMPANY'] = $config['site_url'] . 'edit-company';
-$link['EXPERIENCES'] = $config['site_url'] . 'my-experiences';
+$link['EXPERIENCES'] = $config['site_url'] . 'edit-profile/my-experiences';
 $link['ADD_EXPERIENCE'] = $config['site_url'] . 'add-experience';
 $link['EDIT_EXPERIENCE'] = $config['site_url'] . 'edit-experience';
 $link['RESUMES'] = $config['site_url'] . 'my-resumes';
@@ -62,8 +62,10 @@ $link['RATE_AVAILABILITY'] = $config['site_url'] . 'edit-profile/rate-and-availa
 $link['LANGUAGES'] = $config['site_url'] . 'edit-profile/languages';
 $link['CULTURAL_BACKGROUNDS'] = $config['site_url'] . 'edit-profile/cultural-backgrounds';
 $link['RELIGION'] = $config['site_url'] . 'edit-profile/religion';
-
-
+$link['EDUCATIONS'] = $config['site_url'] . 'edit-profile/my-educations';
+$link['ADD_EDUCATION'] = $config['site_url'] . 'edit-profile/add-education';
+$link['EDIT_EDUCATION'] = $config['site_url'] . 'edit-profile/edit-education';
+$link['SKILLS'] = $config['site_url'] . 'edit-profile/my-skills';
 // Will Edit
 $link['ACCOUNT'] = $config['site_url'] . 'edit-profile/account';
 $link['ACCEPTED_JOBS'] = $config['site_url'] . 'accepted-jobs';

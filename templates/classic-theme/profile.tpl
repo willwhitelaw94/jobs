@@ -56,7 +56,7 @@
                         <div class="single-page-image"><img src="{SITE_URL}storage/profile/{USERIMAGE}" alt="{FULLNAME}"></div>
                         <div class="single-page-details">
                             <h3>{FULLNAME}</h3>
-                            <li><div class="ml-2 verified-badge-with-title">Verified</div></li>
+                            <li>{USER_STATUS}</li>
 
                             <ul>
                                 <li>
@@ -95,11 +95,9 @@
         <!-- Content -->
         <div class="col-xl-8 col-lg-8">
             <div class="row">
-                <div class="col-md-6">
-
+                <div class="col-md-12">
                     <div class="single-page-section">
                         <h3 class="margin-bottom-25">About Me</h3>
-    
                         {ABOUT}
                     </div>
                 </div>
@@ -132,6 +130,31 @@
                     {/LOOP: EXPERIENCES}
                 </div>
             </div>
+            {:IF}
+            IF({TOTAL_EDUCATIONS}){
+                <div class="boxed-list margin-bottom-60" id="all-jobs">
+                    <div class="boxed-list-headline">
+                        <h3><i class="icon-feather-book-open"></i> {LANG_EDUCATIONS}</h3>
+                    </div>
+                    <div class="listings-container compact-list-layout margin-top-30">
+                        {LOOP: EDUCATIONS}
+                            <div class="job-listing">
+                                <div class="job-listing-details">
+                                    <div class="job-listing-description">
+                                        <h4 class="job-listing-company">{EDUCATIONS.institution}</h4>
+                                        <h3 class="job-listing-title">{EDUCATIONS.course}</h3>
+                                    </div>
+                                </div>
+                                <div class="job-listing-footer margin-top-10">
+                                    <ul>
+                                        <li><i class="la la-clock-o"></i> {EDUCATIONS.start_date} - {EDUCATIONS.end_date}</li>
+                                       
+                                    </ul>
+                                </div>
+                            </div>
+                        {/LOOP: EDUCATIONS}
+                    </div>
+                </div>
             {:IF}
 
             IF({TOTALITEM}){
@@ -249,7 +272,8 @@
                             <th>Day</th>
                             <th>Times</th>
                         </tr>
-                        <tr>
+                        {USER_TIME_SLOT}
+                        <!-- <tr>
                             <td data-label="Column 1">Monday</td>
                             <td data-label="Column 2">9am - 5pm</td>
                         </tr>
@@ -278,7 +302,7 @@
                         <tr>
                             <td data-label="Column 1">Sunday</td>
                             <td data-label="Column 2">9am - 5pm</td>
-                        </tr>
+                        </tr> -->
                     </table>
                 </div>
                 </div>
@@ -290,7 +314,7 @@
 
             <!-- Profile Overview -->
             <div class="profile-overview">
-                <div class="overview-item"><strong>$35</strong><span>Hourly Rate</span></div>
+                <div class="overview-item"><strong>{SALARY_MIN} - {SALARY_MAX}</strong><span>Hourly Rate</span></div>
                 <div class="overview-item"><strong>53</strong><span>Jobs Done</span></div>
                 <div class="overview-item"><strong>22</strong><span>Rehired</span></div>
             </div>
@@ -409,21 +433,15 @@
                     </div>
                 </div>
             </div>
-
-
-
-
             <!-- Widget -->
             <div class="sidebar-widget">
-                <h3>Languages</h3>
+                <h3>{LANG_LANGUAGES}</h3>
                 <div class="task-tags">
-                    <span>English</span>
-                    <span>Spanish</span>
-                    <span>French</span>
-
+                    {LOOP: MAIN_LANG}
+                        <span >{MAIN_LANG.name} </span>               
+                    {/LOOP: MAIN_LANG}</td>
                 </div>
             </div>
-
             <!-- Widget -->
             <div class="sidebar-widget">
                 <h3>Skills</h3>

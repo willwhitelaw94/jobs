@@ -1,22 +1,6 @@
 
 {OVERALL_HEADER}
-<div id="titlebar" class="margin-bottom-0">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2>{LANG_EDITPROFILE}</h2>
-                <!-- Breadcrumbs -->
-                <nav id="breadcrumbs">
-                    <ul>
-                        <li><a href="{LINK_INDEX}">{LANG_HOME}</a></li>
-                        <li>{LANG_EDITPROFILE}</li>
-                    </ul>
-                </nav>
-
-            </div>
-        </div>
-    </div>
-</div>
+{BREADCRUMBS}
 <div class="section gray padding-bottom-50">
     <div class="container">
         <div class="row">
@@ -29,7 +13,7 @@
                 <div class="dashboard-box js-accordion-item active">
                     <!-- Headline -->
                     <div class="headline js-accordion-header">
-                        <h3><i class="icon-feather-lock"></i> Account Settings</h3>
+                        <h3><i class="icon-feather-lock"></i>{LANG_ACC_SETTINGS}</h3>
                     </div>
 
                     <div class="content with-padding js-accordion-body">
@@ -122,12 +106,12 @@
                                         <h5>Account Type</h5>
                                         <div class="account-type disabled">
                                             <div>
-                                                <input type="radio" name="account-type-radio" id="freelancer-radio" class="disabled account-type-radio" checked/>
+                                                <input type="radio" name="account-type" id="freelancer-radio" class="disabled account-type-radio"  value="1" IF('{USERTYPE}'=='user' || '{USERTYPE}'==''){ checked {:IF}/>
                                                 <label for="freelancer-radio" class="ripple-effect-dark"><i class="icon-material-outline-account-circle"></i> Carer</label>
                                             </div>
 
                                             <div>
-                                                <input type="radio" name="account-type-radio" id="employer-radio" class="disabled account-type-radio"/>
+                                                <input type="radio" name="account-type" id="employer-radio" class="disabled account-type-radio" value="2" IF('{USERTYPE}'=='employer'){ checked {:IF}/>
                                                 <label for="employer-radio" class="ripple-effect-dark"><i class="icon-material-outline-business-center"></i> Employer</label>
                                             </div>
                                         </div>
@@ -138,7 +122,7 @@
                             </div>
                             <span id="password-availability-status">IF("{PASSWORD_ERROR}
                                 "!=""){ {PASSWORD_ERROR} {:IF}</span>
-                            <button type="submit" name="password-submit"
+                            <button type="submit" name="submit"
                                     class="button ripple-effect">{LANG_UPDATE}</button>
                         </form>
                     </div>

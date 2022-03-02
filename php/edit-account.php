@@ -12,7 +12,10 @@ if (checkloggedin()) {
     $country_code = !empty($ses_userdata['country_code']) ? $ses_userdata['country_code'] : check_user_country();
     $currency_info = set_user_currency($country_code);
     $currency_sign = $currency_info['html_entity'];
+    
+
     if (isset($_POST['submit'])) {
+       // dd($_POST);
 
         if ($_POST["username"] != $_SESSION['user']['username']) {
             if (empty($_POST["username"])) {
@@ -58,6 +61,15 @@ if (checkloggedin()) {
                 }
             }
         }
+        if (!empty($_POST["password"]) && !empty($_POST["re_password"])) {
+            if ($_POST["password"] != $_POST["re_password"]) {
+                $errors++;
+                $password_error = "<span class='status-not-available'> " . $lang['PASS_NOT_MATCH'] . ".</span>";
+            } elseif ((strlen($_POST['password']) < 5) OR (strlen($_POST['password']) > 21)) {
+                $errors++;
+                $password_error = "<span class='status-not-available'> " . $lang['PASSLENG'] . ".</span>";
+            }
+        } 
 
         // if (!empty($_POST["gender"])) {
         //     if (!in_array($_POST["gender"], array('Male', 'Female', 'Other'))) {
@@ -65,40 +77,40 @@ if (checkloggedin()) {
         //     }
         // }
 
-        if ($errors == 0) {
-            if (!empty($_FILES['avatar'])) {
-                $file = $_FILES['avatar'];
-                // Valid formats
-                $valid_formats = array("jpeg", "jpg", "png");
-                $filename = $file['name'];
-                $ext = getExtension($filename);
-                $ext = strtolower($ext);
-                if (!empty($filename)) {
-                    //File extension check
-                    if (in_array($ext, $valid_formats)) {
-                        $main_path = ROOTPATH . "/storage/profile/";
-                        $filename = uniqid($_SESSION['user']['username'] . '_') . '.' . $ext;
-                        if (move_uploaded_file($file['tmp_name'], $main_path . $filename)) {
-                            $avatarName = $filename;
-                            resizeImage(150, $main_path . $filename, $main_path . $filename);
-                            resizeImage(60, $main_path . 'small_' . $filename, $main_path . $filename);
-                            if (file_exists($main_path . $author_image) && $author_image != 'default_user.png') {
-                                unlink($main_path . $author_image);
-                                unlink($main_path . 'small_' . $author_image);
-                            }
-                        } else {
-                            $errors++;
-                            $avatar_error = $lang['ERROR_TRY_AGAIN'];
-                            $avatar_error = "<span class='status-not-available'>" . $avatar_error . "</span>";
-                        }
-                    } else {
-                        $errors++;
-                        $avatar_error = $lang['ONLY_JPG_ALLOW'];
-                        $avatar_error = "<span class='status-not-available'>" . $avatar_error . "</span>";
-                    }
-                }
-            }
-        }
+        // if ($errors == 0) {
+        //     if (!empty($_FILES['avatar'])) {
+        //         $file = $_FILES['avatar'];
+        //         // Valid formats
+        //         $valid_formats = array("jpeg", "jpg", "png");
+        //         $filename = $file['name'];
+        //         $ext = getExtension($filename);
+        //         $ext = strtolower($ext);
+        //         if (!empty($filename)) {
+        //             //File extension check
+        //             if (in_array($ext, $valid_formats)) {
+        //                 $main_path = ROOTPATH . "/storage/profile/";
+        //                 $filename = uniqid($_SESSION['user']['username'] . '_') . '.' . $ext;
+        //                 if (move_uploaded_file($file['tmp_name'], $main_path . $filename)) {
+        //                     $avatarName = $filename;
+        //                     resizeImage(150, $main_path . $filename, $main_path . $filename);
+        //                     resizeImage(60, $main_path . 'small_' . $filename, $main_path . $filename);
+        //                     if (file_exists($main_path . $author_image) && $author_image != 'default_user.png') {
+        //                         unlink($main_path . $author_image);
+        //                         unlink($main_path . 'small_' . $author_image);
+        //                     }
+        //                 } else {
+        //                     $errors++;
+        //                     $avatar_error = $lang['ERROR_TRY_AGAIN'];
+        //                     $avatar_error = "<span class='status-not-available'>" . $avatar_error . "</span>";
+        //                 }
+        //             } else {
+        //                 $errors++;
+        //                 $avatar_error = $lang['ONLY_JPG_ALLOW'];
+        //                 $avatar_error = "<span class='status-not-available'>" . $avatar_error . "</span>";
+        //             }
+        //         }
+        //     }
+        // }
 
         if ($errors == 0) {
 
@@ -124,7 +136,6 @@ if (checkloggedin()) {
                 $location = getLocationInfoByIp();
                 $country = $location['countryCode'];
             }
-
             $now = date("Y-m-d H:i:s");
             $user_update = ORM::for_table($config['db']['pre'] . 'user')->find_one($_SESSION['user']['id']);
             $user_update->set('name', $_POST['name']);
@@ -132,70 +143,45 @@ if (checkloggedin()) {
             $user_update->set('username', $_POST["username"]);
             $user_update->set('email', $_POST["email"]);
             $user_update->set('address', validate_input($_POST["address"]));
-            $user_update->set('sex', $_POST["gender"]);
-            $user_update->set('tagline', isset($_POST["tagline"]) ? validate_input(strlimiter($_POST["tagline"], 200)) : null);
-            $user_update->set('description', addslashes(stripUnwantedTagsAndAttrs($_POST["aboutme"])));
-            $user_update->set('website', validate_input($_POST["website"]));
-            $user_update->set('facebook', validate_input($_POST["facebook"]));
-            $user_update->set('twitter', validate_input($_POST["twitter"]));
-            $user_update->set('instagram', validate_input($_POST["instagram"]));
-            $user_update->set('linkedin', validate_input($_POST["linkedin"]));
-            $user_update->set('youtube', validate_input($_POST["youtube"]));
+            //$user_update->set('sex', $_POST["gender"]);
+            //$user_update->set('tagline', isset($_POST["tagline"]) ? validate_input(strlimiter($_POST["tagline"], 200)) : null);
+            //$user_update->set('description', addslashes(stripUnwantedTagsAndAttrs($_POST["aboutme"])));
+            // $user_update->set('website', validate_input($_POST["website"]));
+            // $user_update->set('facebook', validate_input($_POST["facebook"]));
+            // $user_update->set('twitter', validate_input($_POST["twitter"]));
+            // $user_update->set('instagram', validate_input($_POST["instagram"]));
+            // $user_update->set('linkedin', validate_input($_POST["linkedin"]));
+            // $user_update->set('youtube', validate_input($_POST["youtube"]));
             $user_update->set('city_code', $city);
             $user_update->set('state_code', $state);
-             $user_update->set('country_code', $country);
+            $user_update->set('country_code', $country);
             $user_update->set('category', isset($_POST["category"]) ? $_POST['category'] : null);
             $user_update->set('subcategory', isset($_POST["subcategory"]) ? $_POST['subcategory'] : null);
-           // $user_update->set('salary_min', $salary_min);
-            //$user_update->set('salary_max', $salary_max);
-            $user_update->set('dob', $dob);
-            $user_update->set('updated_at', $now);
-            if ($avatarName) {
-                $user_update->set('image', $avatarName);
+            if($_POST["account-type"] == 1){
+                $user_update->set('user_type','user');
+            }else{
+                $user_update->set('user_type','employer');
             }
-           // dd($user_update);
+     
+            $user_update->set('updated_at', $now);
+            if (!empty($_POST["password"]) && !empty($_POST["re_password"])) {
+                $password = $_POST["password"];
+                $pass_hash = password_hash($password, PASSWORD_DEFAULT, ['cost' => 13]);
+                $user_update->set('password_hash', $pass_hash);
+            }
+            
             $user_update->save();
 
             $loggedin = get_user_data("", $_SESSION['user']['id']);
             create_user_session($loggedin['id'], $loggedin['username'], $loggedin['password'], $loggedin['user_type']);
 
-            transfer($link['EDITPROFILE'], $lang['PROFILE_UPDATED'], $lang['PROFILE_UPDATED']);
+            transfer($link['ACCOUNT'], $lang['ACCOUNT_UPDATED'], $lang['ACCOUNT_UPDATED']);
             exit;
         }
 
-    }else if (isset($_POST['password-submit'])) {
-        //print_r($_POST);die;
-        if (!empty($_POST["password"]) && !empty($_POST["re_password"])) {
-            if ($_POST["password"] != $_POST["re_password"]) {
-                $errors++;
-                $password_error = "<span class='status-not-available'> " . $lang['PASS_NOT_MATCH'] . ".</span>";
-            } elseif ((strlen($_POST['password']) < 5) OR (strlen($_POST['password']) > 21)) {
-                $errors++;
-                $password_error = "<span class='status-not-available'> " . $lang['PASSLENG'] . ".</span>";
-            }
-
-            if ($errors == 0) {
-              
-                $now = date("Y-m-d H:i:s");
-                $user_update = ORM::for_table($config['db']['pre'] . 'user')->find_one($_SESSION['user']['id']);
-               // print_r($user_update);die;
-                $user_update->set('updated_at', $now);
-
-                $password = $_POST["password"];
-                $pass_hash = password_hash($password, PASSWORD_DEFAULT, ['cost' => 13]);
-
-                $user_update->set('password_hash', $pass_hash);
-
-                $user_update->save();
-
-                $loggedin = get_user_data("", $_SESSION['user']['id']);
-                create_user_session($loggedin['id'], $loggedin['username'], $loggedin['password'], $loggedin['user_type']);
-
-                transfer($link['EDITPROFILE'], $lang['PROFILE_UPDATED'], $lang['PROFILE_UPDATED']);
-                exit;
-            }
-        }
     }
+
+ 
     $page = new HtmlTemplate ('templates/' . $config['tpl_name'] . '/edit-account.tpl');
     $page->SetParameter('OVERALL_HEADER', create_header($lang['Edit Profile']));
     $page->SetParameter('RESUBMITADS', resubmited_ads_count($_SESSION['user']['id']));
@@ -255,7 +241,7 @@ if (checkloggedin()) {
     $page->SetParameter('USER_DASHBOARD_CARD', create_user_dashboard_card());
     $page->SetParameter('USER_SIDEBAR', create_user_sidebar());
     $page->SetParameter('OVERALL_FOOTER', create_footer());
-   
+    $page->SetParameter('BREADCRUMBS', create_front_breadcrumbs('ACCOUNT_DETAILS'));
 
     $page->CreatePageEcho();
 }else{

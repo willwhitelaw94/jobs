@@ -11,7 +11,6 @@ if(checkloggedin())
     global $match;
     if(isset($match['params']['id'])){
         $_GET['id'] = $match['params']['id'];
-
         $result = ORM::for_table($config['db']['pre'].'experiences')
             ->where('user_id' , $_SESSION['user']['id'])
             ->where('id' , $_GET['id'])
@@ -93,7 +92,7 @@ if(checkloggedin())
     $page->SetParameter ('ERROR', $error);
     $page->SetParameter ('OVERALL_FOOTER', create_footer());
     $page->SetParameter('USER_SIDEBAR', create_user_sidebar());
-
+    $page->SetParameter('BREADCRUMBS', create_front_breadcrumbs('ADD_EXPERIENCE'));
     $page->CreatePageEcho();
 }else{
     headerRedirect($link['LOGIN']);

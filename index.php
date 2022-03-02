@@ -47,7 +47,7 @@ $router->map('GET|POST','/logout/?', 'logout.php');
 $router->map('GET|POST','/message/?', 'message.php');
 $router->map('GET|POST','/forgot/?', 'forgot.php');
 $router->map('GET|POST','/dashboard/?', 'dashboard.php');
-$router->map('GET|POST','/my-experiences/[*:page]?/?', 'my-experiences.php');
+$router->map('GET|POST','/edit-profile/my-experiences/[*:page]?/?', 'my-experiences.php');
 $router->map('GET|POST','/add-experience/?', 'user-experience.php');
 $router->map('GET|POST','/edit-experience/[i:id]?', 'user-experience.php');
 $router->map('GET|POST','/my-resumes/[*:page]?/?', 'my-resumes.php');
@@ -76,6 +76,9 @@ $router->map('GET|POST','/companies/?', 'companies.php');
 $router->map('GET|POST','/faq/?', 'faq.php');
 $router->map('GET|POST','/feedback/?', 'feedback.php');
 $router->map('GET|POST','/test/?', 'test.php');
+$router->map('GET|POST','/edit-profile/my-educations/[*:page]?/?', 'my-educations.php');
+$router->map('GET|POST','/edit-profile/add-education/?', 'user-education.php');
+$router->map('GET|POST','/edit-profile/edit-education/[i:id]?', 'user-education.php');
 // Special (GET processing, etc)
 
 $router->map('GET|POST','/profile/[*:username]?/[*:page]?/?','profile.php');
@@ -105,7 +108,7 @@ $router->map('GET|POST','/edit-profile/rate-and-availability', 'rate-and-availab
 $router->map('GET|POST','/edit-profile/languages', 'languages.php');
 $router->map('GET|POST','/edit-profile/cultural-backgrounds', 'cultural-backgrounds.php');
 $router->map('GET|POST','/edit-profile/religion', 'religion.php');
-
+$router->map('GET|POST','/edit-profile/my-skills', 'my-skills.php');
 // Wills Routes
 $router->map('GET|POST','/edit-profile/account', 'edit-account.php');
 $router->map('GET|POST','/accepted-jobs', 'accepted-job.php');

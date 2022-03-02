@@ -65,6 +65,8 @@ if(checkloggedin()){
     $page->SetLoop('BACKGROUNDS',$backgroundWithOptions);
     $page->SetParameter('C_BACKGROUNDOPTIONS',create_culture_background_options($backgroundWithOptions,$userBackgroundIds));
     $page->SetParameter('OVERALL_FOOTER', create_footer());
+    $page->SetParameter('BREADCRUMBS', create_front_breadcrumbs('MY_CULTURAL_BACKGROUNDS'));
+    
     $page->CreatePageEcho();
     
 }else{

@@ -329,11 +329,7 @@ ELSEIF({LOGGED_IN} && '{QUICKCHAT_AJAX_ON_OFF}'=='on'){
     }
 </script>
 
-
-
-
-
-<script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/bootstrap/dist/js/bootstrap.min.js"></script> -->
 <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/plugins/smiley/smiley.js"></script>
 <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/lightbox.js"></script>
 IF('{PAGE_URI}'=='message'){
@@ -352,6 +348,12 @@ ELSEIF('{PAGE_URI}'!='message'){
     <p><img src="{SITE_URL}plugins/quickchat-ajax/plugins/images/close-icon-white.png" width="30px" style="cursor: pointer"/></p>
     <div id="content"><img src="#"/></div>
 </div>
+
+
+
+
+
+
 
 ELSEIF({LOGGED_IN} && '{ZECHAT_ON_OFF}'=='on'){
 <script>

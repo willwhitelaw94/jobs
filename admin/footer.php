@@ -46,6 +46,7 @@
 
 <!-- Zeunix Core JS: jQuery, Bootstrap, slimScroll, scrollLock and App.js -->
 <script src="assets/js/core/jquery.min.js"></script>
+
 <script src="assets/js/core/bootstrap.min.js"></script>
 <script src="assets/js/core/jquery.slimscroll.min.js"></script>
 <script src="assets/js/core/jquery.scrollLock.min.js"></script>

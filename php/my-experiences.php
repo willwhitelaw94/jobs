@@ -34,6 +34,7 @@ if(checkloggedin())
     $page->SetParameter ('TOTALITEM', count($result));
     $page->SetParameter('WCHAT', (isset($config['wchat_on_off']))? $config['wchat_on_off']:"");
     $page->SetParameter ('OVERALL_FOOTER', create_footer());
+    $page->SetParameter ('BREADCRUMBS', create_front_breadcrumbs('MY_EXPERIENCES'));
     $page->SetParameter('USER_SIDEBAR', create_user_sidebar());
 
     $page->CreatePageEcho();

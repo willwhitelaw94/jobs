@@ -13,7 +13,6 @@ if (checkloggedin()) {
     $currency_info = set_user_currency($country_code);
     $currency_sign = $currency_info['html_entity'];
     if (isset($_POST['submit'])) {
-
         if ($_POST["username"] != $_SESSION['user']['username']) {
             if (empty($_POST["username"])) {
                 $errors++;
@@ -37,40 +36,46 @@ if (checkloggedin()) {
             }
         }
 
-        // Check if this is an Email availability check from signup page using ajax
-        if (is_null($_POST["email"])) {
-            $errors++;
-            $email_error = $lang['ENTEREMAIL'];
-            $email_error = "<span class='status-not-available'> " . $email_error . "</span>";
-        } elseif ($_POST["email"] != $ses_userdata['email']) {
-            $regex = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/';
+      
 
-            if (!preg_match($regex, $_POST['email'])) {
-                $errors++;
-                $email_error = $lang['EMAILINV'];
-                $email_error = "<span class='status-not-available'> " . $email_error . ".</span>";
-            } else {
-                $user_count = check_account_exists($_POST["email"]);
-                if ($user_count > 0) {
-                    $errors++;
-                    $email_error = $lang['ACCAEXIST'];
-                    $email_error = "<span class='status-not-available'>" . $email_error . "</span>";
-                }
-            }
-        }
+
+
+        // Check if this is an Email availability check from signup page using ajax
+        // if (is_null($_POST["email"])) {
+        //     $errors++;
+        //     $email_error = $lang['ENTEREMAIL'];
+        //     $email_error = "<span class='status-not-available'> " . $email_error . "</span>";
+        // } elseif ($_POST["email"] != $ses_userdata['email']) {
+        //     $regex = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/';
+
+        //     if (!preg_match($regex, $_POST['email'])) {
+        //         $errors++;
+        //         $email_error = $lang['EMAILINV'];
+        //         $email_error = "<span class='status-not-available'> " . $email_error . ".</span>";
+        //     } else {
+        //         $user_count = check_account_exists($_POST["email"]);
+        //         if ($user_count > 0) {
+        //             $errors++;
+        //             $email_error = $lang['ACCAEXIST'];
+        //             $email_error = "<span class='status-not-available'>" . $email_error . "</span>";
+        //         }
+        //     }
+        // }
+      //  echo $errors;die;
 
         // if (!empty($_POST["gender"])) {
         //     if (!in_array($_POST["gender"], array('Male', 'Female', 'Other'))) {
         //         $_POST["gender"] = 'Male';
         //     }
         // }
-
+       
         if ($errors == 0) {
             if (!empty($_FILES['avatar'])) {
                 $file = $_FILES['avatar'];
                 // Valid formats
                 $valid_formats = array("jpeg", "jpg", "png");
                 $filename = $file['name'];
+                
                 $ext = getExtension($filename);
                 $ext = strtolower($ext);
                 if (!empty($filename)) {
@@ -227,6 +232,7 @@ if (checkloggedin()) {
     //         exit;
     //     }
     // }
+    //echo $errors;die;
     $page = new HtmlTemplate ('templates/' . $config['tpl_name'] . '/edit-profile.tpl');
     $page->SetParameter('OVERALL_HEADER', create_header($lang['Edit Profile']));
     $page->SetParameter('RESUBMITADS', resubmited_ads_count($_SESSION['user']['id']));
@@ -286,8 +292,7 @@ if (checkloggedin()) {
     $page->SetParameter('USER_DASHBOARD_CARD', create_user_dashboard_card());
     $page->SetParameter('USER_SIDEBAR', create_user_sidebar());
     $page->SetParameter('OVERALL_FOOTER', create_footer());
-   
-
+    $page->SetParameter('BREADCRUMBS', create_front_breadcrumbs('EDITPROFILE'));
     $page->CreatePageEcho();
 }else{
     headerRedirect($link['LOGIN']);  

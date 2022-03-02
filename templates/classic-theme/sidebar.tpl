@@ -1,4 +1,10 @@
 <link href="{SITE_URL}templates/{TPL_NAME}/css/mystyle.css" rel="stylesheet"/>
+<style>
+.dashboard-nav ul li.active-submenu ul {
+    max-height: 280px !important;
+}
+</style>
+
 <div class="dashboard-sidebar">
     <div class="dashboard-sidebar-inner">
         <div class="dashboard-nav-container">
@@ -106,15 +112,7 @@
 
 
                     </ul>
-
-
-
-
-
                     <ul data-submenu-title="{LANG_ACCOUNT}">
-
-
-
                         IF('{USERTYPE}' == "user"){
                         <li  class="IF('{URISEGMENT}' == 'edit-profile'){ active active-submenu{:IF}"><a href="#"><i
                                         class="icon-feather-edit"></i> {LANG_EDITPROFILE}</a>
@@ -125,6 +123,8 @@
                                 <li class="IF('{PAGEURI}' == 'cultural-backgrounds'){ active {:IF}"><a href="{LINK_CULTURAL_BACKGROUNDS}">{LANG_CULTURAL_BACKGROUNDS}</a></li>
                                 <li class="IF('{PAGEURI}' == 'religion'){ active {:IF}"><a href="{LINK_RELIGION}">{LANG_RELIGION}</a></li>
                                 <li class="IF('{PAGEURI}' == 'my-experiences'){ active {:IF}"><a href="{LINK_EXPERIENCES}"> {LANG_MY_EXPERIENCES}</a></li>
+                                <li class="IF('{PAGEURI}' == 'my-educations'){ active {:IF}"><a href="{LINK_EDUCATIONS}"> {LANG_MY_EDUCATIONS}</a></li>
+                                <li class="IF('{PAGEURI}' == 'my-skills'){ active {:IF}"><a href="{LINK_SKILLS}"> {LANG_SKILLS}</a></li>
                             </ul>
                         </li>
                         ELSEIF('{USERTYPE}' == "employer"){

@@ -22,15 +22,21 @@ if(isset($_GET['username'])){
         $user_image = !empty($get_userdata['image'])?$get_userdata['image']:'default_user.png';
         $created = date('d M Y', strtotime($get_userdata['created_at']));
         $lastactive = date('d M Y', strtotime($get_userdata['lastactive']));
+        $user_status = '';
+      
+        if($get_userdata['status']==1){
+            $user_staus='<div class="ml-2 verified-badge-with-title">'.$lang['VERIFIED'].'</div>';
+        }
+       
         $user_main_lang=ORM::for_table($config['db']['pre'] .'user_languages')->table_alias('u_lang')
         ->select_many('lang.id','lang.name')
         ->left_outer_join($config['db']['pre'] .'language','u_lang.language_id=lang.id','lang')
         ->where('u_lang.user_id',$user_id)->where_raw('NOT(u_lang.language_id <=> NULL)')->find_array();
 
-        $user_other_lang=ORM::for_table($config['db']['pre'] .'user_languages')->table_alias('u_lang')
-        ->select_many('lang.id','lang.name','u_lang.language_other_id')
-        ->left_outer_join($config['db']['pre'] .'language','u_lang.language_other_id=lang.id','lang')
-        ->where('u_lang.user_id',$user_id)->where_raw('NOT(u_lang.language_other_id <=> NULL)')->find_array();
+        // $user_other_lang=ORM::for_table($config['db']['pre'] .'user_languages')->table_alias('u_lang')
+        // ->select_many('lang.id','lang.name','u_lang.language_other_id')
+        // ->left_outer_join($config['db']['pre'] .'language','u_lang.language_other_id=lang.id','lang')
+        // ->where('u_lang.user_id',$user_id)->where_raw('NOT(u_lang.language_other_id <=> NULL)')->find_array();
 
 
         $backgrounds = ORM::for_table($config['db']['pre'] .'cultural_backgrounds')->table_alias('c_back')
@@ -40,38 +46,24 @@ if(isset($_GET['username'])){
         ->where_raw('c_back.id IN (SELECT cultural_background_id FROM `job_user_cultural_backgrounds` WHERE user_id=9)')
         ->order_by_asc('c_back.id')
         ->find_array();
-
-       // echo ORM::get_last_query();die;        
+           
         $old_id=NULL;
         $backgroundWithOptions=array();
         foreach ($backgrounds as $key => $back) {
             if($back['id']!=$old_id){
-              // $backgroundWithOptions[$back['id']]['id']=$back['id']; 
-               //$backgroundWithOptions[$back['id']]['name']=$back['name']; 
-               //$backgroundWithOptions[$back['id']]['total_options']=$back['total_options']; 
                $backgroundWithOptions[$back['id']]['tpl'] .='<div class="card-body-heading"><h5>'.$back['name'].'</h5></div>';
                $old_id=$back['id']; 
             }
             $card_data='';
             if($back['total_options'] > 0){
                 $backgroundWithOptions[$back['id']]['options'][]= ['id'=>$back['bck_opt_id'],'name'=>$back['bck_opt_name']];
-                // $card_data 
-                $backgroundWithOptions[$back['id']]['tpl'] .= '<span class="badge badge-pill badge-pll-cl">'.$back['bck_opt_name'].'</span>';;
-                
-                // $backgroundWithOptions[$back['id']]['tpl'].='<span class="badge badge-pill badge-pll-cl">'.$back['bck_opt_name'].'</span';
-            }else{
-               // $backgroundWithOptions[$back['id']]['options']=[];
-            }    
+                $backgroundWithOptions[$back['id']]['tpl'] .= '<span class="badge badge-pill badge-pll-cl">'.$back['bck_opt_name'].'</span>';;  
+            }   
         }
-
-    //    dd($backgroundWithOptions);
-
         $user_relegions=ORM::for_table($config['db']['pre'] .'user_religions')->table_alias('u_rel')
         ->select_many('rel.id','rel.name')
         ->left_outer_join($config['db']['pre'] .'religions','u_rel.religion_id=rel.id','rel')
         ->where('u_rel.user_id',$user_id)->find_array();
-        //dd($user_relegions);
-
 
         $user_category = $user_subcategory = null;
         if(!empty($get_userdata['category'])){
@@ -168,6 +160,50 @@ if(isset($_GET['username'])){
             }
         }
 
+        $educations = array();
+        if($get_userdata['user_type'] == 'user'){
+            $result = ORM::for_table($config['db']['pre'].'educations')
+                ->where('user_id' , $user_id)->find_many();
+            foreach ($result as $info)
+            {
+                $educations[$info['id']]['id'] = $info['id'];
+                $educations[$info['id']]['institution'] = $info['institution'];
+                $educations[$info['id']]['course'] = $info['course'];
+                $educations[$info['id']]['start_date'] = date('d M, Y', strtotime($info['start_date']));
+                $educations[$info['id']]['end_date'] = $info['currently_working']?$lang['CURRENTLY_WORKING']:date('d M, Y', strtotime($info['end_date']));
+                
+            }
+        }
+
+        $user_pr_days=ORM::for_table($config['db']['pre'] . 'user_prefered_days')
+        ->select_many('id','user_id','day')
+        ->select_many_expr(["start_time"=>"LOWER(TIME_FORMAT(start_time,'%h:%i %p'))"],["end_time"=>"LOWER(TIME_FORMAT(end_time, '%h:%i %p'))"])
+        ->where('user_id',$user_id)->find_array();
+        $user_days=[];
+        foreach($user_pr_days as $val){
+            $user_days[$val['day']]=['start_time'=>$val['start_time'],'end_time'=>$val['end_time']];
+        }
+        $user_pr_days_code=array_keys($user_days);
+
+        $user_time_slot='';
+        foreach (getDays() as $key => $value) {
+            if(empty($user_days[$value['code']]['start_time'])||empty($user_days[$value['code']]['end_time'])){
+                $user_time_slot.=' 
+                <tr>
+                    <td data-label="Column 1">'.$value['day'].'</td>
+                    <td data-label="Column 2 "><i class="fa fa-times-circle text-danger"></i><span class="text-danger"> Not Available </span></td>
+                </tr>';
+            }else{
+                $user_time_slot.=' 
+                <tr>
+                    <td data-label="Column 1">'.$value['day'].'</td>
+                    <td data-label="Column 2">'.$user_days[$value['code']]['start_time'].'-'.$user_days[$value['code']]['end_time'].'</td>
+                </tr>';
+            }
+           
+            
+        }
+
         // Output to template
         $page = new HtmlTemplate ('templates/' . $config['tpl_name'] . '/profile.tpl');
         $page->SetParameter ('OVERALL_HEADER', create_header($user_name." ".$lang['PROFILE']));
@@ -200,17 +236,20 @@ if(isset($_GET['username'])){
         $page->SetParameter ('LASTACTIVE', $lastactive);
         $page->SetLoop ('ITEM', $items);
         $page->SetLoop ('EXPERIENCES', $experiences);
+        $page->SetLoop ('EDUCATIONS', $educations);
         $page->SetLoop ('PAGES', $pagging);
         $page->SetParameter('SHOW_PAGING', (int)($total > $limit));
         $page->SetParameter ('TOTALITEM', $total);
         $page->SetParameter ('TOTAL_EXPERIENCES', count($experiences));
+        $page->SetParameter ('TOTAL_EDUCATIONS', count($educations));
         $page->SetParameter('USER_FAVORITE', check_user_favorite($user_id));
         $page->SetParameter ('OVERALL_FOOTER', create_footer());
         $page->SetLoop ('MAIN_LANG',$user_main_lang);
-        $page->SetLoop ('OTHER_LANG',$user_other_lang);
+     //   $page->SetLoop ('OTHER_LANG',$user_other_lang);
         $page->SetLoop ('RELEGION',$user_relegions);
         $page->SetLoop('CUL_BACKGROUND',$backgroundWithOptions);
-        
+        $page->SetParameter('USER_STATUS',$user_staus);  
+        $page->SetParameter('USER_TIME_SLOT',$user_time_slot);  
         $page->CreatePageEcho();
         exit();
     }

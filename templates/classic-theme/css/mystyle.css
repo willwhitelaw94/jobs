@@ -6,7 +6,7 @@ h1,h2,h3,h4,h5{
 
 .dashboard-nav ul li a:after{display: none !important;}
 .submenu_cust li.active a{
-    color: #ffbd36 !important;
+    color:  var(--theme-color-1) !important;
 }
 .bg-light-danger{
     background-color: #fff5f8!important;
@@ -19,7 +19,7 @@ h1,h2,h3,h4,h5{
 
 .abl_cl{     
      background-color: #fffcf7;
-    border: 1px solid #ffbd36;
+    border: 1px solid  var(--theme-color-1) !important;;
     border-radius: 10px;
     padding: 25px;     
     margin-bottom: 30px;}
@@ -74,11 +74,11 @@ h1,h2,h3,h4,h5{
   }
   
   input:checked + .slider_avb {
-    background-color: #ffbd36;
+    background-color:   var(--theme-color-1) !important;;
   }
   
   input:focus + .slider_avb {
-    box-shadow: 0 0 1px #ffbd36;
+    box-shadow: 0 0 1px var(--theme-color-1) !important;
   }
   
   input:checked + .slider_avb:before {
@@ -150,7 +150,7 @@ h1,h2,h3,h4,h5{
 
 /* When the checkbox is checked, add a blue background */
 .container_checkbox input:checked ~ .checkmark_lable {
-  background-color: #ffbd36;
+  background-color: var(--theme-color-1) !important;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -189,8 +189,8 @@ h1,h2,h3,h4,h5{
     bottom: 0;
 }
 .container_checkbox input:checked ~ .checkmark_list {
-      background-color: rgba(255,189,54,0.04);
-      border: 1px solid rgba(255,189,54,0.04);
+      background-color: var(--theme-color-0_04);
+      border: 1px solid var(--theme-color-0_04);
 }
 
 .container_checkbox b {
@@ -205,5 +205,8 @@ h1,h2,h3,h4,h5{
 }
 .d-block{
   display: block;
+}
+.checkbox+.checkbox, .radio+.radio {
+  margin-top: 10px !important;
 }
 

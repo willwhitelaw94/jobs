@@ -1,28 +1,5 @@
 {OVERALL_HEADER}
-<div class="margin-bottom-0" id="titlebar">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2>
-                    {LANG_MY_EXPERIENCES}
-                </h2>
-                <!-- Breadcrumbs -->
-                <nav id="breadcrumbs">
-                    <ul>
-                        <li>
-                            <a href="{LINK_INDEX}">
-                                {LANG_HOME}
-                            </a>
-                        </li>
-                        <li>
-                            {LANG_MY_EXPERIENCES}
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </div>
-</div>
+{BREADCRUMBS}
 <div class="section gray padding-bottom-50">
     <div class="container">
         <div class="row">

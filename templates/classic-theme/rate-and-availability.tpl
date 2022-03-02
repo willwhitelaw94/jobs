@@ -1,41 +1,23 @@
 
 {OVERALL_HEADER}
-<style>
-
-</style>
-
-<div id="titlebar" class="margin-bottom-0">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2>{LANG_EDITPROFILE}</h2>
-                <!-- Breadcrumbs -->
-                <nav id="breadcrumbs">
-                    <ul>
-                        <li><a href="{LINK_INDEX}">{LANG_HOME}</a></li>
-                        <li>{LANG_EDITPROFILE}</li>
-                    </ul>
-                </nav>
-
-            </div>
-        </div>
-    </div>
-</div>
+{BREADCRUMBS}
 <div class="section gray padding-bottom-50">
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-12">
                {USER_SIDEBAR}
             </div>
-            <div class="col-lg-9 col-md-12 js-accordion">
-
-                
+            <div class="col-lg-9 col-md-12 ">
                 <div class="dashboard-box m-t-0 js-accordion-item active">
                     <!-- Headline -->
                     <div class="headline js-accordion-header">
                         <h3><i class="icon-feather-user"></i> {LANG_RATE_AVAILABILITY}</h3>
                     </div>
                     <div class="content with-padding js-accordion-body"> 
+                       
+                        IF("{TIME_ERROR}"!=""){
+                            <span class='status-not-available'>{TIME_ERROR}</span>
+                        {:IF}
                         <div class="py-0">
                             <form method="post" accept-charset="UTF-8">
                                 <div class="abl_cl">
@@ -123,23 +105,21 @@
                                                 </ul>
                                             </span>
                                         </div>
-
-
                                     </div>
-
-
                                     <div class="col-xl-6 col-md-6">
                                         <h3>Preferred Days:</h3>
                                         <p>Make sure your available days are accurate and up-to-date so you get enquiries that suit you and your availability.</p>
                                         <div class="submit-field"  id="prefered_days">
 
-                                        <select class="selectpicker" multiple data-selected-text-format="count > 1">
+                                        <select class="selectpicker" multiple data-selected-text-format="count > 1" name="days[]" id="days">
                                             {LOOP: DAYSLIST}
                                                 <option value="{DAYSLIST.code}">{DAYSLIST.day}</option>
                                             {/LOOP: DAYSLIST}
                                         </select>
                                         IF("{DAY_ERROR}"!=""){ {DAY_ERROR} {:IF}
                                         </div>
+                                    </div>
+                                     {DAYTIMESLOTS}
                                     </div>
                                 </div>
                                 <div class="row">
@@ -153,7 +133,6 @@
                                                     <div class="">
                                                         <div class="fw-bold">
                                                             <h3 class="ps-4">$ How much to charge?</h3>
-                                                        
                                                                 <div class="fs-6 text-gray-700">
                                                                     <p class="ps-4">
                                                                         Indicative rates provide a guide to your potential clients to help them make an informed decision about who
@@ -166,9 +145,6 @@
                                                                             <li class="pb-3 ">Your holiday pay, taxes and contributions to superannuation</li>
                                                                         </ul>
                                                                     </div>
-
-                                                                       
-                                                                
                                                                     <p class="ps-4">
                                                                         Don't forget that the actual rate you receive will be 10% less than the agreed rate while your clients will
                                                                         pay 5% more, for the support and services Trilogy Contractor Facilitates.
@@ -177,9 +153,7 @@
                                                                     <p class="ps-4">
                                                                         <a href="#">Learn more on how much to charge for the service you offer</a>
                                                                     </p>
-                        
                                                                 </div>
-                                                                
                                                         </div>
                                                     </div>
                                             </div>
@@ -194,7 +168,6 @@
                                               
                                             </div>
                                             <small>{LANG_MIN_SALARY_PER_HOUR}</small>
-                                           
                                         </div>
                                     </div>
                                     <div class="col-xl-3 col-md-12">
@@ -219,11 +192,8 @@
                                 <button type="submit" name="submit_details" class="button ripple-effect">{LANG_SAVE_CHANGES}</button>
                             </form>
                         </div>
-                        
                     </div>
                 </div>
-
-             
             </div>   
         </div>
     </div>
@@ -250,9 +220,7 @@
 
 
 <script>
- 
     /* Get and Bind cities */
-
     $('#jobcity').select2({
         multiple:true,
         ajax: {
@@ -296,20 +264,16 @@
  
 let string = '{USER_PRE_DAYS}';
 let arr = string.split(',');   
-$("#days").select2({
-    placeholder:'Select Days'
-    // tags: true,
-    // tokenSeparators: [',', ' '],
-    // minimumResultsForSearch: Infinity,   
-}).val(arr).trigger('change');
-
-$(function(){
-    $('.repeater').repeater({
-        isFirstItemUndeletable: true
+$('#days').selectpicker('val',arr);
+$('#days').on('change',function(){
+    var values = $(this).val();
+    document.querySelectorAll('.time_section').forEach(function(node) {
+        let day_code=node.dataset.dayCode
+        if(values.indexOf(day_code) == -1){
+            node.classList.add("d-none");
+        }else{
+            node.classList.remove("d-none");
+        } 
+    });
 });
-
-});
-
-
-
 </script>

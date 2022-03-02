@@ -1,21 +1,5 @@
 {OVERALL_HEADER}
-<div id="titlebar" class="margin-bottom-0">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2>{LANG_ADD_EXPERIENCE}</h2>
-                <!-- Breadcrumbs -->
-                <nav id="breadcrumbs">
-                    <ul>
-                        <li><a href="{LINK_INDEX}">{LANG_HOME}</a></li>
-                        <li>{LANG_ADD_EXPERIENCE}</li>
-                    </ul>
-                </nav>
-
-            </div>
-        </div>
-    </div>
-</div>
+{BREADCRUMBS}
 <div class="section gray padding-bottom-50">
     <div class="container">
         <div class="row">
@@ -64,7 +48,7 @@
                                 </div>
                             </div>
                             <div class="submit-field">
-                                <h5>{LANG_CURRENTLY_WORKING?}</h5>
+                                <h5>{LANG_CURRENTLY_WORKING}</h5>
                                 <div class="radio margin-right-20">
                                     <input class="with-gap" type="radio" name="currently_working" id="1" value="1" checked />
                                     <label for="1"><span class="radio-label"></span>{LANG_YES}</label>

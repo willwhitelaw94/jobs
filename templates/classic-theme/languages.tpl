@@ -1,22 +1,6 @@
 
 {OVERALL_HEADER}
-<div id="titlebar" class="margin-bottom-0">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2>{LANG_EDITLANGUAGE}</h2>
-                <!-- Breadcrumbs -->
-                <nav id="breadcrumbs">
-                    <ul>
-                        <li><a href="{LINK_INDEX}">{LANG_HOME}</a></li>
-                        <li>{LANG_EDITLANGUAGE}</li>
-                    </ul>
-                </nav>
-
-            </div>
-        </div>
-    </div>
-</div>
+{BREADCRUMBS}
 <div class="section gray padding-bottom-50">
     <div class="container">
         <div class="row">
@@ -52,10 +36,10 @@
                                         {/LOOP: MAINLANGS} 
                                 
                                     {:IF} 
-                                    <div class="col-12" >
+                                     <!-- <div class="col-12" >
                                     <h3>{LANG_OTHER_LANGUAGES} :</h3>
                                     </div>
-                                    IF('{OTHERLANGS}' != ''){
+                                    IF('{OTHERLANGS}' != ''){ 
                                       
                                         {LOOP: OTHERLANGS}
                                         <div class="col-sm-3">
@@ -68,7 +52,7 @@
                                         </div>
                                         {/LOOP: OTHERLANGS} 
                                 
-                                    {:IF} 
+                                    {:IF} -->
                                 </div>
                                 <br>
                                 <div class="col-sm-12">

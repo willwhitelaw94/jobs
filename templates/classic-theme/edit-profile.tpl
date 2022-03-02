@@ -1,22 +1,6 @@
 
 {OVERALL_HEADER}
-<div id="titlebar" class="margin-bottom-0">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2>{LANG_EDITPROFILE}</h2>
-                <!-- Breadcrumbs -->
-                <nav id="breadcrumbs">
-                    <ul>
-                        <li><a href="{LINK_INDEX}">{LANG_HOME}</a></li>
-                        <li>{LANG_EDITPROFILE}</li>
-                    </ul>
-                </nav>
-
-            </div>
-        </div>
-    </div>
-</div>
+{BREADCRUMBS}
 <div class="section gray padding-bottom-50">
     <div class="container">
         <div class="row">
@@ -58,7 +42,7 @@
                                             <div class="row">
                                             <div class="col-auto">
                                                 <div class="avatar-wrapper" data-tippy-placement="bottom" title="{LANG_UPLOAD_AVATAR} - {LANG_AVATAR_HINT}">
-                                                    <img class="profile-pic" src="images/user-avatar-placeholder.png" alt="" />
+                                                    <img class="profile-pic" src="{SITE_URL}storage/profile/{AVATAR}" alt="" />
                                                     <div class="upload-button"></div>
                                                     <input class="file-upload" type="file" accept="image/*" id="avatar"
                                                            name="avatar"/>

@@ -48,6 +48,7 @@ if(checkloggedin()){
     $page->SetParameter('USER_RELIGIONS',implode(',',$userReligionIds));
     $page->SetParameter('RELERROR',$rel_error);
     $page->SetParameter('OVERALL_FOOTER', create_footer());
+    $page->SetParameter('BREADCRUMBS', create_front_breadcrumbs('MY_RELIGION'));
     $page->CreatePageEcho();
     
 }else{

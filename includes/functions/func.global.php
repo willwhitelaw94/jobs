@@ -23,7 +23,11 @@ function create_header($page_title='',$meta_desc = '',$meta_image = '',$meta_art
 {
     global $config,$lang,$link;
     checkinstall();
-
+    $ses_userdata='';
+    if(isset($_SESSION['user']['id']))
+    {
+        $ses_userdata = get_user_data($_SESSION['user']['username']);
+    }
     $country_code = check_user_country();
     $countryName = get_countryName_by_sortname($country_code);
 
@@ -37,7 +41,7 @@ function create_header($page_title='',$meta_desc = '',$meta_image = '',$meta_art
     $page->SetParameter('PAGE_LINK', (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
     $page->SetParameter('PAGE_META_KEYWORDS', $config['meta_keywords']);
     $page->SetParameter('PAGE_META_DESCRIPTION', ($meta_desc == '')?$config['meta_description']:$meta_desc);
-    $page->SetParameter('GMAP_KEY', $config['gmap_api_key']);
+    $page->SetParameter('AVATAR', !empty($ses_userdata['image']) ? 'small_' . $ses_userdata['image'] : 'small_default_user.png');    $page->SetParameter('GMAP_KEY', $config['gmap_api_key']);
     if($meta_article){
         $page->SetParameter('META_CONTENT', 'article');
         if(!empty($meta_image)){
@@ -1755,3 +1759,49 @@ function parent_culture($option_id){
     $parent= ORM::for_table($config['db']['pre'] . 'cultural_background_options')->select('cultural_background_id')->where('id',$option_id)->find_one();
     return $parent['cultural_background_id'];
 }
+
+function create_front_breadcrumbs($page_name)
+{
+    global $config,$lang,$link;
+    $data = [];
+    $page_name = $lang["$page_name"];
+    return '
+    <div id="titlebar" class="margin-bottom-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2>'.$page_name.'</h2>
+                    <!-- Breadcrumbs -->
+                    <nav id="breadcrumbs">
+                        <ul>
+                            <li><a href="'.$link['INDEX'].'">'.$lang['HOME'].'</a></li>
+                            <li>'.$page_name.'</li>
+                        </ul>
+                    </nav>
+
+                </div>
+                <div class="col-lg-4">
+                    <div class="d-flex justify-content-end">
+                    <a class="button ripple-effect" rel="nofollow" target="_blank" role="button" href="'.$link['PROFILE'].'/'.$_SESSION['user']['username'].'">'.$lang['PROFILE_PUBLIC'].'</a>
+                    <span class="resend_count" id="resend_count16"></span>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>'; 
+}
+
+if (!function_exists('getLevels')) {
+    function getLevels()
+    {
+       return  Array(
+                ['id'=>'1','val'=>'begginer','name'=>'Begginer'],
+                ['id'=>'2','val'=>'intermediate','name'=>'Intermediate'],
+                ['id'=>'3','val'=>'advance','name'=>'Advance'],
+                ['id'=>'4','val'=>'master','name'=>'Master'],
+                ['id'=>'5','val'=>'expert','name'=>'Expert'] 
+        );
+    }
+}
+
+
