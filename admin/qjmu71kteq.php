@@ -128,6 +128,14 @@ if(isset($_GET['action'])){
 
     if ($_GET['action'] == "deleteCulturalBackground") { deleteCulturalBackground(); }
 
+    if ($_GET['action'] == "deleteAboutMe") { deleteAboutMe(); }
+
+    if ($_GET['action'] == "deletePreference") { deletePreference(); }
+
+    if ($_GET['action'] == "deleteInterest") { deleteInterest(); }
+
+    if ($_GET['action'] == "deleteCareExperience") { deleteCareExperience(); }
+
 }
 
 if(isset($_POST['action'])){
@@ -3770,6 +3778,129 @@ function deleteCulturalBackground(){
         if(check_allow())
             mysqli_query($con,$sql);
             $sql1 = "DELETE from `".$config['db']['pre']."cultural_background_options` where cultural_background_id in(".implode(',', $_POST['list']).") ";
+            mysqli_query($con,$sql1);
+
+        echo 1;
+        die();
+    } else {
+        echo 0;
+        die();
+    }
+
+}
+
+function deleteAboutMe(){
+    global $con,$config;
+    
+    if(isset($_POST['id']))
+    {
+        $_POST['list'][] = $_POST['id'];
+       
+    }
+
+  
+    if (is_array($_POST['list'])) {
+       
+        $count = 0;
+        $sql = "DELETE from `".$config['db']['pre']."about_mes` where id in(".implode(',', $_POST['list']).") ";
+        if(check_allow())
+            mysqli_query($con,$sql);
+            $sql1 = "DELETE from `".$config['db']['pre']."about_me_options` where about_me_id in(".implode(',', $_POST['list']).") ";
+            mysqli_query($con,$sql1);
+
+        echo 1;
+        die();
+    } else {
+        echo 0;
+        die();
+    }
+
+}
+function deletePreference(){
+    global $con,$config;
+    
+    if(isset($_POST['id']))
+    {
+        $_POST['list'][] = $_POST['id'];
+       
+    }
+
+  
+    if (is_array($_POST['list'])) {
+       
+        $count = 0;
+        $sql = "DELETE from `".$config['db']['pre']."preferences` where id in(".implode(',', $_POST['list']).") ";
+        if(check_allow())
+            mysqli_query($con,$sql);
+            $sql1 = "DELETE from `".$config['db']['pre']."preference_options` where about_me_id in(".implode(',', $_POST['list']).") ";
+            mysqli_query($con,$sql1);
+
+        echo 1;
+        die();
+    } else {
+        echo 0;
+        die();
+    }
+
+}
+
+function deleteInterest(){
+    global $con,$config;
+    
+    if(isset($_POST['id']))
+    {
+        $_POST['list'][] = $_POST['id'];
+    }
+
+  
+    if (is_array($_POST['list'])) {
+       
+        $count = 0;
+        $sql = "DELETE FROM `".$config['db']['pre']."interests` ";
+
+        foreach ($_POST['list'] as $value)
+        {
+            if($count == 0)
+            {
+                $sql.= "WHERE `id` = '" . $value . "'";
+            }
+            else
+            {
+                $sql.= " OR `id` = '" . $value . "'";
+            }
+
+            $count++;
+        }
+        $sql.= " LIMIT " . count($_POST['list']);
+
+        if(check_allow())
+            mysqli_query($con,$sql);
+
+        echo 1;
+        die();
+    } else {
+        echo 0;
+        die();
+    }
+}
+
+function deleteCareExperience(){
+    global $con,$config;
+    
+    if(isset($_POST['id']))
+    {
+        $_POST['list'][] = $_POST['id'];
+       
+    }
+
+  
+    if (is_array($_POST['list'])) {
+       
+        $count = 0;
+        $sql = "DELETE from `".$config['db']['pre']."care_experiences` where id in(".implode(',', $_POST['list']).") ";
+        if(check_allow())
+            mysqli_query($con,$sql);
+            $sql1 = "DELETE from `".$config['db']['pre']."care_experience_options` where care_experience_id in(".implode(',', $_POST['list']).") ";
             mysqli_query($con,$sql1);
 
         echo 1;

@@ -1,7 +1,7 @@
 <header class="slidePanel-header overlay">
     <div class="overlay-panel overlay-background vertical-align">
         <div class="service-heading">
-            <h2>Add Cultural Background</h2>
+            <h2>Add Care Experience</h2>
         </div>
         <div class="slidePanel-actions">
             <div class="btn-group-flat">
@@ -33,15 +33,15 @@
 
                 <div class="white-box">
                     <div id="post_error"></div>
-                    <form name="form2"  class="form form-horizontal" method="post" data-ajax-action="addCulturalBackground" id="sidePanel_form">
+                    <form name="form2"  class="form form-horizontal" method="post" data-ajax-action="addCareExperience" id="sidePanel_form">
                         <div class="form-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="exampleInputfullname">Cultural Background Name<code>*</code></label>
+                                        <label for="exampleInputfullname">Name<code>*</code></label>
                                         <div class="input-group">
                                             <div class="input-group-addon"><i class="ion-person"></i></div>
-                                            <input type="text" class="form-control" id="exampleInputreligionname" placeholder="Cultural Background Name" name="name" required="">
+                                            <input type="text" class="form-control" id="exampleInputreligionname" placeholder="Name" name="name" required="">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
@@ -49,7 +49,7 @@
                               
                                 <div class="col-md-12">
                                     <div class="repeater form-group">
-                                    <label for="exampleInputfulltype">Add Cultural Option<code>*</code></label>
+                                    <label for="exampleInputfulltype">Options<code>*</code></label>
                                         <div data-repeater-list="options" class="option_repeat">
                                                 <div data-repeater-item class="input-group">
                                                     <div class="input-group-addon"><i class="ion-person"></i></div>

@@ -1,13 +1,13 @@
 <?php
 require_once('../datatable-json/includes.php');
 
-$cbId = isset($_GET['id'])? $_GET['id'] : "";
+$prId = isset($_GET['id'])? $_GET['id'] : "";
 
-$info = ORM::for_table($config['db']['pre'].'cultural_backgrounds')->find_one($cbId);
-$c_option = ORM::for_table($config['db']['pre'].'cultural_background_options')->table_alias('b_opt')
-->select_many('b_opt.id','b_opt.name')
-->left_outer_join($config['db']['pre'].'cultural_backgrounds','b_opt.cultural_background_id=c_back.id','c_back')
-->where('c_back.id',$cbId)
+$info = ORM::for_table($config['db']['pre'].'preferences')->find_one($prId);
+$c_option = ORM::for_table($config['db']['pre'].'preference_options')->table_alias('pr_opt')
+->select_many('pr_opt.id','pr_opt.name')
+->left_outer_join($config['db']['pre'].'preferences','pr_opt.preference_id=p_back.id','p_back')
+->where('p_back.id',$prId)
 ->find_array();
 //echo ORM::get_last_query();die;
 //print_r($c_option);die;
@@ -15,7 +15,7 @@ $c_option = ORM::for_table($config['db']['pre'].'cultural_background_options')->
 <header class="slidePanel-header overlay">
     <div class="overlay-panel overlay-background vertical-align">
         <div class="service-heading">
-            <h2>Edit Cultural Background</h2>
+            <h2>Edit About Me</h2>
         </div>
         <div class="slidePanel-actions">
             <div class="btn-group-flat">
@@ -44,30 +44,30 @@ $c_option = ORM::for_table($config['db']['pre'].'cultural_background_options')->
             <div class="col-sm-12">
                 <div class="white-box">
                     <div id="post_error"></div>
-                    <form name="form2"  class="form form-horizontal" method="post" data-ajax-action="editCulturalBackground" id="sidePanel_form">
+                    <form name="form2"  class="form form-horizontal" method="post" data-ajax-action="editPreference" id="sidePanel_form">
                         <div class="form-body">
                             <input type="hidden" name="id" value="<?php echo $_GET['id']?>">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="exampleInputfullname">Cultural Background Name<code>*</code></label>
+                                        <label for="exampleInputfullname">Name<code>*</code></label>
                                         <div class="input-group">
                                             <div class="input-group-addon"><i class="ion-person"></i></div>
-                                            <input type="text" class="form-control" id="exampleInputfullname" placeholder="Cultural Background Name" name="name" required=""  value="<?php echo $info['name'];?>">
+                                            <input type="text" class="form-control" id="exampleInputfullname" placeholder="Name" name="name" required=""  value="<?php echo $info['question'];?>">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="repeater form-group">
-                                    <label for="exampleInputfulltype">Add Cultural Option<code>*</code></label>
+                                    <label for="exampleInputfulltype">Add Option<code>*</code></label>
                                         <div data-repeater-list="options" class="option_repeat">
                                                <?php
                                                if(empty($c_option)){?>
                                                    <div data-repeater-item class="input-group">
                                                          <div class="input-group-addon"><i class="ion-person"></i></div>
                                                        
-                                                         <input type="text"  class="form-control" name="name" placeholder="Cultural Option" value="<?php echo $val['name']?>"/>
+                                                         <input type="text"  class="form-control" name="name" placeholder="Option" value="<?php echo $val['name']?>"/>
                                                          <div class="input-group-addon btn-danger" data-repeater-delete type="button" value="Delete"><i class="fa fa-trash"></i></div>
                                                         
                                                     </div> 
@@ -78,7 +78,7 @@ $c_option = ORM::for_table($config['db']['pre'].'cultural_background_options')->
                                                     <div data-repeater-item class="input-group">
                                                          <div class="input-group-addon"><i class="ion-person"></i></div>
                                                        
-                                                         <input type="text"  class="form-control" name="name" placeholder="Add Cultural Name" value="<?php echo $val['name']?>"/>
+                                                         <input type="text"  class="form-control" name="name" placeholder="Option" value="<?php echo $val['name']?>"/>
                                                          <div class="input-group-addon btn-danger" data-repeater-delete type="button" value="Delete"><i class="fa fa-trash"></i></div>
                                                         
                                                      </div> 
