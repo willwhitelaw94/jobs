@@ -10,56 +10,118 @@ if (checkloggedin()) {
     $user_skills=ORM::for_table($config['db']['pre'] .'user_skills')->where('user_id',$user_id)->find_array();
     $skills_section='';
     $options='';
-    foreach (getLevels() as $key => $value) {
-        $options.="<option value=".$value['val'].">".$value['name']."</option>";
+    $loop = function($u_level=''){
+        $options='';
+        foreach(getLevels() as $level){
+            $selected = $u_level==$level['val']?'selected':"";
+            $options.="<option value=".$level['val']." ".$selected." >".$level['name']."</option>";
+        }
+        return $options;
+    };
+    //echo $loop('begginer');
+    $user_skill_section='';
+    if(!empty($user_skills)){
+        foreach ($user_skills as $key => $skill) {
+          $user_skill_section.='
+            <div data-repeater-item  class="row repeater wrap_group" >
+                <div class="col-md-6">
+                    <div class="submit-field">
+                        <div class="input-with-icon">
+                            <input type="hidden" name="id" value="'.$skill['id'].'">
+                            <input class="with-border margin-bottom-0" type="text" placeholder="Add skill"
+                                name="name"  value="'.$skill['skill'].'" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="select_del_cl">
+                        <div class="selct_wrap_cl_m">
+                            <select class="skill_level" data-selected-text-format="count > 1" name="level" required>
+                            '.$loop($skill['level']).'
+                            </select>
+                        </div>
+                        <div class="del_btn_cl">
+                            <a href="javascript:void(0)" data-repeater-delete type="button" value="Delete"><i class="fa fa-trash"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           ';
+        }
+    }else{
+        $user_skill_section.='
+        <div data-repeater-item  class="row repeater wrap_group" >
+            <div class="col-md-6">
+                <div class="submit-field">
+                    <div class="input-with-icon">
+                    <input type="hidden" name="id">
+                        <input class="with-border margin-bottom-0" type="text" placeholder="Add skill"
+                            name="name"  required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="select_del_cl">
+                    <div class="selct_wrap_cl_m">
+                        <select class="skill_level" data-selected-text-format="count > 1" name="level" required>
+                        '.$loop('').'
+                        </select>
+                    </div>
+                    <div class="del_btn_cl">
+                        <a href="javascript:void(0)" data-repeater-delete type="button" value="Delete"><i class="fa fa-trash"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>';
     }
-  
-    // $skills_section =' 
-    // <div class="row repeater" >
-    //     <div class="col-md-5 col-xl-5">
-    //         <div class="submit-field">
-    //             <div class="input-with-icon">
-    //                 <input class="with-border margin-bottom-0" type="number" placeholder="Add skill"
-    //                     name="salary_min" value="{SALARY_MIN}" >
-    //             </div>
-    //         </div>
-    //     </div>
-    //     <div class="col-md-5 col-xl-5">
-    //         <select class="selectpicker" data-selected-text-format="count > 1" name="level" id="level">
-    //                 '.$options.'
-    //         </select>
-    //     </div>
-    //     <div class="col-md-2 col-xl-2">
-    //     </div>
-    //     <div class="col-md-12 col-xl-12">
-    //         <a href="javascript:void(0)">Add New Skill</a>
-    //     </div>
-    // </div>
-    
-    // ';
-    // <!-- <div class="col-md-12">
-    // <div class="repeater form-group">
-    // <label for="exampleInputfulltype">Add Cultural Option<code>*</code></label>
-    //     <div data-repeater-list="options" class="option_repeat">
-    //             <div data-repeater-item class="input-group">
-    //                 <div class="input-group-addon"><i class="ion-person"></i></div>
-    //                 <input type="text"  class="form-control" name="name" placeholder="Add Cultural Name"/>
-    //                 <div class="input-group-addon btn-danger" data-repeater-delete type="button" value="Delete"><i class="fa fa-trash"></i></div>
-    //             </div>
-    //     </div>
-      
-    //     <div class="input-group-addon btn-primary rpt_click" data-repeater-create type="button" value="Add"><i class="fa fa-plus"></i></div>
-    // </div>
-    // </div> -->
-   
+
+    $skills_section ='
+    <div class="repeater">
+        <div data-repeater-list="skills">
+           '.$user_skill_section.'
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-xl-12">
+                <div class="">
+                    <a href="javascript:void(0)" data-repeater-create type="button" value="Add"><i class="fa fa-plus"></i>Add New Skill</a>
+
+                </div>
+                &nbsp;
+            </div>
+        </div>
+    </div>
+    ';
+    $errors=0;
 
     if (isset($_POST['submit_details'])) {
+        if($errors == 0) {            
+            $post_data=$_POST['skills'];
+            $user_skills_ids=array_column($user_skills,'id');
 
-        if ($errors == 0) {
-        
-           
-              
-
+            $u_posted_ids = array_map(function($skill) { 
+                return $skill['id'];
+            }, $post_data);
+            foreach (array_column($user_skills,'id') as  $id) {
+                if(!in_array($id, $u_posted_ids)){
+                    $d=ORM::for_table($config['db']['pre'] .'user_skills')->where(['user_id'=>$user_id,'id'=>$id])->find_one(); 
+                    $d->delete();
+                }
+            }
+            
+           foreach ($post_data as $key => $skill) {
+              if(!empty($skill['id'])){
+                $u_skill=ORM::for_table($config['db']['pre'] .'user_skills')->where(['user_id'=>$user_id,'id'=>$skill['id']])->find_one();
+                $u_skill->set('skill',$skill['name']);
+                $u_skill->set('level',$skill['level']);
+                $u_skill->save();
+              }else{
+                $insert_skill=ORM::for_table($config['db']['pre'] .'user_skills')->create();
+                $insert_skill->user_id=$user_id;
+                $insert_skill->skill=$skill['name'];
+                $insert_skill->level=$skill['level'];
+                $insert_skill->save();
+              }
+           }
         }
         transfer($link['SKILLS'], $lang['SKILLS_UPDATED'], $lang['SKILLS_UPDATED']);
         exit;

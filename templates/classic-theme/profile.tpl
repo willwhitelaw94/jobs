@@ -433,6 +433,17 @@
                     </div>
                 </div>
             </div>
+             <!-- Widget -->
+             <div class="sidebar-widget">
+                <h3>Skills</h3>
+                <div class="freelancer-indicators">
+                    {USER_SKILLS}
+
+                   
+                </div>
+               
+                
+            </div>
             <!-- Widget -->
             <div class="sidebar-widget">
                 <h3>{LANG_LANGUAGES}</h3>
@@ -442,15 +453,7 @@
                     {/LOOP: MAIN_LANG}</td>
                 </div>
             </div>
-            <!-- Widget -->
-            <div class="sidebar-widget">
-                <h3>Skills</h3>
-                <div class="task-tags">
-                    <span>Android</span>
-                    <span>mobile apps</span>
-                    <span>design</span>
-                </div>
-            </div>
+           
 
             <!-- Widget -->
             <div class="sidebar-widget">

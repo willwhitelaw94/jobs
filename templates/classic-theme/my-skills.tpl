@@ -64,7 +64,8 @@ select.bs-select-hidden, select.selectpicker {
                     <div class="content with-padding js-accordion-body">
                         <div class="py-0">
                             <form method="post" accept-charset="UTF-8">
-                                <div class="repeater">
+                                {SKILL_SECTION}
+                                <!-- <div class="repeater">
                                     <div data-repeater-list="skills">
                                         <div data-repeater-item  class="row repeater wrap_group" >
                                             <div class="col-md-6">
@@ -78,7 +79,7 @@ select.bs-select-hidden, select.selectpicker {
                                             <div class="col-md-6">
                                                 <div class="select_del_cl">
                                                <div class="selct_wrap_cl_m">
-                                                <select class="selectpicker skill_level" data-selected-text-format="count > 1" name="level" >
+                                                <select class="skill_level" data-selected-text-format="count > 1" name="level" >
                                                     <option>beginner</option>
                                                     <option>intermidiate</option>
                                                     <option>advance</option>
@@ -94,15 +95,15 @@ select.bs-select-hidden, select.selectpicker {
                                         </div>
                                     </div>
                                    <div class="row">
-                                    <div class="col-md-12 col-xl-12">
-                                      <div class="">
-                                        <a href="javascript:void(0)" data-repeater-create type="button" value="Add"><i class="fa fa-plus"></i>Add New Skill</a>
+                                        <div class="col-md-12 col-xl-12">
+                                        <div class="">
+                                            <a href="javascript:void(0)" data-repeater-create type="button" value="Add"><i class="fa fa-plus"></i>Add New Skill</a>
 
-                                      </div>
-                                      &nbsp;
-                                    </div>
+                                        </div>
+                                        &nbsp;
+                                        </div>
                                    </div>
-                               </div>
+                               </div> -->
                                <div class="row">
                                 <div class="col-md-12 col-xl-12">
                                 <button type="submit" name="submit_details" class="button ripple-effect">{LANG_SAVE_CHANGES}</button>
@@ -136,10 +137,22 @@ select.bs-select-hidden, select.selectpicker {
 <script type="text/javascript">
 $(function(){
     $('.repeater').repeater({
-        isFirstItemUndeletable: true
+        show: function () {
+            $(this).slideDown();
+            $(".skill_level").selectpicker('refresh')
+        },
+        hide: function (deleteElement) {
+            if(confirm('Are you sure you want to delete this element?')) {
+                $(this).slideUp(deleteElement);
+            }
+        },
+        ready: function (setIndexes) {
+            //$dragAndDrop.on('drop', setIndexes);
+        },
+        isFirstItemUndeletable: true,
     });
-    $('.selectpicker').selectpicker({
-      });
+    $('.skill_level').selectpicker();
+   
     
 });
 
