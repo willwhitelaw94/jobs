@@ -27,15 +27,15 @@ function ajax_edit_advertise(){
     if(isset($_POST['submit'])) {
         $errors = array();
 
-        if (empty($_POST['company'])) {
-            if (empty($_POST['company_name'])) {
-                $errors[]['message'] = $lang['COMPANY_NAME_REQ'];
-            }
+        // if (empty($_POST['company'])) {
+        //     if (empty($_POST['company_name'])) {
+        //         $errors[]['message'] = $lang['COMPANY_NAME_REQ'];
+        //     }
 
-            if (empty($_POST['company_desc'])) {
-                $errors[]['message'] = $lang['COMPANY_DESC_REQ'];
-            }
-        }
+        //     if (empty($_POST['company_desc'])) {
+        //         $errors[]['message'] = $lang['COMPANY_DESC_REQ'];
+        //     }
+        // }
 
         if (empty($_POST['catid'])) {
             $errors[]['message'] = $lang['CAT_REQ'];

@@ -35,11 +35,6 @@ if (checkloggedin()) {
                 }
             }
         }
-
-      
-
-
-
         // Check if this is an Email availability check from signup page using ajax
         // if (is_null($_POST["email"])) {
         //     $errors++;

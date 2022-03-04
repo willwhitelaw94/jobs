@@ -203,6 +203,22 @@ if(isset($_GET['username'])){
            
             
         }
+        $user_skills=ORM::for_table($config['db']['pre'] . 'user_skills')->where('user_id',$user_id)->find_array();
+        $skill_section='';
+        $levels = getLevels();
+        $key = array_search('begginer', array_column($levels,'val'));
+      //  dd($levels[$key]['percentage']);
+       // die($key);
+        foreach ($user_skills as $key => $skill) {
+            $key = array_search($skill['level'],array_column($levels,'val'));
+            $percent = $levels[$key]['percentage'];
+            $skill_section.=' <!-- Indicator -->
+                <div class="indicator">
+                    <strong>'.ucfirst($skill['skill']).'</strong>
+                    <div class="indicator-bar" data-indicator-percentage="'.$percent.'"><span></span></div>
+                    <span>'.ucfirst($skill['level']).'</span>
+                </div>';
+        }
 
         // Output to template
         $page = new HtmlTemplate ('templates/' . $config['tpl_name'] . '/profile.tpl');
@@ -249,7 +265,8 @@ if(isset($_GET['username'])){
         $page->SetLoop ('RELEGION',$user_relegions);
         $page->SetLoop('CUL_BACKGROUND',$backgroundWithOptions);
         $page->SetParameter('USER_STATUS',$user_staus);  
-        $page->SetParameter('USER_TIME_SLOT',$user_time_slot);  
+        $page->SetParameter('USER_TIME_SLOT',$user_time_slot); 
+        $page->SetParameter('USER_SKILLS',$skill_section); 
         $page->CreatePageEcho();
         exit();
     }

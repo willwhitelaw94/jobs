@@ -1795,11 +1795,11 @@ if (!function_exists('getLevels')) {
     function getLevels()
     {
        return  Array(
-                ['id'=>'1','val'=>'begginer','name'=>'Begginer'],
-                ['id'=>'2','val'=>'intermediate','name'=>'Intermediate'],
-                ['id'=>'3','val'=>'advance','name'=>'Advance'],
-                ['id'=>'4','val'=>'master','name'=>'Master'],
-                ['id'=>'5','val'=>'expert','name'=>'Expert'] 
+                ['id'=>'1','val'=>'begginer','name'=>'Begginer','percentage'=>'20'],
+                ['id'=>'2','val'=>'intermediate','name'=>'Intermediate','percentage'=>'40'],
+                ['id'=>'3','val'=>'advance','name'=>'Advance','percentage'=>'60'],
+                ['id'=>'4','val'=>'master','name'=>'Master','percentage'=>'80'],
+                ['id'=>'5','val'=>'expert','name'=>'Expert','percentage'=>'100'] 
         );
     }
 }
