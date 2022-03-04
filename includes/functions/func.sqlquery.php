@@ -646,6 +646,14 @@ function get_customField_exist_id($id){
     return $num_rows;
 }
 
+function get_userCustomField_exist_id($id){
+    global $config;
+    $num_rows = ORM::for_table($config['db']['pre'].'user_custom_fields')
+        ->where('custom_id' , $id)
+        ->count();
+    return $num_rows;
+}
+
 function get_salaryType_title_by_id($id){
     global $config;
     $custom_fields_title = "";
