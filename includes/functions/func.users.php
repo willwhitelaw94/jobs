@@ -109,7 +109,8 @@ function set_user_currency($country_code){
         ->select('currency_code')
         ->where('code', $country_code)
         ->find_one();
-    $currency_code = $info['currency_code'];
+       
+    $currency_code = $info['currency_code'] ?? "AUD";
 
     $currency_info = ORM::for_table($config['db']['pre'].'currencies')
         ->where('code', $currency_code)

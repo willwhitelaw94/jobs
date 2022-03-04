@@ -51,7 +51,7 @@
                                 ELSEIF('{USERTYPE}' == "employer"){
                                 <span class="dashboard-badge"><strong>{MYADS}</strong><i
                                             class="icon-feather-briefcase"></i> {LANG_JOBS}</span>
-                <span class="dashboard-badge"><strong>
+                     <span class="dashboard-badge"><strong>
                         IF("{SUB_TITLE}"!=""){
                         {SUB_TITLE}
                         {ELSE}
@@ -346,7 +346,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Row / End --
+                <!-- Row / End -->
 
             </div>
         </div>
@@ -354,7 +354,7 @@
 </div>
 
 
-<!-- Apply for a job popup
+<!--Apply for a job popup-
 ================================================== -->
 <div id="small-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
 

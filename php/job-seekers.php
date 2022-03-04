@@ -61,18 +61,21 @@ if(isset($_GET['keywords']) && !empty($_GET['keywords'])){
 }
 
 if(isset($category) && !empty($category)){
-    $where.= "AND (u.category = '$category') ";
+   // $where.= "AND (u.category = '$category') ";
+    $where.= "AND (exists(SELECT category FROM `".$config['db']['pre']."user_main_category` WHERE category_id='".$category."' and user_id = u.id))";
+
 }
 
 if(isset($_GET['subcat']) && !empty($_GET['subcat'])){
-    $where.= "AND (u.subcategory = '$subcat') ";
+    //$where.= "AND (u.subcategory = '$subcat') ";
+    $where.= "AND (exists(SELECT category FROM `".$config['db']['pre']."user_sub_category` WHERE subcategory_id='".$_GET['subcat']."' and user_id = u.id))";
 }
 
 
 if (!empty($_GET['range1'])) {
     $range1 = str_replace('.', '', $_GET['range1']);
     $range2 = str_replace('.', '', $_GET['range2']);
-    $where.= ' AND (u.salary_min BETWEEN '.$range1.' AND '.$range2.') OR (u.salary_max BETWEEN '.$range1.' AND '.$range2.')';
+    $where.= 'AND (u.salary_min BETWEEN '.$range1.' AND '.$range2.') OR (u.salary_max BETWEEN '.$range1.' AND '.$range2.')';
 }
 
 if (!empty($_GET['age_range1'])) {
@@ -93,7 +96,7 @@ elseif(isset($_GET['location']) && !empty($_GET['location']))
 
     if($placetype == "country"){
        // $where.= "AND (u.country_code = '$placeid') ";
-       $where.= "AND exists(SELECT country_code FROM `".$config['db']['pre']."user_cities` WHERE country_code='".$placeid."' and user_id = u.id)";
+       $where.= "AND (exists(SELECT country_code FROM `".$config['db']['pre']."user_cities` WHERE country_code='".$placeid."' and user_id = u.id) OR (u.country_code = '$placeid'))";
 
     }elseif($placetype == "state"){
         //$where.= "AND (u.state_code = '$placeid') ";

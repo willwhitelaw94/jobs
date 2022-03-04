@@ -60,34 +60,34 @@
                                         </div>
                                     </div>
                             </div>
-                                <div class="row">
-                                        <div class="col-xl-6 col-md-12">
-                                                        <div class="submit-field mb-0">
-                                                            <h5>{LANG_USERNAME} *</h5>
-                                                            <div class="input-with-icon-left">
-                                                                <i class="la la-user"></i>
-                                                                <input type="text" class="with-border" id="username" name="username"
-                                                                       value="{USERNAME}" onBlur="checkAvailabilityUsername()">
-                                                            </div>
-                                                            <span id="user-availability-status">
-                                                        IF("{USERNAME_ERROR}"!=""){ {USERNAME_ERROR} {:IF}</span>
+                            <div class="row">
+                                    <div class="col-xl-6 col-md-12">
+                                                    <div class="submit-field mb-0">
+                                                        <h5>{LANG_USERNAME} *</h5>
+                                                        <div class="input-with-icon-left">
+                                                            <i class="la la-user"></i>
+                                                            <input type="text" class="with-border" id="username" name="username"
+                                                                    value="{USERNAME}" onBlur="checkAvailabilityUsername()">
                                                         </div>
-                                        </div>
-                                        <div class="col-xl-6 col-md-12">
-                                                <div class="submit-field m-b-0">
-                                                    <h5>{LANG_TAGLINE}</h5>
-                                                    <input type="text" name="tagline" class="with-border margin-bottom-0"
-                                                           value="{TAGLINE}">
-                                                    <small>{LANG_TAGLINE_HINT}</small>
-                                                </div>
-                                        </div>
-                                </div>
+                                                        <span id="user-availability-status">
+                                                    IF("{USERNAME_ERROR}"!=""){ {USERNAME_ERROR} {:IF}</span>
+                                                    </div>
+                                    </div>
+                                    <div class="col-xl-6 col-md-12">
+                                            <div class="submit-field m-b-0">
+                                                <h5>{LANG_TAGLINE}</h5>
+                                                <input type="text" name="tagline" class="with-border margin-bottom-0"
+                                                        value="{TAGLINE}">
+                                                <small>{LANG_TAGLINE_HINT}</small>
+                                            </div>
+                                    </div>
+                            </div>
                             <div class="row">
                                 <div class="col-xl-6 col-md-6">
                                     <div class="section-headline margin-bottom-12">
                                         <h5>{LANG_CATEGORY}</h5>
                                     </div>
-                                    <select class="selectpicker" multiple data-selected-text-format="count > 1" name="category" id="category" data-subcat="{SUBCAT}">
+                                    <select class="selectpicker" multiple data-selected-text-format="values" name="category[]" id="category" data-subcat="{SUBCAT}">
                                         <option>-</option>
                                         {LOOP: CATEGORIES}
                                             <option value="{CATEGORIES.id}" {CATEGORIES.selected}>{CATEGORIES.name}</option>
@@ -101,7 +101,7 @@
                                     <div class="section-headline margin-bottom-12">
                                         <h5>{LANG_SUBCATEGORY}</h5>
                                     </div>
-                                    <select class="selectpicker with-border" name="subcategory" id="sub_category">
+                                    <select class="selectpicker with-border" data-selected-text-format="values" multiple name="subcategory[]" id="sub_category" >
                                         <option>-</option>
                                     </select>
                                 </div>
@@ -270,8 +270,10 @@
     jQuery(function($) {
         $("#category").on('change', function(){
             var catid = $(this).val();
+           
             var selectid = $(this).data('subcat');
-            var data = { action: "getsubcatbyid", catid: catid, selectid : selectid };
+            console.log(selectid);
+            var data = { action: "getsubcatbymultipleid", catid: catid, selectid : selectid };
             $.ajax({
                 type: "POST",
                 url: ajaxurl,

@@ -1,7 +1,10 @@
 <?php
 if (checkloggedin()) {
+    // error_reporting(E_ALL);
+    // ini_set('display_errors', 'On');
     update_lastactive();
     $ses_userdata = get_user_data($_SESSION['user']['username']);
+    $user_id =   $ses_userdata['id'];
     $author_image = $ses_userdata['image'];
     $username_error = $email_error = $password_error = $type_error = $avatar_error = '';
     $avatarName = null;
@@ -12,6 +15,11 @@ if (checkloggedin()) {
     $country_code = !empty($ses_userdata['country_code']) ? $ses_userdata['country_code'] : check_user_country();
     $currency_info = set_user_currency($country_code);
     $currency_sign = $currency_info['html_entity'];
+    
+    $user_main_categories = ORM::for_table($config['db']['pre'] . 'user_main_category')->where('user_id',$user_id)->find_array();
+    $user_main_category_ids =array_column($user_main_categories,'category_id');
+    $user_sub_categories = ORM::for_table($config['db']['pre'] . 'user_sub_category')->where('user_id',$user_id)->find_array();
+    $user_sub_category_ids =array_column($user_sub_categories,'subcategory_id');
     if (isset($_POST['submit'])) {
         if ($_POST["username"] != $_SESSION['user']['username']) {
             if (empty($_POST["username"])) {
@@ -102,20 +110,57 @@ if (checkloggedin()) {
 
         if ($errors == 0) {
 
-            // $salary_min = $salary_max = 0;
             $dob = null;
-
             if (!empty($_POST['dob'])) {
                 $dob = date("Y-m-d", strtotime($_POST['dob']));
             }
+            if(!empty($_POST['category'])){
+               
+                $main_categories=$_POST['category'];
+                 foreach ($user_main_category_ids as $cate_id) {
+                     if(!in_array($cate_id,$main_categories)){
+                         $mcate=ORM::for_table($config['db']['pre'] . 'user_main_category')->where(['user_id'=>$user_id,'category_id'=>$cate_id])->find_one();
+                         $mcate->delete();
+                     }
+                 }
+                 foreach ($main_categories as $key => $m_cate) {
+                     $exist=ORM::for_table($config['db']['pre'] . 'user_main_category')->where(['user_id'=>$user_id,'category_id'=>$m_cate])->find_one();
+                     if(!$exist){
+                         $u_m_cate=ORM::for_table($config['db']['pre'] .'user_main_category')->create();
+                         $u_m_cate->user_id=$user_id;
+                         $u_m_cate->category_id  = $m_cate;
+                         $u_m_cate->created_at  = date('Y-m-d');
+                         $u_m_cate->updated_at  = date('Y-m-d');
+                         $u_m_cate->save();
+                     }
+                    
+                 }
 
-            // if (!empty($_POST['salary_min']) or !empty($_POST['salary_max'])) {
-            //     $salary_min = is_numeric($_POST['salary_min']) ? $_POST['salary_min'] : 0;
-            //     $salary_max = is_numeric($_POST['salary_max']) ? $_POST['salary_max'] : 0;
-            // }
+            }
+            if(!empty($_POST['subcategory'])){
+               
+                $sub_categories=$_POST['subcategory'];
+                 foreach ($user_sub_category_ids as $cate_id) {
+                     if(!in_array($cate_id,$sub_categories)){
+                         $mcate=ORM::for_table($config['db']['pre'] . 'user_sub_category')->where(['user_id'=>$user_id,'subcategory_id'=>$cate_id])->find_one();
+                         $mcate->delete();
+                     }
+                 }
+                 foreach ($sub_categories as $key => $sub_cate) {
+                     $exist=ORM::for_table($config['db']['pre'] . 'user_sub_category')->where(['user_id'=>$user_id,'subcategory_id'=>$sub_cate])->find_one();
+                     if(!$exist){
+                         $u_s_cate=ORM::for_table($config['db']['pre'] .'user_sub_category')->create();
+                         $u_s_cate->user_id=$user_id;
+                         $u_s_cate->subcategory_id  = $sub_cate;
+                         $u_s_cate->created_at  = date('Y-m-d');
+                         $u_s_cate->updated_at  = date('Y-m-d');
+                         $u_s_cate->save();
+                     }
+                    
+                 }
 
+            }
             $city = $_POST['city'];
-           // dd($city);
             $citydata = get_cityDetail_by_id($city);
             $country = $citydata['country_code'];
             $state = $citydata['subadmin1_code'];
@@ -124,7 +169,6 @@ if (checkloggedin()) {
                 $location = getLocationInfoByIp();
                 $country = $location['countryCode'];
             }
-
             $now = date("Y-m-d H:i:s");
             $user_update = ORM::for_table($config['db']['pre'] . 'user')->find_one($_SESSION['user']['id']);
             $user_update->set('name', $_POST['name']);
@@ -143,11 +187,9 @@ if (checkloggedin()) {
             $user_update->set('youtube', validate_input($_POST["youtube"]));
             $user_update->set('city_code', $city);
             $user_update->set('state_code', $state);
-             $user_update->set('country_code', $country);
-            $user_update->set('category', isset($_POST["category"]) ? $_POST['category'] : null);
-            $user_update->set('subcategory', isset($_POST["subcategory"]) ? $_POST['subcategory'] : null);
-           // $user_update->set('salary_min', $salary_min);
-            //$user_update->set('salary_max', $salary_max);
+            $user_update->set('country_code', $country);
+           // $user_update->set('category', isset($_POST["category"]) ? $_POST['category'] : null);
+            //$user_update->set('subcategory', isset($_POST["subcategory"]) ? $_POST['subcategory'] : null);
             $user_update->set('dob', $dob);
             $user_update->set('updated_at', $now);
             if ($avatarName) {
@@ -155,7 +197,7 @@ if (checkloggedin()) {
             }
            // dd($user_update);
             $user_update->save();
-
+           
             $loggedin = get_user_data("", $_SESSION['user']['id']);
             create_user_session($loggedin['id'], $loggedin['username'], $loggedin['password'], $loggedin['user_type']);
 
@@ -228,8 +270,9 @@ if (checkloggedin()) {
     //     }
     // }
     //echo $errors;die;
+   // dd(get_maincategory('1,2'));
     $page = new HtmlTemplate ('templates/' . $config['tpl_name'] . '/edit-profile.tpl');
-    $page->SetParameter('OVERALL_HEADER', create_header($lang['Edit Profile']));
+    $page->SetParameter('OVERALL_HEADER', create_header($lang['EDITPROFILE']));
     $page->SetParameter('RESUBMITADS', resubmited_ads_count($_SESSION['user']['id']));
     $page->SetParameter('HIDDENADS', hidden_ads_count($_SESSION['user']['id']));
     $page->SetParameter('PENDINGADS', pending_ads_count($_SESSION['user']['id']));
@@ -257,7 +300,8 @@ if (checkloggedin()) {
     $page->SetParameter('TAGLINE', $ses_userdata['tagline']);
     $page->SetParameter('ABOUTME', $ses_userdata['description']);
     $page->SetParameter('CAT', $ses_userdata['category']);
-    $page->SetParameter('SUBCAT', $ses_userdata['subcategory']);
+    // $page->SetParameter('SUBCAT', $ses_userdata['subcategory']);
+    $page->SetParameter('SUBCAT',implode(',',$user_sub_category_ids));
     $page->SetParameter('SALARY_MIN', $ses_userdata['salary_min']);
     $page->SetParameter('SALARY_MAX', $ses_userdata['salary_max']);
     $page->SetParameter('DOB', $ses_userdata['dob']);
@@ -282,8 +326,7 @@ if (checkloggedin()) {
     }
     $page->SetParameter('NOTIFY', $ses_userdata['notify']);
     $page->SetLoop('ERRORS', "");
-    $page->SetLoop('CATEGORIES', get_maincategory($ses_userdata['category']));
-    
+    $page->SetLoop('CATEGORIES', get_maincategory($user_main_category_ids));
     $page->SetParameter('USER_DASHBOARD_CARD', create_user_dashboard_card());
     $page->SetParameter('USER_SIDEBAR', create_user_sidebar());
     $page->SetParameter('OVERALL_FOOTER', create_footer());

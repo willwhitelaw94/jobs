@@ -35,6 +35,7 @@ if(isset($_POST['action'])){
     if ($_POST['action'] == "setFavUser") {setFavUser();}
     if ($_POST['action'] == "getsubcatbyidList") { getsubcatbyidList(); }
     if ($_POST['action'] == "getsubcatbyid") {getsubcatbyid();}
+    if ($_POST['action'] == "getsubcatbymultipleid") {getsubcatbymultipleid();}
     if ($_POST['action'] == "getCustomFieldByCatID") {getCustomFieldByCatID();}
 
     if ($_POST['action'] == "getStateByCountryID") {getStateByCountryID();}
@@ -866,6 +867,37 @@ function getsubcatbyid()
     }
     die();
 }
+
+function getsubcatbymultipleid(){
+    global $config;
+    $ids = isset($_POST['catid']) ? $_POST['catid'] : [0];
+    $selectid = isset($_POST['selectid']) ? $_POST['selectid'] : "";
+    $selectid = explode(',',$_POST['selectid']);
+    $rows = ORM::for_table($config['db']['pre'].'catagory_sub')
+        ->where_in('main_cat_id',$ids)
+        ->find_many();
+    if (count($rows) > 0) {
+
+        foreach ($rows as $info) {
+            $name = $info['sub_cat_name'];
+            $sub_id = $info['sub_cat_id'];
+            $photo_show = $info['photo_show'];
+            $price_show = $info['price_show'];
+            if(in_array($sub_id,$selectid)){
+                $selected_text = "selected";
+            }
+            else{
+                $selected_text = "";
+            }
+            echo '<option value="'.$sub_id.'" data-photo-show="'.$photo_show.'" data-price-show="'.$price_show.'" '.$selected_text.'>'.$name.'</option>';
+        }
+    }else{
+        echo 0;
+    }
+    die();
+}
+
+
 
 function getsubcatbyidList()
 {

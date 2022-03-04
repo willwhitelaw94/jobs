@@ -452,6 +452,7 @@ function get_cityName_by_id($id){
         ->select('asciiname')
         ->where('id',$id)
         ->find_one();
+    $info['asciiname'] ??= '';
     return $info['asciiname'];
 }
 
@@ -1196,6 +1197,7 @@ function delete_language_translation($type,$translation_id){
 function get_maincategory($selected="",$selected_text='selected'){
     global $config;
     $cat = array();
+  //  dd($selected);
 
     $result = ORM::for_table($config['db']['pre'].'catagory_main')
         ->order_by_asc('cat_order')
