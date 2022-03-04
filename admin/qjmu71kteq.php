@@ -6,6 +6,7 @@
  * @Date: 27/June/2020
  * @Copyright (c) 2015-20 Bylancer.com
  */
+
 require_once('../includes/config.php');
 require_once('../includes/sql_builder/idiorm.php');
 require_once('../includes/db.php');
@@ -135,7 +136,11 @@ if(isset($_GET['action'])){
     if ($_GET['action'] == "deleteInterest") { deleteInterest(); }
 
     if ($_GET['action'] == "deleteCareExperience") { deleteCareExperience(); }
+    if ($_GET['action'] == "save_user_custom_fields") { save_user_custom_fields(); }
 
+    if ($_GET['action'] == "delete_user_custom_fields") { delete_user_custom_fields(); }
+    if ($_GET['action'] == "delete_user_custom_option") { delete_user_custom_option(); }
+   
 }
 
 if(isset($_POST['action'])){
@@ -146,16 +151,22 @@ if(isset($_POST['action'])){
     if ($_POST['action'] == "quickad_update_blog_cat_position") { quickad_update_blog_cat_position(); }
     if ($_POST['action'] == "quickad_update_custom_field_position") { quickad_update_custom_field_position(); }
     if ($_POST['action'] == "quickad_update_custom_option_position") { quickad_update_custom_option_position(); }
+    if ($_POST['action'] == "quickad_update_user_custom_field_position") { quickad_update_user_custom_field_position(); }
+    if ($_POST['action'] == "quickad_update_user_custom_option_position") { quickad_update_user_custom_option_position(); }
     if ($_POST['action'] == "deleteusers") { deleteusers(); }
     if ($_POST['action'] == "getsubcatbyid") {getsubcatbyid();}
     if ($_POST['action'] == "delete_custom_fields") { delete_custom_fields(); }
     if ($_POST['action'] == "delete_custom_option") { delete_custom_option(); }
     if ($_POST['action'] == "save_custom_fields") { save_custom_fields(); }
+    if ($_POST['action'] == "save_user_custom_fields") { save_user_custom_fields(); }
+    if ($_POST['action'] == "delete_user_custom_fields") { delete_user_custom_fields(); }
+    if ($_POST['action'] == "delete_user_custom_option") { delete_user_custom_option(); }
     if ($_POST['action'] == "getStateByCountryID") {getStateByCountryID();}
     if ($_POST['action'] == "getCityByStateID") {getCityByStateID();}
     if ($_POST['action'] == "getStateByCountryIDforCityAdd") {getStateByCountryIDforCityAdd();}
     if ($_POST['action'] == "getDistrictSelectedforCityAdd") {getDistrictSelectedforCityAdd();}
     if ($_POST['action'] == "searchCityStateCountry") {searchCityStateCountry();}
+  
 }
 
 function change_language_file_settings($filePath, $newArray)
@@ -210,8 +221,6 @@ function editLanguageFile()
     echo 0;
     die();
 }
-
-
 /**
  * @param $filename
  * @return string
@@ -2712,6 +2721,79 @@ function delete_custom_option(){
     die();
 }
 
+function delete_user_custom_fields(){
+    global $con,$config;
+   
+    if(isset($_POST['id'])){
+     
+        if(!check_allow()){
+            echo 1;
+            die();
+        }
+        $id = $_POST['id'];
+        $q = "SELECT custom_options FROM `".$config['db']['pre']."user_custom_fields` WHERE custom_id = '".validate_input($id)."' LIMIT 1";
+        $query_result = @mysqli_query ($con,$q) OR error(mysqli_error($con));
+        $info = @mysqli_fetch_array($query_result);
+      
+        $options = explode(',',stripslashes($info['custom_options']));
+        foreach($options as $option_id)
+        {
+            $type = "custom_option";
+            $query = "DELETE FROM `" . $config['db']['pre'] . "user_custom_options` WHERE option_id = '".validate_input($option_id)."' LIMIT 1";
+            delete_language_translation($type,$option_id);
+            $con->query($query);
+        }
+
+        $sql = "DELETE FROM `" . $config['db']['pre'] . "user_custom_fields` WHERE custom_id = '".validate_input($id)."' LIMIT 1";
+        $con->query($sql);
+        echo 1;
+        die();
+    }
+    echo 0;
+    die();
+}
+function delete_user_custom_option(){
+    global $con,$config;
+    if(isset($_POST['id'])){
+        $id = $_POST['id'];
+        $field_id = $_POST['field_id'];
+    }
+
+    if(isset($id)){
+        if(!check_allow()){
+            echo 1;
+            die();
+        }
+        $type = "custom_option";
+
+
+        $query = "SELECT custom_options FROM `" . $config['db']['pre'] . "user_custom_fields` WHERE custom_id = '".$field_id."' LIMIT 1";
+        $result = $con->query($query) OR error(mysqli_error($con));
+        $num_rows = mysqli_num_rows($result);
+        if($num_rows > 0){
+            $info = mysqli_fetch_array($result);
+            $custom_options = $info['custom_options'];
+
+            $array = explode(',', $custom_options);
+            foreach ($array as $k => $v)
+                if ($v == $id) unset($array[$k]);
+            $custom_options = implode(',', $array);
+
+            $query = "UPDATE `" . $config['db']['pre'] . "user_custom_fields` SET
+            `custom_options` = '".$custom_options."' WHERE custom_id = '".$field_id."' LIMIT 1";
+            $con->query($query) OR error(mysqli_error($con));
+
+            $query = "DELETE FROM `" . $config['db']['pre'] . "user_custom_options` WHERE option_id = '".$id."' LIMIT 1";
+            delete_language_translation($type,$id);
+            $con->query($query);
+        }
+        echo 1;
+        die();
+    }
+    echo 0;
+    die();
+}
+
 function save_custom_fields_with_auto_translation()
 {
     global $con,$config;
@@ -2862,6 +2944,7 @@ function save_custom_fields()
     }
 
     $fields = json_decode($_POST['fields'], true);
+    $cf_per_service = ($_POST['cf_per_service']) ? '1' : '0';
     $count = 0;
     foreach($fields as $custom) {
         $id = $custom['id'];
@@ -2950,7 +3033,8 @@ function save_custom_fields()
         }
         $count++;
     }
-
+    $query = "UPDATE `" . $config['db']['pre'] . "options` SET `option_value` = '".$cf_per_service."' WHERE option_name = 'custom_field_enable' LIMIT 1";
+    $con->query($query) OR error(mysqli_error($con));
     echo 1;
     die();
 }
@@ -3911,4 +3995,167 @@ function deleteCareExperience(){
     }
 
 }
+
+
+function save_user_custom_fields()
+{
+    global $con,$config;
+   
+    if(!isset($_POST['fields'])){
+        echo 0;
+        die();
+    }
+
+    if(!check_allow()){
+        echo 1;
+        die();
+    }
+
+    $fields = json_decode($_POST['fields'], true);
+    $cf_per_service = ($_POST['cf_per_service']) ? '1' : '0';
+   // die($cf_per_service );
+    $count = 0;
+    foreach($fields as $custom) {
+        $id = $custom['id'];
+        $type = $custom['type'];
+        $title = $custom['label'];
+        $required = empty($custom['required'])? 0 : $custom['required'];
+        // $allcat = $custom['allcat'];
+        // $maincat = $custom['maincat'];
+        // $category = $custom['services'];
+
+        // if (is_array($allcat)) {
+        //     $allcat = implode(',', $custom['allcat']);
+        // }
+        // if (is_array($maincat)) {
+        //     $maincat = implode(',', $custom['maincat']);
+        // }
+        // if (is_array($category)) {
+        //     $category = implode(',', $custom['services']);
+        // }
+
+        if ($type == 'text-field' or $type == 'textarea') {
+            $options = "";
+        } else {
+            if (!isset($custom['items'])) {
+                $custom['items'] = json_decode($custom['items'], true);
+            }
+            $custom_option = array();
+            $i = 0;
+            foreach ($custom['items'] as $items) {
+
+                $opt_id = $items['id'];
+                $opt_title = $items['value'];
+
+                $query = "SELECT * FROM `" . $config['db']['pre'] . "user_custom_options` WHERE option_id = " . $opt_id;
+                $result = $con->query($query) OR error(mysqli_error($con));
+                $num_rows = mysqli_num_rows($result);
+                if($num_rows > 0){
+                    $query = "UPDATE `" . $config['db']['pre'] . "user_custom_options` SET `title` = '".$opt_title."' WHERE option_id = '".$opt_id."' LIMIT 1";
+                    $con->query($query) OR error(mysqli_error($con));
+                }else{
+                    $query = "INSERT INTO `" . $config['db']['pre'] . "user_custom_options` SET `title` = '".$opt_title."' ";
+                    $con->query($query) OR error(mysqli_error($con));
+                    $opt_id = $con->insert_id;
+                }
+
+                $custom_option[$i] = $opt_id;
+                $i++;
+            }
+
+            $options = implode(',', $custom_option);
+        }
+
+        if(check_allow()){
+            $exist = get_userCustomField_exist_id($id);
+            if($exist > 0){
+                $query = "UPDATE `" . $config['db']['pre'] . "user_custom_fields` SET `custom_title` = '".$title."', `custom_type` = '".$type."',`custom_required` = '".$required."',`custom_options` = '".$options."' WHERE custom_id = '".$id."' LIMIT 1";
+                $con->query($query) OR error(mysqli_error($con));
+            }else{
+                $lang_code = array();
+                $lang_title = array();
+                $sql = "SELECT code FROM `".$config['db']['pre']."languages` where active = '1' and code != 'en'";
+                $result = $con->query($sql) OR error(mysqli_error($con));
+                mysqli_num_rows($result);
+                while($fetch = mysqli_fetch_array($result)){
+
+                    $source = 'en';
+                    $target = $fetch['code'];
+                    $lang_code[] = $fetch['code'];
+                    /*$trans = new GoogleTranslate();
+                    $trans_title = $trans->translate($source, $target, $title);*/
+                    $trans_title = $title;
+                    $trans_title = mysqli_real_escape_string($con,$trans_title);
+                    $lang_title[] = $trans_title;
+
+                }
+                $trans_lang = implode(',', $lang_code);
+                $trans_name = implode(',', $lang_title);
+
+                $query = "INSERT INTO `" . $config['db']['pre'] . "user_custom_fields` SET translation_lang = '$trans_lang', translation_name = '$trans_name',`custom_title` = '".$title."', `custom_type` = '".$type."',`custom_required` = '".$required."',`custom_options` = '".$options."' ";
+                $con->query($query) OR error(mysqli_error($con));
+
+                $id = $con->insert_id;
+                $query = "UPDATE `".$config['db']['pre']."user_custom_fields` SET `custom_order` = '".$id ."' WHERE custom_id = '".$id."' LIMIT 1";
+                $con->query($query) OR error(mysqli_error($con));
+            }
+        }
+        $count++;
+    }
+    $query = "UPDATE `" . $config['db']['pre'] . "options` SET `option_value` = '".$cf_per_service."' WHERE option_name = 'user_custom_fields_enable' LIMIT 1";
+    $con->query($query) OR error(mysqli_error($con));
+    echo 1;
+    die();
+}
+
+function quickad_update_user_custom_field_position()
+{
+    global $con,$config;
+    $position = $_POST['position'];
+    if (is_array($position)) {
+        $count = 0;
+        foreach($position as $custom_id){
+            $query = "UPDATE `".$config['db']['pre']."user_custom_fields` SET `custom_order` = '".$count."' WHERE `custom_id` = '" . validate_input($custom_id) . "'";
+            if(check_allow()){
+                $con->query($query) OR error(mysqli_error($con));
+            }
+            $count++;
+        }
+        echo 1;
+        die();
+    } else {
+        echo 0;
+        die();
+    }
+}
+
+function quickad_update_user_custom_option_position()
+{
+    if(!check_allow()){
+        echo 1;
+        die();
+    }
+    global $con,$config,$lang;
+    $position = $_POST['position'];
+    if (is_array($position)) {
+        $count = 0;
+        $position = implode(',',$position);
+        $custom_id = $_POST['field_id'];
+        $sql = "UPDATE `".$config['db']['pre']."user_custom_fields` SET `custom_options` = '".$position."' WHERE `custom_id` = '" . validate_input($custom_id) . "'";
+        if (!mysqli_query($con,$sql)) {
+            $status = "error";
+            $message = "Error : " . mysqli_error($con);
+        } else{
+            $status = "success";
+            $message = $lang['SAVED_SUCCESS'];
+        }
+        echo 1;
+        die();
+    } else {
+        echo 0;
+        die();
+    }
+}
+
+
 ?>

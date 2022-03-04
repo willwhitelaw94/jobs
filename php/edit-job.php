@@ -409,7 +409,6 @@ if(checkloggedin()) {
         exit;
     }
 
-
     if(check_valid_author($_GET['id'])){
 
         global $errors, $custom_fields, $catid,$catName, $subcatid,$subcatName, $title, $description, $negotiable, $phone, $hide_phone, $tags, $cityid, $mapLat, $mapLong, $seller_name, $seller_email;

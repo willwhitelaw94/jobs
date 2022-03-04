@@ -647,6 +647,14 @@ function get_customField_exist_id($id){
     return $num_rows;
 }
 
+function get_userCustomField_exist_id($id){
+    global $config;
+    $num_rows = ORM::for_table($config['db']['pre'].'user_custom_fields')
+        ->where('custom_id' , $id)
+        ->count();
+    return $num_rows;
+}
+
 function get_salaryType_title_by_id($id){
     global $config;
     $custom_fields_title = "";
@@ -877,7 +885,6 @@ function get_customFields_by_catid($maincatid=null,$subcatid=null,$require=true,
             $required = ($info['custom_required'] == 1)?  '1' : '0';
         }
         $custom_fields[$info['custom_id']]['required'] = $required;
-
         if(isset($_REQUEST['custom'][$info['custom_id']]))
         {
             if($custom_fields[$info['custom_id']]['type'] == "checkboxes"){
@@ -993,8 +1000,8 @@ function get_customFields_by_catid($maincatid=null,$subcatid=null,$require=true,
                 $i++;
             }
             $radiobtn .= '<input type="hidden" class="quick-radioCheck"
-                                                                   data-name="'.$info['custom_id'].'"
-                                                                   data-req="'.$required.'"><div class="quick-error">'.$lang['FIELD_REQUIRED'].'</div>';
+                        data-name="'.$info['custom_id'].'"
+                        data-req="'.$required.'"><div class="quick-error">'.$lang['FIELD_REQUIRED'].'</div>';
             $custom_fields[$info['custom_id']]['radio'] = $radiobtn;
         }
         else
@@ -1038,8 +1045,8 @@ function get_customFields_by_catid($maincatid=null,$subcatid=null,$require=true,
                 $j++;
             }
             $Checkbox .= '<input type="hidden" class="quick-radioCheck"
-                                                                   data-name="'.$info['custom_id'].'"
-                                                                   data-req="'.$required.'"><div class="quick-error">'.$lang['FIELD_REQUIRED'].'</div>';
+                data-name="'.$info['custom_id'].'"
+                data-req="'.$required.'"><div class="quick-error">'.$lang['FIELD_REQUIRED'].'</div>';
             $custom_fields[$info['custom_id']]['checkbox'] = $Checkbox;
         }
         else

@@ -69,7 +69,7 @@ require_once('includes.php');
         <!-- Partial Table -->
         <div class="card">
             <div class="card-header">
-                <h4>Custom Fields</h4>
+                <h4>User-Custom Fields</h4>
             </div>
             <div class="card-block">
                 <!-- /row -->
@@ -89,8 +89,8 @@ require_once('includes.php');
                                                             <label for="quickad_custom_fields_per_service">Bind fields to categories</label>
                                                             <p class="help-block">When this setting is enabled you will be able to create category specific custom fields.</p>
                                                             <select class="form-control" name="quickad_custom_fields_per_service" id="quickad_custom_fields_per_service">
-                                                                <option value="0" <?php if(get_option("custom_field_enable") == '0'){ echo "selected"; } ?>>Disabled</option>
-                                                                <option value="1" <?php if(get_option("custom_field_enable") == '1'){ echo "selected"; } ?>>Enabled</option>
+                                                                <option value="0"  <?php if(get_option("user_custom_fields_enable") == '0'){ echo "selected"; } ?>>Disabled</option>
+                                                                <option value="1" <?php if(get_option("user_custom_fields_enable") == '1'){ echo "selected"; } ?>>Enabled</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -132,7 +132,7 @@ require_once('includes.php');
                                                                             </label>
                                                                         </div>
                                                                     </div>
-                                                                    <?php include('custom-field-category-dropdown.php') ?>
+                                                                    
 
                                                                 </div>
                                                             </div>
@@ -159,7 +159,7 @@ require_once('includes.php');
                                                                             </label>
                                                                         </div>
                                                                     </div>
-                                                                    <?php include('custom-field-category-dropdown.php') ?>
+                                                                    
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -189,7 +189,7 @@ require_once('includes.php');
                                                                         <button class="btn btn-sm btn-default" data-type="checkboxes-item">
                                                                             <i class="glyphicon glyphicon-plus"></i> Checkbox </button>
                                                                     </div>
-                                                                    <?php include('custom-field-category-dropdown.php') ?>
+                                                                    
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -219,7 +219,7 @@ require_once('includes.php');
                                                                         <button class="btn btn-sm btn-default" data-type="radio-buttons-item">
                                                                             <i class="glyphicon glyphicon-plus"></i> Radio Button                                        </button>
                                                                     </div>
-                                                                    <?php include('custom-field-category-dropdown.php') ?>
+                                                                    
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -247,9 +247,9 @@ require_once('includes.php');
 
                                                                         <ul class="quickad-items quickad-margin-top-sm"></ul>
                                                                         <button class="btn btn-sm btn-default" data-type="drop-down-item">
-                                                                            <i class="glyphicon glyphicon-plus"></i> Option                                        </button>
+                                                                            <i class="glyphicon glyphicon-plus"></i> Option</button>
                                                                     </div>
-                                                                    <?php include('custom-field-category-dropdown.php') ?>
+                                                                    
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -287,8 +287,8 @@ require_once('includes.php');
                                                             </div>
                                                             <div class="quickad-flex-cell quickad-vertical-middle">
                                                                 <?php
-                                                                 if(get_option("userlangsel") == '1'){
-                                                                ?>
+                                                                if(get_option("userlangsel") == '1'){
+                                                                    ?>
                                                                 <a class="quickad_itmes_translation fa fa-language text-warning quickad-margin-left-sm" href="#" title="Language Translation item"></a>
                                                                 <?php } ?>
                                                             </div>
@@ -352,7 +352,7 @@ require_once('includes.php');
 
 <?php
 
-$results = ORM::for_table($config['db']['pre'].'custom_fields')
+$results = ORM::for_table($config['db']['pre'].'user_custom_fields')
     ->order_by_asc('custom_order')
     ->find_many();
 $number = count($results);
@@ -365,7 +365,7 @@ if(count($results) != 0){
         $title = stripslashes($result['custom_title']);
         $type = $result['custom_type'];
         $options = $result['custom_options'];
-        $category = $result['custom_subcatid'];
+        //$category = $result['custom_subcatid'];
 
         $required = $result['custom_required'];
         $required = ($required === "0")? false : true ;
@@ -392,7 +392,7 @@ if(count($results) != 0){
             $j = 0;
 
             foreach($options as $opt_id){
-                $info = ORM::for_table($config['db']['pre'].'custom_options')
+                $info = ORM::for_table($config['db']['pre'].'user_custom_options')
                     ->where('option_id', $opt_id)
                     ->find_one();
 
@@ -411,7 +411,9 @@ if(count($results) != 0){
         $data[$i]['label']  = $title;
         $data[$i]['required'] = $required;
         $data[$i]['id']     = $id;
-        $data[$i]['services']     = $category;
+       
+        
+       //$data[$i]['services']     = $category;
 
         $i++;
     }
@@ -425,16 +427,17 @@ $fields = json_encode($data);
     var quickadL10n = {
         "csrf_token":"12232412",
         "custom_fields":"<?php echo addslashes($fields); ?>",
-        "selector":{
-            "all_selected":"All Category",
-            "nothing_selected":"No category selected"
-        },
+        // "selector":{
+        //     "all_selected":"All Category",
+        //     "nothing_selected":"No category selected"
+        // },
         "saved":"Custom fields saved"
     };
+    
 </script>
 <?php include("footer.php"); ?>
 <script src="js/plugins/jqueryui/jquery-ui.min.js"></script>
-<script src="js/custom-manage/custom_fields.js"></script>
+<script src="js/custom-manage/user_custom_fields.js"></script>
 <script src="js/custom-manage/spin.min.js"></script>
 <script src="js/plugins/ladda/ladda.min.js"></script>
 <script src="js/custom-manage/alert.js"></script>

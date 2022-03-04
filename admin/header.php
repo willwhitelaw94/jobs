@@ -149,6 +149,9 @@ if(isset($_SESSION['admin']['id'])){
                         <li class="nav-item">
                             <a href="custom_field.php"><i class="ion-android-options"></i> Custom Fields <span class="label label-info">Unique</span></a>
                         </li>
+                        <li class="nav-item">
+                            <a href="user_custom_field.php"><i class="ion-android-options"></i>User-Custom Fields <span class="label label-info">Unique</span></a>
+                        </li>
                         <li class="nav-item nav-item-has-subnav">
                             <a href="#"><i class="fa fa-weixin"></i> Chat </a>
                             <ul class="nav nav-subnav">

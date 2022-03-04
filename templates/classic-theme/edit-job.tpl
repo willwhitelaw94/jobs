@@ -279,7 +279,7 @@
                                                 <input type="checkbox" name="hide_phone" id="phone" value="1"
                                                        IF("{HIDEPHONE}"=="1"){ checked {:IF}>
                                                 <label for="phone"><span
-                                                            class="checkbox-icon"></span> {LANG_HIDE_FROM_USERS}</label>
+                                                    class="checkbox-icon"></span> {LANG_HIDE_FROM_USERS}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -313,7 +313,7 @@
 
                                     <div class="input-with-icon">
                                         <input class="with-border" type="text" placeholder="http://"
-                                               name="application_url" value="{APPLICATION_URL}">
+                                            name="application_url" value="{APPLICATION_URL}">
                                         <i class="la la-link"></i>
                                     </div>
                                     <small>{LANG_APPLICATION_URL_HINT}</small>
