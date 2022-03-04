@@ -1843,6 +1843,11 @@ function postEdit()
     global $config,$lang;
     $errors = array();
     $response = array();
+    // echo "<pre>";
+    // print_r($_POST);
+    // print_r($_REQUEST['custom']);
+    
+    // die;
 
     if (isset($_POST['id'])) {
 
@@ -1899,7 +1904,7 @@ function postEdit()
             $item_edit->set('expire_date', $expire_timestamp);
             $item_edit->set('updated_at', $now);
             $item_edit->save();
-
+            add_post_customField_data($_POST['category'],$_POST['sub_category'],$_POST['id']);
             $status = "success";
             $message = $lang['SAVED_SUCCESS'];
 

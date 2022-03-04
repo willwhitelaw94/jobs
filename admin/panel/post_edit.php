@@ -30,6 +30,28 @@ $expire_date_timestamp = $info['expire_date'];
 $expire_date = date('m/d/Y', $expire_date_timestamp);
 $item_expire_date = $expire_date;
 
+$custom_fields = array();
+$custom_data = array();
+
+$customdata = ORM::for_table($config['db']['pre'].'custom_data')
+    ->select_many('field_id','field_data')
+    ->where('product_id',$item_id)
+    ->find_many();
+
+foreach ($customdata as $array){
+    $custom_fields[] = $array['field_id'];
+    $custom_data[] = $array['field_data'];
+}
+
+$custom_fields = get_customFields_by_catid($catid, $subcatid,false, $custom_fields, $custom_data);
+
+foreach ($custom_fields as $key => $value) {
+    if ($value['userent']) {
+        $custom_db_fields[$value['id']] = $value['title'];
+        $custom_db_data[$value['id']] = str_replace(',', '&#44;', $value['default']);
+    }
+}
+
 ?>
 <!-- Page JS Plugins CSS -->
 <link rel="stylesheet" href="assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css" />
@@ -182,6 +204,69 @@ $item_expire_date = $expire_date;
                                     <label for="contact_chat">Instant Chat</label>
                                 </div>
                             </div>
+                            <h4>Custom Fields:</h4>
+                            <?php 
+                             // print_r($custom_fields);die;
+                            foreach ($custom_fields as $key => $field) {
+                                if($field['type']=="text-field"){?>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label"><?php echo $field['title'];?>:</label>
+                                        <div class="col-sm-9">
+                                            <?php echo $field['textbox'];?>
+                                       
+                                        </div>
+                                    </div>
+
+                                <?php
+                                }
+                                if($field['type']=="textarea"){?>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label"><?php echo $field['title'];?>:</label>
+                                        <div class="col-sm-9">
+                                               <?php echo $field['textarea'];?>
+                                        </div>
+                                    </div>
+                                <?php
+                                }
+                                if($field['type']=="drop-down"){?>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label"><?php echo $field['title'];?>:</label>
+                                        <div class="col-sm-9">
+                                            <select name="custom[<?php echo $field['id'];?>]" class="form-control js-select2" data-name="custom[<?php echo $field['id'];?>]"
+                                                data-req="custom[<?php echo $field['required'];?>]"> 
+                                               <?php echo $field['selectbox'];?>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                <?php
+                                }
+                                if($field['type']=="radio-buttons"){?>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label"><?php echo $field['title'];?>:</label>
+                                        <div class="col-sm-9">
+                                            <?php echo $field['radio'];?>
+                                        </div>
+                                     
+                                    </div>
+
+                                <?php
+                                }
+                                if($field['type']=="checkboxes"){?>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label"><?php echo $field['title'];?>:</label>
+                                        <div class="col-sm-9">
+                                            <?php echo $field['checkbox'];?>
+                                        </div>
+                                    </div>
+
+                                <?php
+                                }
+                            }
+                            ?>
+                           
+
+
 
                         </div>
 

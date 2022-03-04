@@ -287,8 +287,8 @@ require_once('includes.php');
                                                             </div>
                                                             <div class="quickad-flex-cell quickad-vertical-middle">
                                                                 <?php
-                                                                if(get_option("userlangsel") == '1'){
-                                                                    ?>
+                                                                 if(get_option("userlangsel") == '1'){
+                                                                ?>
                                                                 <a class="quickad_itmes_translation fa fa-language text-warning quickad-margin-left-sm" href="#" title="Language Translation item"></a>
                                                                 <?php } ?>
                                                             </div>

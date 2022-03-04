@@ -24,7 +24,6 @@
 
 </style>
 
-
 <div class="slidePanel-inner">
     <div class="panel-body">
         <!-- /.row -->
