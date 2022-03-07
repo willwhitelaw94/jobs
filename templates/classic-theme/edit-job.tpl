@@ -182,8 +182,8 @@
                                     <h5>{LANG_JOB_TYPE} *</h5>
                                     <select class="selectpicker with-border" data-size="7" name="job_type">
                                         {LOOP: POSTTYPES}
-                      <option value="{POSTTYPES.id}" IF('{PRODUCT_TYPE}'=='{POSTTYPES.id}'){ selected {:IF}>{POSTTYPES.title}</option>
-                      {/LOOP: POSTTYPES}
+                                <option value="{POSTTYPES.id}" IF('{PRODUCT_TYPE}'=='{POSTTYPES.id}'){ selected {:IF}>{POSTTYPES.title}</option>
+                                {/LOOP: POSTTYPES}
                                     </select>
                                 </div>
                                 <div class="submit-field">
@@ -208,8 +208,8 @@
                                             <select class="selectpicker with-border margin-bottom-16" data-size="7"
                                                     name="salary_type">
                                                 {LOOP: SALARYTYPES}
-                          <option value="{SALARYTYPES.id}" IF('{SALARY_TYPE}'=='{SALARYTYPES.id}'){ selected {:IF}>{LANG_PER} {SALARYTYPES.title}</option>
-                          {/LOOP: SALARYTYPES}
+                                    <option value="{SALARYTYPES.id}" IF('{SALARY_TYPE}'=='{SALARYTYPES.id}'){ selected {:IF}>{LANG_PER} {SALARYTYPES.title}</option>
+                                    {/LOOP: SALARYTYPES}
                                             </select>
                                         </div>
                                         <div class="col-xl-12">

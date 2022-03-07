@@ -615,4 +615,9 @@ $lang['SKILLS_UPDATED']='Skills Updated';
 $lang['SKILLS_DELETED']='Skills Deleted';
 $lang['CUSTOM_FIELDS']='Custom Fields';
 
+//Custom Fields
+$lang['SAVE_FIELDS']='Save Fields';
+
+
+//End Custom Fields
 
