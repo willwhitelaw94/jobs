@@ -389,5 +389,46 @@ ELSEIF({LOGGED_IN} && '{ZECHAT_ON_OFF}'=='on'){
 </table>
 {:IF}
 <script type="text/javascript" src="{SITE_URL}/includes/assets/js/repeater.min.js"></script>
+<script src="{SITE_URL}templates/{TPL_NAME}/js/snackbar.js"></script>
+<script>
+// Snackbar for user status switcher
+$('#snackbar-user-status label').click(function() { 
+    var visibilty = $(this).data('visibilty');
+    $.ajax({
+        type: "POST",
+        url: ajaxurl,
+        data: { action: "setUserVisibilityStatus",visibilty:visibilty},
+        dataType: 'json',
+        success: function(result){
+            if(result.success){
+                Snackbar.show({
+            	text: 'Your status has been changed!',
+            	pos: 'bottom-center',
+            	showAction: false,
+            	actionText: "Dismiss",
+            	duration: 3000,
+            	textColor: '#fff',
+            	backgroundColor: '#383838'
+            });
+            }else{
+                Snackbar.show({
+                    text: 'Your status has not been changed!',
+                    pos: 'bottom-center',
+                    showAction: false,
+                    actionText: "Dismiss",
+                    duration: 3000,
+                    textColor: '#fff',
+                    backgroundColor: '#ed9898'
+                });
+            }
+           
+        }
+    });
+       
+       
+    
+	 
+}); 
+</script>
 </body>
 </html>

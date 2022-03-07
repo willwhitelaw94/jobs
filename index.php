@@ -109,6 +109,7 @@ $router->map('GET|POST','/edit-profile/languages', 'languages.php');
 $router->map('GET|POST','/edit-profile/cultural-backgrounds', 'cultural-backgrounds.php');
 $router->map('GET|POST','/edit-profile/religion', 'religion.php');
 $router->map('GET|POST','/edit-profile/my-skills', 'my-skills.php');
+$router->map('GET|POST','/edit-profile/user-custom-fields', 'user-custom-fields.php');
 // Wills Routes
 $router->map('GET|POST','/edit-profile/account', 'edit-account.php');
 $router->map('GET|POST','/accepted-jobs', 'accepted-job.php');

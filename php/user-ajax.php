@@ -48,6 +48,7 @@ if(isset($_POST['action'])){
     if ($_POST['action'] == "ajaxlogin") {ajaxlogin();}
     if ($_POST['action'] == "email_verify") {email_verify();}
     if ($_POST['action'] == "quickad_ajax_home_search") {quickad_ajax_home_search();}
+    if ($_POST['action'] == "setUserVisibilityStatus") {setUserVisibilityStatus();}
 }
 
 function ajaxlogin(){
@@ -1741,4 +1742,21 @@ function submitBlogComment(){
         $result['error'] = $comment_error;
     }
     die(json_encode($result));
+}
+
+function setUserVisibilityStatus(){
+    global $config;
+    $visibilty = $_POST['visibility'] ?? '0';
+    $user_id = !empty($_POST['user_id']) ? $_POST['user_id'] : $_SESSION['user']['id'];
+    $user=ORM::for_table($config['db']['pre'].'user')->find_one($user_id);
+    $user->set('online',$visibilty);
+    $user->save();
+   
+    if($user->save()){
+        $result['success'] = true;
+    }else{
+        $result['success'] = false;  
+    }
+    die(json_encode($result));
+   
 }

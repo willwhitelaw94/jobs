@@ -66,6 +66,7 @@ $link['EDUCATIONS'] = $config['site_url'] . 'edit-profile/my-educations';
 $link['ADD_EDUCATION'] = $config['site_url'] . 'edit-profile/add-education';
 $link['EDIT_EDUCATION'] = $config['site_url'] . 'edit-profile/edit-education';
 $link['SKILLS'] = $config['site_url'] . 'edit-profile/my-skills';
+$link['USER_CUSTOM_FIELDS'] = $config['site_url'] . 'edit-profile/user-custom-fields';
 // Will Edit
 $link['ACCOUNT'] = $config['site_url'] . 'edit-profile/account';
 $link['ACCEPTED_JOBS'] = $config['site_url'] . 'accepted-jobs';

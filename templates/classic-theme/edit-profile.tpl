@@ -270,9 +270,7 @@
     jQuery(function($) {
         $("#category").on('change', function(){
             var catid = $(this).val();
-           
             var selectid = $(this).data('subcat');
-            console.log(selectid);
             var data = { action: "getsubcatbymultipleid", catid: catid, selectid : selectid };
             $.ajax({
                 type: "POST",
