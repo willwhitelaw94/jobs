@@ -464,6 +464,7 @@ function get_cityDetail_by_id($cityid){
     return $info;
 }
 
+
 function check_country_activated($country_code){
     global $config;
     $num_rows = ORM::for_table($config['db']['pre'].'countries')
@@ -1273,7 +1274,7 @@ function get_user_customFields($require=true,$fields=array(),$data=array()){
                 }
 
                 $radiobtn .= '<div class="radio margin-right-20"><input class="with-gap" type="radio" name="custom['.$info['custom_id'].']" id="'.$value3.$i.'" value="'.$value3.'" data-name="'.$info['custom_id'].'" '.$checked.' />';
-                $radiobtn .= '<label for="'.$value3.$i.'"><span class="radio-label"></span>'.$option_title.'</label></div><br>';
+                $radiobtn .= '<label for="'.$value3.$i.'"><span class="radio-label"></span>'.$option_title.'</label></div>';
 
                 $i++;
             }
@@ -1317,8 +1318,8 @@ function get_user_customFields($require=true,$fields=array(),$data=array()){
                 }
 
                 $option_title = get_userCustomOption_by_id($value4);
-                $Checkbox .= '<div class="checkbox"><input type="checkbox" name="custom['.$info['custom_id'].'][]" id="'.$value4.$j.'" value="'.$value4.'" '.$selected.' data-name="'.$info['custom_id'].'" />';
-                $Checkbox .= '<label for="'.$value4.$j.'"><span class="checkbox-icon"></span>'.$option_title.'</label></div><br>';
+                $Checkbox .= '<div class="checkbox margin-right-20"><input  type="checkbox" name="custom['.$info['custom_id'].'][]" id="'.$value4.$j.'" value="'.$value4.'" '.$selected.' data-name="'.$info['custom_id'].'" />';
+                $Checkbox .= '<label for="'.$value4.$j.'"><span class="checkbox-icon"></span>'.$option_title.'</label></div>';
 
                 $j++;
             }

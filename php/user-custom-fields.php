@@ -8,8 +8,7 @@ if (checkloggedin()) {
     $customdata = ORM::for_table($config['db']['pre'].'user_custom_data')
         ->select_many('field_id','field_data')
         ->where('user_id',$user_id)
-        ->find_many();
-        
+        ->find_many();        
     foreach ($customdata as $array){
         $custom_fields[] = $array['field_id'];
         $custom_data[] = $array['field_data'];
