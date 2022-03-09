@@ -238,7 +238,6 @@ foreach ($custom_fields as $key => $value) {
                                             </select>
                                         </div>
                                     </div>
-
                                 <?php
                                 }
                                 if($field['type']=="radio-buttons"){?>

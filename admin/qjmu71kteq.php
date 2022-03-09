@@ -4000,7 +4000,7 @@ function deleteCareExperience(){
 function save_user_custom_fields()
 {
     global $con,$config;
-   
+   // print_r($_POST['fields']);die;
     if(!isset($_POST['fields'])){
         echo 0;
         die();
@@ -4020,6 +4020,7 @@ function save_user_custom_fields()
         $type = $custom['type'];
         $title = $custom['label'];
         $required = empty($custom['required'])? 0 : $custom['required'];
+        $cusclass = $custom['custom_class'];
         // $allcat = $custom['allcat'];
         // $maincat = $custom['maincat'];
         // $category = $custom['services'];
@@ -4069,7 +4070,7 @@ function save_user_custom_fields()
         if(check_allow()){
             $exist = get_userCustomField_exist_id($id);
             if($exist > 0){
-                $query = "UPDATE `" . $config['db']['pre'] . "user_custom_fields` SET `custom_title` = '".$title."', `custom_type` = '".$type."',`custom_required` = '".$required."',`custom_options` = '".$options."' WHERE custom_id = '".$id."' LIMIT 1";
+                $query = "UPDATE `" . $config['db']['pre'] . "user_custom_fields` SET `custom_title` = '".$title."', `custom_type` = '".$type."',`custom_required` = '".$required."',`custom_options` = '".$options."',`custom_class`='".$cusclass."' WHERE custom_id = '".$id."' LIMIT 1";
                 $con->query($query) OR error(mysqli_error($con));
             }else{
                 $lang_code = array();
@@ -4092,7 +4093,7 @@ function save_user_custom_fields()
                 $trans_lang = implode(',', $lang_code);
                 $trans_name = implode(',', $lang_title);
 
-                $query = "INSERT INTO `" . $config['db']['pre'] . "user_custom_fields` SET translation_lang = '$trans_lang', translation_name = '$trans_name',`custom_title` = '".$title."', `custom_type` = '".$type."',`custom_required` = '".$required."',`custom_options` = '".$options."' ";
+                $query = "INSERT INTO `" . $config['db']['pre'] . "user_custom_fields` SET translation_lang = '$trans_lang', translation_name = '$trans_name',`custom_title` = '".$title."', `custom_type` = '".$type."',`custom_required` = '".$required."',`custom_options` = '".$options."',`custom_class`='".$cusclass."' ";
                 $con->query($query) OR error(mysqli_error($con));
 
                 $id = $con->insert_id;

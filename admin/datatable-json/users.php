@@ -91,13 +91,25 @@ foreach ($queryRecords as $row) {
     $row4 = '<td class="hidden-xs hidden-sm">'.$sex.'</td>';
     $row5 = '<td class="hidden-xs hidden-sm">'.$status.'</td>';
     $row6 = '<td class="hidden-xs hidden-sm">'.$joined.'</td>';
-    $row7 = '<td class="text-center">
-                <div class="btn-group">
-                    <a href="#" data-url="panel/user_profile.php?id='.$id.'" data-toggle="slidePanel" class="btn btn-xs btn-default"> <i class="ion-eye"></i></a>
-                    <a href="#" data-url="panel/users_edit.php?id='.$id.'" data-toggle="slidePanel" class="btn btn-xs btn-default"> <i class="ion-edit"></i></a>
-                    <a href="javascript:void(0)" class="btn btn-xs btn-default item-js-delete" data-ajax-action="deleteusers"><i class="ion-close"></i></a>
-                </div>
-            </td>';
+    if($row['user_type']=='user'){
+        $row7 = '<td class="text-center">
+        <div class="btn-group">
+            <a href="#" data-url="panel/user_profile.php?id='.$id.'" data-toggle="slidePanel" class="btn btn-xs btn-default"> <i class="ion-eye"></i></a>
+            <a href="#" data-url="panel/users_edit.php?id='.$id.'" data-toggle="slidePanel" class="btn btn-xs btn-default"> <i class="ion-edit"></i></a>
+            <a href="javascript:void(0)" class="btn btn-xs btn-default item-js-delete" data-ajax-action="deleteusers"><i class="ion-close"></i></a>  
+            <a href="users_edit_profile.php?uid='.$id.'" class="btn btn-xs btn-default"> <i class="ion-edit"></i></a>
+        </div>
+        </td>';
+    }else{
+        $row7 = '<td class="text-center">
+        <div class="btn-group">
+            <a href="#" data-url="panel/user_profile.php?id='.$id.'" data-toggle="slidePanel" class="btn btn-xs btn-default"> <i class="ion-eye"></i></a>
+            <a href="#" data-url="panel/users_edit.php?id='.$id.'" data-toggle="slidePanel" class="btn btn-xs btn-default"> <i class="ion-edit"></i></a>
+            <a href="javascript:void(0)" class="btn btn-xs btn-default item-js-delete" data-ajax-action="deleteusers"><i class="ion-close"></i></a>  
+        </div>
+        </td>';
+    }
+    
     $value = array(
         "DT_RowId" => $id,
         0 => $row0,

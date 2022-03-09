@@ -123,8 +123,6 @@ $router->map('GET|POST','/timesheets', 'timesheet.php');
 
 /* Match the current request */
 $match=$router->match();
-
-
 if($match) {
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $_GET = array_merge($match['params'],$_GET);
