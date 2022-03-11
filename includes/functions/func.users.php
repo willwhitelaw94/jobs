@@ -781,20 +781,7 @@ function create_user_dashboard_card(){
        die();
     }
 
-if (!function_exists('getDays')) {
-    function getDays()
-    {
-       return  Array(
-                ['code'=>'MON','day'=>'Monday'],
-                ['code'=>'TUE','day'=>'Tuesday'],
-                ['code'=>'WED','day'=>'Wednesday'],
-                ['code'=>'THU','day'=>'Thursday'],
-                ['code'=>'FRI','day'=>'Friday'],
-                ['code'=>'SAT','day'=>'Saturday'],
-                ['code'=>'SUN','day'=>'Sunday']
-        );
-    }
-}
+
 
 if (!function_exists('get_citite')) {
     function get_citite($city_codes)

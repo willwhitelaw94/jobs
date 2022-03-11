@@ -1,7 +1,8 @@
 <?php
+
 require_once('includes.php');
 $main_languages=ORM::for_table($config['db']['pre'] . 'language')->where('type','main')->find_array();
-$religions = ORM::for_table($config['db']['pre'] .'religions')->select_many('id','name')->find_array();
+$religion_list = ORM::for_table($config['db']['pre'] .'religions')->select_many('id','name')->find_array();
 
 $backgrounds = ORM::for_table($config['db']['pre'] .'cultural_backgrounds')->table_alias('c_back')
     ->select_many('c_back.id','c_back.name',array('bck_opt_id'=>'bck_opt.id','bck_opt_name'=>'bck_opt.name'))
@@ -9,11 +10,27 @@ $backgrounds = ORM::for_table($config['db']['pre'] .'cultural_backgrounds')->tab
     ->left_outer_join($config['db']['pre'] . 'cultural_background_options','c_back.id=bck_opt.cultural_background_id','bck_opt')
     ->order_by_asc('c_back.id')
     ->find_array();
-    // print_r($backgrounds);
+    //  print_r($backgrounds);
 
-$user_id= $_SESSION['user']['id'];
+$user_id= $_GET['id'];
+$userBackgrounds = ORM::for_table($config['db']['pre'] . 'user_cultural_backgrounds')->select('cultural_background_id')->where('user_id', $user_id)->where_raw('NOT(cultural_background_id <=> NULL)')->find_array();
+$userBackgroundIds=array_column($userBackgrounds,'cultural_background_id');
+//print_r($userBackgroundIds);die;
+
+$user_religion=ORM::for_table($config['db']['pre'] . 'user_religions')->where('user_id',$user_id)->find_array();
+$religion_code=array_column($user_religion,'religion_id');
+ //print_r($religion_code);die;
+ $user_lang=ORM::for_table($config['db']['pre'] . 'user_languages')->where('user_id',$user_id)->find_array();
+ $lang_code=array_column($user_lang,'language_id');
+ //print_r($user_lang);die;
+
+
+$salary = ORM::for_table($config['db']['pre'] . 'user')->where('id',$user_id)->find_array();
+//print_r($salary);die;
 $user_city=ORM::for_table($config['db']['pre'] . 'user_cities')->where('user_id',$user_id)->find_array();
 $city_codes=array_column($user_city,'city_code');
+
+$city_list=ORM::for_table($config['db']['pre'] . 'cities')->find_many();
 
 $user_pr_days=ORM::for_table($config['db']['pre'] . 'user_prefered_days')
 ->select_many('id','user_id','day')
@@ -25,8 +42,31 @@ foreach($user_pr_days as $val){
 }
 
 $user_pr_days_code=array_keys($user_days);
-
+// print_r($user_days);
+// die;
 ?>
+
+<style>
+    .wp_in_icon{position: relative;}
+    .wp_in_icon i{    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    color:#a0a0a0;
+    font-size: 20px;}
+
+    .er_in_icon{position: relative;}
+    .er_in_icon i{    position: absolute;
+    top: 0;
+    right: 10px;
+    padding: 10px;
+    color:#a0a0a0;
+    font-size: 20px;}
+
+    .d-none{
+        display: none;
+    }
+</style>
 
 <main class="app-layout-content">
 
@@ -65,7 +105,7 @@ $user_pr_days_code=array_keys($user_days);
                                                 <div class="tab-content">
 
                                                     <div class="tab-pane active" id="quickad_rate_avalibility">
-                                                        <form method="post" action="ajax_sidepanel.php?action=SaveSettings" id="#quickad_rate_avalibility">
+                                                        <form method="post" action="ajax_sidepanel.php?action=editUserProfile" id="#quickad_rate_avalibility">
                                                             <div class="form-group row">
                                                                 <div class="col-md-2">
                                                                     <label class="css-input switch switch-sm switch-success">        
@@ -82,61 +122,83 @@ $user_pr_days_code=array_keys($user_days);
                                                                     <select  class="js-select2 form-control" name="city[]" id="jobcity" style="width: 100%;" multiple>
                                                                         <?php
 
-                                                                        $country = get_country_list(get_option("specific_country"));
-                                                                        foreach ($country as $value){
-                                                                            echo '<option value="'.$value['code'].'" '.$value['selected'].'>'.$value['asciiname'].'</option>';
+                                                                       
+                                                                        foreach ($city_list as $value){
+                                                                            $selected= in_array($value['id'],$city_codes) ? 'selected': '';
+                                                                            echo '<option value="'.$value['id'].'" '.$selected.'>'.$value['name'].'</option>';
                                                                         }
                                                                         ?>
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group">
-                                                                <?php foreach(getDays() as $days){
-                                                                    //print_r($days);
+                                                            <div class="form-group row">
+                                                                <div class="col-md-4 mt-3">
+                                                                    <label class="">Prefered Days :</label>
+                                                                </div>
+                                                                <div class="col-md-8 mt-3">
+                                                                    <select class="form-control js-select2" multiple data-selected-text-format="count > 1" name="days[]" id="days">
+                                                                    <?php foreach(getDays() as $days){
+                                                                        $selected= in_array($days['code'],$user_pr_days_code) ? 'selected': '';
+                                                                        echo "<option value=".$days['code']." ".$selected.">".$days['day']."</option>";         
+                                                                    }?>
+                                                                    </select>
+                                                                    <div class="col-lg-12">
+                                                                    <?php
+                                                                    foreach(getDays() as $days){
                                                                         $cls = 'd-none';
                                                                         $start_time= $end_time='';
                                                                         if(in_array($days['code'],$user_pr_days_code)){
-                                                                            $cls=''; 
+                                                                            $cls = '';
                                                                             $start_time =   $user_days[$days['code']]['start_time'];
                                                                             $end_time =     $user_days[$days['code']]['end_time'] ; 
                                                                         }
-                                                                        $day_time_slots.='
-                                                                        <div class="col-xl-12 time_section '.$cls.'" id="section_'.$days['code'].'" data-day-code="'.$days['code'].'">
-                                                                                <div class="col-xl-6">
-                                                                                    <div class="submit-field">
-                                                                                        <h5>'.$days['day'].'</h5>
-                                                                                        <div class="row">
-                                                                                            <div class="col-xl-6">
-                                                                                                <div class="input-with-icon">
-                                                                                                    <input class="with-border" type="text" placeholder="'.$lang['START_TIME'].'" value="'.$start_time.'" name="time_slot['.$days['code'].'][start_time]">
-                                                                                                    <i class="fa fa-clock-o"></i>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div class="col-xl-6">
-                                                                                                <div class="input-with-icon">
-                                                                                                    <input class="with-border" type="text" placeholder="'.$lang['END_TIME'].'"  value="'.$end_time.'" name="time_slot['.$days['code'].'][end_time]">
-                                                                                                    <i class="fa fa-clock-o"></i>
-                                                                                                </div>
+                                                                            echo '<div class="row time_section '.$cls.'" id="section_'.$days['code'].'" data-day-code="'.$days['code'].'">
+                                                                                    <div class="col-lg-6">
+                                                                                        <div class="form-group">
+                                                                                            <label><b>'.$days['day'].'</b></label>
+                                                                                            <div class="wp_in_icon">
+                                                                                                <input class="form-control" type="text" placeholder="Start time" value="'.$start_time.'" name="time_slot['.$days['code'].'][start_time]">
+                                                                                                <i class="fa fa-clock-o"></i>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                </div>
-                                                                        </div>';
+                                                                                
+                                                                                    <div class="col-lg-6">
+                                                                                        <div class="form-group">
+                                                                                            <label style="opacity: 0;"><b>empty</b></label>
+                                                                                            <div class="wp_in_icon">
+                                                                                            <input class="form-control" type="text" placeholder="END time" value="'.$end_time.'" name="time_slot['.$days['code'].'][end_time]">
+                                                                                            <i class="fa fa-clock-o"></i>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                            </div> '; 
+                                                                        
                                                                     }
                                                                     ?>
+                                                                    </div>
+                                                                </div>
                                                             </div>
+                                                            
                                                             <div class="form-group row">
                                                                 <div class="col-md-4 mt-3">
                                                                 <label class="">Expected Rate :</label>
                                                                 </div>
-                                                                <div class="col-md-4">
-                                                                    <input name="home_map_longitude" type="number" class="form-control" name="salary_min" value="">
-                                                                    Minimum Rate per hour.
+                                                                <?php foreach ($salary as $key => $sal) { ?>
+                                                                    <div class="col-md-4 er_in_icon">
+                                                                    <input name="home_map_longitude" type="number" class="form-control" name="salary_min" value="<?php echo $sal['salary_min']; ?>">
+                                                                    <i class="fa fa-usd"></i>
+                                                                    <small>Minimum Rate per hour.</small>
                                                                 </div>
-                                                                <div class="col-md-4">
-                                                                    <input name="home_map_longitude" type="number" class="form-control" name="salary_max" value="">
-                                                                    Maximum Rate per hour.
+                                                                <div class="col-md-4 er_in_icon">
+                                                                    <input name="home_map_longitude" type="number" class="form-control" name="salary_max" value="<?php echo $sal['salary_max']; ?>">
+                                                                    <i class="fa fa-usd"></i>
+                                                                    <small>Maximum Rate per hour.</small>
                                                                 </div>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                                
                                                             </div>
                                                             <div class="panel-footer">
                                                                 <button name="quick_map" type="submit" class="btn btn-primary btn-radius save-changes">Save</button>
@@ -145,13 +207,14 @@ $user_pr_days_code=array_keys($user_days);
                                                         </form>
                                                     </div>
                                                     <div class="tab-pane" id="quickad_languages">
-                                                        <form method="post" action="ajax_sidepanel.php?action=SaveSettings" id="#quickad_languages" multiple>
+                                                        <form method="post" action="ajax_sidepanel.php?action=editUserProfile" id="#quickad_languages">
                                                             <div class="form-group">
                                                                     <label for="map_type"> Main Languages : </label>
-                                                                    <select name="main_langs[]" id="" class="form-control js-select2" style="width: 100%;">
+                                                                    <select name="main_langs[]" id="" class="form-control js-select2" style="width: 100%;" multiple>
                                                                     <?php 
                                                                     foreach ($main_languages as $key => $value) {
-                                                                        echo '<option value="'.$value['id'].'" '.$value['selected'].' >'.$value['name'].'</option>';
+                                                                        $selected= in_array($value['id'],$lang_code) ? 'selected': '';
+                                                                        echo '<option value="'.$value['id'].'" '.$selected.' >'.$value['name'].'</option>';
                                                                     }
                                                                     ?>
                                                                     </select>
@@ -163,13 +226,14 @@ $user_pr_days_code=array_keys($user_days);
                                                         </form>
                                                     </div>
                                                     <div class="tab-pane" id="quick_cultural_background">
-                                                        <form method="post" action="ajax_sidepanel.php?action=SaveSettings" id="#quick_cultural_background">
+                                                        <form method="post" action="ajax_sidepanel.php?action=editUserProfile" id="#quick_cultural_background">
                                                             <div class="form-group">
                                                                 <label for="map_type">Cultural Backgrounds : </label>
                                                                 <select name="cul_bag[]" id="" class="form-control js-select2" style="width: 100%;" multiple>
                                                                 <?php 
                                                                 foreach ($backgrounds as $key => $value) {
-                                                                    echo '<option value="'.$value['id'].'" '.$value['selected'].' >'.$value['name'].'</option>';
+                                                                    $selected=in_array($value['id'],$userBackgroundIds) ? 'selected':'';
+                                                                    echo '<option value="'.$value['id'].'" '.$selected.' >'.$value['name'].'</option>';
                                                                 }
                                                                 ?>
                                                                 </select>
@@ -179,7 +243,8 @@ $user_pr_days_code=array_keys($user_days);
                                                                 <select name="cul_bag_opt[]" id="" class="form-control js-select2" style="width: 100%;" multiple>
                                                                 <?php 
                                                                 foreach ($backgrounds as $key => $value) {
-                                                                    echo '<option value="'.$value['bck_opt_id'].'" '.$value['selected'].' >'.$value['bck_opt_name'].'</option>';
+                                                                    $selected=in_array($value['bck_opt_id'],$userBackgroundIds) ? 'selected':'';
+                                                                    echo '<option value="'.$value['bck_opt_id'].'" '.$selected.' >'.$value['bck_opt_name'].'</option>';
                                                                 }
                                                                 ?>
                                                                 </select>
@@ -192,13 +257,14 @@ $user_pr_days_code=array_keys($user_days);
                                                         </form>
                                                     </div>
                                                     <div class="tab-pane" id="quickad_religion">
-                                                        <form method="post" action="ajax_sidepanel.php?action=SaveSettings" id="#quickad_religion">
+                                                        <form method="post" action="ajax_sidepanel.php?action=editUserProfile" id="#quickad_religion">
                                                         <div class="form-group">
                                                                 <label for="map_type">Religion </label>
-                                                                <select name="religion[]" id="" class="form-control js-select2" style="width: 100%;">
+                                                                <select name="religion[]" id="" class="form-control js-select2" style="width: 100%;" multiple>
                                                                 <?php 
-                                                                foreach ($religions as $key => $value) {
-                                                                    echo '<option value="'.$value['id'].'" '.$value['selected'].'>'.$value['name'].'</option>';                                                            
+                                                                foreach ($religion_list as $key => $rel) {
+                                                                    $selected= in_array($rel['id'],$religion_code) ? 'selected': '';
+                                                                    echo '<option value="'.$rel['id'].'" '.$selected.'>'.$rel['name'].'</option>';                                                            
                                                                 }
                                                                 ?>
                                                                 </select>
@@ -210,7 +276,7 @@ $user_pr_days_code=array_keys($user_days);
                                                         </form>
                                                     </div>
                                                     <!-- <div class="tab-pane" id="quickad_experiences">
-                                                        <form method="post" action="ajax_sidepanel.php?action=SaveSettings" id="#quickad_experiences">
+                                                        <form method="post" action="ajax_sidepanel.php?action=editUserProfile" id="#quickad_experiences">
                                                             
                                                             <div class="form-group">
                                                                 <label >Title</label>
@@ -342,6 +408,64 @@ $user_pr_days_code=array_keys($user_days);
     {
         // Init page helpers (BS Datepicker + BS Colorpicker + Select2 + Masked Input + Tags Inputs plugins)
         App.initHelpers('select2');
+    });
+</script>
+<script>
+    /* Get and Bind cities */
+    $('#jobcity').select2({
+        multiple:true,
+        ajax: {
+            url: ajaxurl + '?action=searchCityFromCountry',
+            dataType: 'json',
+            delay: 50,
+            data: function (params) {
+                return {
+                    q: params.term, /* search term */
+                    page: params.page
+                };
+            },
+            processResults: function (data, params) {
+                /*
+                 // parse the results into the format expected by Select2
+                 // since we are using custom formatting functions we do not need to
+                 // alter the remote JSON data, except to indicate that infinite
+                 // scrolling can be used
+                 */
+                params.page = params.page || 1;
+
+                return {
+                    results: data.items,
+                    pagination: {
+                        more: (params.page * 10) < data.totalEntries
+                    }
+                };
+            },
+            cache: true
+        },
+        escapeMarkup: function (markup) { return markup; }, /* let our custom formatter work */
+        minimumInputLength: 2,
+        templateResult: function (data) {
+            return data.text;
+        },
+        templateSelection: function (data, container) {
+            return data.text;
+        }
+    });
+ 
+ 
+    let string = '{USER_PRE_DAYS}';
+    let arr = string.split(',');   
+    //$('#days').selectpicker('val',arr);
+    $('#days').on('change',function(){
+        var values = $(this).val();
+        document.querySelectorAll('.time_section').forEach(function(node) {
+            let day_code=node.dataset.dayCode
+            if(values.indexOf(day_code) == -1){
+                node.classList.add("d-none");
+            }else{
+                node.classList.remove("d-none");
+            } 
+        });
     });
 </script>
 </body></html>

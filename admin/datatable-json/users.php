@@ -97,7 +97,7 @@ foreach ($queryRecords as $row) {
             <a href="#" data-url="panel/user_profile.php?id='.$id.'" data-toggle="slidePanel" class="btn btn-xs btn-default"> <i class="ion-eye"></i></a>
             <a href="#" data-url="panel/users_edit.php?id='.$id.'" data-toggle="slidePanel" class="btn btn-xs btn-default"> <i class="ion-edit"></i></a>
             <a href="javascript:void(0)" class="btn btn-xs btn-default item-js-delete" data-ajax-action="deleteusers"><i class="ion-close"></i></a>  
-            <a href="users_edit_profile.php?uid='.$id.'" class="btn btn-xs btn-default"> <i class="ion-edit"></i></a>
+            <a href="users_edit_profile.php?id='.$id.'" class="btn btn-xs btn-default"> <i class="ion-person"></i></a>
         </div>
         </td>';
     }else{

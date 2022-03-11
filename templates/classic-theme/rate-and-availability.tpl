@@ -262,18 +262,18 @@
     });
  
  
-let string = '{USER_PRE_DAYS}';
-let arr = string.split(',');   
-$('#days').selectpicker('val',arr);
-$('#days').on('change',function(){
-    var values = $(this).val();
-    document.querySelectorAll('.time_section').forEach(function(node) {
-        let day_code=node.dataset.dayCode
-        if(values.indexOf(day_code) == -1){
-            node.classList.add("d-none");
-        }else{
-            node.classList.remove("d-none");
-        } 
+    let string = '{USER_PRE_DAYS}';
+    let arr = string.split(',');   
+    $('#days').selectpicker('val',arr);
+    $('#days').on('change',function(){
+        var values = $(this).val();
+        document.querySelectorAll('.time_section').forEach(function(node) {
+            let day_code=node.dataset.dayCode
+            if(values.indexOf(day_code) == -1){
+                node.classList.add("d-none");
+            }else{
+                node.classList.remove("d-none");
+            } 
+        });
     });
-});
 </script>
