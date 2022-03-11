@@ -1806,6 +1806,20 @@ if (!function_exists('getLevels')) {
     }
 }
 
+if (!function_exists('getDays')) {
+    function getDays()
+    {
+       return  Array(
+                ['code'=>'MON','day'=>'Monday'],
+                ['code'=>'TUE','day'=>'Tuesday'],
+                ['code'=>'WED','day'=>'Wednesday'],
+                ['code'=>'THU','day'=>'Thursday'],
+                ['code'=>'FRI','day'=>'Friday'],
+                ['code'=>'SAT','day'=>'Saturday'],
+                ['code'=>'SUN','day'=>'Sunday']
+        );
+    }
+}
 
 function getAge($dob){
     $diff= date_diff(date_create($dob), date_create('today'))->y;

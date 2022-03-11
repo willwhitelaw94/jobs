@@ -217,7 +217,7 @@ require_once('includes.php');
 
                                                                         <ul class="quickad-items quickad-margin-top-sm"></ul>
                                                                         <button class="btn btn-sm btn-default" data-type="radio-buttons-item">
-                                                                            <i class="glyphicon glyphicon-plus"></i> Radio Button                                        </button>
+                                                                            <i class="glyphicon glyphicon-plus"></i> Radio Button</button>
                                                                     </div>
                                                                     <?php include('custom-field-category-dropdown.php') ?>
                                                                 </div>
@@ -247,7 +247,7 @@ require_once('includes.php');
 
                                                                         <ul class="quickad-items quickad-margin-top-sm"></ul>
                                                                         <button class="btn btn-sm btn-default" data-type="drop-down-item">
-                                                                            <i class="glyphicon glyphicon-plus"></i> Option                                        </button>
+                                                                            <i class="glyphicon glyphicon-plus"></i> Option</button>
                                                                     </div>
                                                                     <?php include('custom-field-category-dropdown.php') ?>
                                                                 </div>

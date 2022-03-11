@@ -1266,7 +1266,6 @@ function get_user_customFields($require=true,$fields=array(),$data=array()){
             $i = 0;
             foreach($options as $key3=>$value3)
             {
-
                 $checked = "";
                 $option_title = get_userCustomOption_by_id($value3);
                 if($value3 == $custom_fields[$info['custom_id']]['default']) {

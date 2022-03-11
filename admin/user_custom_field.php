@@ -132,7 +132,11 @@ require_once('includes.php');
                                                                             </label>
                                                                         </div>
                                                                     </div>
-                                                                    
+                                                                    <div class="col-md-3">
+                                                                        <div class="input-group">
+                                                                            <input class="quickad-class form-control" type="text" value="" placeholder="Enter Custom Data">
+                                                                        </div>
+                                                                    </div>
 
                                                                 </div>
                                                             </div>
@@ -159,7 +163,11 @@ require_once('includes.php');
                                                                             </label>
                                                                         </div>
                                                                     </div>
-                                                                    
+                                                                    <div class="col-md-3">
+                                                                        <div class="input-group">
+                                                                            <input class="quickad-class form-control" type="text" value="" placeholder="Enter Custom Data">
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -189,6 +197,11 @@ require_once('includes.php');
                                                                         <button class="btn btn-sm btn-default" data-type="checkboxes-item">
                                                                             <i class="glyphicon glyphicon-plus"></i> Checkbox </button>
                                                                     </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="input-group">
+                                                                            <input class="quickad-class form-control" type="text" value="" placeholder="Enter Custom Data">
+                                                                        </div>
+                                                                    </div>
                                                                     
                                                                 </div>
                                                             </div>
@@ -217,7 +230,12 @@ require_once('includes.php');
 
                                                                         <ul class="quickad-items quickad-margin-top-sm"></ul>
                                                                         <button class="btn btn-sm btn-default" data-type="radio-buttons-item">
-                                                                            <i class="glyphicon glyphicon-plus"></i> Radio Button                                        </button>
+                                                                            <i class="glyphicon glyphicon-plus"></i> Radio Button</button>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="input-group">
+                                                                            <input class="quickad-class form-control" type="text" value="" placeholder="Enter Custom Data">
+                                                                        </div>
                                                                     </div>
                                                                     
                                                                 </div>
@@ -248,6 +266,11 @@ require_once('includes.php');
                                                                         <ul class="quickad-items quickad-margin-top-sm"></ul>
                                                                         <button class="btn btn-sm btn-default" data-type="drop-down-item">
                                                                             <i class="glyphicon glyphicon-plus"></i> Option</button>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="input-group">
+                                                                            <input class="quickad-class form-control" type="text" value="" placeholder="Enter Custom Data">
+                                                                        </div>
                                                                     </div>
                                                                     
                                                                 </div>
@@ -322,7 +345,7 @@ require_once('includes.php');
                                             </div>
 
                                             <div class="panel-footer">
-                                                <button id="ajax-send-custom-fields" type="submit" class="btn btn-lg btn-success ladda-button" data-style="zoom-in" data-spinner-size="40"><span class="ladda-label">Save</span><span class="ladda-spinner"></span><div class="ladda-progress" style="width: 0px;"></div></button>
+                                                <button id="ajax-send-user-custom-fields" type="submit" class="btn btn-lg btn-success ladda-button" data-style="zoom-in" data-spinner-size="40"><span class="ladda-label">Save</span><span class="ladda-spinner"></span><div class="ladda-progress" style="width: 0px;"></div></button>
                                                 <button class="btn btn-lg btn-default" type="reset">Reset</button>
                                             </div>
                                         </div>
@@ -365,6 +388,7 @@ if(count($results) != 0){
         $title = stripslashes($result['custom_title']);
         $type = $result['custom_type'];
         $options = $result['custom_options'];
+        $cusclass = $result['custom_class'];
         //$category = $result['custom_subcatid'];
 
         $required = $result['custom_required'];
@@ -411,6 +435,7 @@ if(count($results) != 0){
         $data[$i]['label']  = $title;
         $data[$i]['required'] = $required;
         $data[$i]['id']     = $id;
+        $data[$i]['custom_class'] = $cusclass;
        
         
        //$data[$i]['services']     = $category;

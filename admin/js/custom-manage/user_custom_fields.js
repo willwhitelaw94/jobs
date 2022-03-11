@@ -238,7 +238,7 @@ jQuery(function($) {
     /**
      * Submit custom fields form.
      */
-    $('#ajax-send-custom-fields').on('click', function(e) {
+    $('#ajax-send-user-custom-fields').on('click', function(e) {
         e.preventDefault();
         var ladda = Ladda.create(this),
             data = [];
@@ -267,15 +267,16 @@ jQuery(function($) {
                     field.label    = $this.find('.quickad-label').val();
                     field.required = $this.find('.quickad-required').prop('checked');
                     field.id       = $this.data('quickad-field-id');
-                    field.allcat = $this.find('.quickad-services-holder .quickad-check-all-entities:checked')
-                        .map(function() { return this.value; })
-                        .get();
-                    field.maincat = $this.find('.quickad-services-holder .quickad-js-check-entity:checked')
-                        .map(function() { return this.value; })
-                        .get();
-                    field.services = $this.find('.quickad-services-holder .subcategory input:checked')
-                        .map(function() { return this.value; })
-                        .get();
+                    field.custom_class      = $this.find('.quickad-class').val();
+                    // field.allcat = $this.find('.quickad-services-holder .quickad-check-all-entities:checked')
+                    //     .map(function() { return this.value; })
+                    //     .get();
+                    // field.maincat = $this.find('.quickad-services-holder .quickad-js-check-entity:checked')
+                    //     .map(function() { return this.value; })
+                    //     .get();
+                    // field.services = $this.find('.quickad-services-holder .subcategory input:checked')
+                    //     .map(function() { return this.value; })
+                    //     .get();
             }
             data.push(field);
         });
@@ -310,7 +311,7 @@ jQuery(function($) {
      * @param services
      * @returns {*|jQuery}
      */
-    function addField(type, id, label, required, services, translation) {
+    function addField(type, id, label, required, customclass, translation) {
         var $new_field = $('ul#quickad-templates > li[data-type=' + type + ']').clone();
         // Set id, label and required.
         if (typeof id == 'undefined') {
@@ -337,6 +338,8 @@ jQuery(function($) {
             .next('label').attr('for', 'required-' + id)
             .end().end()
             .find('.quickad-label').val(label)
+            .end()
+            .find('.quickad-class').val(customclass)
             .end()
             .find('.quickad_language_translation').addClass(transclass).data('custom-field-id', id)
             .end()
@@ -431,7 +434,7 @@ jQuery(function($) {
             var custom_fields = jQuery.parseJSON(quickadL10n.custom_fields);
             $.each(custom_fields, function (i, field) {
               //  var services = field.services.split(',');
-                var $new_field = addField(field.type, field.id, field.label, field.required, true);
+                var $new_field = addField(field.type, field.id, field.label, field.required,field.custom_class,true);
 
                 // add children
                 if (field.items) {

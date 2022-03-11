@@ -101,6 +101,8 @@ if(isset($_GET['action'])){
     if ($_GET['action'] == "addCareExperience") { addCareExperience(); }
     if ($_GET['action'] == "editCareExperience") { editCareExperience(); }
 
+    if ($_GET['action'] == "editUserProfile") { editUserProfile(); }
+    
 }
 function companyEdit(){
     global $config,$lang;
@@ -3421,5 +3423,10 @@ function editCareExperience(){
     $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
     echo $json;
     die();   
+}
+
+function editUserProfile(){
+    global $config,$lang;
+    
 }
 ?>
