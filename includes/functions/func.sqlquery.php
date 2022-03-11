@@ -464,6 +464,7 @@ function get_cityDetail_by_id($cityid){
     return $info;
 }
 
+
 function check_country_activated($country_code){
     global $config;
     $num_rows = ORM::for_table($config['db']['pre'].'countries')
@@ -786,7 +787,6 @@ function get_customOption_by_id($option_id){
     }
     return $info['title'];
 }
-
 function add_post_customField_data($category_id,$subcategory_id,$product_id){
 
     global $config;
@@ -1057,6 +1057,287 @@ function get_customFields_by_catid($maincatid=null,$subcatid=null,$require=true,
 
     return $custom_fields;
 }
+
+//Start User Data
+function get_userCustomOption_by_id($option_id){
+    global $config;
+
+    $info = ORM::for_table($config['db']['pre'].'user_custom_options')
+        ->select('title')
+        ->where('option_id' , $option_id)
+        ->find_one();
+
+    if($config['lang_code'] != 'en' && $config['userlangsel'] == '1'){
+        $customoption = get_category_translation("custom_option",$option_id);
+        $info['title'] = $customoption['title'];
+    }
+    return $info['title'];
+}
+function add_post_user_customField_data($user_id){
+
+    global $config;
+    $custom_fields = get_user_customFields();
+  
+    foreach ($custom_fields as $key => $value) {
+        
+            $field_id = $value['id'];
+            $field_type = $value['type'];
+            if($field_type == "textarea")
+                $field_data = validate_input($value['default'],true);
+            else
+                $field_data = validate_input($value['default']);
+               
+            if(isset($user_id)){
+                $exist = 0;
+                //Checking Data exist
+                $exist = ORM::for_table($config['db']['pre'].'user_custom_data')
+                    ->where(array(
+                        'user_id' => $user_id,
+                        'field_id' => $field_id
+                    ))
+                    ->count();
+                if($exist > 0){
+                    //Update here
+                    $pdo = ORM::get_db();
+                    $query = "UPDATE `".$config['db']['pre']."user_custom_data` set field_type = '".$field_type."', field_data = '".$field_data."' where user_id = '".$user_id."' and field_id = '".$field_id."' LIMIT 1";
+                    $pdo->query($query);
+                }else{
+                
+                    if($field_data != "") {
+                        $field_insert = ORM::for_table($config['db']['pre'].'user_custom_data')->create();
+                        $field_insert->user_id = $user_id;
+                        $field_insert->field_id = $field_id;
+                        $field_insert->field_type = $field_type;
+                        $field_insert->field_data = $field_data;
+                        $field_insert->save();
+                    }
+                }
+            }
+        
+    }
+}
+
+function get_user_customFields($require=true,$fields=array(),$data=array()){
+
+    global $config,$lang;
+    $custom_fields = array();
+    $pdo = ORM::get_db();
+    $query = "SELECT * FROM `".$config['db']['pre']."user_custom_fields` order by custom_id ASC";
+    $result = $pdo->query($query);
+
+    foreach ($result as $info)
+    {    
+        $custom_fields[$info['custom_id']]['id'] = $info['custom_id'];
+        $custom_fields[$info['custom_id']]['type'] = $info['custom_type'];
+        $custom_fields[$info['custom_id']]['title'] = stripslashes($info['custom_title']);
+
+        if($config['lang_code'] != 'en' && $config['userlangsel'] == '1'){
+            if($info['translation_lang'] != '' && $info['translation_name'] != ''){
+                $translation_lang = explode(',',$info['translation_lang']);
+                $translation_name = explode(',',$info['translation_name']);
+
+                $count = 0;
+                foreach($translation_lang as $key=>$value)
+                {
+                    if($value != '')
+                    {
+                        $translation[$translation_lang[$key]] = $translation_name[$key];
+
+                        $count++;
+                    }
+                }
+
+                $trans_name = (isset($translation[$config['lang_code']]))? $translation[$config['lang_code']] : '';
+
+                if($trans_name != ''){
+                    $custom_fields[$info['custom_id']]['title'] = stripslashes($trans_name);
+                }else{
+                    $custom_fields[$info['custom_id']]['title'] = stripslashes($info['custom_title']);
+                }
+            }
+        }
+
+        $required = "0";
+        if($require){
+            $required = ($info['custom_required'] == 1)?  '1' : '0';
+        }
+        $custom_fields[$info['custom_id']]['required'] = $required;
+        if(isset($_REQUEST['custom'][$info['custom_id']]))
+        {
+            if($custom_fields[$info['custom_id']]['type'] == "checkboxes"){
+                $checkbox1=$_REQUEST['custom'][$info['custom_id']];
+                if(is_array($checkbox1)){
+                    $chk="";
+                    $chkCount = 0;
+                    foreach($checkbox1 as $chk1)
+                    {
+                        if($chkCount == 0)
+                            $chk .= $chk1;
+                        else
+                            $chk .= ",".$chk1;
+
+                        $chkCount++;
+                    }
+                    $custom_fields[$info['custom_id']]['default'] = $chk;
+                }
+                else{
+                    $custom_fields[$info['custom_id']]['default'] = $_REQUEST['custom'][$info['custom_id']];
+                }
+
+            }
+            else{
+                //$custom_fields[$info['custom_id']]['default'] = substr(strip_tags($_REQUEST['custom'][$info['custom_id']]),0,$info['custom_max']);
+                $custom_fields[$info['custom_id']]['default'] = $_REQUEST['custom'][$info['custom_id']];
+            }
+
+            $custom_fields[$info['custom_id']]['userent'] = 1;
+        }
+        else
+        {
+            $custom_fields[$info['custom_id']]['default'] = $info['custom_default'];
+            //$custom_fields[$info['custom_id']]['userent'] = 0;
+        }
+
+        foreach($fields as $key=>$value)
+        {
+            if($value != '')
+            {
+                if($value == $info['custom_id']){
+                    $custom_fields[$info['custom_id']]['default'] = $data[$key];
+                    break;
+                }
+
+            }
+        }
+
+        //Text-field
+        if($info['custom_type'] == 'text-field'){
+            $textbox = '<input name="custom['.$info['custom_id'].']" id="custom['.$info['custom_id'].']" class="form-control with-border quick-custom-field"  type="text" value="'.$custom_fields[$info['custom_id']]['default'].'" placeholder="'.$custom_fields[$info['custom_id']]['title'].'" data-name="'.$info['custom_id'].'" data-req="'.$required.'"/><div class="quick-error">'.$lang['FIELD_REQUIRED'].'</div>';
+            $custom_fields[$info['custom_id']]['textbox'] = $textbox;
+        }
+        else{
+            $custom_fields[$info['custom_id']]['textbox'] = '';
+        }
+
+        //Textarea
+        if($info['custom_type'] == 'textarea'){
+            $textarea= '<textarea class="materialize-textarea form-control with-border quick-custom-field" name="custom['.$info['custom_id'].']" id="custom['.$info['custom_id'].']" placeholder="'.$custom_fields[$info['custom_id']]['title'].'" data-name="'.$info['custom_id'].'" data-req="'.$required.'">'.$custom_fields[$info['custom_id']]['default'].'</textarea><div class="quick-error">'.$lang['FIELD_REQUIRED'].'</div>';
+            $custom_fields[$info['custom_id']]['textarea'] = $textarea;
+        }
+        else{
+            $custom_fields[$info['custom_id']]['textarea'] = '';
+        }
+
+        //SelectList
+
+        if($info['custom_type'] == 'drop-down')
+        {
+            $options = explode(',',stripslashes($info['custom_options']));
+
+            //$selectbox = '<select class="meterialselect" name="custom['.$info['custom_id'].']" '.$required.'><option value="" selected>'.$info['custom_title'].'</option>';
+            $selectbox = '';
+            foreach($options as $key3=>$value3)
+            {
+                $option_title = get_userCustomOption_by_id($value3);
+                if($value3 == $custom_fields[$info['custom_id']]['default'])
+                {
+                    $selectbox.= '<option value="'.$value3.'" selected>'.$option_title.'</option>';
+                }
+                else
+                {
+                    $selectbox.= '<option value="'.$value3.'">'.$option_title.'</option>';
+                }
+            }
+            //$selectbox.= '</select>';
+
+            $custom_fields[$info['custom_id']]['selectbox'] = $selectbox;
+        }
+        else
+        {
+            $custom_fields[$info['custom_id']]['selectbox'] = '';
+        }
+
+        //RadioButton
+        if($info['custom_type'] == 'radio-buttons')
+        {  
+            
+            $options = explode(',',stripslashes($info['custom_options']));
+            $radiobtn = "";
+            $i = 0;
+            foreach($options as $key3=>$value3)
+            {
+
+                $checked = "";
+                $option_title = get_userCustomOption_by_id($value3);
+                if($value3 == $custom_fields[$info['custom_id']]['default']) {
+                    $checked = "checked";
+                }
+
+                $radiobtn .= '<div class="radio margin-right-20"><input class="with-gap" type="radio" name="custom['.$info['custom_id'].']" id="'.$value3.$i.'" value="'.$value3.'" data-name="'.$info['custom_id'].'" '.$checked.' />';
+                $radiobtn .= '<label for="'.$value3.$i.'"><span class="radio-label"></span>'.$option_title.'</label></div>';
+
+                $i++;
+            }
+            $radiobtn .= '<input type="hidden" class="quick-radioCheck"
+                        data-name="'.$info['custom_id'].'"
+                        data-req="'.$required.'"><div class="quick-error">'.$lang['FIELD_REQUIRED'].'</div>';
+            $custom_fields[$info['custom_id']]['radio'] = $radiobtn;
+        }
+        else
+        {
+            $custom_fields[$info['custom_id']]['radio'] = '';
+        }
+
+        //Checkbox
+        if($info['custom_type'] == 'checkboxes')
+        {
+            $options = explode(',',stripslashes($info['custom_options']));
+            $Checkbox = "";
+            $CheckboxBootstrap = "";
+            $j = 0;
+            $selected = "";
+            foreach($options as $key4=>$value4)
+            {
+                $default_checkbox = $custom_fields[$info['custom_id']]['default'];
+                if(is_array($default_checkbox)){
+                    $checked = $custom_fields[$info['custom_id']]['default'];
+                }else{
+                    $checked = explode(',',$custom_fields[$info['custom_id']]['default']);
+                }
+
+                foreach ($checked as $val)
+                {
+                    if($value4 == $val)
+                    {
+                        $selected = "checked";
+                        break;
+                    }
+                    else{
+                        $selected = "";
+                    }
+                }
+
+                $option_title = get_userCustomOption_by_id($value4);
+                $Checkbox .= '<div class="checkbox margin-right-20"><input  type="checkbox" name="custom['.$info['custom_id'].'][]" id="'.$value4.$j.'" value="'.$value4.'" '.$selected.' data-name="'.$info['custom_id'].'" />';
+                $Checkbox .= '<label for="'.$value4.$j.'"><span class="checkbox-icon"></span>'.$option_title.'</label></div>';
+
+                $j++;
+            }
+            $Checkbox .= '<input type="hidden" class="quick-radioCheck"
+                data-name="'.$info['custom_id'].'"
+                data-req="'.$required.'"><div class="quick-error">'.$lang['FIELD_REQUIRED'].'</div>';
+            $custom_fields[$info['custom_id']]['checkbox'] = $Checkbox;
+        }
+        else
+        {
+            $custom_fields[$info['custom_id']]['checkbox'] = '';
+        }
+    }
+
+    return $custom_fields;
+}
+
+// End User Data
 
 function create_slug($string){
     return slugify($string);

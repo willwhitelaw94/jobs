@@ -617,4 +617,9 @@ $lang['CUSTOM_FIELDS']='Custom Fields';
 $lang['MY_CONVERSATION']='My Conversation';
 $lang['CONVERSATION_STARTER']='Conversation Starter';
 
+//Custom Fields
+$lang['SAVE_FIELDS']='Save Fields';
+
+
+//End Custom Fields
 
