@@ -38,6 +38,8 @@ if ($_GET['action'] == "chatheartbeat") { chatHeartbeat(); }
 if ($_GET['action'] == "sendchat") { sendChat(); }
 if ($_GET['action'] == "closechat") { closeChat(); }
 if ($_GET['action'] == "startchatsession") { startChatSession(); }
+if ($_GET['action'] == "agreementAction") { agreementAction(); }
+
 
 
 function get_userdata($id){
@@ -551,5 +553,23 @@ function closeChat() {
 function send_json($results = array()){
     echo json_encode($results);
     die();
+}
+
+function agreementAction(){
+    global $config, $con;
+    $resp = [];
+    $session_user_type = $_SESSION['user']['user_type'];
+    $sql = "select * from `".$config['db']['pre']."messages` where (to_id = '".mysqli_real_escape_string($con,$GLOBALS['sesId'])."' AND from_id = '".mysqli_real_escape_string($con,$_POST['chat_user_id'])."' AND post_id = ".$_POST['post_id'].") order by message_id ASC limit 1";
+    $query = $con->query($sql);
+    //$row = mysqli_fetch_assoc($query);
+    if($query->num_rows > 0 ){
+     $resp=['replied'=>1];
+    }else{
+        $resp=['replied'=>0];
+    }
+
+    echo json_encode($resp);
+    die();
+    
 }
 ?>

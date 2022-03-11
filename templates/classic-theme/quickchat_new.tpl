@@ -131,6 +131,18 @@ padding: 5px;}
 }
 .chat_box_inner .card-footer a{    
       font-size: 11px;}
+.agreement_section{
+      background-color: transparent;
+      padding: 0px 10px;
+}
+.agreement_section p{
+      font-size: 14px;
+      color:#777 ;
+      padding-bottom: 0px;
+}
+.detail_cl p{
+      font-weight: 600;
+}
 </style>
 <!--<div id="titlebar" class="margin-bottom-0">
     <div class="container">
@@ -156,7 +168,7 @@ padding: 5px;}
             <div class="col-lg-3 col-md-12">
                {USER_SIDEBAR}
             </div>
-            <div class="col-lg-7 col-md-12 js-accordion">
+             <div class="col-lg-6 col-md-12 js-accordion">
                   <div id="wchat">
                         <div class="wchat-wrapper wchat-wrapper-web wchat-wrapper-main">
                               <div class="wchat two">
@@ -5859,16 +5871,13 @@ padding: 5px;}
                         </div>
                   </div>
             </div> 
-            <div class="col-lg-2 col-md-12 js-accordion agreement_section">
-                  <div><h3>Hrihwrh</h3></div>
-                  <div class="notification error closeable">
-				<p>Please fill in all the fields required</p>
-				<a class="close"></a>
-			</div>
+            <div class="col-lg-3 col-md-12 js-accordion agreement_section" id="{USERTYPE}_chat_agreement_section">
+                {AGREEMENT_SECTION}
             </div>
         </div>
     </div>
 </div>
+
 <link media="all" rel="stylesheet" type="text/css"
       href="{SITE_URL}templates/{TPL_NAME}/assets/plugins/simditor/styles/simditor.css"/>
 <script src="{SITE_URL}templates/{TPL_NAME}/assets/plugins/simditor/scripts/mobilecheck.js"></script>
@@ -5934,5 +5943,5 @@ padding: 5px;}
            
         }
     });
-    console.log(FIRST_CHAT)
+    
 </script>

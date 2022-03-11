@@ -108,6 +108,8 @@ $(document).ready(function(){
         }return false;
     });
     setTimeout('chatHeartbeat();',chatHeartbeatTime);
+    setTimeout('agreementAction();',1000);
+     
 });
 
 $(document).on('click', ".start_wchat" ,function(){
@@ -577,50 +579,6 @@ function clickTosendMessage_old(event,chatboxtextarea,chatid,postid,userid) {
     return false;
 }
 
-
-function invitationMessage(msg,chatid,postid,userid,first_chat) {
-    message = msg;
-    // message =  message.replace(/<img(.*?)title="(.*?)"(.*?)>/g,"$2"); // Set imotions
-    // message = message.replace(/^\s+|\s+$/g,"");
-    if (message != '') {
-        $.post(siteurl+plugin_directory+"?action=sendchat", {wchat: 1, to: userid, postid: postid, message: message,first_chat:first_chat} , function(data){
-            //message = message.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;");
-           // message = message.replace(/\n/g, "<br />");
-           message = emojione.shortnameToImage(message);
-            
-            var $con = message;
-            var $words = $con.split(' ');
-            for (i in $words) {
-                if ($words[i].indexOf('http://') == 0 || $words[i].indexOf('https://') == 0) {
-                    $words[i] = '<a href="' + $words[i] + '">' + $words[i] + '</a>';
-                }
-                else if ($words[i].indexOf('www') == 0 ) {
-                    $words[i] = '<a href="' + $words[i] + '">' + $words[i] + '</a>';
-                }
-            }
-            message = $words.join(' ');
-
-            $(chatboxtextarea).html('');
-            $(chatboxtextarea).empty();
-            $(chatboxtextarea).focus();
-            $(".input-placeholder").css('visibility','visible');
-
-            my_msg_oddtpl(chatid,message,'text',LANG_JUST_NOW,"append","0");
-
-            $(".target-emoji").css({'display':'none'});
-            $('.wchat-filler').css({'height':0+'px'});
-
-            msgid = data;
-            scrollDown();
-        });
-        chatfrindList(0);
-    }
-    chatHeartbeatTime = minChatHeartbeat;
-    chatHeartbeatCount = 1;
-
-    return false;
-}
-
 function lastseen(chatid,userid){
     $.ajax({
         url: siteurl + plugin_directory+"?action=lastseen&userid="+userid,
@@ -728,6 +686,7 @@ function scrollDown(){
         $(".wchat-chat-msgs").scrollTop($(".wchat-chat-msgs")[0].scrollHeight);						// Reset scroll
     }, 100);
 }
+
 
 
 var listajax = null, last_search = '';
@@ -1020,3 +979,25 @@ jQuery.cookie = function(name, value, options) {
         return cookieValue;
     }
 };
+
+
+function agreementAction(){
+    
+    var itemsfound = 0;
+    $.ajax({
+            url: siteurl+plugin_directory+"?action=agreementAction",
+            cache: false,
+            dataType: "json",
+            type: "POST",
+            data: {post_id: POSTID,chat_user_id:CHAT_USERID},
+            success: function(resp) {
+                console.log(resp);
+                if(resp.replied){
+                    $('body').find('.alert_section').addClass('d-none')
+                }else{
+
+                }
+            }
+        });    
+    setTimeout('agreementAction();',5000);
+}
