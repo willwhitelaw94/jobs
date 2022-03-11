@@ -1,4 +1,9 @@
 {OVERALL_HEADER}
+<style>
+.zechat-show-under-768px {
+    display: block !important;
+}
+</style>
 <div id="titlebar">
     <div class="container">
         <div class="row">
@@ -239,7 +244,7 @@
                         {:IF}
                     {:IF}
                     IF('{ZECHAT_ON_OFF}'=='on' || '{QUICKCHAT_SOCKET_ON_OFF}'=='on' || '{QUICKCHAT_AJAX_ON_OFF}'=='on'){
-                    <button type="button" class="button ripple-effect full-width margin-top-10 start_zechat zechat-hide-under-768px"
+                    <!-- <button type="button" class="button ripple-effect full-width margin-top-10 start_zechat zechat-hide-under-768px"
                             data-chatid="{ITEM_AUTHORID}_{ITEM_ID}"
                             data-postid="{ITEM_ID}"
                             data-userid="{ITEM_AUTHORID}"
@@ -248,8 +253,8 @@
                             data-userimage="{ITEM_AUTHORIMG}"
                             data-userstatus="{ITEM_AUTHORONLINE}"
                             data-posttitle="{ITEM_TITLE}"
-                            data-postlink="{ITEM_LINK}">{LANG_CHAT_NOW} <i class="icon-feather-message-circle"></i></button>
-                    <a href="{QUICKCHAT_URL}" class="button ripple-effect full-width margin-top-10 zechat-show-under-768px">{LANG_CHAT_NOW} <i class="icon-feather-message-circle"></i></a>
+                            data-postlink="{ITEM_LINK}">{LANG_CHAT_NOW} <i class="icon-feather-message-circle"></i></button> -->
+                    <a href="{QUICKCHAT_URL}" class="button ripple-effect full-width margin-top-10 zechat-show-under-768px" style=" display: block !important">{LANG_CHAT_NOW} <i class="icon-feather-message-circle"></i></a>
                     {:IF}
                 {:IF}
             {ELSE}

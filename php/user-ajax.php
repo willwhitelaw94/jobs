@@ -1746,12 +1746,13 @@ function submitBlogComment(){
 
 function setUserVisibilityStatus(){
     global $config;
-    $visibilty = $_POST['visibility'] ?? '0';
+    $visibilty = $_POST['visibility'] ? '1' :'0';
+ 
     $user_id = !empty($_POST['user_id']) ? $_POST['user_id'] : $_SESSION['user']['id'];
     $user=ORM::for_table($config['db']['pre'].'user')->find_one($user_id);
-    $user->set('online',$visibilty);
-    $user->save();
    
+    $user->set('online',$visibilty);
+
     if($user->save()){
         $result['success'] = true;
     }else{

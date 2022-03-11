@@ -332,13 +332,15 @@ ELSEIF({LOGGED_IN} && '{QUICKCHAT_AJAX_ON_OFF}'=='on'){
 <!-- <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/bootstrap/dist/js/bootstrap.min.js"></script> -->
 <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/plugins/smiley/smiley.js"></script>
 <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/lightbox.js"></script>
-IF('{PAGE_URI}'=='message'){
+<!-- IF('{PAGE_URI}'=='message'){
 <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/inbox.js"></script>
 <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/inbox_custom.js"></script>
 ELSEIF('{PAGE_URI}'!='message'){   
 <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/chatbox.js"></script>
 <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/chatbox_custom.js"></script>
-{:IF}    
+{:IF}     -->
+<script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/inbox.js"></script>
+<script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/inbox_custom.js"></script>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
 <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/plugins/uploader/plupload.full.min.js"></script>
 <script type="text/javascript"
@@ -348,12 +350,6 @@ ELSEIF('{PAGE_URI}'!='message'){
     <p><img src="{SITE_URL}plugins/quickchat-ajax/plugins/images/close-icon-white.png" width="30px" style="cursor: pointer"/></p>
     <div id="content"><img src="#"/></div>
 </div>
-
-
-
-
-
-
 
 ELSEIF({LOGGED_IN} && '{ZECHAT_ON_OFF}'=='on'){
 <script>
@@ -394,15 +390,16 @@ ELSEIF({LOGGED_IN} && '{ZECHAT_ON_OFF}'=='on'){
 // Snackbar for user status switcher
 $('#snackbar-user-status label').click(function() { 
     var visibilty = $(this).data('visibilty');
+    
     $.ajax({
         type: "POST",
         url: ajaxurl,
-        data: { action: "setUserVisibilityStatus",visibilty:visibilty},
+        data: { action: "setUserVisibilityStatus",visibility:visibilty},
         dataType: 'json',
         success: function(result){
             if(result.success){
                 Snackbar.show({
-            	text: 'Your status has been changed!',
+            	text: 'Your status has been changed !',
             	pos: 'bottom-center',
             	showAction: false,
             	actionText: "Dismiss",
@@ -423,11 +420,7 @@ $('#snackbar-user-status label').click(function() {
             }
            
         }
-    });
-       
-       
-    
-	 
+    });   
 }); 
 </script>
 

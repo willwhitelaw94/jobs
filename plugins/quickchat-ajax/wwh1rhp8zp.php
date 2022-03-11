@@ -266,8 +266,8 @@ function get_all_msg() {
 
         $picname2 = ($picname2 == "")? "default_user.png" : $picname2;
 
-
-        $chat['message_content'] = escape($chat['message_content'],false);
+        
+        $chat['message_content'] =  $chat['message_type'] == 'html' ? $chat['message_content'] : escape($chat['message_content'],false);
 
         if($chat['from_id'] == $GLOBALS['sesId'])
         {
@@ -342,9 +342,8 @@ function chatHeartbeat() {
         $status  = ($status == "0")? "offline" : "online";
         $postid = $chat['post_id'];
         $chatid = $from_id."_".$postid;
-
-        $chat['message_content'] = escape($chat['message_content'],false);
-
+        $chat['message_content'] =  $chat['message_type'] == 'html' ? $chat['message_content'] : escape($chat['message_content'],false);
+    
         if (strpos($chat['message_content'], 'file_name') !== false) {
 
         }
@@ -462,8 +461,13 @@ function sendChat() {
         $from_id = $GLOBALS['sesId'];
         $to_id = $_POST['to'];
         $postid = $_POST['postid'];
-
-        $message = sanitize_string($_POST['message']);
+        if($_POST['is_first']){
+            $message =$_POST['message'];
+            $msg_type = 'html';
+        }else{
+            $message = sanitize_string($_POST['message']);
+            $msg_type = 'text';
+        }
         $timenow = date('Y-m-d H:i:s');
         $to_userdata = get_userdata($to_id);
         if(count($to_userdata) > 0){
@@ -507,7 +511,7 @@ function sendChat() {
                     $_SESSION['chatHistory'][$chatid] = array();
                 }
             }
-            $sql = "insert into `".$config['db']['pre']."messages` (from_id,to_id,message_content,message_type,message_date,post_id) values ('".mysqli_real_escape_string($con,$from_id)."','".mysqli_real_escape_string($con,$to_id)."','".mysqli_real_escape_string($con,$message)."','text','".$timenow."','".mysqli_real_escape_string($con,$postid)."')";
+            $sql = "insert into `".$config['db']['pre']."messages` (from_id,to_id,message_content,message_type,message_date,post_id) values ('".mysqli_real_escape_string($con,$from_id)."','".mysqli_real_escape_string($con,$to_id)."','".mysqli_real_escape_string($con,$message)."','".mysqli_real_escape_string($con,$msg_type)."','".$timenow."','".mysqli_real_escape_string($con,$postid)."')";
 
             $con->query($sql);
 

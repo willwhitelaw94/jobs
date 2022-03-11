@@ -62,7 +62,8 @@ function msg_oddtpl(chatid,message_content,msgtype,time,position,icontype){
         var icon = color_double_tick;
         var status = 'seen';
     }
-
+    
+   
     var wchat_oddtpl = '<div class="wchat-message odd '+msgtype+'">' +
         '<p>'+message_content+'</p> ' +
         '<span class="qc-metadata">' +
@@ -359,6 +360,9 @@ function chatHeartbeat(){
                         }
 
                     }
+                    else if (msgtype == "html") {
+                        message_content = message_content;
+                    }
 
                     if (item.s == 2) {
                         $("#chatbox_"+chatid+" .chatboxcontent").append('<div class="wchat-time">'+message_content+'</div>');
@@ -442,6 +446,8 @@ function get_all_msg(url){
                         else{
                             message_content = "<a href='"+file_content.file_path+"' class='download-link' download></a>";
                         }
+                    }else if(msgtype=="html"){
+                        message_content = message_content;
                     }
 
                     if(last_time){
@@ -479,15 +485,62 @@ function checkChatBoxInputKey(event,chatboxtextarea,chatid,postid,userid) {
     }
 }
 
-function clickTosendMessage(event,chatboxtextarea,chatid,postid,userid) {
+function clickTosendMessage(event,chatboxtextarea,chatid,postid,userid,is_first=0) {
+  
+    if(is_first){
+        message = chatboxtextarea;
+    }else{
+        message = $(chatboxtextarea).html();
+        message =  message.replace(/<img(.*?)title="(.*?)"(.*?)>/g,"$2"); // Set imotions
+        message = message.replace(/^\s+|\s+$/g,"");
+    }
+   
+    if (message != '') {
+        $.post(siteurl+plugin_directory+"?action=sendchat", {wchat: 1, to: userid, postid: postid, message: message,is_first:is_first} , function(data){
+            if(!is_first){
+                message = message.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;");
+                message = message.replace(/\n/g, "<br />");
+                message = emojione.shortnameToImage(message);
+            }
+            var $con = message;
+            var $words = $con.split(' ');
+            for (i in $words) {
+                if ($words[i].indexOf('http://') == 0 || $words[i].indexOf('https://') == 0) {
+                    $words[i] = '<a href="' + $words[i] + '">' + $words[i] + '</a>';
+                }
+                else if ($words[i].indexOf('www') == 0 ) {
+                    $words[i] = '<a href="' + $words[i] + '">' + $words[i] + '</a>';
+                }
+            }
+            message = $words.join(' ');
+
+            $(chatboxtextarea).html('');
+            $(chatboxtextarea).empty();
+            $(chatboxtextarea).focus();
+            $(".input-placeholder").css('visibility','visible');
+            
+            var msg_type= is_first ? 'html' : 'text';
+            msg_oddtpl(chatid,message,msg_type,LANG_JUST_NOW,"append","0");
+
+            $(".target-emoji").css({'display':'none'});
+            $('.wchat-filler').css({'height':0+'px'});
+
+            msgid = data;
+            scrollDown();
+        });
+        chatfrindList(0);
+    }
+    chatHeartbeatTime = minChatHeartbeat;
+    chatHeartbeatCount = 1;
+
+    return false;
+}
+function clickTosendMessage_old(event,chatboxtextarea,chatid,postid,userid) {
     message = $(chatboxtextarea).html();
     message =  message.replace(/<img(.*?)title="(.*?)"(.*?)>/g,"$2"); // Set imotions
     message = message.replace(/^\s+|\s+$/g,"");
-
-
     if (message != '') {
         $.post(siteurl+plugin_directory+"?action=sendchat", {wchat: 1, to: userid, postid: postid, message: message} , function(data){
-
             message = message.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;");
             message = message.replace(/\n/g, "<br />");
             message = emojione.shortnameToImage(message);
@@ -509,6 +562,50 @@ function clickTosendMessage(event,chatboxtextarea,chatid,postid,userid) {
             $(".input-placeholder").css('visibility','visible');
 
             msg_oddtpl(chatid,message,'text',LANG_JUST_NOW,"append","0");
+
+            $(".target-emoji").css({'display':'none'});
+            $('.wchat-filler').css({'height':0+'px'});
+
+            msgid = data;
+            scrollDown();
+        });
+        chatfrindList(0);
+    }
+    chatHeartbeatTime = minChatHeartbeat;
+    chatHeartbeatCount = 1;
+
+    return false;
+}
+
+
+function invitationMessage(msg,chatid,postid,userid,first_chat) {
+    message = msg;
+    // message =  message.replace(/<img(.*?)title="(.*?)"(.*?)>/g,"$2"); // Set imotions
+    // message = message.replace(/^\s+|\s+$/g,"");
+    if (message != '') {
+        $.post(siteurl+plugin_directory+"?action=sendchat", {wchat: 1, to: userid, postid: postid, message: message,first_chat:first_chat} , function(data){
+            //message = message.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;");
+           // message = message.replace(/\n/g, "<br />");
+           message = emojione.shortnameToImage(message);
+            
+            var $con = message;
+            var $words = $con.split(' ');
+            for (i in $words) {
+                if ($words[i].indexOf('http://') == 0 || $words[i].indexOf('https://') == 0) {
+                    $words[i] = '<a href="' + $words[i] + '">' + $words[i] + '</a>';
+                }
+                else if ($words[i].indexOf('www') == 0 ) {
+                    $words[i] = '<a href="' + $words[i] + '">' + $words[i] + '</a>';
+                }
+            }
+            message = $words.join(' ');
+
+            $(chatboxtextarea).html('');
+            $(chatboxtextarea).empty();
+            $(chatboxtextarea).focus();
+            $(".input-placeholder").css('visibility','visible');
+
+            my_msg_oddtpl(chatid,message,'text',LANG_JUST_NOW,"append","0");
 
             $(".target-emoji").css({'display':'none'});
             $('.wchat-filler').css({'height':0+'px'});

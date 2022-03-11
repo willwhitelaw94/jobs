@@ -117,7 +117,7 @@ $router->map('GET|POST','/accepted-jobs', 'accepted-job.php');
 $router->map('GET|POST','/reviews', 'review.php');
 $router->map('GET|POST','/invoices', 'invoice.php');
 $router->map('GET|POST','/timesheets', 'timesheet.php');
-
+$router->map('GET|POST','/conversation-starter/[i:id]/?', 'conversation-starter.php');
 
 // API Routes
 

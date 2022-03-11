@@ -350,6 +350,7 @@ if (isset($_POST['submit'])) {
         }
 
         if ($error == '') {
+            //print_r($_FILES['resume_file']);die;
             if ($_POST['resume'] == 0) {
                 // save resume
                 $resume_file = '';
@@ -360,6 +361,7 @@ if (isset($_POST['submit'])) {
                 $filename = $file['name'];
                 $ext = getExtension($filename);
                 $ext = strtolower($ext);
+              
                 if (!empty($filename)) {
                     //File extension check
                     if (in_array($ext, $valid_formats)) {

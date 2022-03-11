@@ -318,7 +318,10 @@
                 <div class="overview-item"><strong>53</strong><span>Jobs Done</span></div>
                 <div class="overview-item"><strong>22</strong><span>Rehired</span></div>
             </div>
-            <a href="#small-dialog" class="apply-now-button popup-with-zoom-anim margin-bottom-50">Chat with #Name<i class="icon-material-outline-arrow-right-alt"></i></a>
+            IF("{USERTYPE}"=='employer'){
+                <a href="{LINK_CONVERSATION_STARTER}/{USER_ID}" class="apply-now-button  margin-bottom-50">Chat with {FULLNAME}<i class="icon-material-outline-arrow-right-alt"></i></a>
+            {:IF}
+           
             <div class="dashboard-box small-box margin-top-0 margin-bottom-30">
                 <!-- Headline -->
                 <div class="headline">

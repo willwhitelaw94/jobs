@@ -267,6 +267,7 @@ if(isset($_GET['username'])){
         $page->SetParameter('USER_STATUS',$user_staus);  
         $page->SetParameter('USER_TIME_SLOT',$user_time_slot); 
         $page->SetParameter('USER_SKILLS',$skill_section); 
+        $page->SetParameter('USER_ID',$user_id); 
         $page->CreatePageEcho();
         exit();
     }

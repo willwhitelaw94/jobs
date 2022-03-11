@@ -73,5 +73,6 @@ $link['ACCEPTED_JOBS'] = $config['site_url'] . 'accepted-jobs';
 $link['REVIEW'] = $config['site_url'] . 'reviews';
 $link['INVOICE'] = $config['site_url'] . 'invoices';
 $link['TIMESHEET'] = $config['site_url'] . 'timesheets';
+$link['CONVERSATION_STARTER'] = $config['site_url'] . 'conversation-starter';
 
 
