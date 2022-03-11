@@ -43,6 +43,9 @@ if(checkloggedin())
                 //File extension check
 				if (in_array($ext, $valid_formats)) {
 					$main_path = ROOTPATH . "/storage/resumes/";
+					if(!file_exists($filename)){
+						mkdir($main_path, 0777);	
+					}
 					$filename = uniqid(time()).'.'.$ext;
 					if(move_uploaded_file($file['tmp_name'], $main_path.$filename)){
 						$resume_file = $filename;

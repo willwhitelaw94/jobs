@@ -55,6 +55,82 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
     box-shadow: inherit !important;
 }
 
+#wchat, .wchat-wrapper {
+    height: 83vh;
+    overflow: hidden;
+}
+.wchat-message p {
+      padding-bottom: 5px !important;
+}
+
+.wchat-message.html{
+      background-color: transparent !important;
+      color:#333 !important;
+}
+.chat_box_inner{}
+
+.chat_box_inner .card-header {
+border-top-left-radius: 18px;
+border-top-right-radius: 18px;
+}
+.chat_box_inner .card{     border: 1px solid #e1e1e1c4;
+    border-radius: 20px;
+    box-shadow: 0 0 32px rgb(0 0 0 / 8%), 0rem 16px 16px -16px rgb(0 0 0 / 10%);
+    background: #fff;}
+
+.chat_box_inner .card-body {
+
+}
+
+.address_details {
+    padding: 6px 10px;
+}
+
+.address_details p {
+    font-size: 12px;
+    color: #777;
+}
+
+.wchat-message.html {
+    padding: 0 !important;
+    box-shadow: inherit !important;
+}
+
+
+.user_date_cl{padding: 11px;}
+.user_date_cl p{     
+      margin-bottom: 0;
+      margin-bottom: 0;
+     line-height: 16px;
+     font-size: 12px;
+     font-weight: 600;
+}
+.user_date_cl b{     
+    margin-bottom: 3px;
+    line-height: initial;
+    font-size: 13px;}
+
+.chat_box_inner .card-header{    background-color: #33333326;
+padding: 5px;}
+.chat_box_inner .card-header{}
+.chat_box_inner .card-header .s_ms{     display: inline-block;
+    background-color: white;
+    padding: 0px 10px;
+    border-radius: 25px;
+    font-size: 11px;
+    float: left;
+    margin: 6px 7px;
+    padding-bottom: 0 !important;}
+.chat_box_inner .card-body{}
+.address_details p i{}
+.address_details .card-footer{}
+.chat_box_inner .card-footer {
+    padding: 8px 11px;
+    border-top: 1px solid #e1e1e1;
+    text-align: left;
+}
+.chat_box_inner .card-footer a{    
+      font-size: 11px;}
 </style>
 <!--<div id="titlebar" class="margin-bottom-0">
     <div class="container">
@@ -80,7 +156,7 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
             <div class="col-lg-3 col-md-12">
                {USER_SIDEBAR}
             </div>
-            <div class="col-lg-9 col-md-12 js-accordion">
+            <div class="col-lg-7 col-md-12 js-accordion">
                   <div id="wchat">
                         <div class="wchat-wrapper wchat-wrapper-web wchat-wrapper-main">
                               <div class="wchat two">
@@ -5783,11 +5859,16 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
                         </div>
                   </div>
             </div> 
+            <div class="col-lg-2 col-md-12 js-accordion agreement_section">
+                  <div><h3>Hrihwrh</h3></div>
+                  <div class="notification error closeable">
+				<p>Please fill in all the fields required</p>
+				<a class="close"></a>
+			</div>
+            </div>
         </div>
     </div>
-    
 </div>
-
 <link media="all" rel="stylesheet" type="text/css"
       href="{SITE_URL}templates/{TPL_NAME}/assets/plugins/simditor/styles/simditor.css"/>
 <script src="{SITE_URL}templates/{TPL_NAME}/assets/plugins/simditor/scripts/mobilecheck.js"></script>
@@ -5837,12 +5918,21 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
     var LANG_NAME = "{LANG_NAME}";
     var LANG_GENDER = "{LANG_GENDER}";
     var LANG_ABOUT = "{LANG_ABOUT}";
+    var FIRST_CHAT={FIRST_CHAT};
+    var session_user_type = "{USERTYPE}";
+    var FIRST_MSG ='{FIRST_MSG}';
 </script>
 
 <script type="text/javascript">
     $(window).bind("load", function () {
         if (CHATID != '' && CHAT_USERID != '' && POSTID != '') {
             chatWith(CHATID,CHAT_USERID,CHAT_FULLNAME,CHAT_USERIMG,CHAT_USERSTATUS,POSTID);
+            if(FIRST_CHAT==1){
+                  setTimeout(clickTosendMessage('click',FIRST_MSG,CHATID,POSTID,CHAT_USERID,FIRST_CHAT), 8000);
+                  FIRST_CHAT=0;
+            }
+           
         }
     });
+    console.log(FIRST_CHAT)
 </script>

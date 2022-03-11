@@ -560,3 +560,21 @@ function gmlogin() {
 // Will Edits
 // Notes & Messages Scrollbar
 
+/*--------------------------------------------------*/
+	/*  User Status Switch
+	/*--------------------------------------------------*/
+	if ($('.status-switch label.user-invisible').hasClass('current-status')) {
+		$('.status-indicator').addClass('right');
+	}
+
+	$('.status-switch label.user-invisible').on('click', function(){
+		$('.status-indicator').addClass('right');
+		$('.status-switch label').removeClass('current-status');
+		$('.user-invisible').addClass('current-status');
+	});
+
+	$('.status-switch label.user-online').on('click', function(){
+		$('.status-indicator').removeClass('right');
+		$('.status-switch label').removeClass('current-status');
+		$('.user-online').addClass('current-status');
+	});

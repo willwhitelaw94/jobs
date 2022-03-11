@@ -1,6 +1,4 @@
 {OVERALL_HEADER}
-
-
 <form method="get" action="{LINK_LISTING}" name="locationForm" id="ListingForm">
     <div id="titlebar">
         <div class="container">

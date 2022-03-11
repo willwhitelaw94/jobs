@@ -63,11 +63,13 @@ function create_header($page_title='',$meta_desc = '',$meta_image = '',$meta_art
         $page->SetParameter ('FULLNAME', $get_userdata['name']);
         $page->SetParameter ('USERPIC', $get_userdata['image']);
         $page->SetParameter ('EMAILDOMAIN', get_domain($get_userdata['email']));
+        $page->SetParameter ('VISIBILITY', $get_userdata['online']);
 
     }
     else
     {
         $page->SetParameter ('USEREMAIL', '');
+        $page->SetParameter ('VISIBILITY',0);
     }
 
     $page->SetParameter ('LANG_SEL', $config['userlangsel']);
@@ -1804,4 +1806,9 @@ if (!function_exists('getLevels')) {
     }
 }
 
+
+function getAge($dob){
+    $diff= date_diff(date_create($dob), date_create('today'))->y;
+    return $diff;
+}
 

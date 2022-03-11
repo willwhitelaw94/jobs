@@ -280,10 +280,10 @@
 
                                     <!-- User Status Switcher -->
                                     <div class="status-switch" id="snackbar-user-status">
-                                        <label class="user-online current-status" data-visibilty="1">{LANG_ONLINE}</label>
-                                        <label class="user-invisible" data-visibilty="0">{LANG_OFFLINE}</label>
+                                        <label class="user-online IF({VISIBILITY}){current-status{:IF}" data-visibilty="1">{LANG_ONLINE}</label>
+                                        <label class="user-invisible IF(!{VISIBILITY}){current-status{:IF}" data-visibilty="0">{LANG_OFFLINE}</label>
                                         <!-- Status Indicator -->
-                                        <span class="status-indicator" aria-hidden="true"></span>
+                                        <span class="status-indicator IF(!{VISIBILITY}){right{:IF}" aria-hidden="true"></span>
                                     </div>
                                 </div>
 

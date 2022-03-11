@@ -32,13 +32,55 @@ IF({SHOW_SEARCH_HOME}){
                 <!-- Tab Content -->
                 <div class="tabs-content">
                     <div class="tab active" data-tab-id="1">
-                    [{Insert Worker Search Bar}
+                    <form autocomplete="off" method="get"  action="{LINK_JOB_SEEKERS}" name="locationForm" id="ListingForm">
+                            <div class="intro-banner-search-form">
+                                <div class="intro-search-field with-label">
+                                    <input id="intro-keywords" type="text" class="qucikad-ajaxsearch-input"
+                                           placeholder="{LANG_JOBTITLE_KEYWORD}" data-prev-value="0"
+                                           data-noresult="{LANG_MORE_RESULTS_FOR}">
+                                    <i class="qucikad-ajaxsearch-close fa fa-times-circle" aria-hidden="true" style="display: none;"></i>
+                                    <div id="qucikad-ajaxsearch-dropdown" size="0" tabindex="0">
+                                        <ul>
+                                            {LOOP: CATEGORY}
+                                                <li class="qucikad-ajaxsearch-li-cats" data-catid="{CATEGORY.slug}">
+                                                    IF("{CATEGORY.picture}"==""){
+                                                    <i class="qucikad-as-caticon {CATEGORY.icon}"></i>
+                                                    {:IF}
+                                                    IF("{CATEGORY.picture}"!=""){
+                                                    <img src="{CATEGORY.picture}"/>
+                                                    {:IF}
+                                                    <span class="qucikad-as-cat">{CATEGORY.name}</span>
+                                                </li>
+                                            {/LOOP: CATEGORY}
+                                        </ul>
 
+                                        <div style="display:none" id="def-cats">
 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="intro-search-field live-location-search with-autocomplete with-label">
 
+                                    <div class="input-with-icon">
+                                        <input type="text" id="searchStateCity" name="location" placeholder="{LANG_WHERE}">
+                                        <i class="icon-feather-map-pin"></i>
+                                        <div data-option="{AUTO_DETECT_LOCATION}" class="loc-tracking"><i class="la la-crosshairs"></i></div>
+                                        <input type="hidden" name="latitude" id="latitude" value="">
+                                        <input type="hidden" name="longitude" id="longitude" value="">
+                                        <input type="hidden" name="placetype" id="searchPlaceType" value="">
+                                        <input type="hidden" name="placeid" id="searchPlaceId" value="">
+                                        <input type="hidden" id="input-keywords" name="keywords" value="">
+                                        <input type="hidden" id="input-maincat" name="cat" value=""/>
+                                        <input type="hidden" id="input-subcat" name="subcat" value=""/>
+                                    </div>
+                                </div>
+                                <div class="intro-search-button">
+                                    <button class="button ripple-effect ">{LANG_SEARCH}</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     <div class="tab" data-tab-id="2">
-
                         <form autocomplete="off" method="get" action="{LINK_LISTING}" accept-charset="UTF-8">
                             <div class="intro-banner-search-form">
                                 <div class="intro-search-field with-label">
@@ -86,10 +128,6 @@ IF({SHOW_SEARCH_HOME}){
                                 </div>
                             </div>
                         </form>
-
-
-
-
                     </div>
                     <div class="tab" data-tab-id="3">
                         <!-- How it Works -->
