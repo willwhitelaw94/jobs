@@ -5871,8 +5871,8 @@ padding: 5px;}
                         </div>
                   </div>
             </div> 
-            <div class="col-lg-3 col-md-12 js-accordion agreement_section" id="{USERTYPE}_chat_agreement_section">
-                {AGREEMENT_SECTION}
+            <div class="col-lg-3 col-md-12 js-accordion agreement_section" id="agreement_container">
+                
             </div>
         </div>
     </div>
@@ -5928,7 +5928,7 @@ padding: 5px;}
     var LANG_GENDER = "{LANG_GENDER}";
     var LANG_ABOUT = "{LANG_ABOUT}";
     var FIRST_CHAT={FIRST_CHAT};
-    var session_user_type = "{USERTYPE}";
+    var session_utype = "{USERTYPE}";
     var FIRST_MSG ='{FIRST_MSG}';
 </script>
 
