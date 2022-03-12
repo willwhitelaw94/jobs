@@ -101,7 +101,8 @@ if(isset($_GET['action'])){
     if ($_GET['action'] == "addCareExperience") { addCareExperience(); }
     if ($_GET['action'] == "editCareExperience") { editCareExperience(); }
 
-    if ($_GET['action'] == "editUserProfile") { editUserProfile(); }
+    if ($_GET['action'] == "editUserProfileRate") { editUserProfileRate(); }
+    if ($_GET['action'] == "editUserReligion") { editUserReligion(); }
     
 }
 function companyEdit(){
@@ -3425,8 +3426,170 @@ function editCareExperience(){
     die();   
 }
 
-function editUserProfile(){
+function editUserProfileRate(){
     global $config,$lang;
-    
+    $user_id=$_POST['id'];
+    $errors='';
+    $error=[];
+    $days = $_POST['days'];
+    $time_slots =  $_POST['time_slot'];
+    $user_city=ORM::for_table($config['db']['pre'] . 'user_cities')->where('user_id',$user_id)->find_array();
+    $city_codes=array_column($user_city,'city_code');
+
+    $user_pr_days=ORM::for_table($config['db']['pre'] . 'user_prefered_days')
+    ->select_many('id','user_id','day')
+    ->select_many_expr(["start_time"=>"TIME_FORMAT(start_time,'%h:%i %p')"],["end_time"=>"TIME_FORMAT(end_time, '%h:%i %p')"])
+    ->where('user_id',$user_id)->find_array();
+    $user_days=[];
+    foreach($user_pr_days as $val){
+        $user_days[$val['day']]=['start_time'=>$val['start_time'],'end_time'=>$val['end_time']];
+    }
+    $user_pr_days_code=array_keys($user_days);
+    // echo "<pre>";
+    // print_r($_POST);die;
+    if(empty($error)) {
+        foreach ($time_slots as $key=>$slot) {
+            $st_time=!empty($slot['start_time'])? date('H:i:s',strtotime($slot['start_time'])) :'';
+            $en_time =!empty($slot['end_time']) ? date('H:i:s',strtotime($slot['end_time'])) : '';
+           
+            if(!empty($st_time) || !empty($en_time)){
+                 if($en_time <= $st_time) {
+                     $errors++;
+                     $time_error = $lang['INVALID_END_TIME'].' for '.$key.'';
+                     break;  
+                 }
+            }else{
+                continue;
+            }
+          
+        }
+
+        if ($errors == 0) {
+            $salary_min = $salary_max = 0;
+            if (!empty($_POST['salary_min']) or !empty($_POST['salary_max'])) {
+                $salary_min = is_numeric($_POST['salary_min']) ? $_POST['salary_min'] : 0;
+                $salary_max = is_numeric($_POST['salary_max']) ? $_POST['salary_max'] : 0;
+            }
+          
+            $user_update = ORM::for_table($config['db']['pre'] . 'user')->find_one($user_id);
+            $user_update->set('salary_min', $salary_min);
+            $user_update->set('salary_max', $salary_max);
+            $user_update->set('available_to_work',$_POST['available_to_work']??"0");
+            $user_update->set('is_session_willing',$_POST['session_willing']??"0");
+            $user_update->save();
+            
+            $cities = $_POST['city'];
+           
+            foreach ($city_codes as $c_code) {
+                if(!in_array($c_code,$cities)){
+                    $c=ORM::for_table($config['db']['pre'] . 'user_cities')->where(['user_id'=>$user_id,'city_code'=>$c_code])->find_one();
+                    $c->delete();
+                }
+            }
+            foreach ($cities as $key => $city) {
+                $citydata = get_cityDetail_by_id($city);
+                $country = $citydata['country_code'];
+                $state = $citydata['subadmin1_code'];
+                $exist=ORM::for_table($config['db']['pre'] . 'user_cities')->where(['user_id'=>$user_id,'city_code'=>$city])->find_one();
+                if(!$exist){
+                    $u_city=ORM::for_table($config['db']['pre'] .'user_cities')->create();
+                    $u_city->user_id=$user_id;
+                    $u_city->city_code = $city;
+                    $u_city->state_code= $state;
+                    $u_city->country_code= $country;
+                    $u_city->save();
+                }
+            }
+
+          
+            
+            $day_codes=array_column($user_pr_days,'day');
+            foreach ($day_codes as $day) {
+                if(!in_array($day,$days)){
+                    $c=ORM::for_table($config['db']['pre'] . 'user_prefered_days')->where(['user_id'=>$user_id,'day'=>$day])->find_one();
+                    $c->delete(); 
+                }
+            }
+            foreach ($days as $key => $day) {
+                $e_day=ORM::for_table($config['db']['pre'] . 'user_prefered_days')->where(['user_id'=>$user_id,'day'=>$day])->find_one();
+                $d_start_time= !empty($time_slots[$day]['start_time'])? date('H:i:s',strtotime($time_slots[$day]['start_time'])) : null;
+                $d_end_time =!empty($time_slots[$day]['end_time'])? date('H:i:s',strtotime($time_slots[$day]['end_time'])) : null;
+                if(!$e_day){
+                    $u_day=ORM::for_table($config['db']['pre'] .'user_prefered_days')->create();
+                    $u_day->user_id=$user_id;
+                    $u_day->day = $day;
+                    $u_day->start_time=$d_start_time;
+                    $u_day->end_time=$d_end_time;
+                    $u_day->save();      
+                }else{
+                   $e_day->set('start_time',$d_start_time);
+                   $e_day->set('end_time',$d_end_time);
+                   $e_day->save();  
+                }
+                
+
+            }
+            if ($user_update->id()) {
+                $status = "success";
+                $message = $lang['SAVED_SUCCESS'];
+            }else {
+                $status = "error";
+                $message = $lang['ERROR_TRY_AGAIN'];
+            }
+        }
+        }else{
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+
+        $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
+        echo $json;
+        die();   
+}
+function editUserReligion(){
+    global $config,$lang;
+    $user_id=$_POST['id'];
+    $rel=$_POST['religion'];
+    $userReligion = ORM::for_table($config['db']['pre'] . 'user_religions')->select('religion_id')->where('user_id', $user_id)->find_array();
+    $userReligionIds=array_column($userReligion,'religion_id');
+    // $backgroundOptions = ORM::for_table($config['db']['pre'] .'cultural_background_options')->find_array();
+    $religions = ORM::for_table($config['db']['pre'] .'religions')->select_many('id','name')->find_array();
+    $error=[];
+   
+    // echo "<pre>";
+    // print_r($_POST);die;
+    if(empty($error)) {
+        foreach ($userReligionIds as $rel_id) {
+            if(!in_array($rel_id,$rel)){
+                $rl=ORM::for_table($config['db']['pre'] . 'user_religions')->where(['user_id'=>$user_id,'religion_id'=>$rel_id])->find_one();
+                $rl->delete();
+            }
+        }
+        foreach ($rel as $key => $r) {
+            $exist=ORM::for_table($config['db']['pre'] . 'user_religions')->where(['user_id'=>$user_id,'religion_id'=>$r])->find_one();
+            if(!$exist){
+                $u_rel=ORM::for_table($config['db']['pre'] .'user_religions')->create();
+                $u_rel->user_id=$user_id;
+                $u_rel->religion_id  = $r;
+                $u_rel->save();
+            }
+
+        }
+        if ($u_rel->id()) {
+            $status = "success";
+            $message = $lang['SAVED_SUCCESS'];
+        }else {
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+
+    }else{
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+
+        $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
+        echo $json;
+        die();  
 }
 ?>

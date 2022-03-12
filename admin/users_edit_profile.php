@@ -103,13 +103,18 @@ $user_pr_days_code=array_keys($user_days);
                                         <div class="panel panel-default quickad-main">
                                             <div class="panel-body">
                                                 <div class="tab-content">
-
+                                                 
                                                     <div class="tab-pane active" id="quickad_rate_avalibility">
-                                                        <form method="post" action="ajax_sidepanel.php?action=editUserProfile" id="#quickad_rate_avalibility">
+                                                        <form method="post" action="ajax_sidepanel.php?action=editUserProfileRate" id="#quickad_rate_avalibility">
+                                                        <input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
                                                             <div class="form-group row">
                                                                 <div class="col-md-2">
-                                                                    <label class="css-input switch switch-sm switch-success">        
-                                                                        <input   name="available_to_work" type="checkbox" value="1" <?php if($info['active'] == '1') echo "checked"; ?> /><span></span>
+                                                                    <label class="css-input switch switch-sm switch-success">  
+                                                                         <?php foreach ($salary as $key => $sal) { ?>      
+                                                                        <input   name="available_to_work" type="checkbox" value="1" <?php if($sal['available_to_work'] == '1') echo "checked"; ?> /><span></span>
+                                                                        <?php
+                                                                         }
+                                                                       ?>
                                                                     </label>
                                                                 </div>
                                                                 <div class="col-md-10">
@@ -186,12 +191,12 @@ $user_pr_days_code=array_keys($user_days);
                                                                 </div>
                                                                 <?php foreach ($salary as $key => $sal) { ?>
                                                                     <div class="col-md-4 er_in_icon">
-                                                                    <input name="home_map_longitude" type="number" class="form-control" name="salary_min" value="<?php echo $sal['salary_min']; ?>">
+                                                                    <input type="number" class="form-control" name="salary_min" value="<?php echo $sal['salary_min']; ?>">
                                                                     <i class="fa fa-usd"></i>
                                                                     <small>Minimum Rate per hour.</small>
                                                                 </div>
                                                                 <div class="col-md-4 er_in_icon">
-                                                                    <input name="home_map_longitude" type="number" class="form-control" name="salary_max" value="<?php echo $sal['salary_max']; ?>">
+                                                                    <input type="number" class="form-control" name="salary_max" value="<?php echo $sal['salary_max']; ?>">
                                                                     <i class="fa fa-usd"></i>
                                                                     <small>Maximum Rate per hour.</small>
                                                                 </div>
@@ -200,6 +205,30 @@ $user_pr_days_code=array_keys($user_days);
                                                                 ?>
                                                                 
                                                             </div>
+                                                            <div class="form-group row">
+                                                                <div class="col-md-2">
+                                                                    <label class="css-input css-checkbox css-checkbox-primary">
+                                                                    <?php foreach ($salary as $key => $sal) { ?> 
+                                                                        <input type="checkbox" name="session_willing" id="session_willing" value="1" <?php if($sal['is_session_willing'] == '1') echo "checked"; ?>><span></span>
+                                                                        <?php 
+                                                                        } 
+                                                                        ?>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-10">
+                                                                    <label for="session_willing"><span class="checkbox-icon"></span>I'm willing to offer a free great & meet session to potential clients.</label>
+                                                                </div>    
+                                                                
+                                                                
+                                                            </div>
+                                                            <!-- <div class="form-group row">
+                                                                <div class="checkbox submit-field co-md-2">
+                                                                    <input type="checkbox" id="session_willing" name="session_willing" value="1">
+                                                                </div>
+                                                                <div class="col-md-10">
+                                                                    
+                                                                </div>
+                                                            </div> -->
                                                             <div class="panel-footer">
                                                                 <button name="quick_map" type="submit" class="btn btn-primary btn-radius save-changes">Save</button>
                                                                 <button class="btn btn-default" type="reset">Reset</button>
@@ -208,6 +237,7 @@ $user_pr_days_code=array_keys($user_days);
                                                     </div>
                                                     <div class="tab-pane" id="quickad_languages">
                                                         <form method="post" action="ajax_sidepanel.php?action=editUserProfile" id="#quickad_languages">
+                                                        <input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
                                                             <div class="form-group">
                                                                     <label for="map_type"> Main Languages : </label>
                                                                     <select name="main_langs[]" id="" class="form-control js-select2" style="width: 100%;" multiple>
@@ -227,6 +257,7 @@ $user_pr_days_code=array_keys($user_days);
                                                     </div>
                                                     <div class="tab-pane" id="quick_cultural_background">
                                                         <form method="post" action="ajax_sidepanel.php?action=editUserProfile" id="#quick_cultural_background">
+                                                            <input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
                                                             <div class="form-group">
                                                                 <label for="map_type">Cultural Backgrounds : </label>
                                                                 <select name="cul_bag[]" id="" class="form-control js-select2" style="width: 100%;" multiple>
@@ -257,8 +288,9 @@ $user_pr_days_code=array_keys($user_days);
                                                         </form>
                                                     </div>
                                                     <div class="tab-pane" id="quickad_religion">
-                                                        <form method="post" action="ajax_sidepanel.php?action=editUserProfile" id="#quickad_religion">
-                                                        <div class="form-group">
+                                                        <form method="post" action="ajax_sidepanel.php?action=editUserReligion" id="#quickad_religion">
+                                                        <input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
+                                                             <div class="form-group">
                                                                 <label for="map_type">Religion </label>
                                                                 <select name="religion[]" id="" class="form-control js-select2" style="width: 100%;" multiple>
                                                                 <?php 
@@ -369,7 +401,7 @@ $user_pr_days_code=array_keys($user_days);
             $(".tab-pane").removeClass("active in");
             $("li[data-target = #"+activeTab+"]").addClass("active");
             $("#" + activeTab).addClass("active in");
-            $('a[href="#'+ activeTab +'"]').tab('show')
+            $('a[href="#'+ activeTab +'"]').tab('show');
         }
     }
 </script>
