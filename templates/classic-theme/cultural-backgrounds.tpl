@@ -35,7 +35,6 @@
                                 </div>
                                 <hr><br>
                                 {C_BACKGROUNDOPTIONS}
-                                
                                 <div class="col-sm-12">
                                     <button type="submit" name="submit_details" class="button ripple-effect">{LANG_SAVE_CHANGES}</button>
                                 </div>

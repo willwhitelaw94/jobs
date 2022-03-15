@@ -103,7 +103,8 @@ if(isset($_GET['action'])){
 
     if ($_GET['action'] == "editUserProfileRate") { editUserProfileRate(); }
     if ($_GET['action'] == "editUserReligion") { editUserReligion(); }
-    
+    if ($_GET['action'] == "editUserLanguages") { editUserLanguages(); }
+    if ($_GET['action'] == "editUserCulturalBackground") { editUserCulturalBackground(); }
 }
 function companyEdit(){
     global $config,$lang;
@@ -3444,7 +3445,7 @@ function editUserProfileRate(){
     foreach($user_pr_days as $val){
         $user_days[$val['day']]=['start_time'=>$val['start_time'],'end_time'=>$val['end_time']];
     }
-    $user_pr_days_code=array_keys($user_days);
+    //$user_pr_days_code=array_keys($user_days);
     // echo "<pre>";
     // print_r($_POST);die;
     if(empty($error)) {
@@ -3499,10 +3500,7 @@ function editUserProfileRate(){
                     $u_city->country_code= $country;
                     $u_city->save();
                 }
-            }
-
-          
-            
+            }            
             $day_codes=array_column($user_pr_days,'day');
             foreach ($day_codes as $day) {
                 if(!in_array($day,$days)){
@@ -3526,8 +3524,6 @@ function editUserProfileRate(){
                    $e_day->set('end_time',$d_end_time);
                    $e_day->save();  
                 }
-                
-
             }
             if ($user_update->id()) {
                 $status = "success";
@@ -3541,7 +3537,6 @@ function editUserProfileRate(){
             $status = "error";
             $message = $lang['ERROR_TRY_AGAIN'];
         }
-
         $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
         echo $json;
         die();   
@@ -3552,18 +3547,18 @@ function editUserReligion(){
     $rel=$_POST['religion'];
     $userReligion = ORM::for_table($config['db']['pre'] . 'user_religions')->select('religion_id')->where('user_id', $user_id)->find_array();
     $userReligionIds=array_column($userReligion,'religion_id');
-    // $backgroundOptions = ORM::for_table($config['db']['pre'] .'cultural_background_options')->find_array();
-    $religions = ORM::for_table($config['db']['pre'] .'religions')->select_many('id','name')->find_array();
-    $error=[];
-   
+    // $religions = ORM::for_table($config['db']['pre'] .'religions')->select_many('id','name')->find_array();
+    $error=[];   
     // echo "<pre>";
     // print_r($_POST);die;
+    
     if(empty($error)) {
         foreach ($userReligionIds as $rel_id) {
             if(!in_array($rel_id,$rel)){
                 $rl=ORM::for_table($config['db']['pre'] . 'user_religions')->where(['user_id'=>$user_id,'religion_id'=>$rel_id])->find_one();
                 $rl->delete();
             }
+
         }
         foreach ($rel as $key => $r) {
             $exist=ORM::for_table($config['db']['pre'] . 'user_religions')->where(['user_id'=>$user_id,'religion_id'=>$r])->find_one();
@@ -3573,7 +3568,6 @@ function editUserReligion(){
                 $u_rel->religion_id  = $r;
                 $u_rel->save();
             }
-
         }
         if ($u_rel->id()) {
             $status = "success";
@@ -3582,14 +3576,92 @@ function editUserReligion(){
             $status = "error";
             $message = $lang['ERROR_TRY_AGAIN'];
         }
-
     }else{
             $status = "error";
             $message = $lang['ERROR_TRY_AGAIN'];
         }
-
         $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
         echo $json;
         die();  
+}
+function editUserLanguages(){
+    global $config,$lang;
+    $user_id=$_POST['id'];
+    $error=[];
+    $m_langs=$_POST['main_langs'];
+    // echo "<pre>";
+    // print_r($_POST);die;
+    $user_main_lang=ORM::for_table($config['db']['pre'] . 'user_languages')->where('user_id',$user_id)->where_raw('NOT(language_id <=> NULL)')->find_array();
+    $user_main_lang_ids=array_column($user_main_lang,'language_id');
+    //print_r($user_main_lang_ids);
+    if(empty($error)) {
+        foreach ($user_main_lang_ids as $lang_id) {
+            if(!in_array($lang_id,$m_langs)){
+                $ml=ORM::for_table($config['db']['pre'] . 'user_languages')->where(['user_id'=>$user_id,'language_id'=>$lang_id])->find_one();
+                $ml->delete();
+            }
+        }
+        foreach ($m_langs as $key => $m_lang) {
+            $exist=ORM::for_table($config['db']['pre'] . 'user_languages')->where(['user_id'=>$user_id,'language_id'=>$m_lang])->find_one();
+            if(!$exist){
+                $u_m_lang=ORM::for_table($config['db']['pre'] .'user_languages')->create();
+                $u_m_lang->user_id=$user_id;
+                $u_m_lang->language_id  = $m_lang;
+                $u_m_lang->save();
+            }
+        }
+        if ($u_m_lang->id()) {
+            $status = "success";
+            $message = $lang['SAVED_SUCCESS'];
+        }else {
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }        
+    }else{
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+    $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
+    echo $json;
+    die();  
+}
+function editUserCulturalBackground(){
+    global $config,$lang;
+    $error=[];
+    $user_id = $_POST['id'];
+    $backs = $_POST['background'];
+    $background_options = $_POST['back_options'];
+    
+    $backgroundOptions = [];
+    foreach($background_options as $key => $val) {
+        if(in_array($key, $backs)) {
+            $backgroundOptions = array_merge($backgroundOptions, $val);
+        }
+    }    
+    $backgrounds =[];
+    $back_Options = [];
+    //$c_backg= ORM::for_table('person')->create();
+        foreach($backs as $main) {
+            array_push($backgrounds,'('.$user_id.','.$main.')');
+        }
+    $u_c_back = implode(',',$backgrounds);
+        foreach($backgroundOptions as $background_option) {
+            if(in_array(parent_culture($background_option), $backs)){
+                array_push($back_Options,'('.$user_id.','.parent_culture($background_option).','.$background_option.')');
+            }  
+        }
+    $u_c_backopt = implode(',',$back_Options);
+    // echo "<pre>";
+    // var_dump($u_c_backopt);die;
+    $userBackg = ORM::for_table($config['db']['pre'] . 'user_cultural_backgrounds')->where('user_id', $user_id)->find_array(); 
+    if(count($userBackg)) {
+        ORM::for_table($config['db']['pre'] . 'user_cultural_backgrounds')->where_equal('user_id', $user_id)->delete_many();
+    }
+    ORM::raw_execute('INSERT INTO '.$config['db']['pre'].'user_cultural_backgrounds (user_id,cultural_background_id) VALUES'.$u_c_back.'');
+    ORM::raw_execute('INSERT INTO '.$config['db']['pre'].'user_cultural_backgrounds (user_id,cultural_background_id,cultural_background_option_id) VALUES'.$u_c_backopt.'');
+    
+    echo json_encode(['status' => 'success', 'message' => 'updated successfully']);   
+    // echo "<pre>";
+    // var_dump($_POST, $backs, $background_options, $backgroundOptions);die;    
 }
 ?>

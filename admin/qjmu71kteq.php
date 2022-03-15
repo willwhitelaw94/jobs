@@ -919,7 +919,6 @@ function approveResubmitItem()
         echo 0;
         die();
     }
-
 }
 
 function approveitem()

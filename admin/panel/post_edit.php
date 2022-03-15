@@ -216,7 +216,6 @@ foreach ($custom_fields as $key => $value) {
                                        
                                         </div>
                                     </div>
-
                                 <?php
                                 }
                                 if($field['type']=="textarea"){?>

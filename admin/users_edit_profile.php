@@ -10,12 +10,19 @@ $backgrounds = ORM::for_table($config['db']['pre'] .'cultural_backgrounds')->tab
     ->left_outer_join($config['db']['pre'] . 'cultural_background_options','c_back.id=bck_opt.cultural_background_id','bck_opt')
     ->order_by_asc('c_back.id')
     ->find_array();
-    //  print_r($backgrounds);
+
+$backgrounds = ORM::for_table($config['db']['pre'] .'cultural_backgrounds')->order_by_asc('name')->find_array();
+
+
+    // echo "<pre>";
+    //  print_r($backgroundOptions);die;
 
 $user_id= $_GET['id'];
 $userBackgrounds = ORM::for_table($config['db']['pre'] . 'user_cultural_backgrounds')->select('cultural_background_id')->where('user_id', $user_id)->where_raw('NOT(cultural_background_id <=> NULL)')->find_array();
 $userBackgroundIds=array_column($userBackgrounds,'cultural_background_id');
-//print_r($userBackgroundIds);die;
+
+
+// print_r($userBackgroundOptionIds);die;
 
 $user_religion=ORM::for_table($config['db']['pre'] . 'user_religions')->where('user_id',$user_id)->find_array();
 $religion_code=array_column($user_religion,'religion_id');
@@ -93,9 +100,7 @@ $user_pr_days_code=array_keys($user_days);
                                             <li class="quickad-nav-item" data-target="#quickad_languages" data-toggle="tab">Languages</li>
                                             <li class="quickad-nav-item" data-target="#quick_cultural_background" data-toggle="tab">Cultural Backgrounds</li>
                                             <li class="quickad-nav-item" data-target="#quickad_religion" data-toggle="tab">Religion</li>
-                                            <!-- <li class="quickad-nav-item" data-target="#quickad_experiences" data-toggle="tab">User Experiences</li>
-                                            <li class="quickad-nav-item" data-target="#quickad_email" data-toggle="tab">My Educations</li>
-                                            <li class="quickad-nav-item" data-target="#quickad_theme_setting" data-toggle="tab">Skills</li> -->
+                                            <!-- <li class="quickad-nav-item" data-target="#quickad_experiences" data-toggle="tab">User Experiences</li>-->
                                             
                                         </ul>
                                     </div>
@@ -236,7 +241,7 @@ $user_pr_days_code=array_keys($user_days);
                                                         </form>
                                                     </div>
                                                     <div class="tab-pane" id="quickad_languages">
-                                                        <form method="post" action="ajax_sidepanel.php?action=editUserProfile" id="#quickad_languages">
+                                                        <form method="post" action="ajax_sidepanel.php?action=editUserLanguages" id="#quickad_languages">
                                                         <input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
                                                             <div class="form-group">
                                                                     <label for="map_type"> Main Languages : </label>
@@ -256,11 +261,11 @@ $user_pr_days_code=array_keys($user_days);
                                                         </form>
                                                     </div>
                                                     <div class="tab-pane" id="quick_cultural_background">
-                                                        <form method="post" action="ajax_sidepanel.php?action=editUserProfile" id="#quick_cultural_background">
+                                                        <form method="post" action="ajax_sidepanel.php?action=editUserCulturalBackground" id="#quick_cultural_background">
                                                             <input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
                                                             <div class="form-group">
                                                                 <label for="map_type">Cultural Backgrounds : </label>
-                                                                <select name="cul_bag[]" id="" class="form-control js-select2" style="width: 100%;" multiple>
+                                                                <select name="background[]" id="" class="form-control  background js-select2" style="width: 100%;" multiple>
                                                                 <?php 
                                                                 foreach ($backgrounds as $key => $value) {
                                                                     $selected=in_array($value['id'],$userBackgroundIds) ? 'selected':'';
@@ -269,17 +274,29 @@ $user_pr_days_code=array_keys($user_days);
                                                                 ?>
                                                                 </select>
                                                             </div>
-                                                            <div class="form-group">
-                                                                <label for="map_type">Asian : </label>
-                                                                <select name="cul_bag_opt[]" id="" class="form-control js-select2" style="width: 100%;" multiple>
-                                                                <?php 
+                                                            <?php 
                                                                 foreach ($backgrounds as $key => $value) {
-                                                                    $selected=in_array($value['bck_opt_id'],$userBackgroundIds) ? 'selected':'';
-                                                                    echo '<option value="'.$value['bck_opt_id'].'" '.$selected.' >'.$value['bck_opt_name'].'</option>';
+                                                                    $backgroundOptions = ORM::for_table($config['db']['pre'] .'cultural_background_options')->where('cultural_background_id', $value['id'])->find_array();
+                                                                    $userBackgroundOptions = ORM::for_table($config['db']['pre'] . 'user_cultural_backgrounds')->select('cultural_background_option_id')->where('user_id', $user_id)->where('cultural_background_id', $value['id'])->where_raw('NOT(cultural_background_option_id <=> NULL)')->find_array();
+                                                                    $userBackgroundOptionIds=array_column($userBackgroundOptions,'cultural_background_option_id');
+                                                                    
+                                                                    if(!empty($backgroundOptions) && count($backgroundOptions)) {
+                                                                        ?>
+                                                                            <div data-id="<?php echo $value['id'];?>" class="form-group background_options <?php if(count($userBackgroundOptionIds) <= 0) { echo 'd-none'; } ?>">
+                                                                                <label for="map_type"><?php echo $value['name']; ?> : </label>
+                                                                                <select name="back_options[<?php echo $value['id'] ?>][]" id="" class="form-control js-select2" style="width: 100%;" multiple>
+                                                                                <?php 
+                                                                                foreach ($backgroundOptions as $key => $backOption) {
+                                                                                    $selected=in_array($backOption['id'],$userBackgroundOptionIds) ? 'selected="selected"':'';
+                                                                                    echo '<option value="'.$backOption['id'].'" '.$selected.' >'.$backOption['name'].'</option>';
+                                                                                }
+                                                                                ?>
+                                                                                </select>
+                                                                            </div>                                                                       
+                                                                        <?php
+                                                                    }
                                                                 }
-                                                                ?>
-                                                                </select>
-                                                            </div>
+                                                            ?>                                                            
                                                             <div class="panel-footer">
                                                                 <button name="live_location_track" type="submit" class="btn btn-primary btn-radius save-changes">Save</button>
                                                                 <button class="btn btn-default" type="reset">Reset</button>
@@ -499,5 +516,34 @@ $user_pr_days_code=array_keys($user_days);
             } 
         });
     });
+</script>
+<script>
+$(function() {
+    $(".background").on("change", function() {
+        var cl= $(this).val();
+
+        let backgroundOptions = $(".background_options");
+
+        backgroundOptions.each( (ind, elment) => {
+            let id = $(elment).data('id');
+            if(cl.includes(id.toString())) {
+                $(elment).removeClass('d-none');
+            } else {
+                $(elment).addClass('d-none');
+            }
+        })
+        console.log(backgroundOptions);
+
+        // backgroundOptions.forEach( (elment) => {
+        //     console.log($(elment).data('id'));
+        //     // $(".background_options[data-id="+val+"]").removeClass('d-none');
+        //     // console.log();
+        // });
+
+        console.log(cl, $(".background_options[data-id="+1+"]"));
+        $("#option_section"+cl).toggleClass("d-none");
+        
+    });
+});
 </script>
 </body></html>

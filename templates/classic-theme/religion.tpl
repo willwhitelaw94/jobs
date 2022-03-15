@@ -7,7 +7,6 @@
             {USER_SIDEBAR}
             </div>
             <div class="col-lg-9 col-md-12 js-accordion">
-
                 <div class="dashboard-box mt-0  js-accordion-item active">
                     <!-- Headline -->
                     <div class="headline js-accordion-header">

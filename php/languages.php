@@ -8,8 +8,8 @@ if(checkloggedin()){
     $other_languages=ORM::for_table($config['db']['pre'] . 'language')->where('type','others')->find_array();
     $user_main_lang=ORM::for_table($config['db']['pre'] . 'user_languages')->where('user_id',$user_id)->where_raw('NOT(language_id <=> NULL)')->find_array();
     $user_main_lang_ids=array_column($user_main_lang,'language_id');
- //   $user_other_lang=ORM::for_table($config['db']['pre'] . 'user_languages')->where('user_id',$user_id)->where_raw('NOT(language_other_id  <=> NULL)')->find_array();
-   // $user_other_lang_ids=array_column($user_other_lang,'language_other_id');
+    //user_other_lang=ORM::for_table($config['db']['pre'] . 'user_languages')->where('user_id',$user_id)->where_raw('NOT(language_other_id  <=> NULL)')->find_array();
+    // $user_other_lang_ids=array_column($user_other_lang,'language_other_id');
     if(isset($_POST['submit_details'])){
         $m_langs=$_POST['main_langs'];
        // $o_langs=$_POST['other_langs'];
@@ -59,7 +59,6 @@ if(checkloggedin()){
     //$page->SetParameter('USER_OTHER_LANG',implode(',',$user_other_lang_ids));
     $page->SetParameter('OVERALL_FOOTER', create_footer());
     $page->SetParameter('BREADCRUMBS', create_front_breadcrumbs('MY_LANGUAGES'));
- 
     $page->CreatePageEcho();
     
 }else{

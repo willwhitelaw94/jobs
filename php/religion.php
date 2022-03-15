@@ -37,8 +37,7 @@ if(checkloggedin()){
         exit;
        }
        
-    }
- 
+    } 
     $ses_userdata = get_user_data($_SESSION['user']['username']);
     $page = new HtmlTemplate ('templates/' . $config['tpl_name'] . '/religion.tpl');
     $page->SetParameter('OVERALL_HEADER', create_header($lang['RELIGION']));
