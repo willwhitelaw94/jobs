@@ -38,6 +38,8 @@ if ($_GET['action'] == "chatheartbeat") { chatHeartbeat(); }
 if ($_GET['action'] == "sendchat") { sendChat(); }
 if ($_GET['action'] == "closechat") { closeChat(); }
 if ($_GET['action'] == "startchatsession") { startChatSession(); }
+if ($_GET['action'] == "agreementAction") { agreementAction(); }
+
 
 
 function get_userdata($id){
@@ -551,5 +553,73 @@ function closeChat() {
 function send_json($results = array()){
     echo json_encode($results);
     die();
+}
+
+function agreementAction(){
+    global $config, $con;
+    $resp = [];
+    $ses_user_data=ORM::for_table($config['db']['pre'].'user')->find_one($GLOBALS['sesId'])->as_array();
+    $chat_user_data=ORM::for_table($config['db']['pre'].'user')->find_one($_POST['chat_user_id'])->as_array();
+    //print_r($chat_user_data);
+    //print_($chat_user_data);
+   // echo ORM::get_last_query();die;
+    $resp=['ses_user_data'=>$ses_user_data,'chat_user_data'=>$chat_user_data];
+    $sql = "select * from `".$config['db']['pre']."messages` where (to_id = '".mysqli_real_escape_string($con,$GLOBALS['sesId'])."' AND from_id = '".mysqli_real_escape_string($con,$_POST['chat_user_id'])."' AND post_id = ".$_POST['post_id'].") order by message_id ASC limit 1";
+    $query = $con->query($sql);
+    $row = mysqli_fetch_assoc($query);
+    print_r($row);die;
+    $user_type= $_SESSION['user_type']=='employer';
+    if($query->num_rows > 0 ){
+        $resp['replied']=1;
+        $resp['tpl']='heloo';
+    }else{
+        $resp['replied']=0;
+        if($user_type=='user'){
+            if($chat_user_data['city']!=null){
+                        $address = $chat_user_data['city'].','.$chat_user_data['state'];
+                    }else{
+                        $address = $chat_user_data['country'];
+                    }
+        $resp['tpl']= 
+        '<div class = "section1">
+           <div class="detail_cl">
+           <p>'.$chat_user_data['name'].'<br>'.getAge($chat_user_data['dob']).' Years old '.$chat_user_data['sex'].'<br>'.$address.'</p>
+           </div>
+           <p>To schedule care with '.$address['username'].', agree your rate and schdule through chat, then offer an agreement.</p>
+        </div>
+        <div class="" id="'.$ses_userdata['user_type'].'agr_btn_section">
+            <div class="notification error closeable alert_section">
+                <i class="icon-feather-alert-triangle"></i>
+                <span>To send an agrrement to a client you\'ll need to start a conversation and client respond.</span>
+            </div>
+            <div class="agr_btn_section">
+                 <button class="button ripple-effect">Offer an agreement</button>
+            </div>
+
+        </div>';
+        
+        }elseif($user_type=='employer'){ 
+             $resp['tpl']='
+                <div class = "section1">
+                    <h5>Interested in booking '.$chat_user_data['username'].'?</h5>
+                   <p>An agreements sets the rates and describe the services to be provides.<br>It\'s required before support can start to ensure the worker covered by <a href="#">insurance</a>.</p>
+                </div>
+                <div class="" id="'.$ses_user_data['user_type'].'agr_btn_section">
+                    <div class="notification error closeable alert_section ">
+                        <i class="icon-feather-alert-triangle "></i>
+                        <span>To request an agreement from a worker you\'ll need to start conversation and worker response.</span>
+                    </div>
+                    <div class="agr_btn_section">
+                    <button class="button ripple-effect">Request an agreement</button>
+                    </div>
+                </div>
+               ';
+        }
+     
+    }
+
+    echo json_encode($resp);
+    die();
+    
 }
 ?>

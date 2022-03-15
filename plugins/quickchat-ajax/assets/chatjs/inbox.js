@@ -108,6 +108,10 @@ $(document).ready(function(){
         }return false;
     });
     setTimeout('chatHeartbeat();',chatHeartbeatTime);
+    if($('.start_wchat.active').length>0 || CHATID != ''){
+       setTimeout('agreementAction()',1000);
+    }
+       
 });
 
 $(document).on('click', ".start_wchat" ,function(){
@@ -126,6 +130,8 @@ $(document).on('click', ".start_wchat" ,function(){
     $(this).addClass('active');
 
     chatWith(chatid,userid,fullname,userimage,userstatus,postid);
+    agreementAction();
+     
 });
 
 function chatWith(chatid,userid,fullname,userimage,userstatus,postid) {
@@ -142,7 +148,7 @@ function chatWith(chatid,userid,fullname,userimage,userstatus,postid) {
         userimage: userimage,
         userstatus: userstatus
     });
-
+   
     $(".chat-left-aside").toggleClass("open-pnl");
     $(".open-panel i").toggleClass("ti-angle-left");
 
@@ -167,6 +173,7 @@ function chatWith(chatid,userid,fullname,userimage,userstatus,postid) {
         $("#chatbox_"+chatid).addClass('active-chat');
     }
 }
+
 
 function createChatBox($options) {
 
@@ -392,6 +399,7 @@ function chatHeartbeat(){
             }
 
         }});
+      
     setTimeout('chatHeartbeat();',chatHeartbeatTime);
 
 }
@@ -577,50 +585,6 @@ function clickTosendMessage_old(event,chatboxtextarea,chatid,postid,userid) {
     return false;
 }
 
-
-function invitationMessage(msg,chatid,postid,userid,first_chat) {
-    message = msg;
-    // message =  message.replace(/<img(.*?)title="(.*?)"(.*?)>/g,"$2"); // Set imotions
-    // message = message.replace(/^\s+|\s+$/g,"");
-    if (message != '') {
-        $.post(siteurl+plugin_directory+"?action=sendchat", {wchat: 1, to: userid, postid: postid, message: message,first_chat:first_chat} , function(data){
-            //message = message.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;");
-           // message = message.replace(/\n/g, "<br />");
-           message = emojione.shortnameToImage(message);
-            
-            var $con = message;
-            var $words = $con.split(' ');
-            for (i in $words) {
-                if ($words[i].indexOf('http://') == 0 || $words[i].indexOf('https://') == 0) {
-                    $words[i] = '<a href="' + $words[i] + '">' + $words[i] + '</a>';
-                }
-                else if ($words[i].indexOf('www') == 0 ) {
-                    $words[i] = '<a href="' + $words[i] + '">' + $words[i] + '</a>';
-                }
-            }
-            message = $words.join(' ');
-
-            $(chatboxtextarea).html('');
-            $(chatboxtextarea).empty();
-            $(chatboxtextarea).focus();
-            $(".input-placeholder").css('visibility','visible');
-
-            my_msg_oddtpl(chatid,message,'text',LANG_JUST_NOW,"append","0");
-
-            $(".target-emoji").css({'display':'none'});
-            $('.wchat-filler').css({'height':0+'px'});
-
-            msgid = data;
-            scrollDown();
-        });
-        chatfrindList(0);
-    }
-    chatHeartbeatTime = minChatHeartbeat;
-    chatHeartbeatCount = 1;
-
-    return false;
-}
-
 function lastseen(chatid,userid){
     $.ajax({
         url: siteurl + plugin_directory+"?action=lastseen&userid="+userid,
@@ -728,6 +692,7 @@ function scrollDown(){
         $(".wchat-chat-msgs").scrollTop($(".wchat-chat-msgs")[0].scrollHeight);						// Reset scroll
     }, 100);
 }
+
 
 
 var listajax = null, last_search = '';
@@ -1020,3 +985,66 @@ jQuery.cookie = function(name, value, options) {
         return cookieValue;
     }
 };
+
+
+function agreementAction(){
+    var chatid,postid,userid,fullname,userimage,userstatus;
+    if(CHATID ===null ||  $('.start_wchat.active').length!=0){
+        chatid = $('.start_wchat.active').data('chatid');
+        postid = $('.start_wchat.active').data('postid');
+        userid = $('.start_wchat.active').data('userid');
+        fullname = $('.start_wchat.active').data('fullname');
+        userimage = $('.start_wchat.active').data('userimage');
+        userstatus = $('.start_wchat.active').data('userstatus');
+    }else{ 
+        chatid = CHATID;
+        postid = POSTID;
+        userid = CHAT_USERID;
+        fullname = CHAT_FULLNAME;
+        userimage = CHAT_USERIMG;
+        userstatus=CHAT_USERSTATUS;   
+    }
+    createAgreementBox(chatid,userid,postid)  
+   
+    setTimeout('agreementAction();',5000);
+    
+}
+
+
+function createAgreementBox(chatid,userid,postid){
+        $.ajax({
+            url: siteurl+plugin_directory+"?action=agreementAction",
+            cache: false,
+            dataType: "json",
+            type: "POST",
+            data: {post_id: postid,chat_user_id:userid},
+            success: function(resp) {
+                console.log(resp)
+                $("#agreement_container").html(resp.tpl);
+               
+            }
+        });  
+   
+   // console.log(userid);
+ //   var u_agr_section = '';
+    if(session_utype=='employer'){
+        u_agr_section= 
+        '<div class = "'+chatid+'section1">'+
+        '<h5>Interested in booking Diksha?</h5>'+
+        '<p>An agreements sets the rates and describe the services to be provides.<br>It\'s required before support can start to ensure the worker covered by <a href="#">insurance</a>.</p>'+
+        '</div>'
+    }else if(session_utype =='user'){
+        u_agr_section= 
+        '<div class = "'+chatid+'section1">'+
+        '<h5>Interested in booking Diksha?</h5>'+
+        '<p>An agreements sets the rates and describe the services to be provides.<br>It\'s required before support can start to ensure the worker covered by <a href="#">insurance</a>.</p>'+
+        '</div>'
+    }
+    
+    // var agreementTpl='<div id = "'+chatid+'_agreement_box">'+u_agr_section+'</div>'
+    // if ($("#chatbox_"+chatid).hasClass('active-chat')) {
+    //     $("#agreement_container").html(agreementTpl);
+    // }
+   
+}
+
