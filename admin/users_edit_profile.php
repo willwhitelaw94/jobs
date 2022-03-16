@@ -222,9 +222,7 @@ $user_pr_days_code=array_keys($user_days);
                                                                 </div>
                                                                 <div class="col-md-10">
                                                                     <label for="session_willing"><span class="checkbox-icon"></span>I'm willing to offer a free great & meet session to potential clients.</label>
-                                                                </div>    
-                                                                
-                                                                
+                                                                </div>                                                                   
                                                             </div>
                                                             <!-- <div class="form-group row">
                                                                 <div class="checkbox submit-field co-md-2">

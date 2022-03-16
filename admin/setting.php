@@ -37,6 +37,7 @@ require_once('includes.php');
                                             <li class="quickad-nav-item" data-target="#quickad_blog" data-toggle="tab">Blog Setting</li>
                                             <li class="quickad-nav-item" data-target="#quickad_testimonials" data-toggle="tab">Testimonials Setting</li>
                                             <li class="quickad-nav-item" data-target="#quickad_purchase_code" data-toggle="tab">Purchase Code</li>
+                                            <li class="quickad-nav-item" data-target="#quickad_stripe_setting" data-toggle="tab">Stripe Setting</li>
                                         </ul>
                                     </div>
 
@@ -1111,7 +1112,80 @@ require_once('includes.php');
 
                                                         </form>
                                                     </div>
-
+                                                    <div class="tab-pane" id="quickad_stripe_setting">
+                                                        <form method="post" action="ajax_sidepanel.php?action=editStripeSetting" id="#quickad_stripe_setting">
+                                                            <?php 
+                                                                $stripe=ORM::for_table($config['db']['pre'] . 'payment_settings')->find_array();
+                                                                // print_r($stripe);die;
+                                                                foreach ($stripe as $key => $str) {
+                                                                    
+                                                                    if($str['type'] == 'live'){
+                                                                        $str_live_key=$str['stripe_key'];
+                                                                        $str_live_secret=$str['stripe_secret'];
+                                                                        $str_live_status=$str['status'];
+                                                                    }
+                                                                    if($str['type'] == 'test'){
+                                                                        $str_test_key=$str['stripe_key'];
+                                                                        $str_test_secret=$str['stripe_secret'];
+                                                                        $str_test_status=$str['status'];
+                                                                    }
+                                                                }
+                                                            ?>                 
+                                                            <label><h4>Live Mode</h4></label>
+                                                            <div class="form-group">
+                                                                <label for="location_track_icon">Key</label>
+                                                                <div>
+                                                                    <input name="live_stripe_key" type="text" class="form-control" value="<?php echo $str_live_key; ?>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="auto_detect_location">Secret</label>
+                                                                <div>
+                                                                    <input name="live_stripe_secret" type="text" class="form-control" value="<?php echo $str_live_secret; ?>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <div class="col-md-2">
+                                                                    <label class="css-input css-checkbox css-checkbox-primary">
+                                                                        <input type="checkbox" name="live_status" value="1" class="shopitem-list" <?php if($str_live_status == '1') echo "checked"; ?>><span></span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-10">
+                                                                    <label for="status"><span class="checkbox-icon"></span>Active</label>
+                                                                </div>                                                                   
+                                                            </div>
+                                                            <!--Test-->
+                                                            <label><h4>Test Mode</h4></label>
+                                                            <div class="form-group">
+                                                                <label for="test_stripe_key">Key</label>
+                                                                <div>
+                                                                    <input name="test_stripe_key" type="text" class="form-control" value="<?php echo $str_test_key; ?>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="test_stripe_secret">Secret</label>
+                                                                <div>
+                                                                    <input name="test_stripe_secret" type="text" class="form-control" value="<?php echo $str_test_secret; ?>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <div class="col-md-2">
+                                                                    <label class="css-input css-checkbox css-checkbox-primary">
+                                                                        <input type="checkbox" name="test_status" class="shopitem-list" value="1" <?php if($str_test_status == '1') echo "checked"; ?>><span></span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-10">
+                                                                    <label for="status"><span class="checkbox-icon"></span>Active</label>
+                                                                </div>                                                                   
+                                                            </div>
+                                                            
+                                                            <!--End Test-->
+                                                            <div class="panel-footer">
+                                                                <button name="stripe_setting" type="submit" class="btn btn-primary btn-radius save-changes">Save</button>
+                                                                <button class="btn btn-default" type="reset">Reset</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1188,4 +1262,9 @@ require_once('includes.php');
         App.initHelpers('select2');
     });
 </script>
+<script type="text/javascript">
+	    $('.shopitem-list').on('change', function() {
+		    $('.shopitem-list').not(this).prop('checked', false);  
+		});
+    </script>
 </body></html>

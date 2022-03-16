@@ -105,6 +105,8 @@ if(isset($_GET['action'])){
     if ($_GET['action'] == "editUserReligion") { editUserReligion(); }
     if ($_GET['action'] == "editUserLanguages") { editUserLanguages(); }
     if ($_GET['action'] == "editUserCulturalBackground") { editUserCulturalBackground(); }
+
+    if ($_GET['action'] == "editStripeSetting") { editStripeSetting(); }
 }
 function companyEdit(){
     global $config,$lang;
@@ -3550,8 +3552,7 @@ function editUserReligion(){
     // $religions = ORM::for_table($config['db']['pre'] .'religions')->select_many('id','name')->find_array();
     $error=[];   
     // echo "<pre>";
-    // print_r($_POST);die;
-    
+    // print_r($_POST);die;    
     if(empty($error)) {
         foreach ($userReligionIds as $rel_id) {
             if(!in_array($rel_id,$rel)){
@@ -3663,5 +3664,43 @@ function editUserCulturalBackground(){
     echo json_encode(['status' => 'success', 'message' => 'updated successfully']);   
     // echo "<pre>";
     // var_dump($_POST, $backs, $background_options, $backgroundOptions);die;    
+}
+function editStripeSetting(){
+    global $config,$lang;
+    // echo "<pre>";
+    // print_r($_POST);die;
+
+    //$abId=$_POST['id'];
+    //$type=$_POST['type'];
+    $error=[];
+    if(empty($error)) {
+        
+        $update_li = ORM::for_table($config['db']['pre'].'payment_settings')->where('type','live')->find_one();
+        $update_li->stripe_key = $_POST['live_stripe_key'];
+        $update_li->stripe_secret  = $_POST['live_stripe_secret'];
+        $update_li->status  = $_POST['live_status'];
+        $update_li->save();
+
+        $update_te = ORM::for_table($config['db']['pre'].'payment_settings')->where('type','test')->find_one();
+        $update_te->stripe_key = $_POST['test_stripe_key'];
+        $update_te->stripe_secret  = $_POST['test_stripe_secret'];
+        $update_te->status  = $_POST['test_status'];
+        $update_te->save();
+       // echo ORM::get_last_query();die;
+        if ($update_li->id()) {
+            $status = "success";
+            $message = $lang['SAVED_SUCCESS'];
+        }else {
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+    }else{
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+    
+    $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
+    echo $json;
+    die();
 }
 ?>
