@@ -460,7 +460,6 @@
         }
 
     }
-
     function checkRePassword() {
         if ($('#password').val() != $('#re_password').val()) {
             var PASS = "{LANG_PASS_NOT_MATCH}";

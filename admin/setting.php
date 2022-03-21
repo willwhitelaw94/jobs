@@ -38,6 +38,7 @@ require_once('includes.php');
                                             <li class="quickad-nav-item" data-target="#quickad_testimonials" data-toggle="tab">Testimonials Setting</li>
                                             <li class="quickad-nav-item" data-target="#quickad_purchase_code" data-toggle="tab">Purchase Code</li>
                                             <li class="quickad-nav-item" data-target="#quickad_stripe_setting" data-toggle="tab">Stripe Setting</li>
+                                            <li class="quickad-nav-item" data-target="#quickad_commission_setting" data-toggle="tab">Commission Setting</li>
                                         </ul>
                                     </div>
 
@@ -1182,6 +1183,33 @@ require_once('includes.php');
                                                             <!--End Test-->
                                                             <div class="panel-footer">
                                                                 <button name="stripe_setting" type="submit" class="btn btn-primary btn-radius save-changes">Save</button>
+                                                                <button class="btn btn-default" type="reset">Reset</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="tab-pane" id="quickad_commission_setting">
+                                                        <form method="post" action="ajax_sidepanel.php?action=SaveSettings" id="#quickad_commisFsion_setting">
+                                                            <?php 
+                                                                $stripe=ORM::for_table($config['db']['pre'] . 'payment_settings')->find_array();
+                                                               
+                                                            ?>                 
+                                                            <label><h4>Client Commission</h4></label>
+                                                            <div class="form-group">
+                                                                <label for="location_track_icon">Enter client commission in percent (%)</label>
+                                                                <div>
+                                                                    <input name="client_commission" type="number" class="form-control" value="<?php echo get_option("client_commission"); ?>">
+                                                                </div>
+                                                            </div>
+                                                            <label><h4>Worker Commission</h4></label>
+                                                            <div class="form-group">
+                                                                <label for="test_stripe_key">Enter worker commission in (%)</label>
+                                                                <div>
+                                                                    <input name="worker_commission" type="number" class="form-control" value="<?php echo get_option("worker_commission"); ?>">
+                                                                </div>
+                                                            </div>
+                                                            <!--End Test-->
+                                                            <div class="panel-footer">
+                                                                <button name="commision_setting" type="submit" class="btn btn-primary btn-radius save-changes">Save</button>
                                                                 <button class="btn btn-default" type="reset">Reset</button>
                                                             </div>
                                                         </form>

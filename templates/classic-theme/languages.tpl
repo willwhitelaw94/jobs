@@ -1,4 +1,3 @@
-
 {OVERALL_HEADER}
 {BREADCRUMBS}
 <div class="section gray padding-bottom-50">

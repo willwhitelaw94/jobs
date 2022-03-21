@@ -199,8 +199,13 @@ if(isset($_SESSION['admin']['id'])){
                                 <li><a href="setting.php#quickad_testimonials">Testimonials Setting <span class="label label-success">New</span></a></li>
                                 <li><a href="setting.php#quickad_purchase_code">Purchase Code</a></li>
                                 <li><a href="setting.php#quickad_stripe_setting">Stripe Setting</a></li>
+<<<<<<< HEAD
+=======
+                                <li><a href="setting.php#quickad_commission_setting">Commission Setting</a></li>
+>>>>>>> 452d3e5d2e1c38e238b7a037718c09f20b2824ca
                                 <li><a href="xml_manage.php">XML Manage</a></li>
                                 <li><a href="themes.php">Change Theme</a></li>
+                               
                             </ul>
                         </li>
                         <li class="nav-item nav-item-has-subnav">
