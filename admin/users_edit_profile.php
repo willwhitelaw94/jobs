@@ -101,6 +101,7 @@ $user_pr_days_code=array_keys($user_days);
                                             <li class="quickad-nav-item" data-target="#quick_cultural_background" data-toggle="tab">Cultural Backgrounds</li>
                                             <li class="quickad-nav-item" data-target="#quickad_religion" data-toggle="tab">Religion</li>
                                             <!-- <li class="quickad-nav-item" data-target="#quickad_experiences" data-toggle="tab">User Experiences</li>-->
+                                            <li class="quickad-nav-item" data-target="#quickad_immunisation" data-toggle="tab">Immunisation Info</li>
                                             
                                         </ul>
                                     </div>
@@ -315,6 +316,26 @@ $user_pr_days_code=array_keys($user_days);
                                                                 }
                                                                 ?>
                                                                 </select>
+                                                            </div>
+                                                            <div class="panel-footer">
+                                                                <button name="international" type="submit" class="btn btn-primary btn-radius save-changes">Save</button>
+                                                                <button class="btn btn-default" type="reset">Reset</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="tab-pane" id="quickad_immunisation">
+                                                        <form method="post" action="ajax_sidepanel.php?action=editUserImmunisationInfo" id="#quickad_immunisation">
+                                                        <input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
+                                                              <div class="form-group row">
+                                                               
+                                                                    <label>Currently Working</label>
+                                                                    <div class="radio">
+                                                                            <input id="radio-rating-1" name="radio" type="radio" checked="">
+                                                                            <label for="radio-rating-1"><span class="radio-label"></span> Yes</label>
+                                                                    </div>
+                                                                        <label >Yes</label>
+                                                                        <input type="radio" name="current_working" class="with-gap"/>
+                                                                        <label > No</label>  
                                                             </div>
                                                             <div class="panel-footer">
                                                                 <button name="international" type="submit" class="btn btn-primary btn-radius save-changes">Save</button>

@@ -44,6 +44,7 @@ if(checkloggedin()) {
     // echo $session_user_id;
     // die;    
    // dd($is_first_chat);
+   if(isset($_GET['postid'])){
     if($ses_userdata['user_type']=='employer'){
         $pro_url = create_slug($post_data['product_name']);
         $job_link = $config['site_url'].'job/' . $post_data['id'] . '/'.$pro_url;
@@ -96,6 +97,8 @@ if(checkloggedin()) {
         $msg.='<div class="card-footer"><a href="'.$profile_link.'">View Full Profile</a></div>';
         $msg.='</div></div>'; 
     }
+   }
+ 
     // $sql = "select * from `".$config['db']['pre']."messages` where (to_id = '".$ses_userdata['id']."' AND from_id = '".$userid."' AND post_id = ".$postid.") order by message_id ASC limit 1";
     // $query = $mysqli->query($sql);
     // //$row = mysqli_fetch_assoc($query);

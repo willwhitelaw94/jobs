@@ -339,8 +339,10 @@ ELSEIF('{PAGE_URI}'!='message'){
 <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/chatbox.js"></script>
 <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/chatbox_custom.js"></script>
 {:IF}     -->
+IF('{PAGE_URI}'=='message'){
 <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/inbox.js"></script>
 <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/chatjs/inbox_custom.js"></script>
+{:IF}
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
 <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/plugins/uploader/plupload.full.min.js"></script>
 <script type="text/javascript"

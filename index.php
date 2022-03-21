@@ -79,6 +79,7 @@ $router->map('GET|POST','/test/?', 'test.php');
 $router->map('GET|POST','/edit-profile/my-educations/[*:page]?/?', 'my-educations.php');
 $router->map('GET|POST','/edit-profile/add-education/?', 'user-education.php');
 $router->map('GET|POST','/edit-profile/edit-education/[i:id]?', 'user-education.php');
+$router->map('GET|POST','/edit-profile/edit-education/[i:id]?', 'user-education.php');
 // Special (GET processing, etc)
 
 $router->map('GET|POST','/profile/[*:username]?/[*:page]?/?','profile.php');
@@ -110,6 +111,8 @@ $router->map('GET|POST','/edit-profile/cultural-backgrounds', 'cultural-backgrou
 $router->map('GET|POST','/edit-profile/religion', 'religion.php');
 $router->map('GET|POST','/edit-profile/my-skills', 'my-skills.php');
 $router->map('GET|POST','/edit-profile/user-custom-fields', 'user-custom-fields.php');
+$router->map('GET|POST','/edit-profile/user-custom-fields', 'user-custom-fields.php');
+$router->map('GET|POST','/edit-profile/immunisation-info', 'immunisation-info.php');
 // Wills Routes
 $router->map('GET|POST','/edit-profile/account', 'edit-account.php');
 $router->map('GET|POST','/accepted-jobs', 'accepted-job.php');

@@ -1,7 +1,5 @@
 <?php
 if (checkloggedin()) {
-    // error_reporting(E_ALL);
-    // ini_set('display_errors', 'On');
     update_lastactive();
     $ses_userdata = get_user_data($_SESSION['user']['username']);
     $user_id =   $ses_userdata['id'];

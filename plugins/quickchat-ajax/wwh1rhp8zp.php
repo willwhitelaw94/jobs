@@ -8,6 +8,9 @@
  * @Copyright (c) 2015-20 Devendra Katariya (bylancer.com)
  */
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 require_once('../../includes/config.php');
 require_once('../../includes/sql_builder/idiorm.php');
 require_once('../../includes/db.php');
@@ -39,6 +42,8 @@ if ($_GET['action'] == "sendchat") { sendChat(); }
 if ($_GET['action'] == "closechat") { closeChat(); }
 if ($_GET['action'] == "startchatsession") { startChatSession(); }
 if ($_GET['action'] == "agreementAction") { agreementAction(); }
+if ($_GET['action'] == "updateAgreementStatus") { updateAgreementStatus(); }
+
 
 
 
@@ -560,66 +565,168 @@ function agreementAction(){
     $resp = [];
     $ses_user_data=ORM::for_table($config['db']['pre'].'user')->find_one($GLOBALS['sesId'])->as_array();
     $chat_user_data=ORM::for_table($config['db']['pre'].'user')->find_one($_POST['chat_user_id'])->as_array();
-    //print_r($chat_user_data);
-    //print_($chat_user_data);
-   // echo ORM::get_last_query();die;
+    $user_type= $_SESSION['user']['user_type'];
+    $post_id = $_POST['post_id'];
+    $chatid=$_POST['chatid'];
+    $initiated_msg= ORM::for_table($config['db']['pre'].'messages')->where(['post_id'=>$post_id,'message_type'=>'html'])->find_one();
+    if($initiated_msg['from_id']==$GLOBALS['sesId']){
+        $started_by_me=true;
+        $sql = "select * from `".$config['db']['pre']."messages` where (to_id = '".mysqli_real_escape_string($con,$GLOBALS['sesId'])."' AND from_id = '".mysqli_real_escape_string($con,$_POST['chat_user_id'])."' AND post_id = ".$post_id.") order by message_id ASC limit 1";
+    }else{
+        $started_by_me = false;
+       // $con1="from_id = '".mysqli_real_escape_string($con,$GLOBALS['sesId'])."'";
+        $sql = "select * from `".$config['db']['pre']."messages` where (from_id = '".mysqli_real_escape_string($con,$GLOBALS['sesId'])."' AND to_id = '".mysqli_real_escape_string($con,$_POST['chat_user_id'])."' AND post_id = ".$post_id.") order by message_id ASC limit 1";
+    }
     $resp=['ses_user_data'=>$ses_user_data,'chat_user_data'=>$chat_user_data];
-    $sql = "select * from `".$config['db']['pre']."messages` where (to_id = '".mysqli_real_escape_string($con,$GLOBALS['sesId'])."' AND from_id = '".mysqli_real_escape_string($con,$_POST['chat_user_id'])."' AND post_id = ".$_POST['post_id'].") order by message_id ASC limit 1";
     $query = $con->query($sql);
-    $row = mysqli_fetch_assoc($query);
-    print_r($row);die;
-    $user_type= $_SESSION['user_type']=='employer';
-    if($query->num_rows > 0 ){
+    if($query->num_rows > 0){
         $resp['replied']=1;
-        $resp['tpl']='heloo';
+        if($user_type=='user'){
+            $agr_data = ORM::for_table($config['db']['pre'].'user_agreements')->where(['post_id'=>$post_id,'user_id'=>$GLOBALS['sesId']])->find_one();
+            if($chat_user_data['city']!=null){
+                $address = $chat_user_data['city'].','.$chat_user_data['state'];
+            }else{
+                $address = $chat_user_data['country'];
+            }
+            $activity_tpl='';
+            if(!empty($agr_data)){
+               $activity_tpl.='
+                   <div class="card activity_feed" id="'.$chatid.'activity_feed">
+                        <div class="card-body">
+                            <h5 class="card-title">Activity Feed</h5>
+                            <p class="card-text">
+                            '.$chat_user_data['username'].' has requested that you send them an agreement. <a href="#">Click here</a> for instruction on how to send an agreement.
+                            </p>
+                            <small>'.date('d M, H:i A',strtotime($agr_data['updated_at'])).'</small>
+                        </div>
+                    </div>
+                '; 
+            }
+            $resp['tpl']='
+            <div id="'.$chatid.'_section">
+                <div class = "section1">
+                    <div class="detail_cl">
+                        <p>'.$chat_user_data['name'].'<br>'.getAge($chat_user_data['dob']).' Years old '.$chat_user_data['sex'].'<br>'.$address.'</p>
+                    </div>
+                    <p>To schedule care with '.$chat_user_data['username'].', agree your rate and schdule through chat, then offer an agreement.</p>
+                    <div class="" id="'.$chatid.'_agr_btn_section">
+                        <div class="agr_btn_section">
+                            <button class="button ripple-effect" id="offer_agr_btn" data-chat_id='.$chatid.'>Offer an agreement</button>
+                        </div>
+                    </div>
+                </div>
+                '.$activity_tpl.'
+            </div>';  
+
+        }elseif($user_type=='employer'){
+            $agr_data = ORM::for_table($config['db']['pre'].'user_agreements')->where(['post_id'=>$post_id,'user_id'=>$_POST['chat_user_id']])->find_one();
+            if(!empty($agr_data) && $agr_data['agr_status']=='requested'){
+                $resp['tpl']='
+                <div id="'.$chatid.'_section">
+                    <div class="card  activity_feed" id="'.$chatid.'activity_feed">
+                        <div class="card-body">
+                            <h5 class="card-title">Activity Feed</h5>
+                            <p class="card-text">
+                               You have requested an offer on '.$chat_user_data['username'].'
+                            </p>
+                            <small>'.date('d M, H:i A',strtotime($agr_data['updated_at'])).'</small>
+                        </div>
+                    </div>
+                </div>
+               ';  
+            }else{
+                $resp['tpl']='
+                <div id="'.$chatid.'_section">
+                    <div class = "section1">
+                        <h5>Interested in booking '.$chat_user_data['username'].'?</h5>
+                        <p>An agreements sets the rates and describe the services to be provides.<br>It\'s required before support can start to ensure the worker covered by <a href="#">insurance</a>.</p>
+                        <div class="agr_btn_section" id="'.$chatid.'_agr_btn_section">
+                            <div class="agr_btn_section">
+                            <button class="button ripple-effect req_agr_btn" id="" data-chatid='.$chatid.' data-postid='.$post_id.' data-userid='.$_POST['chat_user_id'].'>Request an agreement</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card d-none activity_feed" id="'.$chatid.'activity_feed">
+                        <div class="card-body">
+                            <h5 class="card-title">Activity Feed</h5>
+                            <p class="card-text">
+                               You have requested an offer on '.$chat_user_data['username'].'
+                            </p>
+                            <small>a few second ago</small>
+                        </div>
+                    </div>
+                </div>
+               ';  
+            }  
+        }   
     }else{
         $resp['replied']=0;
         if($user_type=='user'){
             if($chat_user_data['city']!=null){
-                        $address = $chat_user_data['city'].','.$chat_user_data['state'];
-                    }else{
-                        $address = $chat_user_data['country'];
-                    }
-        $resp['tpl']= 
-        '<div class = "section1">
-           <div class="detail_cl">
-           <p>'.$chat_user_data['name'].'<br>'.getAge($chat_user_data['dob']).' Years old '.$chat_user_data['sex'].'<br>'.$address.'</p>
-           </div>
-           <p>To schedule care with '.$address['username'].', agree your rate and schdule through chat, then offer an agreement.</p>
-        </div>
-        <div class="" id="'.$ses_userdata['user_type'].'agr_btn_section">
-            <div class="notification error closeable alert_section">
-                <i class="icon-feather-alert-triangle"></i>
-                <span>To send an agrrement to a client you\'ll need to start a conversation and client respond.</span>
-            </div>
-            <div class="agr_btn_section">
-                 <button class="button ripple-effect">Offer an agreement</button>
-            </div>
-
-        </div>';
-        
-        }elseif($user_type=='employer'){ 
-             $resp['tpl']='
-                <div class = "section1">
-                    <h5>Interested in booking '.$chat_user_data['username'].'?</h5>
-                   <p>An agreements sets the rates and describe the services to be provides.<br>It\'s required before support can start to ensure the worker covered by <a href="#">insurance</a>.</p>
+                $address = $chat_user_data['city'].','.$chat_user_data['state'];
+            }else{
+                $address = $chat_user_data['country'];
+            }  
+            $resp['tpl']= 
+            '<div class = "section1">
+                <div class="detail_cl">
+                <p>'.$chat_user_data['name'].'<br>'.getAge($chat_user_data['dob']).' Years old '.$chat_user_data['sex'].'<br>'.$address.'</p>
                 </div>
-                <div class="" id="'.$ses_user_data['user_type'].'agr_btn_section">
-                    <div class="notification error closeable alert_section ">
-                        <i class="icon-feather-alert-triangle "></i>
-                        <span>To request an agreement from a worker you\'ll need to start conversation and worker response.</span>
-                    </div>
-                    <div class="agr_btn_section">
-                    <button class="button ripple-effect">Request an agreement</button>
-                    </div>
+                <p>To schedule care with '.$chat_user_data['username'].', agree your rate and schdule through chat, then offer an agreement.</p>
+            </div>
+            <div class="" id="'.$ses_user_data['user_type'].'agr_btn_section">
+                <div class="notification error closeable alert_section">
+                    <i class="icon-feather-alert-triangle"></i>
+                    <span>To send an agreeement to a client you\'ll need to start a conversation and client respond.</span>
                 </div>
-               ';
+            </div>';
         }
-     
+        elseif($user_type=='employer'){
+            $resp['tpl']='
+            <div class = "section1">
+                <h5>Interested in booking '.$chat_user_data['username'].'?</h5>
+               <p>An agreements sets the rates and describe the services to be provides.<br>It\'s required before support can start to ensure the worker covered by <a href="#">insurance</a>.</p>
+            </div>
+            <div class="" id="'.$ses_user_data['user_type'].'agr_btn_section">
+                <div class="notification error closeable alert_section ">
+                    <i class="icon-feather-alert-triangle "></i>
+                    <span>To request an agreement from a worker you\'ll need to start conversation and worker response.</span>
+                </div>
+            </div>
+           ';
+        }  
     }
-
     echo json_encode($resp);
-    die();
-    
+    die();  
 }
+
+function updateAgreementStatus(){
+   global $config;
+   $postid=$_POST['postid'];
+   $userid=$_POST['userid'];
+   $status=$_POST['status'];
+   $now = date('Y-m-d H:i:s');
+   $agr_data = ORM::for_table($config['db']['pre'].'user_agreements')->where(['post_id'=>$postid,'user_id'=>$userid])->find_one();
+    if($agr_data){
+       $agr_data->agr_status=$status;
+       $agr_data->updated_at = $now;
+     
+    }else{
+        $agr_data=ORM::for_table($config['db']['pre'].'user_agreements')->create();
+        $agr_data->post_id=$postid;
+        $agr_data->employer_id=$_SESSION['user']['id'];
+        $agr_data->user_id=$userid;
+        $agr_data->agr_status=$status;
+        $agr_data->created_at=$now;
+        $agr_data->updated_at=$now;
+    
+    }
+   if($agr_data->save()){
+       $resp['status']=1;
+   }else{
+    $resp['status']=0;
+   }
+   echo json_encode($resp);die;
+}
+
 ?>

@@ -2528,6 +2528,13 @@ function SaveSettings(){
         }
 
     }
+    if (isset($_POST['commision_setting'])){
+        update_option("worker_commission",$_POST['worker_commission']);
+        update_option("client_commission",$_POST['client_commission']);
+        $status = "success";
+        $message = 'Commission setting updated Successfully';
+    }
+    
 
     echo $json = '{"status" : "' . $status . '","message" : "' . $message . '"}';
     die();
