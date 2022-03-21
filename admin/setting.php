@@ -1266,5 +1266,5 @@ require_once('includes.php');
 	    $('.shopitem-list').on('change', function() {
 		    $('.shopitem-list').not(this).prop('checked', false);  
 		});
-    </script>
+</script>
 </body></html>

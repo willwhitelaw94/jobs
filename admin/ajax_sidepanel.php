@@ -3703,4 +3703,5 @@ function editStripeSetting(){
     echo $json;
     die();
 }
+
 ?>
