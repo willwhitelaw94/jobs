@@ -623,10 +623,10 @@ $lang['IMMUNISATION_INFO']='Immunisation Info';
 
 $lang['NO']='No';
 $lang['YES_ONE_DOSE']='Yes, One dose';
-$lang['YES_TWO_DOSE']='Yes, two dose';
-$lang['YES_ONE_BOOSTER']='Yes, one booster';
+$lang['YES_TWO_DOSE']='Yes, Two dose';
+$lang['YES_ONE_BOOSTER']='Yes, One booster';
 $lang['CERTIFICATE_REQ']='COVID-19 Certificate is required';
 $lang['IMMUNISATION_INFO_UPDATED']='Immunisation info updated.';
-$lang['IMMUNISATION_DATE_REQ'] = 'Immunisation date requuired';
+$lang['IMMUNISATION_DATE_REQ'] = 'Immunisation date required';
 //End Custom Fields
 

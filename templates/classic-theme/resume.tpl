@@ -40,7 +40,7 @@
                         </h3>
                     </div>
                     <div class="content with-padding">
-                        IF('{ERROR}' != ''){
+                        IF("{ERROR}" != ""){
                         <span class="status-not-available">{ERROR}</span>
                         {:IF}
                         <form method="post" accept-charset="UTF-8" enctype="multipart/form-data">

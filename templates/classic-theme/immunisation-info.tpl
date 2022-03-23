@@ -5,7 +5,6 @@
     }
 </style>
 {BREADCRUMBS}
-"{CERTIFICATE_ERROR}"
 <div class="section gray padding-bottom-50">
     <div class="container">
         <div class="row">
@@ -16,16 +15,16 @@
                 <div class="dashboard-box  mt-0 js-accordion-item active">
                     <!-- Headline -->
                     <div class="headline js-accordion-header">
-                        <h3><i class="icon-feather-user"></i> Immunisation</h3>
+                        <h3><i class="icon-feather-user"></i>Immunisation</h3>
                     </div>
                     <div class="content with-padding js-accordion-body">
                         <form method="post" accept-charset="UTF-8" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-12">
                                     <h4>COVID-19 vaccine declaration :</h4>
-                                    <p>The federal Government mandated COVID-19 vaccination for all aged-care and disability support workers.You must declare your vaccination satus to provide in-person support.
+                                    <p>The federal Government mandated COVID-19 vaccination for all aged-care and disability support workers.You must declare your vaccination status to provide in-person support.
                                     <br><br>
-                                     Find the latest Government guidlines on the <a href="#">Department of Health Website</a>
+                                     Find the latest Government guidelines on the <a href="#">Department of Health Website</a>
                                     </p>
                                     <hr>
                             </div>   
@@ -57,6 +56,7 @@
                                     <h5>Most recent immunisation date <span class="required">*<span></h5>
                                     <input type="text" class="with-border margin-bottom-0" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-autoclose="true" data-date-language="{LANG_CODE}" name="recent_immunisation_date" value="{IMMUNISATION_DATE}" >
                                     IF("{IMMUNISATION_DATE_ERROR}"!=""){ {IMMUNISATION_DATE_ERROR} {:IF}
+
                                 </div>
                             </div>    
                             <div class="col-xl-12 mt-0 col-md-12 immu_info">
@@ -69,8 +69,13 @@
                                         <span class="uploadButton-file-name">Only pdf, doc, docx, rtf, rtx, ppt, pptx, jpeg, jpg, bmp, png file types allowed.</span>
                                         </div>
                                     </div>
-                                    
-                                    IF("{CERTIFICATE_ERROR}"!=""){ "{CERTIFICATE_ERROR}" {:IF}
+
+                                    <a href="{SITE_URL}storage/covid-certificates/{CERTIFICATE_FILE}" title="{CERTIFICATE_FILE}" style="margin-left:10px;" download>
+                                        <i class="fa fa-download">&nbsp;Download-Certificate</i>
+                                    </a>
+                                    <a href="{SITE_URL}storage/covid-certificates/{CERTIFICATE_FILE}" target="_blank"><span style="margin-left:15px;">{CERTIFICATE_FILE}</span></a>
+                                    IF("{CERTIFICATE_ERROR}"!=""){ {CERTIFICATE_ERROR} {:IF}
+                                   
                             </div>
                         </div>
                         <hr>
@@ -96,7 +101,7 @@
                                         <label for="No"><span class="radio-label"></span>{LANG_NO}</label>
                                     </div>
                                     <div class="radio margin-right-20">
-                                        <input class="with-gap" type="radio" name="is_flu_vaccinated" id="yes" value="1"  IF('{IS_FLU_VACCINATED}'=='1'){ checked {:IF}/>
+                                        <input class="with-gap" type="radio" name="is_flu_vaccinated" id="yes" value="1" IF('{IS_FLU_VACCINATED}'=='1'){ checked {:IF}/>
                                         <label for="yes"><span class="radio-label"></span>{LANG_YES}</label>
                                     </div>
                                 </div>
@@ -105,8 +110,7 @@
                         </div>
                         <button type="submit" name="submit" class="button ripple-effect">{LANG_SAVE_CHANGES}</button>
                         </form>
-                    </div>
-                   
+                    </div>   
                 </div>
             </div>        
         </div>
@@ -127,4 +131,11 @@
     //     }
 
     // });
+
+(function() {
+
+$("input[name=recent_immunisation_date]").datepicker();
+$('#input[name=recent_immunisation_date]').val('');
+
+})();
 </script>
