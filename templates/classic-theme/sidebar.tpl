@@ -136,6 +136,9 @@
                         <li class="IF(('{URISEGMENT}' == 'edit-profile') AND ('{PAGEURI}' == '') ){ active {:IF}"><a href="{LINK_EDITPROFILE}">{LANG_PROFILE_DETAILS}</a></li>
                         {:IF}
 
+                        <li class="IF('{PAGEURI}' == 'user-documents'){ echo active {:IF}"><a href="{LINK_USER_DOCUMENTS}"><i
+                        class="fa fa-file-text "></i> Documents</a></li>
+
                         <li class="IF('{PAGEURI}' == 'account'){ echo active {:IF}"><a href="{LINK_ACCOUNT}"><i
                                         class="fa fa-user "></i> Account Details</a></li>
 

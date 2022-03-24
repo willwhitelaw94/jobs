@@ -620,6 +620,7 @@ $lang['CONVERSATION_STARTER']='Conversation Starter';
 //Custom Fields
 $lang['SAVE_FIELDS']='Save Fields';
 $lang['IMMUNISATION_INFO']='Immunisation Info';
+$lang['ADD_DOCUMENT'] = 'Add New Document';
 
 $lang['NO']='No';
 $lang['YES_ONE_DOSE']='Yes, One dose';

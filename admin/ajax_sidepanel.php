@@ -110,6 +110,9 @@ if(isset($_GET['action'])){
 
     if ($_GET['action'] == "editUserImmunisationInfo") { editUserImmunisationInfo(); }
     
+    if ($_GET['action'] == "addDocuments") { addDocuments(); }
+    
+    
 }
 function companyEdit(){
     global $config,$lang;
@@ -3816,5 +3819,82 @@ function editUserImmunisationInfo(){
     echo $json;
     die();
 
+}
+
+function addDocuments(){
+    global $config,$lang;
+    //  echo "<pre>";
+    //  var_dump($_FILES);die;
+    $error=[];
+    if (isset($_POST['submit'])) {
+
+        $valid_formats = array("jpg","jpeg","png","pdf"); // Valid image formats
+
+        if(isset($_FILES['file']['name']))
+        {
+            $valid_formats = array("jpg","jpeg","png","pdf"); // Valid image formats
+            $filename = stripslashes($_FILES['file']['name']);
+            $ext = getExtension($filename);
+            $ext = strtolower($ext);
+            //File extension check
+            if (in_array($ext, $valid_formats)) {
+                $uploaddir = '../storage/documt/';
+                $original_filename = $_FILES['file']['name'];
+                $random1 = rand(9999,100000);
+                $random2 = rand(9999,200000);
+                $random3 = $random1.$random2;
+                $image_name =$random1.$random2.'.'.$ext;
+               // $image_name1 = 'small'.$random1.$random2.'.'.$ext; //second image name
+                $filename = $uploaddir . $image_name;
+               // $filename1 = $uploaddir . $image_name1; //second image save
+
+                $uploadedfile = $_FILES['file']['tmp_name'];
+                //else if it's not bigger then 0, then it's available '
+                //and we send 1 to the ajax request
+               if (resizeImage(500, $filename, $uploadedfile)) {
+                    //resize_crop_image(200, 200, $filename1, $uploadedfile);//resize image
+                    //$time = date('Y-m-d H:i:s', time());
+                    $now = date("Y-m-d H:i:s");
+                    $insert_user = ORM::for_table($config['db']['pre'].'user_documents')->create();
+                    $insert_user->status = 'submitted';
+                    $insert_user->file_path = $image_name;
+                    $insert_user->expiry_date = $_POST['expiry_date'];
+                    $insert_user->registration_number = $_POST['registration_number'];
+                    $insert_user->details = $_POST['description'];
+                    $insert_user->created_at = $now;
+                    $insert_user->updated_at = $now;
+                    $insert_user->save();
+                    $insert_req = ORM::for_table($config['db']['pre'].'requirements')->create();
+                    $insert_req->name = $_POST['document_type'];
+                    $insert_req->save();
+                    if ($insert_user->id()) {
+                        $status = "success";
+                        $message = $lang['SAVED_SUCCESS'];
+                    } else{
+                        $status = "error";
+                        $message = $lang['ERROR_TRY_AGAIN'];
+                    }
+                }
+            }
+            else {
+                $error = "Only allowed jpg, jpeg png";
+                $status = "error";
+                $message = $error;
+            }
+
+        } else {
+            $error = "Profile Picture Required";
+            $status = "error";
+            $message = $error;
+        }
+
+    } else {
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+
+    echo $json = '{"status" : "' . $status . '","message" : "' . $message . '"}';
+    echo $json;
+    die();
 }
 ?>
