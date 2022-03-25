@@ -1826,3 +1826,41 @@ function getAge($dob){
     return $diff;
 }
 
+function agreement_msg($status){
+    $usertype=$_SESSION['user']['user_type'];
+    $worker_agreement_msg=[
+    'default'=>'',
+    'requested'=>'%s has requested that you send them an agreement. <a href="#">Click here</a> for instruction on how to send an agreement.',
+    'sent'=>'You sent %s an offer',
+    'declined'=>'%s has declined agreement ',
+    'accepted' =>'Congratulations, %s hs booked you',
+    'changed' =>'You have changed %s\'s agreement',
+    ];
+    $client_agreement_msg=[
+    'default'=>'',
+    'requested'=>'You have requested an offer on %s',
+    'sent'=>'%s sent you an offer for acceptance',
+    'declined'=>'You have declined agreement of %s',
+    'accepted' =>'Congratulations, you have booked %s',
+    'changed' =>'%s\' has changed agreement',
+    ];
+    if($usertype=='employer'){
+        return $client_agreement_msg[$status];
+    }else{
+        return  $worker_agreement_msg[$status];
+    }
+
+}
+
+function create_activity_log(Array $data){
+    global $config;
+    $activity_log = ORM::for_table($config['db']['pre'].'activity_log')->create();
+    $activity_log->log_name=$data['log_name'];
+    $activity_log->status=$data['status'];
+    $activity_log->user_id=$_SESSION['user']['id'];
+    $activity_log->receiver_id=$data['receiver_id'];
+    $activity_log->post_id=$data['post_id'];
+    $activity_log->log_time=date('Y-m-d H:i:s');
+    $activity_log->save();
+}
+

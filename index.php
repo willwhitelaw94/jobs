@@ -169,7 +169,6 @@ if($match) {
     require APPPATH.$match['target'];
 }
 else {
-	
    header("HTTP/1.0 404 Not Found");
    require APPPATH.'404.php';
 }
