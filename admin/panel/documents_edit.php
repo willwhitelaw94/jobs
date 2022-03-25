@@ -1,7 +1,12 @@
 <?php
 require_once('../datatable-json/includes.php');
-$abId = isset($_GET['id'])? $_GET['id'] : "";
-
+$reqId = isset($_GET['id'])? $_GET['id'] : "";
+//print_r($abId);die;
+$jobRequirements = ORM::for_table($config['db']['pre'].'requirements')->find_array();
+$userRequirements = ORM::for_table($config['db']['pre'].'user')->find_array();
+$info = ORM::for_table($config['db']['pre'].'user_documents')->find_one($reqId);
+// echo "<pre>";
+// var_dump($info);die;
 
 ?>
 <header class="slidePanel-header overlay">
@@ -22,24 +27,45 @@ $abId = isset($_GET['id'])? $_GET['id'] : "";
         <form name="form2"  class="form form-horizontal" method="post" data-ajax-action="editDocuments" id="sidePanel_form">
             <div class="form-body">
                 <div class="row">
+                    <input type="hidden" name="id" value="<?php echo $info['id']; ?>">
+                <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="exampleInputfulltype">Select User<code>*</code></label>
+                            <select class="select2-user form-control" name="user_type">   
+                                <option></option>
+                                <?php 
+                                    if(!empty($userRequirements)) {
+                                        foreach($userRequirements as $userreq) {
+                                            ?>
+                                                <option value="<?php echo $userreq['id'] ?>" <?php if($info['user_id'] == $userreq['id']) { echo 'selected'; } ?>> <?php echo $userreq['name']; ?></option>
+                                            <?php
+                                        }
+                                    }
+                                ?>                              
+                            </select>
+                        </div>
+                    </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="exampleInputfulltype">Select Documents<code>*</code></label>
                             <select class="select2-icon form-control" name="document_type">   
                                 <option></option>
-                                <option value="Adhaar" data-select2-id="select2-data-10-e5hy">Adhaar Card</option>
-                                <option value="Covid" data-select2-id="select2-data-10-e5hy">Covid -19 Vaccination</option>
-                                <option value="Pan" data-select2-id="select2-data-10-e5hy">Pan Card</option>
-                                <option value="NSW" data-select2-id="select2-data-10-e5hy">NSW certificate</option>
-                                <option value="JRW" data-select2-id="select2-data-10-e5hy">JRW's Requirement</option>
-                                <option value="Dan" data-select2-id="select2-data-10-e5hy">Dan</option>
+                                <?php 
+                                    if(!empty($jobRequirements)) {
+                                        foreach($jobRequirements as $req) {
+                                            ?>
+                                                <option value="<?php echo $req['id'] ?>" <?php if($info['requirement_id'] == $req['id']){ echo 'selected';} ?>><?php echo $req['name']; ?></option>
+                                            <?php
+                                        }
+                                    }
+                                ?>                              
                             </select>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">Expiry Date<code>*</code></label>
-                            <input class="form-control input-sm" type="date" name="expiry_date" placeholder="Expiry Date" />
+                            <input class="form-control input-sm" type="date" name="expiry_date" placeholder="Expiry Date" value="<?php echo $info['expiry_date']; ?>" />
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -51,13 +77,13 @@ $abId = isset($_GET['id'])? $_GET['id'] : "";
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="registration_number">Registration Number</label>
-                            <input type="text" class="form-control" id="registration_number" placeholder="Enter Registration Number" name="registration_number" value="">
+                            <input type="text" class="form-control" id="registration_number" placeholder="Enter Registration Number" name="registration_number" value="<?php echo $info['registration_number'] ?>">
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label">Description</label>
-                            <textarea name="description" class="form-control" placeholder="Write Description"></textarea>
+                            <textarea name="description" class="form-control" placeholder="Write Description"><?php echo $info['details'] ?></textarea>
                         </div>
                     </div>
                 </div>
@@ -78,6 +104,9 @@ function formatText (icon) {
 $('.select2-icon').select2({
     placeholder: "Select Documents",
 });
-    
+  
+$('.select2-user').select2({
+    placeholder: "Select User",
+});   
 </script>
 

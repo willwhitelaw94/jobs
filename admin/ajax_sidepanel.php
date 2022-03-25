@@ -111,7 +111,7 @@ if(isset($_GET['action'])){
     if ($_GET['action'] == "editUserImmunisationInfo") { editUserImmunisationInfo(); }
     
     if ($_GET['action'] == "addDocuments") { addDocuments(); }
-    
+    if ($_GET['action'] == "editDocuments") { editDocuments(); }
     
 }
 function companyEdit(){
@@ -3836,6 +3836,7 @@ function addDocuments(){
             $filename = stripslashes($_FILES['file']['name']);
             $ext = getExtension($filename);
             $ext = strtolower($ext);
+            // var_dump($ext);die;
             //File extension check
             if (in_array($ext, $valid_formats)) {
                 $uploaddir = '../storage/documt/';
@@ -3844,40 +3845,48 @@ function addDocuments(){
                 $random2 = rand(9999,200000);
                 $random3 = $random1.$random2;
                 $image_name =$random1.$random2.'.'.$ext;
-               // $image_name1 = 'small'.$random1.$random2.'.'.$ext; //second image name
+                // $image_name1 = 'small'.$random1.$random2.'.'.$ext; //second image name
                 $filename = $uploaddir . $image_name;
-               // $filename1 = $uploaddir . $image_name1; //second image save
+                // $filename1 = $uploaddir . $image_name1; //second image save
 
                 $uploadedfile = $_FILES['file']['tmp_name'];
-                //else if it's not bigger then 0, then it's available '
+
+                move_uploaded_file($uploadedfile, $filename);
+                //else if it's not bigger then 0, then it's available'
                 //and we send 1 to the ajax request
-               if (resizeImage(500, $filename, $uploadedfile)) {
-                    //resize_crop_image(200, 200, $filename1, $uploadedfile);//resize image
-                    //$time = date('Y-m-d H:i:s', time());
-                    $now = date("Y-m-d H:i:s");
-                    $insert_user = ORM::for_table($config['db']['pre'].'user_documents')->create();
-                    $insert_user->status = 'submitted';
-                    $insert_user->file_path = $image_name;
-                    $insert_user->expiry_date = $_POST['expiry_date'];
-                    $insert_user->registration_number = $_POST['registration_number'];
-                    $insert_user->details = $_POST['description'];
-                    $insert_user->created_at = $now;
-                    $insert_user->updated_at = $now;
-                    $insert_user->save();
-                    $insert_req = ORM::for_table($config['db']['pre'].'requirements')->create();
-                    $insert_req->name = $_POST['document_type'];
-                    $insert_req->save();
-                    if ($insert_user->id()) {
-                        $status = "success";
-                        $message = $lang['SAVED_SUCCESS'];
-                    } else{
-                        $status = "error";
-                        $message = $lang['ERROR_TRY_AGAIN'];
-                    }
+                //  if (resizeImage(500, $filename, $uploadedfile)) {
+                //resize_crop_image(200, 200, $filename1, $uploadedfile);//resize image
+                //$time = date('Y-m-d H:i:s', time());
+                $now = date("Y-m-d H:i:s");
+                $insert_user = ORM::for_table($config['db']['pre'].'user_documents')->create();
+                $insert_user->status = 'submitted';
+                $insert_user->file_path = $image_name;
+                $insert_user->expiry_date = $_POST['expiry_date'];
+                $insert_user->registration_number = $_POST['registration_number'];
+                $insert_user->details = $_POST['description'];
+                $insert_user->extension = $ext;
+                $insert_user->requirement_id = $_POST['document_type'];
+                $insert_user->user_id = $_POST['user_type'];
+                $insert_user->created_at = $now;
+                $insert_user->updated_at = $now;
+                $insert_user->save();
+
+                // $insert_req = ORM::for_table($config['db']['pre'].'requirements')->create();
+                // $insert_req->name = $_POST['document_type'];
+                // $insert_req->created_at = $now;
+                // $insert_req->updated_at = $now;
+                // $insert_req->save();
+                if ($insert_user->id()) {
+                    $status = "success";
+                    $message = $lang['SAVED_SUCCESS'];
+                } else{
+                    $status = "error";
+                    $message = $lang['ERROR_TRY_AGAIN'];
                 }
+                // }
             }
             else {
-                $error = "Only allowed jpg, jpeg png";
+                $error = "Only allowed jpg, jpeg, png, pdf";
                 $status = "error";
                 $message = $error;
             }
@@ -3893,8 +3902,82 @@ function addDocuments(){
         $message = $lang['ERROR_TRY_AGAIN'];
     }
 
-    echo $json = '{"status" : "' . $status . '","message" : "' . $message . '"}';
+     $json = '{"status" : "' . $status . '","message" : "' . $message . '"}';
     echo $json;
     die();
 }
+
+function editDocuments(){
+    global $config, $lang;
+    // echo "<pre>";
+    // var_dump($_POST);die;
+    $error=[];
+    if (isset($_POST['submit'])) {
+
+        $valid_formats = array("jpg","jpeg","png","pdf"); // Valid image formats
+
+        if(isset($_FILES['file']['name']))
+        {
+            $valid_formats = array("jpg","jpeg","png","pdf"); // Valid image formats
+            $filename = stripslashes($_FILES['file']['name']);
+            $ext = getExtension($filename);
+            $ext = strtolower($ext);
+            // var_dump($ext);die;
+            //File extension check
+            if (in_array($ext, $valid_formats)) {
+                $uploaddir = '../storage/documt/';
+                $original_filename = $_FILES['file']['name'];
+                $random1 = rand(9999,100000);
+                $random2 = rand(9999,200000);
+                $random3 = $random1.$random2;
+                $image_name =$random1.$random2.'.'.$ext;
+                $filename = $uploaddir . $image_name;
+                $uploadedfile = $_FILES['file']['tmp_name'];
+
+                move_uploaded_file($uploadedfile, $filename);
+                $info = ORM::for_table($config['db']['pre'].'user_documents')
+                        ->select('file_path')
+                        ->find_one($_POST['id']);
+
+                        if(file_exists($uploaddir.$info['file_path'])){
+                            unlink($uploaddir.$info['file_path']);
+                        }
+                $now = date("Y-m-d H:i:s");
+                $update_user = ORM::for_table($config['db']['pre'].'user_documents')->find_one($_POST['id']);
+                $update_user->status = 'submitted';
+                $update_user->file_path = $image_name;
+                $update_user->expiry_date = $_POST['expiry_date'];
+                $update_user->registration_number = $_POST['registration_number'];
+                $update_user->details = $_POST['description'];
+                $update_user->extension = $ext;
+                $update_user->requirement_id = $_POST['document_type'];
+                $update_user->user_id = $_POST['user_type'];
+                $update_user->updated_at = $now;
+                $update_user->save();
+                if ($update_user->id()) {
+                    $status = "success";
+                    $message = $lang['SAVED_SUCCESS'];
+                } else{
+                    $status = "error";
+                    $message = $lang['ERROR_TRY_AGAIN'];
+                }
+            }else {
+                $error = "Only allowed jpg, jpeg, png, pdf";
+                $status = "error";
+                $message = $error;
+            }
+        }else {
+            $error = "Profile Picture Required";
+            $status = "error";
+            $message = $error;
+        }
+    }else {
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+        $json = '{"status" : "' . $status . '","message" : "' . $message . '"}';
+        echo $json;
+        die();   
+}
+
 ?>

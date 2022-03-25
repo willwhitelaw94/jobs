@@ -1,6 +1,11 @@
 <?php
 require_once('../datatable-json/includes.php');
 
+$jobRequirements = ORM::for_table($config['db']['pre'].'requirements')->find_array();
+$userRequirements = ORM::for_table($config['db']['pre'].'user')->find_array();
+// echo "<pre>";
+// var_dump($userRequirements);die;
+
 ?>
 <header class="slidePanel-header overlay">
     <div class="overlay-panel overlay-background vertical-align">
@@ -20,17 +25,37 @@ require_once('../datatable-json/includes.php');
         <form name="form2"  class="form form-horizontal" method="post" data-ajax-action="addDocuments" id="sidePanel_form">
             <div class="form-body">
                 <div class="row">
+                <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="exampleInputfulltype">Select User<code>*</code></label>
+                            <select class="select2-user form-control" name="user_type">   
+                                <option></option>
+                                <?php 
+                                    if(!empty($userRequirements)) {
+                                        foreach($userRequirements as $userreq) {
+                                            ?>
+                                                <option value="<?php echo $userreq['id'] ?>"><?php echo $userreq['name']; ?></option>
+                                            <?php
+                                        }
+                                    }
+                                ?>                              
+                            </select>
+                        </div>
+                    </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="exampleInputfulltype">Select Documents<code>*</code></label>
                             <select class="select2-icon form-control" name="document_type">   
                                 <option></option>
-                                <option value="Adhaar" data-select2-id="select2-data-10-e5hy">Adhaar Card</option>
-                                <option value="Covid" data-select2-id="select2-data-10-e5hy">Covid -19 Vaccination</option>
-                                <option value="Pan" data-select2-id="select2-data-10-e5hy">Pan Card</option>
-                                <option value="NSW" data-select2-id="select2-data-10-e5hy">NSW certificate</option>
-                                <option value="JRW" data-select2-id="select2-data-10-e5hy">JRW's Requirement</option>
-                                <option value="Dan" data-select2-id="select2-data-10-e5hy">Dan</option>
+                                <?php 
+                                    if(!empty($jobRequirements)) {
+                                        foreach($jobRequirements as $req) {
+                                            ?>
+                                                <option value="<?php echo $req['id'] ?>"><?php echo $req['name']; ?></option>
+                                            <?php
+                                        }
+                                    }
+                                ?>                              
                             </select>
                         </div>
                     </div>
@@ -76,6 +101,9 @@ function formatText (icon) {
 $('.select2-icon').select2({
     placeholder: "Select Documents",
 });
-    
+  
+$('.select2-user').select2({
+    placeholder: "Select User",
+}); 
 </script>
 

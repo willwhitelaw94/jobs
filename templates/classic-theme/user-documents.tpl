@@ -15,7 +15,10 @@
                         <form method="post" accept-charset="UTF-8" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-12">
-                                    <label>Documents</label>
+                                    <label>Select User</label>
+                                </div>
+                                <div class="col-12">
+                                    <label>Select Document</label>
                                 </div>
                             </div>
                         </form>

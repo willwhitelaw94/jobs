@@ -92,7 +92,13 @@ foreach ($queryRecords as $row) {
                 </label>
             </td>';
     $row1 = '<td class="text-center">
-                <div class="pull-left m-r"><img class="img-avatar img-avatar-48" src="../storage/documt/'.$file.'"></div>
+                <div class="pull-left m-r">';
+    if($row['extension'] == 'pdf') {
+        $row1 .= '<a target="blank" href="../storage/documt/'.$file.'">View PDF</a>';
+    } else {
+        $row1 .= '<a target="blank" href="../storage/documt/'.$file.'"><img class="img-avatar img-avatar-48" src="../storage/documt/'.$file.'"></a>';
+    }
+    $row1 .=    '</div>
             </td>';
     $row2 = '<td class="hidden-xs">'.$registration.'</td>';
     $row3 = '<td class="hidden-xs">'.$expiry_date.'</td>';
@@ -103,7 +109,7 @@ foreach ($queryRecords as $row) {
             <a href="javascript:void(0)" class="btn btn-xs btn-default item-js-delete" data-ajax-action="deleteDocuments"><i class="ion-close"></i></a>  
         </div>
         </td>';
-  
+    
     $value = array(
         "DT_RowId" => $id,
         0 => $row0,
