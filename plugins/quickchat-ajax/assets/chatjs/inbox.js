@@ -108,9 +108,9 @@ $(document).ready(function(){
         }return false;
     });
     setTimeout('chatHeartbeat();',chatHeartbeatTime);
-    if($('.start_wchat.active').length>0 || CHATID != ''){
-       setTimeout('agreementAction()',1000);
-    }
+    // if($('.start_wchat.active').length>0 || CHATID != ''){
+    //    setTimeout('agreementAction()',1000);
+    // }
    // setTimeout('agreementAction()',1000);
        
 });
@@ -989,13 +989,15 @@ jQuery.cookie = function(name, value, options) {
 function agreementAction(){
    
     var chatid,postid,userid,fullname,userimage,userstatus;
-    if((typeof CHATID !=='undefined' && typeof CHATID ==='null') || $('.start_wchat.active').length!=0){
-        chatid = $('.start_wchat.active').data('chatid');
-        postid = $('.start_wchat.active').data('postid');
-        userid = $('.start_wchat.active').data('userid');
-        fullname = $('.start_wchat.active').data('fullname');
-        userimage = $('.start_wchat.active').data('userimage');
-        userstatus = $('.start_wchat.active').data('userstatus');
+    if((typeof CHATID !=='undefined' && typeof CHATID ==='null') || ($('.active-chat').length!=0)){
+        var activechat=$('.active-chat').attr('id');
+        var active_id=activechat.substring(activechat.indexOf('_')+1); 
+        chatid = $('#contact_'+active_id+'').data('chatid');
+        postid = $('#contact_'+active_id+'').data('postid');
+        userid = $('#contact_'+active_id+'').data('userid');
+        fullname = $('#contact_'+active_id+'').data('fullname');
+        userimage =$('#contact_'+active_id+'').data('userimage');
+        userstatus =$('#contact_'+active_id+'').data('userstatus');
     }else{ 
         chatid = CHATID;
         postid = POSTID;
@@ -1005,7 +1007,6 @@ function agreementAction(){
         userstatus=CHAT_USERSTATUS;   
     }
     createAgreementBox(chatid,userid,postid)  
-   
     setTimeout('agreementAction();',5000);
     
 }
@@ -1020,52 +1021,53 @@ function createAgreementBox(chatid,userid,postid){
             type: "POST",
             data: {chatid:chatid,post_id: postid,chat_user_id:userid},
             success: function(resp) {
-                console.log(resp.replied)
                 $("#agreement_container").html(resp.tpl);
+            },
+            error:function(xhr){
+              console.log(xhr)
             }
-        });  
-   
-   // console.log(userid);
- //   var u_agr_section = '';
-    if(session_utype=='employer'){
-        u_agr_section= 
-        '<div class = "'+chatid+'section1">'+
-        '<h5>Interested in booking Diksha?</h5>'+
-        '<p>An agreements sets the rates and describe the services to be provides.<br>It\'s required before support can start to ensure the worker covered by <a href="#">insurance</a>.</p>'+
-        '</div>'
-    }else if(session_utype =='user'){
-        u_agr_section= 
-        '<div class = "'+chatid+'section1">'+
-        '<h5>Interested in booking Diksha?</h5>'+
-        '<p>An agreements sets the rates and describe the services to be provides.<br>It\'s required before support can start to ensure the worker covered by <a href="#">insurance</a>.</p>'+
-        '</div>'
-    }
-
+        }); 
 }
 
-$('body').on('click','.req_agr_btn',function(){
-  var chatid = $(this).data('chatid'); 
-  var postid = $(this).data('postid');
-  var userid = $(this).data('userid');
-  var status = 'requested';
-
-  $.ajax({
-    url: siteurl+plugin_directory+"?action=updateAgreementStatus",
-    cache: false,
-    dataType: "json",
-    type: "POST",
-    data: {postid: postid,userid:userid,status:status},
-    success: function(resp) {
-        if(resp.status){
-            $('#'+chatid+'_section').find('.section1').addClass('d-none')
-            $('#'+chatid+'_section').find('.activity_feed').removeClass('d-none')  
+$('body').on('click','.agr_btn',function(){
+var chatid = $(this).data('chatid'); 
+var postid = $(this).data('postid');
+var userid = $(this).data('userid');
+var status = $(this).data('status');
+    $.ajax({
+        url: siteurl+plugin_directory+"?action=updateAgreementStatus",
+        cache: false,
+        dataType: "json",
+        type: "POST",
+        data: {postid: postid,userid:userid,status:status},
+        success: function(resp) {
+            if(resp.status){
+                $('#'+chatid+'_section').find('.section1').addClass('d-none')
+                $('#'+chatid+'_section').find('.activity_feed').removeClass('d-none')  
+            }
+            console.log(resp.status)
+        },
+        error:function(xhr){
+        console.log(xhr)
         }
-        console.log(resp.status)
-    },
-    error:function(xhr){
-      console.log(xhr)
-    }
-}); 
-  
+    }); 
+    
 });
+
+$('body').on('click','#offer_agr_btn',function(){
+    var chatid = $(this).data('chatid'); 
+    var postid = $(this).data('postid');
+    var userid = $(this).data('userid');
+    var chatUserName = $(this).data('chatusername');
+    $('.chat_user_name').text(chatUserName);
+    $('#chat_section').addClass('d-none');
+    $('.agreement_section').addClass('d-none');
+    $('#agreement_form_section').removeClass('d-none');
+    $('input[name="client_id"]').val(userid);
+    $('input[name="post_id"]').val(postid);
+});
+
+
+
+
 

@@ -425,7 +425,7 @@ $('#snackbar-user-status label').click(function() {
     });   
 }); 
 </script>
-
+<!--
 <script>
     (function() {
         $(function() {
@@ -455,6 +455,6 @@ $('#snackbar-user-status label').click(function() {
             }
         });
     }).call(this);
-</script>
+</script> -->
 </body>
 </html>

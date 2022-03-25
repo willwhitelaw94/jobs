@@ -44,6 +44,7 @@ if(checkloggedin()) {
     // echo $session_user_id;
     // die;    
    // dd($is_first_chat);
+   $msg='';
    if(isset($_GET['postid'])){
     if($ses_userdata['user_type']=='employer'){
         $pro_url = create_slug($post_data['product_name']);
