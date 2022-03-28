@@ -620,7 +620,7 @@ $lang['CONVERSATION_STARTER']='Conversation Starter';
 //Custom Fields
 $lang['SAVE_FIELDS']='Save Fields';
 $lang['IMMUNISATION_INFO']='Immunisation Info';
-$lang['ADD_DOCUMENT'] = 'Add New Document';
+
 
 $lang['NO']='No';
 $lang['YES_ONE_DOSE']='Yes, One dose';
@@ -629,5 +629,28 @@ $lang['YES_ONE_BOOSTER']='Yes, One booster';
 $lang['CERTIFICATE_REQ']='COVID-19 Certificate is required';
 $lang['IMMUNISATION_INFO_UPDATED']='Immunisation info updated.';
 $lang['IMMUNISATION_DATE_REQ'] = 'Immunisation date required';
-//End Custom Fields
+
+//Document Section
+$lang['ADD_DOCUMENT'] = 'Add Document';
+$lang['SELECT_DOCUMENT'] = 'Select Document';
+$lang['EXPIRY_DATE']='Expiry Date';
+$lang['UPLOAD_DOCUMENT']='Upload Document';
+$lang['REGISTRATION_NUMBER']='Registration Number';
+$lang['Description']='Description';
+$lang['WRITE_DESCRIPTION']='Write Description';
+$lang['WRITE_REGISTRATION']='Enter Registration Number';
+$lang['WRITE_EXPIRY_DATE']='Enter Expiry Date';
+$lang['MY_DOCUMENT']='My Documents';
+$lang['DOCUMENT']='Documents';
+$lang['DOCUMENT_TYPE']='Document Type';
+$lang['REG_NUMBER']='Reg.No.';
+$lang['EXP_DATE']='Exp. Date';
+$lang['STATUS']='Status';
+$lang['EXPIRY_DATE_REQ'] = 'Expiry date required';
+$lang['DOCUMENT_REQ'] = 'Document is required';
+$lang['DOCUMENT_UPDATED']='Document updated.';
+$lang['DOCUMENT_DELETED']='Document Deleted';
+$lang['EDIT_DOCUMENT']='Edit Document';
+$lang['VIEW_DOCUMENT']='View Document';
+
 

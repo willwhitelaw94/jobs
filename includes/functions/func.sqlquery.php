@@ -2402,6 +2402,14 @@ function resumes_count($id){
     return $num_rows;
 }
 
+function documents_count($id){
+    global $config;
+    $num_rows = ORM::for_table($config['db']['pre'].'user_documents')
+        ->where('user_id' , $id)
+        ->count();
+    return $num_rows;
+}
+
 function companies_count($id){
     global $config;
     $num_rows = ORM::for_table($config['db']['pre'].'companies')

@@ -660,6 +660,29 @@ jQuery(function ($) {
         }
     });
 
+    $('.ajax-delete-document').on('click', function (e) {
+       
+        // Keep ads item click from being executed.
+        e.stopPropagation();
+        // Prevent navigating to '#'.
+        e.preventDefault();
+        // Ask user if he is sure.
+        var action = 'deleteDocument';
+        var $item = $(this).closest('.document-row');
+        var data = {action: action, id: $item.data('item-id')};
+        if (confirm(LANG_ARE_YOU_SURE)) {
+            $.post(ajaxurl + '?action=' + action, data, function (response) {
+                if (response != 0) {
+                    $item.remove();
+                    Snackbar.show({text: LANG_DOCUMENT_DELETED});
+                } else {
+                    Snackbar.show({text: LANG_ERROR_TRY_AGAIN});
+                }
+            });
+        }
+    });
+
+
     $('.ajax-delete-experience').on('click', function (e) {
         // Keep ads item click from being executed.
         e.stopPropagation();

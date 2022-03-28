@@ -52,7 +52,6 @@
                                             IF("{ACCOUNTNAME_ERROR}"!=""){ {ACCOUNTNAME_ERROR} {:IF}
                                         </div>
                                     </div>
-                                    
                                 </div>
                                 <div class="row">
                                     <div class="col-xl-12 col-md-12">

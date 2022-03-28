@@ -1,5 +1,4 @@
 <?php
-
 if(checkloggedin())
 {
     update_lastactive();
