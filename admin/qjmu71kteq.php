@@ -143,6 +143,7 @@ if(isset($_GET['action'])){
 
     if ($_GET['action'] == "deleteDocuments") { deleteDocuments(); }
    
+    if ($_GET['action'] == "deleteRequirement") { deleteRequirement(); }
 }
 
 if(isset($_POST['action'])){
@@ -4021,6 +4022,29 @@ function deleteDocuments(){
     }
 
 }
+
+function deleteRequirement(){
+    global $con,$config;
+    
+    if(isset($_POST['id']))
+    {
+        $_POST['list'][] = $_POST['id'];      
+    }
+    if (is_array($_POST['list'])) {
+       
+        $count = 0;
+        $sql = "DELETE from `".$config['db']['pre']."requirements` where id in(".implode(',', $_POST['list']).") ";
+        if(check_allow())
+            mysqli_query($con,$sql);
+        echo 1;
+        die();
+    } else {
+        echo 0;
+        die();
+    }
+}
+
+
 
 function save_user_custom_fields()
 {

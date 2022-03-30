@@ -249,6 +249,9 @@ if(isset($_SESSION['admin']['id'])){
                             <a href="documents.php"><i class="ion-document"></i> Documents</a>
                         </li>
                         <li class="nav-item">
+                            <a href="requirements.php"><i class="ion-card"></i> Requirements</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="admins.php"><i class="ion-android-contact"></i> Admin</a>
                         </li>
                         <li class="nav-item">

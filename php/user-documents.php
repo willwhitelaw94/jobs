@@ -40,7 +40,6 @@ if(checkloggedin())
     $page->SetParameter('WCHAT', (isset($config['wchat_on_off']))? $config['wchat_on_off']:"");
     $page->SetParameter ('OVERALL_FOOTER', create_footer());
     $page->SetParameter('USER_SIDEBAR', create_user_sidebar());
-
     $page->CreatePageEcho();
 }else{
 	headerRedirect($link['LOGIN']);

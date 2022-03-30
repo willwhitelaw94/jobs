@@ -64,7 +64,7 @@ foreach ($queryRecords as $row) {
     }
     elseif($status == "submitted")
     {
-        $status = '<span class="label label-info">SUBMITTED</span>';
+        $status = '<span class="label label-primary">SUBMITTED</span>';
     }
     elseif($status == "pending")
     {

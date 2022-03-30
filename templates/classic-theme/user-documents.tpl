@@ -75,7 +75,7 @@
                                     <td><a href="javascript:void(0)" title="{ITEM.details}" style="text-decoration:none; color: inherit; ">{ITEM.registration_number}</a></td>
                                     <td>{ITEM.expiry_date}</td>
                                     <td>
-                                        IF("{ITEM.status}"=="submitted"){<span class="label label-info">{ITEM.status}</span>{:IF}
+                                        IF("{ITEM.status}"=="submitted"){<span class="label label-primary">{ITEM.status}</span>{:IF}
                                         IF("{ITEM.status}"=="verified"){<span class="label label-success">{ITEM.status}</span>{:IF}
                                         IF("{ITEM.status}"=="requested"){<span class="label label-info">{ITEM.status}</span>{:IF}
                                         IF("{ITEM.status}"=="pending"){<span class="label label-warning">{ITEM.status}</span>{:IF}

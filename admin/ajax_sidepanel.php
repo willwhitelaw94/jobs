@@ -112,7 +112,9 @@ if(isset($_GET['action'])){
     
     if ($_GET['action'] == "addDocuments") { addDocuments(); }
     if ($_GET['action'] == "editDocuments") { editDocuments(); }
-    
+
+    if ($_GET['action'] == "addRequirement") { addRequirement(); }
+    if ($_GET['action'] == "editRequirement") { editRequirement(); } 
 }
 function companyEdit(){
     global $config,$lang;
@@ -3980,4 +3982,75 @@ function editDocuments(){
         die();   
 }
 
+function addRequirement(){
+    global $config,$lang;
+    // echo "<pre>";
+    // var_dump($_POST);die;
+    $error=[];
+    if (isset($_POST['submit'])) {
+        if ($_POST['name'] == "") {
+            $error = "Requirement Name Required";
+            $status = "error";
+            $message = $error;
+        }
+        if(empty($error)) {
+            $now=date('Y-m-d H:i:s');
+            $insert_requirement = ORM::for_table($config['db']['pre'].'requirements')->create();
+            $insert_requirement->name = $_POST['name'];
+            $insert_requirement->expiry_date = $_POST['expiry_date']? 1:'0';
+            $insert_requirement->upload = $_POST['upload']? 1:'0';
+            $insert_requirement->registration_number = $_POST['registration_number'] ? 1:'0';
+            $insert_requirement->status = $_POST['status'] ? 1:'0';
+            $insert_requirement->created_at = $now;
+            $insert_requirement->updated_at = $now;
+            $insert_requirement->save();
+            if ($insert_requirement->id()) {
+                $status = "success";
+                $message = $lang['SAVED_SUCCESS'];
+            } 
+        }else {
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+    }else{
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+    
+    $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
+    echo $json;
+    die();  
+}
+
+function editRequirement(){
+    global $config,$lang;
+    //  echo "<pre>";
+    // var_dump($_POST);die;
+    if (isset($_POST['id'])) {
+        $update_req = ORM::for_table($config['db']['pre'].'requirements')->find_one($_POST['id']);
+        $update_req->set('name', $_POST['name']);
+        $update_req->set('expiry_date', $_POST['expiry_date']? 1:'0');
+        $update_req->set('upload', $_POST['upload']? 1:'0');
+        $update_req->set('registration_number', $_POST['registration_number']? 1:'0');
+        $update_req->set('status', $_POST['status']? 1:'0');
+        $update_req->set('updated_at',date('Y-m-d H:i:s'));
+        $update_req->save();
+
+        if ($update_req) {
+            $status = "success";
+            $message = $lang['SAVED_SUCCESS'];
+        } else{
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+
+    } else {
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+
+    $json = '{"status" : "' . $status . '","message" : "' . $message . '"}';
+    echo $json;
+    die();
+}
 ?>
