@@ -17,7 +17,6 @@
         <!-- /.row -->
         <div class="row">
             <div class="col-sm-12">
-
                 <div class="white-box">
                     <div id="post_error"></div>
                     <form name="form2"  class="form form-horizontal" method="post" data-ajax-action="addRequirement" id="sidePanel_form">
