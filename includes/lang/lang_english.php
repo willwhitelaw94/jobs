@@ -652,5 +652,8 @@ $lang['DOCUMENT_UPDATED']='Document updated.';
 $lang['DOCUMENT_DELETED']='Document Deleted';
 $lang['EDIT_DOCUMENT']='Edit Document';
 $lang['VIEW_DOCUMENT']='View Document';
-
-
+//About
+$lang['ABOUT_ME']='About Me';
+$lang['ABOUT_ME_UPDATED']='About Me Updated';
+$lang['PREFERENCE']='Preference';
+$lang['PREFERENCE_UPDATED'] ='Preference Updated';

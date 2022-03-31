@@ -113,11 +113,13 @@ $router->map('GET|POST','/edit-profile/my-skills', 'my-skills.php');
 $router->map('GET|POST','/edit-profile/user-custom-fields', 'user-custom-fields.php');
 $router->map('GET|POST','/edit-profile/user-custom-fields', 'user-custom-fields.php');
 $router->map('GET|POST','/edit-profile/immunisation-info', 'immunisation-info.php');
-
+$router->map('GET|POST','/edit-profile/about-me', 'about-me.php');
+$router->map('GET|POST','/edit-profile/preference', 'preference.php');
 
 $router->map('GET|POST','/my-documents/[*:page]?/?', 'user-documents.php');
 $router->map('GET|POST','/add-document/?', 'add-user-document.php');
 $router->map('GET|POST','/edit-document/[i:id]?', 'add-user-document.php');
+
 // Wills Routes
 $router->map('GET|POST','/edit-profile/account', 'edit-account.php');
 $router->map('GET|POST','/accepted-jobs', 'accepted-job.php');

@@ -68,10 +68,13 @@ $link['EDIT_EDUCATION'] = $config['site_url'] . 'edit-profile/edit-education';
 $link['SKILLS'] = $config['site_url'] . 'edit-profile/my-skills';
 $link['USER_CUSTOM_FIELDS'] = $config['site_url'] . 'edit-profile/user-custom-fields';
 $link['IMMUNISATION_INFO'] = $config['site_url'] . 'edit-profile/immunisation-info';
+$link['ABOUT_ME'] = $config['site_url'] . 'edit-profile/about-me';
+$link['PREFERENCE'] = $config['site_url'] . 'edit-profile/preference';
 
 $link['MY_DOCUMENTS'] = $config['site_url'] . 'my-documents';
 $link['ADD_USER_DOCUMENT'] = $config['site_url'] . 'add-document';
 $link['EDIT_DOCUMENT'] = $config['site_url'] . 'edit-document';
+
 // Will Edit
 $link['ACCOUNT'] = $config['site_url'] . 'edit-profile/account';
 $link['ACCEPTED_JOBS'] = $config['site_url'] . 'accepted-jobs';
