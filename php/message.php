@@ -3,6 +3,8 @@ global $mysqli;
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 if(checkloggedin()) {
+    $client_comm=get_option('client_commission');
+    $worker_comm=get_option('worker_commission');
     $post_data=[];
     if(isset($_GET['postid'])){
         $postid = base64_url_decode($_GET['postid']);
@@ -39,11 +41,7 @@ if(checkloggedin()) {
         
         $is_first_chat = ($result->num_rows > 0) ? 0 : 1;
     }
-    // echo $userid;
-    // echo $post_id;
-    // echo $session_user_id;
-    // die;    
-   // dd($is_first_chat);
+ 
    $msg='';
    if(isset($_GET['postid'])){
     if($ses_userdata['user_type']=='employer'){
@@ -75,7 +73,7 @@ if(checkloggedin()) {
         $salary_min = price_format($ses_userdata['salary_min'],$ses_userdata['country']);
         $salary_max = price_format($ses_userdata['salary_max'],$ses_userdata['country']);
         $created = date('d M Y', strtotime($ses_userdata['created_at']));
-        $discription = ($ses_userdata['discription'] != '')? $ses_userdata['discription'] : 'Looking For Job';
+        $discription = ($ses_userdata['description'] != '')? $ses_userdata['description'] : 'Looking For Job';
         $fullname = ($ses_userdata['name'] != '')? $ses_userdata['name'] : $ses_userdata['username'];
         if(!empty($ses_userdata['city'])){
             $address = $ses_userdata['city'].','.$ses_userdata['country'];
@@ -99,57 +97,8 @@ if(checkloggedin()) {
         $msg.='</div></div>'; 
     }
    }
- 
-    // $sql = "select * from `".$config['db']['pre']."messages` where (to_id = '".$ses_userdata['id']."' AND from_id = '".$userid."' AND post_id = ".$postid.") order by message_id ASC limit 1";
-    // $query = $mysqli->query($sql);
-    // //$row = mysqli_fetch_assoc($query);
-    // if($query->num_rows > 0 ){
-    //   $alert_cls='d-none';
-    // }else{
-    //     $alert_cls='';
-    // }
-    // $agreement_sction = '';
-    // if($ses_userdata['user_type']=='employer'){
-    //     $agreement_sction.='
-    //     <div class = "section1">
-    //         <h5>Interested in booking '.$chat_fullname.'?</h5>
-    //        <p>An agreements sets the rates and describe the services to be provides.<br>It\'s required before support can start to ensure the worker covered by <a href="#">insurance</a>.</p>
-    //     </div>
-    //     <div class="" id="'.$ses_userdata['user_type'].'agr_btn_section">
-    //         <div class="notification error closeable alert_section '.$alert_cls.'">
-    //             <i class="icon-feather-alert-triangle "></i>
-    //             <span>To request an agreement from a worker you\'ll need to start conversation and worker response.</span>
-    //         </div>
-    //         <div class="agr_btn_section">
-    //         <button class="button ripple-effect">Request an agreement</button>
-    //         </div>
-    //     </div>
-    //    ';
-    // }elseif($ses_userdata['user_type']=='user'){
-    //     if($userdata['city']!=null){
-    //         $address = $userdata['city'].','.$userdata['state'];
-    //     }else{
-    //         $address = $userdata['country'];
-    //     }
-    //     $agreement_sction.=' 
-    //     <div class = "section1">
-    //        <div class="detail_cl">
-    //        <p>'.$userdata['name'].'<br>'.getAge($userdata['dob']).' Years old '.$userdata['sex'].'<br>'.$address.'</p>
-    //        </div>
-    //        <p>To schedule care with '.$userdata['username'].', agree your rate and schdule through chat, then offer an agreement.</p>
-    //     </div>
-    //     <div class="" id="'.$ses_userdata['user_type'].'agr_btn_section">
-    //         <div class="notification error closeable alert_section '.$alert_cls.'">
-    //             <i class="icon-feather-alert-triangle"></i>
-    //             <span>To send an agrrement to a client you\'ll need to start a conversation and client respond.</span>
-    //         </div>
-    //         <div class="agr_btn_section">
-    //              <button class="button ripple-effect">Offer an agreement</button>
-    //         </div>
 
-    //     </div>
-    //     ';
-    // }
+  
    
      
     $author_image = $ses_userdata['image'];
@@ -173,7 +122,9 @@ if(checkloggedin()) {
         $page->SetParameter('USER_SIDEBAR',create_user_sidebar());
         $page->SetParameter('OVERALL_FOOTER', create_footer());
         $page->SetParameter('COPYRIGHT_TEXT', $config['copyright_text']);
-        $page->SetParameter('AGREEMENT_SECTION','');
+   
+        $page->SetParameter('WORKER_COMMISSION',$worker_comm);
+        $page->SetParameter('CLIENT_COMMISSION',$client_comm);
         $page->CreatePageEcho();
     }
     elseif($config['wchat_on_off'] == 'on') {
@@ -194,6 +145,8 @@ if(checkloggedin()) {
         $page->SetParameter('CHAT_USERSTATUS',$chat_userstatus);
         $page->SetParameter('FISRT_CHAT',$is_first_chat);
         $page->SetParameter('USER_SIDEBAR',create_user_sidebar());
+        $page->SetParameter('WORKER_COMMISSION',$worker_comm);
+        $page->SetParameter('CLIENT_COMMISSION',$client_comm);
         $page->SetParameter('COPYRIGHT_TEXT', $config['copyright_text']);
         $page->CreatePageEcho();
     }else

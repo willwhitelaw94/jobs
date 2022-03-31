@@ -18,7 +18,13 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
     {:IF}
 <style>
 
-
+[data-repeater-item]:first-child [data-repeater-delete] { display: none; }
+.warning_section {
+    display: flex;
+    padding: 5px;
+    border-radius: 5px;
+    align-items: center!important;
+}
 </style>
 <!--<div id="titlebar" class="margin-bottom-0">
     <div class="container">
@@ -39,7 +45,7 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
 </div>-->
 
 <div class="section gray padding-bottom-50 padding-top-50">
-    <div class="container">
+    <div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-3 col-md-12">
 			{USER_SIDEBAR}
@@ -5752,20 +5758,20 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
 						<!--AGREEMENT SECTION-->
 						<div class="col-lg-3 col-md-12 js-accordion agreement_section">  
 							<div class="agreement_content_area" id="agreement_container">
-								<div class="agreement_first_sec">
+								<!-- <div class="agreement_first_sec">
 									<h5>Lorem Ipsum is simply</h5>
 									<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
-								</div>
-								<div class="warning_section notification error closeable">
+								</div> -->
+								<!-- <div class="warning_section notification error closeable">
 									<div class="alert_icon_d"><i class="icon-feather-alert-triangle"></i></div> 
 									<div>
 										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 									</div> 
-								</div> 
-								<div class="btn_section">
+								</div>  -->
+								<!-- <div class="btn_section">
 									<button class="button">Offer an agreement </button>
-								</div>
-								<div class="activity_feed">
+								</div> -->
+								<!-- <div class="activity_feed">
 									<h5>Activity Feed</h5>
 									<div class="repeat_div">
 										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the</p>
@@ -5775,43 +5781,43 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
 										<small>a few minute ago</small>
 										<hr>
 									</div>
-								</div>
-								<div class="ready_to_book">
+								</div> -->
+								<!-- <div class="ready_to_book">
 									<h5>Ready to Book Diksha</h5>
 									<div class="first_group_wrpa">
 										<strong>Lorem Ipsum has been the industry </strong>
 										<p>n publishing and graphic design, Lorem ipsum is a placeholder <a href="#">Read More</a></p>
 									</div>
-								</div>
-								<div class="warning_section notification success  closeable">
+								</div> -->
+								<!-- <div class="warning_section notification success closeable">
 									<div class="alert_icon_d"><i class="icon-feather-clock"></i></div> 
 									<div>
-										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+										<p class="text-success">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 									</div> 
-								</div> 
-								<div class="flat_rate">
+								</div>  -->
+								<!-- <div class="flat_rate">
 									<h5>Flat Rate</h5>
 									<h4>$57.55 <small>Per Hour</small></h4>
 									<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 								
 									<p><b>Lorem Ipsum has been the industry</b></p>
 									<p class="a_tag_btn"><a href="#">Lorem Ipsum has been the <i class="icon-feather-chevron-right"></i></a></p>
-								</div>
-								<br>
+								</div> -->
+								<!-- <br>
 								<strong>Lorem Ipsum has been the industry </strong>
 								<p>n publishing and graphic design</p>
 								<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 								<div class="btn_ag_t">
 									<button class="button decline_agreement">Decline</button>
-									<button class="button accept_agreement">Accept  agreement </button>
-								</div>
+									<a href="#accept-agreement-popup"  class="button custom-anchor-btn accept_agreement open-popup-link " style="text-decoration:none !important">Accept agreement</a>
+								</div> -->
 
-								<div class="warning_section notification warning   closeable">
+								<!-- <div class="warning_section notification warning   closeable">
 									<div class="alert_icon_d"><i class="icon-feather-clock"></i></div> 
 									<div>
 										<p>Details not correct ? the printing and the printing and the printing and.</p>
 									</div> 
-								</div> 
+								</div>  -->
 							</div>
 						</div>
 						<div class="col-lg-12 d-none" id="agreement_form_section">
@@ -5826,69 +5832,67 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
 										<input type="hidden" name="client_id" value="">
 										<div>
 											<h4>Offer a new agreement to <span class="chat_user_name"></span></h4>
-											<p>You must send an agrrement to <span class="chat_user_name"></span> and wait for them to accept before you can start providing care.</br>
+											<p>You must send an agreement to <span class="chat_user_name"></span> and wait for them to accept before you can start providing care.</br>
 											Make sure the rates and agreed service below reflect what you have discussed with them.</p>      
 										</div>
 										<div class="rates_cl">
 											<h4>Reates</h4>
 											<hr>
 										</div>
+										<!-- repeater section -->
 										<div class="reapeat_div repeater">
-											<div data-repeater-list="rates"  class="Wrap_div_cl ">
-												<div data-repeater-item class="row repeater_item">
-													<!-- <input type="text" class="myclass" id="my-id" /> -->
-													
-													<div class="col-lg-12">
-															<div class="submit-field m-b-0">
-																<h5>Description <span class="required">*</span></h5>
-																<input type="text"  name="description" class="with-border margin-bottom-0 myclass " value=""  placeholder="e.g. weekdays">
-														
-															</div>
-													</div>
-													<div class="col-lg-12">
-															<h5>Agreed Rates</h5>
-															<small>Include 10% worker service fees.</small>
-															<div class="row no_gutters_cl">
-															<div class="col-lg-4">
-																<div class="submit-field mb-0 cust_inpt_cl">
-																	<div class="input-with-icon-left">
-																		<i class="icon-feather-dollar-sign"></i>
-																		<input type="number" class="with-border rates " id="" name="rate" placeholder="" value="25"  autocomplete="off">
-																	</div>
-																	
+												<div data-repeater-list="rates"  class="Wrap_div_cl ">
+													<div data-repeater-item class="row repeater_item">
+														<div class="col-lg-12">
+																<div class="submit-field m-b-0">
+																	<h5>Description <span class="required">*</span></h5>
+																	<input type="text"  name="description" class="with-border margin-bottom-0 description " value=""  placeholder="e.g. weekdays">
 																</div>
-															</div>
-															<div class="col-lg-4">
-																<div class="radio m_re_c">
-																		<input class="per-hour" name="rate_type" type="radio" checked="" value="1" id="per_hour_0">
-																		<label  class="per-hour-label" for="per_hour_0"><span class="radio-label"></span>Per Hour</label>
-																</div>
-															</div>
-															<div class="col-lg-4">
-																<div class="radio m_re_c">
-																		<input class="flat-rate" name="rate_type" type="radio" value="2" id="flat_rate_0">
-																		<label class="flat-rate-label" for="flat_rate_0"><span class="radio-label"></span>Flat Rate</label>
-																</div>
-															</div>
-															<div class="col-lg-12">
-																<p class="net_rate_cl"><strong><i class="icon-feather-alert-circle"></i> Net rate you will be paid is <span class="net_rate">$22.50</span></strong> </p>
-															</div>
-															</div>
-													</div>
-													
-													<div class="col-lg-12">
-														<div class="del_btn_cl">
-															<button  data-repeater-delete type="button" value="Delete"><i class="icon-feather-trash"></i> Delete rate</button>       
 														</div>
-														<hr>
+														<div class="col-lg-12">
+																<h5>Agreed Rates</h5>
+																<small>Include 10% worker service fees.</small>
+																<div class="row no_gutters_cl">
+																<div class="col-lg-4">
+																	<div class="submit-field mb-0 cust_inpt_cl">
+																		<div class="input-with-icon-left">
+																			<i class="icon-feather-dollar-sign"></i>
+																			<input type="text" class="with-border rates " id="" name="rate" placeholder="" value="25"  autocomplete="off">
+																		</div>
+																		
+																	</div>
+																</div>
+																<div class="col-lg-4">
+																	<div class="radio m_re_c">
+																			<input class="per-hour" name="rate_type" type="radio" checked value="per-hour" id="per_hour_0">
+																			<label  class="per-hour-label" for="per_hour_0"><span class="radio-label"></span>Per Hour</label>
+																	</div>
+																</div>
+																<div class="col-lg-4">
+																	<div class="radio m_re_c">
+																			<input class="flat-rate" name="rate_type" type="radio" value="flat-rate" id="flat_rate_0">
+																			<label class="flat-rate-label" for="flat_rate_0"><span class="radio-label"></span>Flat Rate</label>
+																	</div>
+																</div>
+																<div class="col-lg-12">
+																	<p class="net_rate_cl"><strong><i class="icon-feather-alert-circle"></i> Net rate you will be paid is <span class="net_rate">$22.50</span></strong> </p>
+																</div>
+																</div>
+														</div>
+														<div class="col-lg-12">
+															<div class="del_btn_cl">
+																<button  data-repeater-delete type="button" value="Delete"><i class="icon-feather-trash"></i> Delete rate</button>       
+															</div>
+															<hr>
+														</div> 
 													</div>
-													
 												</div>
-											</div>
-											<div class="add_btn_cl">
-												<button class="button gray ripple-effect" data-repeater-create type="button" value="Add"> Add another rate</button>    
-											</div>
+												<div class="add_btn_cl">
+													<button class="button gray ripple-effect" data-repeater-create type="button" value="Add"> Add another rate</button>    
+												</div>
+										
 										</div>
+										<!-- repeater section end-->
 										<div class="agreed_services_cl">
 											<div class="row">
 												<div class="col-lg-12">
@@ -5910,6 +5914,7 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
 												</div>
 											</div>
 										</div>
+										<input type="hidden" value="" name="status">
 										<div class="two_btn_wrap">
 											<div>
 												<button type="submit" name="submit" class="button dark ripple-effect ">{LANG_CANCEL}</button>
@@ -5926,7 +5931,70 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
 			</div>
 		</div>
     </div>
+	<div id="accept-agreement-popup" class="zoom-anim-dialog mfp-hide dialog-with-tabs popup-dialog cust_mskd_ew">
+		<ul class="popup-tabs-nav b_cl_hg">
+			<li><h4>Accept agreement</h4></li>
+		</ul>
+		<div class="popup-tabs-container">
+			<div class="wrap_accept_model">
+				<div class="warning_section notification warning   closeable">
+					<div class="alert_icon_d"><i class="icon-feather-check-circle"></i></div> 
+					<div>
+						<p>You have hired <span class="worker_name"></span></p>
+					</div> 
+				</div>
+				<small>Do you like to mark this support description as filled?</small>
+
+				<div class="accept_btn_click">
+                      <button class="btn_one_cl support_description_filled" data-value="1" data-postid="">Yes, no other workers are needed <i class="icon-feather-chevron-right "></i></button>
+					  <button class=" btn_two_cl support_description_filled" data-value="0" data-postid="">No, I'm looking for other workers as well <i class="icon-feather-chevron-right"></i></button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div id="view-agreement-popup" class="zoom-anim-dialog mfp-hide dialog-with-tabs popup-dialog cust_mskd_ew">
+		<ul class="popup-tabs-nav b_cl_hg">
+			<li><h4></h4></li>
+		</ul>
+		<div class="popup-tabs-container">
+	    	<div class="client_popup_cl">
+                  <div class="header_secclient">
+					<h5><span class="agr_title"></span> <span class="label label-primary agr_status primary_status_label"></span></h5>
+					<h4 class="sub_heading_cl_n">Agreement with <span class="chat_user_name"></span></h4>
+					<h6 class="rates_hdng_cl">Retes</h6>
+				    <div class="table_wraper_cl">
+						<table class="table" id="rates_section">
+							<!-- <tr>
+								<th>Monday</th>
+								<td>25/ Hour</td>
+								<td>25/ Hour</td>
+							</tr>
+							
+							<tr>
+								<th>Monday</th>
+								<td>25/ Hour</td>
+							</tr>
+							<tr>
+								<th>Tuesday</th>
+								<td>25/ Hour<br>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual</td>
+								<td></td>
+							</tr> -->
+						  
+						</table>
+					</div>
+					<h6 class="rates_hdng_cl">Agreed Services</h6>
+					<p class="discription_agreed">
+						In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content.
+					</p>
+				  </div>
+			</div>
+		</div>
+	</div>
+	
 </div>
+
 
 <link media="all" rel="stylesheet" type="text/css"
       href="{SITE_URL}templates/{TPL_NAME}/assets/plugins/simditor/styles/simditor.css"/>
@@ -5946,6 +6014,7 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.{LANG_CODE}.min.js" charset="UTF-8"></script>
 <script></script>
 <script src="{SITE_URL}templates/{TPL_NAME}/js/jquery.validate.min.js"></script>
+ <script type="text/javascript" src="{SITE_URL}plugins/quickchat-ajax/assets/bootstrap/dist/js/bootstrap.min.js"></script>
 {OVERALL_FOOTER}
 <script>
     var siteurl = '{SITE_URL}';
@@ -5982,6 +6051,8 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
     var FIRST_CHAT={FIRST_CHAT};
     var session_utype = "{USERTYPE}";
     var FIRST_MSG ='{FIRST_MSG}';
+	var CLIENT_COMMISSION ='{CLIENT_COMMISSION}';
+	var WORKER_COMMISSION ='{WORKER_COMMISSION}';
 </script>
 
 <script type="text/javascript">
@@ -5997,7 +6068,7 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
     }); 
 </script>
 <script type="text/javascript">
-    	$(document).ready(function() {
+$(document).ready(function() {
 		var $agreementForm = $("#agreement-form"),$form=
 		$agreementForm.validate({
 			ignore: [':not(checkbox:hidden)'],
@@ -6022,13 +6093,22 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
 				// submitForm();
 				// return false;
 				e.preventDefault();
-				console.log(form,e);
 				$.ajax({
                    type: $(form).attr('method'),
                    url: siteurl+plugin_directory+"?action=sendAgreement",
                    data: $(form).serialize(),
+				   dataType: "json",
+
                 })
                 .done(function (response) {
+					if(response.status){
+						$('#agreement-form')[0].reset();
+						$('#chat_section').removeClass('d-none');
+						$('.agreement_section').removeClass('d-none');
+						$('#agreement_form_section').addClass('d-none');
+					}else{
+
+					}
 					console.log(response)
                 }).error(function(response){
                    console.log(response)
@@ -6056,14 +6136,12 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
 				var f_id='flat_rate_'+window.id;
 				//$(this).find('input[type="number"]').val(25);
                 $(this).find('input[type="radio"].per-hour').attr("id",p_id);
-				$(this).find('input[type="radio"].per-hour').prop('checked',true);;
+			 	//$(this).find('input[type="radio"].per-hour').prop('checked',true);;
 				$(this).find("label.per-hour-label").attr("for", p_id);
 				$(this).find('input[type="radio"].flat-rate').attr( "id", f_id);
 				$(this).find("label.flat-rate-label").attr("for", f_id);
 				window.id++;
 				validateFields();
-
-
             },
 			hide: function (deleteElement) {
 				if (confirm('Are you sure you want to delete this element?')) {
@@ -6077,7 +6155,7 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
             isFirstItemUndeletable: true
         });
 
-		$(document).on('keyup','input[type="number"]',function(){
+		$(document).on('keyup','input[type="text"].rates',function(){
            var rate_v=parseFloat($(this).val());
 		   var worker_cm=parseInt(10);
 		   var netrate= parseFloat(rate_v-(rate_v*worker_cm/100)).toFixed(2);
@@ -6091,29 +6169,241 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
 			$('#chat_section').removeClass('d-none');
 			$('.agreement_section').removeClass('d-none');
 			$('#agreement_form_section').addClass('d-none');
-			//$agreementForm.validateDestroy();	
+		
 		});
 
-    });
-	
-	function validateFields(){
-			$( ".myclass" ).each(function () {
-				$(this).rules('add', {
-					required: true,
-					messages: {
-						required: "Please enter a rate description"
+		$('body').on('click','.agr_btn',function(){
+			var chatid = $(this).data('chatid'); 
+			var postid = $(this).data('postid');
+			var userid = $(this).data('userid');
+			var status = $(this).data('status');
+			$.ajax({
+				url: siteurl+plugin_directory+"?action=updateAgreementStatus",
+				cache: false,
+				dataType: "json",
+				type: "POST",
+				data: {postid: postid,userid:userid,status:status},
+				success: function(resp) {
+					if(resp.status){
+						$('#'+chatid+'_section').find('.section1').addClass('d-none')
+						$('#'+chatid+'_section').find('.activity_feed').removeClass('d-none')  
 					}
-				});
-			});	
-			$(".rates" ).each(function () {
-				$(this).rules('add', {
-					required: true,
-					messages: {
-						required: "Please enter a valid rate"
-					}
-				});
-			});
-		}
+					console.log(resp.status)
+				},
+				error:function(xhr){
+				console.log(xhr)
+				}
+			}); 
+			
+		});
 
+		//Worker Actions
+		$('body').on('click','#offer_agr_btn',function(){
+		// var chatid = $(this).data('chatid'); 
+			var postid = $(this).data('postid');
+			var userid = $(this).data('userid');
+			var chatUserName = $(this).data('chatusername');
+			console.log(postid)
+			var status = $(this).data('status');
+			$('.chat_user_name').text(chatUserName);
+			$('#chat_section').addClass('d-none');
+			$('.agreement_section').addClass('d-none');
+			$('#agreement_form_section').removeClass('d-none');
+			$('input[name="client_id"]').val(userid);
+			$('input[name="status"]').val(status);
+			$('input[name="post_id"]').val(postid);
+		});
+		//Employer Action
+		$('body').on('click','.decline_agreement',function(){
+			var postid = $(this).data('postid');
+			var userid = $(this).data('userid');
+			var status = $(this).data('status');
+			console.log(status);
+			$.ajax({
+				url: siteurl+plugin_directory+"?action=updateAgreementStatus",
+				cache: false,
+				dataType: "json",
+				type: "POST",
+				data: {postid: postid,userid:userid,status:status},
+				success: function(resp) {
+					if(resp.status){
+						agreementAction();  
+					}
+				},
+				error:function(xhr){
+					console.log(xhr)
+				}
+			})
+
+		});
+
+		$('body').on('click','.edit_agreement',function(){
+			var postid = $(this).data('postid');
+			var userid = $(this).data('userid');
+			var agreementid=$(this).data('agreement_id');
+			var chatUserName = $(this).data('chatusername');
+			var status = $(this).data('status');
+			$('.chat_user_name').text(chatUserName);
+			$('#chat_section').addClass('d-none');
+			$('.agreement_section').addClass('d-none');
+			$('#agreement_form_section').removeClass('d-none');
+			$('input[name="client_id"]').val(userid);
+			$('input[name="post_id"]').val(postid);
+			$('input[name="status"]').val(status);
+			$.ajax({
+					url: siteurl+plugin_directory+"?action=getAgreementRate",
+					cache: false,
+					dataType: "json",
+					type: "POST",
+					data: {agreementid:agreementid},
+					success: function(resp) {
+					    if(resp.status){
+							repeater.setList(resp.rates);
+							$('textarea[name="agreed_services"]').val(resp.agreement_data.agreed_services);
+						}
+						calculateNetRate();	
+					},
+					error:function(xhr){
+					    console.log(xhr)
+					}
+				}); 
+		});
+
+		$('body').on('click','.accept_agreement',function(){
+			var postid = $(this).data('postid');
+			var userid = $(this).data('userid');
+			var status = $(this).data('status');
+			var chatUserName = $(this).data('chatusername');
+			$('.support_description_filled').data('postid',postid);
+			$('.worker_name').text(chatUserName);
+			$.ajax({
+				url: siteurl+plugin_directory+"?action=updateAgreementStatus",
+				cache: false,
+				dataType: "json",
+				type: "POST",
+				data: {postid: postid,userid:userid,status:status},
+				success: function(resp) {
+					if(resp.status){
+						console.log(resp.status)
+						console.log('diksha')
+						$('.open-popup-link').magnificPopup({
+							type: 'inline',
+							midClick: true,
+							mainClass: 'mfp-fade'
+						}).magnificPopup('open');
+					}
+				},
+				error:function(xhr){
+					console.log(xhr)
+				}
+			})
+		});
+
+		$('.support_description_filled').click(function(){
+			var value=$(this).data('value');
+			var postid = $(this).data('postid');
+			$.ajax({
+				url: siteurl+plugin_directory+"?action=jobFilledStatus",
+				cache: false,
+				dataType: "json",
+				type: "POST",
+				data: {postid: postid,value:value},
+				success: function(resp) {
+					if(resp.status){
+						$('.open-popup-link').magnificPopup('close');
+					}
+				},
+				error:function(xhr){
+					console.log(xhr)
+				}
+			})
+		})
+
+		$('body').on('click','.view-agreement',function(){
+			var agreementid=$(this).data('agreement_id');
+			//fullname = $('#contact_'+active_id+'').data('fullname');
+			$.ajax({
+					url: siteurl+plugin_directory+"?action=getAgreementRate",
+					cache: false,
+					dataType: "json",
+					type: "POST",
+					data: {agreementid:agreementid},
+					success: function(resp) {
+					    if(resp.status){
+						   var user_type=resp.chat_user_type;
+                           $('.agr_title').text(resp.agreement_title)
+						   $('.agr_status').text((resp.agreement_data.status).toUpperCase())
+						  
+			               $('.chat_user_name').text(resp.chat_user_name+' ('+resp.chat_user_type+') ');
+						   $('.discription_agreed').text(resp.agreement_data.agreed_services)
+						 
+                            var rateSec = $('#rates_section');
+							rateSec.empty();
+						    $.each(resp.rates, function(index,val) {
+								var str =(val.rate_type.replace('-',' '));
+								str=str.replace(/^(.)|\s+(.)/g, c => c.toUpperCase());
+		                        var rate=parseFloat(val.rate);
+								var rate_to_pay=0;
+								if(user_type=='client'){
+									rate_to_pay =parseFloat(rate+(rate*parseInt(CLIENT_COMMISSION)/100)).toFixed(2);
+								}else{
+									rate_to_pay =parseFloat(rate-(rate*parseInt(WORKER_COMMISSION)/100)).toFixed(2);
+								}
+							
+								var text="Based of on an agreed rate of $"+rate+". Inclusive of all plateform fees.";
+								rateSec.append(
+									$('<tr><th>'+val.description+'</th><td>$'+rate_to_pay+' '+str+'<br>'+text+'</td></tr>')
+						        );
+							});	
+
+							$('.view-agreement').magnificPopup({
+								type: 'inline',
+								midClick: true,
+								mainClass: 'mfp-fade'
+						    }).magnificPopup('open');
+							// repeater.setList(resp.rates);
+							// $('textarea[name="agreed_services"]').val(resp.agreed_services);
+						}
+						calculateNetRate();
+						
+					},
+					error:function(xhr){
+					    console.log(xhr)
+					}
+				}); 
+		});
+
+
+});
+
+function calculateNetRate(){
+	var worker_cm=WORKER_COMMISSION;
+	$('input[type="text"].rates').each(function( index ) {
+		var rate_v=parseFloat($(this).val());
+	    var netrate= parseFloat(rate_v-(rate_v*worker_cm/100)).toFixed(2);
+	    $(this).parent().closest('.row').find('.net_rate').text('$'+netrate);
+	}); 
+}
+	
+function validateFields(){
+	$( ".description" ).each(function () {
+		$(this).rules('add', {
+			required: true,
+			messages: {
+				required: "Please enter a rate description"
+			}
+		});
+	});	
+	$(".rates" ).each(function () {
+		$(this).rules('add', {
+			required: true,
+			number: true,
+			messages: {
+				required: "Please enter a valid rate",
+				number:'Please enter a valid rate',
+			}
+		});
+	});
+}
 
 </script>
