@@ -44,10 +44,8 @@ if ($_GET['action'] == "startchatsession") { startChatSession(); }
 if ($_GET['action'] == "agreementAction") { agreementAction(); }
 if ($_GET['action'] == "updateAgreementStatus") { updateAgreementStatus(); }
 if ($_GET['action'] == "sendAgreement") { sendAgreement();}
-
-
-
-
+if ($_GET['action'] == "getAgreementRate") { getAgreementRate();}
+if ($_GET['action'] == "jobFilledStatus") { jobFilledStatus();}
 
 function get_userdata($id){
     global $con,$config;
@@ -567,21 +565,23 @@ function agreementAction(){
     $resp = [];
     $ses_user_data=ORM::for_table($config['db']['pre'].'user')->find_one($GLOBALS['sesId'])->as_array();
     $chat_user_data=ORM::for_table($config['db']['pre'].'user')->find_one($_POST['chat_user_id'])->as_array();
+    $chat_fullname = ($chat_user_data['name'] != '')? $chat_user_data['name'] : $chat_user_data['username'];
     $user_type= $_SESSION['user']['user_type'];
     $post_id = $_POST['post_id'];
     $chatid=$_POST['chatid'];
     
+    $job_data=ORM::for_table($config['db']['pre'].'product')->select_many('id','product_name','slug')->find_one($post_id);
+   // echo ORM::get_last_query();
+   // print_r($job_data);die;
     $initiated_msg= ORM::for_table($config['db']['pre'].'messages')->where(['post_id'=>$post_id,'message_type'=>'html'])->find_one();
     if($initiated_msg['from_id']==$GLOBALS['sesId']){
-        $started_by_me=true;
         $sql = "select * from `".$config['db']['pre']."messages` where (to_id = '".mysqli_real_escape_string($con,$GLOBALS['sesId'])."' AND from_id = '".mysqli_real_escape_string($con,$_POST['chat_user_id'])."' AND post_id = ".$post_id.") order by message_id ASC limit 1";
     }else{
-        $started_by_me = false;
         $sql = "select * from `".$config['db']['pre']."messages` where (from_id = '".mysqli_real_escape_string($con,$GLOBALS['sesId'])."' AND to_id = '".mysqli_real_escape_string($con,$_POST['chat_user_id'])."' AND post_id = ".$post_id.") order by message_id ASC limit 1";
     }
     $resp=['ses_user_data'=>$ses_user_data,'chat_user_data'=>$chat_user_data];
     $query = $con->query($sql);
-
+      
     if($chat_user_data['city']!=null){
         $address = $chat_user_data['city'].','.$chat_user_data['state'];
     }else{
@@ -589,56 +589,176 @@ function agreementAction(){
     }  
     $user_d_tpl = '
     <div class = "agreement_first_sec">
-        <p><b>'.$chat_user_data['name'].'<br>'.getAge($chat_user_data['dob']).' Years old '.$chat_user_data['sex'].'<br>'.$address.'</b></p>
+        <p><b>'.$chat_fullname.'<br>'.getAge($chat_user_data['dob']).' Years old '.$chat_user_data['sex'].'<br>'.$address.'</b></p>
         <p>This client is self managed through Trilogy care.</p>
-        <p>To schedule care with '.$chat_user_data['username'].', agree your rate and schdule through chat, then offer an agreement.</p>
+        <p>To schedule care with '.$chat_fullname.', agree your rate and schdule through chat, then offer an agreement.</p>
     </div>
    ';
     $activity_log = ORM::for_table($config['db']['pre'].'activity_log')
     ->where_like('log_name', '%agreement%')
     ->where('post_id',$post_id)
     ->where_raw('( `receiver_id` = '.$GLOBALS['sesId'].' OR `user_id`= '.$GLOBALS['sesId'].')')
-    ->limit(5)->order_by_asc('id')->find_many();
+    ->limit(5)->order_by_desc('id')->find_many();
+
+  
+    if($user_type=='user'){
+      $worker_id=$GLOBALS['sesId'];
+    }else{
+       $worker_id=$chat_user_data['id'];
+    }
+
+    $agr_data = ORM::for_table($config['db']['pre'].'user_agreements')->where(['post_id'=>$post_id,'worker_id'=>$worker_id])->find_one();
+  //  echo ORM::get_last_query();
+    //print_r( $agr_data );die;
+    $ac_feed_tpl = ' 
+    <div class="activity_feed">
+    <h5>Activity Feed</h5>';
+    foreach($activity_log as $act_log){
+        if($act_log['status']=='accepted'){
+            $msg =sprintf(agreement_msg($act_log['status']),$chat_fullname,$agr_data['id']) ;
+        }else{
+            $msg =sprintf(agreement_msg($act_log['status']),$chat_fullname) ;
+        }
+        
+         $ac_feed_tpl.='<p>'.$msg.'</p> <small>'.timeAgo($act_log['log_time']).'</small><hr>';   
+    }
+    $ac_feed_tpl.='</div>';
     // echo ORM::get_last_query();
     // print_r($activity_log);die;
 
     if($query->num_rows > 0){
         $resp['replied']=1;
         if($user_type=='user'){
-            $agr_data = ORM::for_table($config['db']['pre'].'user_agreements')->where(['post_id'=>$post_id,'worker_id'=>$GLOBALS['sesId']])->find_one();
-            $user_d_tpl.=' 
-            <div class="btn_section">
-                <button class="button ripple-effect" id="offer_agr_btn" data-chatusername='.$chat_user_data['username'].' data-chatid='.$chatid.' data-postid='.$post_id.' data-userid='.$_POST['chat_user_id'].'>Offer an agreement</button>
-            </div>';
             if($agr_data){
-                $user_d_tpl.='	
-                <div class="activity_feed">
-                    <h5>Activity Feed</h5>';
-                    foreach($activity_log as $act_log){
-                        $msg =sprintf(agreement_msg('requested'),$chat_user_data['username']) ;
-                        $user_d_tpl.='<p>'.$msg.'</p> <small>'.timeAgo($act_log['log_time']).'</small><hr>';   
-                   }
-                   $user_d_tpl.='</div>';
+                switch ($agr_data['status']) {
+                    case 'requested':
+                        $user_d_tpl.=' 
+                        <div class="btn_section">
+                            <button class="button ripple-effect" id="offer_agr_btn" data-chatusername='.$chat_fullname.' data-chatid='.$chatid.' data-postid='.$post_id.' data-userid='.$_POST['chat_user_id'].' data-status="sent">Offer an agreement</button>
+                        </div>';
+                        break;
+                    case 'sent':
+                        $user_d_tpl.=' 
+                        <div class="btn_section">
+                            <button class="button ripple-effect edit_agreement" id="" data-agreement_id='.$agr_data['id'].'  data-chatid='.$chatid.' data-postid='.$post_id.' data-userid='.$_POST['chat_user_id'].' data-status="sent">Edit last sent offer</button>
+                        </div>';
+                        break;
+                    case 'declined': 
+                        $user_d_tpl.=' 
+                        <div class="btn_section">
+                            <button class="button ripple-effect" id="offer_agr_btn" data-chatusername='.$chat_fullname.' data-chatid='.$chatid.' data-postid='.$post_id.' data-userid='.$_POST['chat_user_id'].' data-status="sent">Offer an agreement</button>
+                        </div>';
+                        break; 
+                    case 'accepted': 
+                    case 'changed':
+                        $user_d_tpl.=' 
+                        <div class="btn_section">
+                            <button class="button ripple-effect edit_agreement" id="" data-agreement_id='.$agr_data['id'].'  data-chatusername='.$chat_fullname.' data-chatid='.$chatid.' data-postid='.$post_id.' data-userid='.$_POST['chat_user_id'].' data-status="changed">Amend agreement</button>
+                        </div>';
+
+                    default:
+                        # code...
+                        break;
+                }
+                $user_d_tpl.=$ac_feed_tpl;
+            }else{
+                $user_d_tpl.=' 
+                <div class="btn_section">
+                    <button class="button ripple-effect" id="offer_agr_btn" data-chatusername='.$chat_fullname.' data-chatid='.$chatid.' data-postid='.$post_id.' data-userid='.$_POST['chat_user_id'].' data-status="sent">Offer an agreement</button>
+                </div>';
+              
             }
             $resp['tpl']=$user_d_tpl;
             
         }elseif($user_type=='employer'){
-            $agr_data = ORM::for_table($config['db']['pre'].'user_agreements')->where(['post_id'=>$post_id,'worker_id'=>$_POST['chat_user_id']])->find_one();
-         
+            $emp_tpl='';
             if(!empty($agr_data)){
-               $ac_feed_tpl = ' 
-               <div class="activity_feed">
-               <h5>Activity Feed</h5>';
-               foreach($activity_log as $act_log){
-                    $msg =sprintf(agreement_msg('requested'),$chat_user_data['username']) ;
-                    $ac_feed_tpl.='<p>'.$msg.'</p> <small>'.timeAgo($act_log['log_time']).'</small><hr>';   
+                if($agr_data['status']=='sent'){
+                 $ready_to_book='
+                    <div class="ready_to_book">
+                        <h5>Ready to Book '.$chat_fullname.' ?</h5>
+                        <div class="first_group_wrpa">
+                            <strong>'.$chat_fullname.' has offered you an agreement</strong>
+                            <p>It must be accepted before any work commences to ensure your worker is covered by <a href="#">insurance</a></p>
+                        </div>
+                    </div>';
+                }elseif ($agr_data['status']=='edited') {
+                    $ready_to_book='
+                    <div class="ready_to_book">
+                        <h5>Accept amendment from '.$chat_fullname.' ?</h5>
+                        <div class="first_group_wrpa">
+                            <strong>'.$chat_fullname.' has amended your agreement</strong>
+                            <p>It must be accepted before any work commences to ensure your worker is covered by <a href="#">insurance</a></p>
+                        </div>
+                    </div>';
+                }
+               switch ($agr_data['status']) {
+                   case 'sent':
+                   case 'changed':
+                       $agreed_rate = ORM::for_table($config['db']['pre'].'user_agreements_rates')->where('agreement_id',$agr_data['id'])->order_by_asc('id')->find_array();
+                     //  print_r( $agreed_rate);die;
+                       $emp_tpl.= $ready_to_book;
+                       $emp_tpl.=
+                        '<div class="warning_section notification success closeable">
+                            <div class="alert_icon_d"><i class="icon-feather-clock"></i></div> 
+                            <div>
+                                <p class="text-success">The total cost of support is '.get_option('client_commission').'% higher than the agreed rate.</p>
+                            </div> 
+                        </div> 
+                        ';
+                        $flat_rate_tpl='<div class="flat_rate">
+                        <h5>Flat Rate</h5><hr>';
+                        foreach ($agreed_rate as $rate) {
+                            $rate_to_pay =$rate['rate']+($rate['rate']*(int)get_option('client_commission')/100);
+                            $flat_rate_tpl.='<h5>'.$rate['description'].'<h5>
+                            <h4>$'.$rate_to_pay.'<small> '.ucwords(str_replace('-', ' ', $rate['rate_type'])).'</small></h4>
+                            <p>Based of on an agreed rate of $'.$rate['rate'].'. Inclusive of all plateform fees.</p>';      
+                        }
+                       
+                        $flat_rate_tpl.='<p><b>Related support description</b></p>
+                        <p class="a_tag_btn"><a href="'.$config['site_url'] . 'job/' . $job_data['id'] . '/' . $job_data['slug'].'">'.  $job_data['product_name'].'<i class="icon-feather-chevron-right"></i></a></p></div>'; 
+
+                        $emp_tpl.= $flat_rate_tpl;
+                        $agreed_service='
+                        <div class="agreed_services">
+                         <h4>Agreed Services</h4>
+                         <p>'.$agr_data['agreed_services'].'</p>
+                         <p>In accepting an offer, you are agreeing to share personal information with the other party and to keep all personal information confidential.</p>
+                        <div>
+                        <div class="btn_ag_t">
+                            <button class="button decline_agreement"  data-agreement_id='.$agr_data['id'].' data-chatid='.$chatid.' data-postid='.$post_id.' data-userid='.$_POST['chat_user_id'].' data-status="declined">Decline</button>
+                            <a href="#accept-agreement-popup" style="text-decoration:none !important; " class="button accept_agreement open-popup-link"   data-postid='.$post_id.' data-userid='.$_POST['chat_user_id'].' data-status="accepted" data-chatusername='.$chat_fullname.'>Accept  agreement</a>
+                            
+						</div>
+                        <div class="warning_section notification success  closeable">
+                            <div class="alert_icon_d"><i class="icon-feather-clock"></i></div> 
+                            <div>
+                                <p>Detail not correct?<br>Decline the payments,then message to '.$chat_fullname.' to them what details you had like updated</p>
+                            </div> 
+                        </div> ';
+                        $emp_tpl.=$agreed_service;
+                       break;
+                  
+                    case 'declined': 
+                        $emp_tpl.=
+                        '<div class="agreement_first_sec">
+                            <h5>Interested in booking '.$chat_fullname.'?</h5>
+                            <p>An agreements sets the rates and describe the services to be provides.<br>It\'s required before support can start to ensure the worker covered by <a href="#">insurance</a>.</p>
+                        </div>
+                        <div class="btn_section">
+                            <button class="button ripple-effect agr_btn" id="" data-chatid='.$chatid.' data-postid='.$post_id.' data-userid='.$_POST['chat_user_id'].' data-status="requested">Request an agreement</button>
+                        </div>';
+                    default:
+                       # code...
+                       break;
                }
-               $ac_feed_tpl.='</div>';
-               $resp['tpl']=$ac_feed_tpl;
+              
+               $emp_tpl.= $ac_feed_tpl;
+               $resp['tpl']= $emp_tpl;
             }else{
             $resp['tpl']='
             <div class="agreement_first_sec">
-                <h5>Interested in booking '.$chat_user_data['username'].'?</h5>
+                <h5>Interested in booking '.$chat_fullname.'?</h5>
                 <p>An agreements sets the rates and describe the services to be provides.<br>It\'s required before support can start to ensure the worker covered by <a href="#">insurance</a>.</p>
             </div>
             <div class="btn_section">
@@ -662,7 +782,7 @@ function agreementAction(){
         } elseif($user_type=='employer'){
             $resp['tpl']='
             <div class="agreement_first_sec">
-                <h5>Interested in booking '.$chat_user_data['username'].'?</h5>
+                <h5>Interested in booking '.$chat_fullname.'?</h5>
                 <p>An agreements sets the rates and describe the services to be provides.<br>It\'s required before support can start to ensure the worker covered by <a href="#">insurance</a>.</p>
             </div>
             <div class="warning_section notification error closeable">
@@ -705,7 +825,7 @@ function updateAgreementStatus(){
         $agr_data->updated_at=$now;
     }
    if($agr_data->save()){
-       $data=['log_name'=>'agreement','status'=>'requested','receiver_id'=> $_POST['userid'],'post_id'=>$postid];
+       $data=['log_name'=>'agreement','status'=> $status,'receiver_id'=> $_POST['userid'],'post_id'=>$postid];
        create_activity_log($data);
        $resp['status']=1;
    }else{
@@ -719,12 +839,100 @@ function sendAgreement(){
     $postid=$_POST['post_id'];
     $client_id=$_POST['client_id'];
     $worker_id=$_SESSION['user']['id'];
-    $agr_data = ORM::for_table($config['db']['pre'].'user_agreements')->where(['post_id'=>$postid,'worker_id'=>$worker_id])->find_one();
-    $agr_data->agreed_services=$_POST['agreed_services'];
-    $agr_data->status='sent';
+    $status=$_POST['status'];
     $rates=$_POST['rates'];
-    foreach ($rates as $rate) {
-      
+
+    $agr_data = ORM::for_table($config['db']['pre'].'user_agreements')->where(['post_id'=>$postid,'worker_id'=>$worker_id])->find_one();
+    if(!empty($agr_data)){
+        $agr_data->agreed_services=$_POST['agreed_services'];
+        $agr_data->status=$status;
+        $agr_data->save();
+    }else{
+        $agr_data = ORM::for_table($config['db']['pre'].'user_agreements')->create();
+        $agr_data->post_id=$postid;
+        $agr_data->client_id= $client_id;
+        $agr_data->worker_id= $worker_id;
+        $agr_data->agreed_services=$_POST['agreed_services'];
+        $agr_data->status=$status;
+        $agr_data->save();
     }
+    $agr_id = $agr_data['id'];
+    $rate_arr=[];
+    foreach($rates as $rate) {
+        array_push($rate_arr,'('.$agr_id.',"'. $rate['description'].'",'.$rate['rate'].',"'.$rate['rate_type'].'")'); 
+    }
+    $w_rates = implode(',',$rate_arr); 
+    $workerAgr = ORM::for_table($config['db']['pre'] . 'user_agreements_rates')->where('agreement_id',  $agr_id)->find_array();
+    if(count($workerAgr)) {
+        ORM::for_table($config['db']['pre'] . 'user_agreements_rates')->where('agreement_id',  $agr_id)->delete_many();
+    }
+    $sql ='INSERT INTO '.$config['db']['pre'].'user_agreements_rates (agreement_id,description,rate,rate_type) VALUES'.$w_rates.'';
+    //echo $sql;die;
+    $inserted = ORM::raw_execute( $sql);
+  
+    if($inserted){
+      $data=['log_name'=>'agreement','status'=>$status,'receiver_id'=> $client_id,'post_id'=>$postid];
+      create_activity_log($data);
+      $resp['status']=true;
+    }else{
+        $resp['status']=false; 
+    }
+
+    echo json_encode($resp);
+    die();
+
 }
+
+function getAgreementRate(){
+    global $config;
+    $resp=[];
+    $rates=[];
+    $status=false;
+    $agreementid=$_POST['agreementid'];	
+    $agr_data= ORM::for_table($config['db']['pre'] . 'user_agreements')->find_one($agreementid)->as_array();
+    $agr_rates= ORM::for_table($config['db']['pre'] . 'user_agreements_rates')->where('agreement_id',$agreementid)->find_many();
+    $post_data=ORM::for_table($config['db']['pre'] . 'product')->find_one($agr_data['post_id'])->as_array();
+    $agreed_services=$agr_data['agreed_services'];
+    // $client_data=get_user_data(null, $agr_data['client_id']);
+    // $worker_data=get_user_data(null, $agr_data['worker_id']);
+    // $client_name=($client_data['name'] != '')? $client_data['name'] : $client_data['username'];
+    // $worker_name=($worker_data['name'] != '')? $worker_data['name'] : $worker_data['username'];
+    if($_SESSION['user']['user_type']=='employer'){
+        $client_data=get_user_data(null, $agr_data['client_id']);
+        $chat_user_name=($client_data['name'] != '')? $client_data['name'] : $client_data['username'];
+        $chat_user_type='client';
+    }else{
+        $worker_data=get_user_data(null, $agr_data['worker_id']);
+        $chat_user_name=($worker_data['name'] != '')? $worker_data['name'] : $worker_data['username'];
+        $chat_user_type='worker';
+    }
+    if(!empty($agr_rates)){
+        foreach ($agr_rates as $rate) {
+            $rates[]=['description'=> $rate['description'],'rate'=>$rate['rate'],'rate_type'=>$rate['rate_type']];
+         }
+         $status=true;
+    }
+    $resp=['status'=>$status,'rates'=>$rates,'agreed_services'=>$agreed_services,'chat_user_type'=>$chat_user_type,'chat_user_name'=>$chat_user_name,'agreement_data'=>$agr_data,'agreement_title'=>$post_data['product_name']];
+    echo json_encode($resp);
+    die();
+}
+
+function jobFilledStatus(){
+    global $config;
+    $resp=[];
+    $postid=$_POST['postid'];
+    $filled=$_POST['value']=='1' ? '1':'0';
+
+    $job = ORM::for_table($config['db']['pre'] . 'product')->find_one($postid);
+    $job->filled=$filled;
+    if($job->save()){
+        $resp['status']=true; 
+    }else{
+        $resp['status']=false;  
+    }
+    echo json_encode($resp);
+    die;
+}
+
+
 ?>
