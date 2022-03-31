@@ -107,6 +107,14 @@ if(isset($_GET['action'])){
     if ($_GET['action'] == "editUserCulturalBackground") { editUserCulturalBackground(); }
 
     if ($_GET['action'] == "editStripeSetting") { editStripeSetting(); }
+
+    if ($_GET['action'] == "editUserImmunisationInfo") { editUserImmunisationInfo(); }
+    
+    if ($_GET['action'] == "addDocuments") { addDocuments(); }
+    if ($_GET['action'] == "editDocuments") { editDocuments(); }
+
+    if ($_GET['action'] == "addRequirement") { addRequirement(); }
+    if ($_GET['action'] == "editRequirement") { editRequirement(); } 
 }
 function companyEdit(){
     global $config,$lang;
@@ -3676,12 +3684,8 @@ function editStripeSetting(){
     global $config,$lang;
     // echo "<pre>";
     // print_r($_POST);die;
-
-    //$abId=$_POST['id'];
-    //$type=$_POST['type'];
     $error=[];
-    if(empty($error)) {
-        
+    if(empty($error)) {       
         $update_li = ORM::for_table($config['db']['pre'].'payment_settings')->where('type','live')->find_one();
         $update_li->stripe_key = $_POST['live_stripe_key'];
         $update_li->stripe_secret  = $_POST['live_stripe_secret'];
@@ -3711,4 +3715,342 @@ function editStripeSetting(){
     die();
 }
 
+function editUserImmunisationInfo(){
+    global $config,$lang;
+    //  echo "<pre>";
+    //  var_dump($_POST);die; 
+    $error=[]; 
+    $username_error = $immunisation_date_error = $certificate_error=$is_vaccinated=$immunisation_date=$is_flu_vaccinated='' ;
+    $filename='';
+    $certificate_file=null;  
+    $user_id=$_POST['id'];
+    $is_vaccinated=$_POST['is_vaccinated'];
+    $immunisation_date=$_POST['recent_immunisation_date']??null;
+    $is_flu_vaccinated=$_POST['is_flu_vaccinated'];
+    $errors=0;
+    $user_immu_info=ORM::for_table($config['db']['pre'] . 'user_immunisation_info')->where('user_id',$user_id)->find_one();
+    if(empty($error)) {
+        //file uploading code 
+        if($is_vaccinated !='0'){
+            if(empty($immunisation_date)){
+                $errors++;
+                $immunisation_date_error ="<span class='status-not-available'> " . $lang['IMMUNISATION_DATE_REQ'] . "</span>";    
+            }
+            if(!empty($_FILES['covid_certificate'])){
+                $file = $_FILES['covid_certificate'];
+                // Valid formats
+                $resume_files = trim(get_option("resume_files"));
+                $valid_formats = explode(',', $resume_files);
+                $filename = $file['name'];
+                $ext = getExtension($filename);
+                $ext = strtolower($ext);
+                if (!empty($filename)) {
+                    //File extension check
+                    if (in_array($ext, $valid_formats)) {
+                        $main_path ='../storage/covid-certificates/';
+                        if(!file_exists($filename)){
+                            mkdir($main_path, 0777);	
+                        }
+                        $filename = uniqid(time()).'.'.$ext;
+                        
+                        if(move_uploaded_file($file['tmp_name'], $main_path.$filename)){
+                            $certificate_file = $filename;
+                        }else{
+                            $certificate_error = $lang['ERROR_TRY_AGAIN'];
+                            $certificate_error ="<span class='status-not-available'> " . $certificate_error . "</span>";
+                        }
+                    } else {
+                        $errors++;
+                        $certificate_error = 'File type error';
+                        $certificate_error ="<span class='status-not-available'> " . $certificate_error . "</span>";
+                    }
+                }
+                else{
+                    $errors++;
+                    $certificate_error= $lang['CERTIFICATE_REQ'];
+                    $certificate_error ="<span class='status-not-available'> " .$certificate_error. "</span>";
+                }
+            }
+        }
+        if($errors==0){         
+            $now=date("Y-m-d H:i:s");
+          
+            if(!$user_immu_info){
+                $user_immu_info=ORM::for_table($config['db']['pre'] .'user_immunisation_info')->create();
+                $user_immu_info->user_id=$user_id;
+                $user_immu_info->is_vaccinated=$is_vaccinated;
+                $user_immu_info->recent_immunisation_date=$immunisation_date;
+                if(!empty($filename)){
+                    $user_immu_info->certificate_file=$certificate_file;
+                }
+                $user_immu_info->is_flu_vaccinated=$is_flu_vaccinated; 
+                $user_immu_info->created_at  = $now;
+                $user_immu_info->updated_at  = $now;
+                $user_immu_info->save();
+            }else{
+                //echo 'xhkxuhd';die;
+               //dd($user_immu_info);
+                if(!empty($filename)){
+                $old_path = $user_immu_info['certificate_file'];
+                $file = dirname(__DIR__) . "/storage/covid-certificates/" . $old_path;
+               // echo $file;die;
+                if (file_exists($file))
+                    unlink($file);
+                $user_immu_info->set('certificate_file',$certificate_file); 
+                }
+                $user_immu_info->set('is_vaccinated',$is_vaccinated);
+                $user_immu_info->set('recent_immunisation_date',$immunisation_date);
+                $user_immu_info->set('is_flu_vaccinated',$is_flu_vaccinated); 
+                $user_immu_info->set('updated_at', $now);
+                $user_immu_info->save();
+            }           
+        }
+        if ($user_immu_info->id()) {
+            $status = "success";
+            $message = $lang['SAVED_SUCCESS'];
+        }else {
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+
+    }else{
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+    $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
+    echo $json;
+    die();
+
+}
+
+function addDocuments(){
+    global $config,$lang;
+    //  echo "<pre>";
+    //  var_dump($_FILES);die;
+    $error=[];
+    if (isset($_POST['submit'])) {
+
+        $valid_formats = array("jpg","jpeg","png","pdf"); // Valid image formats
+
+        if(isset($_FILES['file']['name']))
+        {
+            $valid_formats = array("jpg","jpeg","png","pdf"); // Valid image formats
+            $filename = stripslashes($_FILES['file']['name']);
+            $ext = getExtension($filename);
+            $ext = strtolower($ext);
+            // var_dump($ext);die;
+            //File extension check
+            if (in_array($ext, $valid_formats)) {
+                $uploaddir = '../storage/documt/';
+                $original_filename = $_FILES['file']['name'];
+                $random1 = rand(9999,100000);
+                $random2 = rand(9999,200000);
+                $random3 = $random1.$random2;
+                $image_name =$random1.$random2.'.'.$ext;
+                // $image_name1 = 'small'.$random1.$random2.'.'.$ext; //second image name
+                $filename = $uploaddir . $image_name;
+                // $filename1 = $uploaddir . $image_name1; //second image save
+
+                $uploadedfile = $_FILES['file']['tmp_name'];
+
+                move_uploaded_file($uploadedfile, $filename);
+                //else if it's not bigger then 0, then it's available'
+                //and we send 1 to the ajax request
+                //  if (resizeImage(500, $filename, $uploadedfile)) {
+                //resize_crop_image(200, 200, $filename1, $uploadedfile);//resize image
+                //$time = date('Y-m-d H:i:s', time());
+                $now = date("Y-m-d H:i:s");
+                $insert_user = ORM::for_table($config['db']['pre'].'user_documents')->create();
+                $insert_user->status = 'submitted';
+                $insert_user->file_path = $image_name;
+                $insert_user->expiry_date = $_POST['expiry_date'];
+                $insert_user->registration_number = $_POST['registration_number'];
+                $insert_user->details = $_POST['description'];
+                $insert_user->extension = $ext;
+                $insert_user->requirement_id = $_POST['document_type'];
+                $insert_user->user_id = $_POST['user_type'];
+                $insert_user->created_at = $now;
+                $insert_user->updated_at = $now;
+                $insert_user->save();
+
+                // $insert_req = ORM::for_table($config['db']['pre'].'requirements')->create();
+                // $insert_req->name = $_POST['document_type'];
+                // $insert_req->created_at = $now;
+                // $insert_req->updated_at = $now;
+                // $insert_req->save();
+                if ($insert_user->id()) {
+                    $status = "success";
+                    $message = $lang['SAVED_SUCCESS'];
+                } else{
+                    $status = "error";
+                    $message = $lang['ERROR_TRY_AGAIN'];
+                }
+                // }
+            }
+            else {
+                $error = "Only allowed jpg, jpeg, png, pdf";
+                $status = "error";
+                $message = $error;
+            }
+
+        } else {
+            $error = "Profile Picture Required";
+            $status = "error";
+            $message = $error;
+        }
+
+    } else {
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+
+     $json = '{"status" : "' . $status . '","message" : "' . $message . '"}';
+    echo $json;
+    die();
+}
+
+function editDocuments(){
+    global $config, $lang;
+    // echo "<pre>";
+    // var_dump($_POST);die;
+    $error=[];
+    if (isset($_POST['submit'])) {
+
+        $valid_formats = array("jpg","jpeg","png","pdf"); // Valid image formats
+
+        if(isset($_FILES['file']['name']))
+        {
+            $valid_formats = array("jpg","jpeg","png","pdf"); // Valid image formats
+            $filename = stripslashes($_FILES['file']['name']);
+            $ext = getExtension($filename);
+            $ext = strtolower($ext);
+            // var_dump($ext);die;
+            //File extension check
+            if (in_array($ext, $valid_formats)) {
+                $uploaddir = '../storage/documt/';
+                $original_filename = $_FILES['file']['name'];
+                $random1 = rand(9999,100000);
+                $random2 = rand(9999,200000);
+                $random3 = $random1.$random2;
+                $image_name =$random1.$random2.'.'.$ext;
+                $filename = $uploaddir . $image_name;
+                $uploadedfile = $_FILES['file']['tmp_name'];
+
+                move_uploaded_file($uploadedfile, $filename);
+                $info = ORM::for_table($config['db']['pre'].'user_documents')
+                        ->select('file_path')
+                        ->find_one($_POST['id']);
+
+                        if(file_exists($uploaddir.$info['file_path'])){
+                            unlink($uploaddir.$info['file_path']);
+                        }
+                $now = date("Y-m-d H:i:s");
+                $update_user = ORM::for_table($config['db']['pre'].'user_documents')->find_one($_POST['id']);
+                $update_user->status = 'submitted';
+                $update_user->file_path = $image_name;
+                $update_user->expiry_date = $_POST['expiry_date'];
+                $update_user->registration_number = $_POST['registration_number'];
+                $update_user->details = $_POST['description'];
+                $update_user->extension = $ext;
+                $update_user->requirement_id = $_POST['document_type'];
+                $update_user->user_id = $_POST['user_type'];
+                $update_user->updated_at = $now;
+                $update_user->save();
+                if ($update_user->id()) {
+                    $status = "success";
+                    $message = $lang['SAVED_SUCCESS'];
+                } else{
+                    $status = "error";
+                    $message = $lang['ERROR_TRY_AGAIN'];
+                }
+            }else {
+                $error = "Only allowed jpg, jpeg, png, pdf";
+                $status = "error";
+                $message = $error;
+            }
+        }else {
+            $error = "Profile Picture Required";
+            $status = "error";
+            $message = $error;
+        }
+    }else {
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+        $json = '{"status" : "' . $status . '","message" : "' . $message . '"}';
+        echo $json;
+        die();   
+}
+
+function addRequirement(){
+    global $config,$lang;
+    // echo "<pre>";
+    // var_dump($_POST);die;
+    $error=[];
+    if (isset($_POST['submit'])) {
+        if ($_POST['name'] == "") {
+            $error = "Requirement Name Required";
+            $status = "error";
+            $message = $error;
+        }
+        if(empty($error)) {
+            $now=date('Y-m-d H:i:s');
+            $insert_requirement = ORM::for_table($config['db']['pre'].'requirements')->create();
+            $insert_requirement->name = $_POST['name'];
+            $insert_requirement->expiry_date = $_POST['expiry_date']? 1:'0';
+            $insert_requirement->upload = $_POST['upload']? 1:'0';
+            $insert_requirement->registration_number = $_POST['registration_number'] ? 1:'0';
+            $insert_requirement->status = $_POST['status'] ? 1:'0';
+            $insert_requirement->created_at = $now;
+            $insert_requirement->updated_at = $now;
+            $insert_requirement->save();
+            if ($insert_requirement->id()) {
+                $status = "success";
+                $message = $lang['SAVED_SUCCESS'];
+            } 
+        }else {
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+    }else{
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+    
+    $json = '{"status" : "' . $status . '","message" : "' . $message . '","errors" : ' . json_encode($error, JSON_UNESCAPED_SLASHES) . '}';
+    echo $json;
+    die();  
+}
+
+function editRequirement(){
+    global $config,$lang;
+    //  echo "<pre>";
+    // var_dump($_POST);die;
+    if (isset($_POST['id'])) {
+        $update_req = ORM::for_table($config['db']['pre'].'requirements')->find_one($_POST['id']);
+        $update_req->set('name', $_POST['name']);
+        $update_req->set('expiry_date', $_POST['expiry_date']? 1:'0');
+        $update_req->set('upload', $_POST['upload']? 1:'0');
+        $update_req->set('registration_number', $_POST['registration_number']? 1:'0');
+        $update_req->set('status', $_POST['status']? 1:'0');
+        $update_req->set('updated_at',date('Y-m-d H:i:s'));
+        $update_req->save();
+
+        if ($update_req) {
+            $status = "success";
+            $message = $lang['SAVED_SUCCESS'];
+        } else{
+            $status = "error";
+            $message = $lang['ERROR_TRY_AGAIN'];
+        }
+
+    } else {
+        $status = "error";
+        $message = $lang['ERROR_TRY_AGAIN'];
+    }
+
+    $json = '{"status" : "' . $status . '","message" : "' . $message . '"}';
+    echo $json;
+    die();
+}
 ?>

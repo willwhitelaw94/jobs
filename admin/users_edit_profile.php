@@ -26,14 +26,15 @@ $userBackgroundIds=array_column($userBackgrounds,'cultural_background_id');
 
 $user_religion=ORM::for_table($config['db']['pre'] . 'user_religions')->where('user_id',$user_id)->find_array();
 $religion_code=array_column($user_religion,'religion_id');
- //print_r($religion_code);die;
+
  $user_lang=ORM::for_table($config['db']['pre'] . 'user_languages')->where('user_id',$user_id)->find_array();
  $lang_code=array_column($user_lang,'language_id');
- //print_r($user_lang);die;
 
+$immunisation = ORM::for_table($config['db']['pre'] . 'user_immunisation_info')->where('user_id',$user_id)->find_array();
+//print_r($immunisation);die;
 
 $salary = ORM::for_table($config['db']['pre'] . 'user')->where('id',$user_id)->find_array();
-//print_r($salary);die;
+
 $user_city=ORM::for_table($config['db']['pre'] . 'user_cities')->where('user_id',$user_id)->find_array();
 $city_codes=array_column($user_city,'city_code');
 
@@ -72,6 +73,13 @@ $user_pr_days_code=array_keys($user_days);
 
     .d-none{
         display: none;
+    }
+
+    .radio_btn_wrap{display: flex;}
+    .radio_btn_wrap > div{padding-right: 30px;}
+    
+    .download-certificate{margin-bottom: 20px;
+        margin-top:10px;
     }
 </style>
 
@@ -128,7 +136,7 @@ $user_pr_days_code=array_keys($user_days);
                                                                 </div>       
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="specific_country">Address</label>
+                                                                <label for="jobcity">Address</label>
                                                                 <div>
                                                                     <select  class="js-select2 form-control" name="city[]" id="jobcity" style="width: 100%;" multiple>
                                                                         <?php
@@ -225,14 +233,6 @@ $user_pr_days_code=array_keys($user_days);
                                                                     <label for="session_willing"><span class="checkbox-icon"></span>I'm willing to offer a free great & meet session to potential clients.</label>
                                                                 </div>                                                                   
                                                             </div>
-                                                            <!-- <div class="form-group row">
-                                                                <div class="checkbox submit-field co-md-2">
-                                                                    <input type="checkbox" id="session_willing" name="session_willing" value="1">
-                                                                </div>
-                                                                <div class="col-md-10">
-                                                                    
-                                                                </div>
-                                                            </div> -->
                                                             <div class="panel-footer">
                                                                 <button name="quick_map" type="submit" class="btn btn-primary btn-radius save-changes">Save</button>
                                                                 <button class="btn btn-default" type="reset">Reset</button>
@@ -317,6 +317,7 @@ $user_pr_days_code=array_keys($user_days);
                                                                 ?>
                                                                 </select>
                                                             </div>
+
                                                             <div class="panel-footer">
                                                                 <button name="international" type="submit" class="btn btn-primary btn-radius save-changes">Save</button>
                                                                 <button class="btn btn-default" type="reset">Reset</button>
@@ -325,18 +326,62 @@ $user_pr_days_code=array_keys($user_days);
                                                     </div>
                                                     <div class="tab-pane" id="quickad_immunisation">
                                                         <form method="post" action="ajax_sidepanel.php?action=editUserImmunisationInfo" id="#quickad_immunisation">
-                                                        <input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
-                                                              <div class="form-group row">
-                                                               
-                                                                    <label>Currently Working</label>
-                                                                    <div class="radio">
-                                                                            <input id="radio-rating-1" name="radio" type="radio" checked="">
-                                                                            <label for="radio-rating-1"><span class="radio-label"></span> Yes</label>
+                                                            <input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
+
+                                                            <?php foreach ($immunisation as $key => $immun) { ?>   
+                                                                <div class="form-group">
+                                                                    <h4 style="margin-bottom:20px;">Have you had your COVID-19 Vaccination?</h4>
+                                                                    <div class="radio_btn_wrap">
+                                                                    <div>
+                                                                    <input type="radio" name="is_vaccinated" value="0" id="vaccine" <?php if($immun['is_vaccinated'] == '0') echo "checked";?>>
+                                                                        <label for="vaccine">No</label>
                                                                     </div>
-                                                                        <label >Yes</label>
-                                                                        <input type="radio" name="current_working" class="with-gap"/>
-                                                                        <label > No</label>  
-                                                            </div>
+                                                                    <div>
+                                                                        <input type="radio" name="is_vaccinated" value="1" id="one_dose" <?php if($immun['is_vaccinated'] == '1') echo "checked";?>>
+                                                                        <label for="one_dose">Yes, One dose</label>
+                                                                    </div>
+                                                                    <div>
+                                                                        <input type="radio" name="is_vaccinated" value="2" id="two_dose" <?php if($immun['is_vaccinated'] == '2') echo "checked";?>>
+                                                                        <label for="two_dose">Yes, Two dose</label>
+                                                                    </div>
+                                                                    <div>
+                                                                        <input type="radio" name="is_vaccinated" value="3" id="booster_dose" <?php if($immun['is_vaccinated'] == '3') echo "checked";?>>
+                                                                        <label for="booster_dose">Yes, One booster</label>
+                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <?php
+                                                                    $download_url = $config['site_url'].'storage/covid-certificates/'.$immun['certificate_file'];
+                                                                    ?>
+                                                                    <h4 style="margin-bottom:20px;">Upload COVID-19 digital certificate</h4>
+                                                                        <div class="download-certificate">
+                                                                            <a href="<?php echo $download_url; ?>" title="<?php echo $immun['certificate_file']; ?>" download style="margin-left:15px;">
+                                                                            <i class="fa fa-download">&nbsp;Download-Certificate</i></a>
+                                                                            <a href="<?php echo $download_url; ?>" target="_blank"><span style="margin-left:15px;"><?php echo $immun['certificate_file']; ?></span></a>
+                                                                        </div>
+                                                                    <input class="form-control input-sm" type="file" name="covid_certificate" onchange="readURL(this,'image_certificate_uploader')">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <h4 style="margin-bottom:20px;">Recent Date</h4>
+                                                                    <input class="form-control input-sm" type="date" name="recent_immunisation_date" value="<?php echo $immun['recent_immunisation_date']; ?>">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <h4>Have you had flu vaccine this season?</h4>
+                                                                    <h4 style="margin-bottom:20px;">It's important to answer truthfully.</h4>
+                                                                    <div class="radio_btn_wrap">
+                                                                        <div>
+                                                                            <input type="radio" name="is_flu_vaccinated" value="0" id="important_no" <?php if($immun['is_flu_vaccinated'] == '0') echo "checked"; ?>>
+                                                                            <label for="important">No</label>
+                                                                        </div>
+                                                                        <div>
+                                                                            <input type="radio" name="is_flu_vaccinated" value="1" id="important_yes" <?php if($immun['is_flu_vaccinated'] == '1') echo "checked"; ?>>
+                                                                            <label for="important_yes">Yes</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>   
+                                                            <?php } ?>
+                                                        
                                                             <div class="panel-footer">
                                                                 <button name="international" type="submit" class="btn btn-primary btn-radius save-changes">Save</button>
                                                                 <button class="btn btn-default" type="reset">Reset</button>

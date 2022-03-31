@@ -1134,13 +1134,13 @@ require_once('includes.php');
                                                             ?>                 
                                                             <label><h4>Live Mode</h4></label>
                                                             <div class="form-group">
-                                                                <label for="location_track_icon">Key</label>
+                                                                <label for="live_stripe_key">Key</label>
                                                                 <div>
                                                                     <input name="live_stripe_key" type="text" class="form-control" value="<?php echo $str_live_key; ?>">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="auto_detect_location">Secret</label>
+                                                                <label for="live_stripe_secret">Secret</label>
                                                                 <div>
                                                                     <input name="live_stripe_secret" type="text" class="form-control" value="<?php echo $str_live_secret; ?>">
                                                                 </div>

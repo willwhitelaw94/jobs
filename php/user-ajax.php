@@ -15,6 +15,7 @@ if (isset($_GET['action'])){
     if ($_GET['action'] == "email_contact_seller") { email_contact_seller(); }
     if ($_GET['action'] == "deleteMyAd") { deleteMyAd(); }
     if ($_GET['action'] == "deleteResume") { deleteResume(); }
+    if ($_GET['action'] == "deleteDocument") { deleteDocument(); }
     if ($_GET['action'] == "deleteExperience") { deleteExperience(); }
     if ($_GET['action'] == "deleteCompany") { deleteCompany(); }
     if ($_GET['action'] == "deleteResumitAd") { deleteResumitAd(); }
@@ -709,6 +710,41 @@ function deleteResume()
         }
 
         ORM::for_table($config['db']['pre'].'resumes')
+            ->where(array(
+                'id' => $_POST['id'],
+                'user_id' => $_SESSION['user']['id'],
+            ))
+            ->delete_many();
+
+
+        echo 1;
+        die();
+    }else {
+        echo 0;
+        die();
+    }
+}
+
+function deleteDocument()
+{
+    global $config;
+    if(isset($_POST['id']))
+    {
+        $row = ORM::for_table($config['db']['pre'].'user_documents')
+            ->select('file_path')
+            ->where(array(
+                'id' => $_POST['id'],
+                'user_id' => $_SESSION['user']['id'],
+            ))
+            ->find_one();
+
+        if (!empty($row)) {
+            $file = dirname(__DIR__) . "/storage/documt/" . $row['file_path'];
+            if (file_exists($file))
+                unlink($file);
+        }
+
+        ORM::for_table($config['db']['pre'].'user_documents')
             ->where(array(
                 'id' => $_POST['id'],
                 'user_id' => $_SESSION['user']['id'],

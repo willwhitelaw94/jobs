@@ -14,17 +14,14 @@ if(checkloggedin())
     global $match;
 	if(isset($match['params']['id'])){
         $_GET['id'] = $match['params']['id'];
-
 		$result = ORM::for_table($config['db']['pre'].'resumes')
 		->where('user_id' , $_SESSION['user']['id'])
 		->where('id' , $_GET['id'])
 		->where('active' , '1')
 		->find_one();
-
 		$name = $result['name'];
 		$id = $_GET['id'];
 	}
-
 	if(isset($_POST['submit'])){
 		if(empty($_POST['name'])){
 			$_POST['name'] = date('Y-m-d-h-i');
@@ -55,13 +52,13 @@ if(checkloggedin())
 				} else {
 					$error = $lang['RESUME_FILE_TYPE'];
 				}
+			} else{
+				if(empty($_POST['id'])){
+					$error = $lang['RESUME_REQ'];
+				}
 			}
-		}else{
-			if(empty($_POST['id'])){
-				$error = $lang['RESUME_REQ'];
-			}
+			
 		}
-
 		if($error == ''){
 			// save resume in database
 			$now = date("Y-m-d H:i:s");
@@ -70,7 +67,7 @@ if(checkloggedin())
 				->where('id',$_POST['id'])
 				->where('user_id',$_SESSION['user']['id'])
 				->find_one();
-
+				
 				if($resume_create){
 					if(!empty($resume_file)){
 						$resume_create->set('filename', $resume_file);
@@ -88,13 +85,10 @@ if(checkloggedin())
 				$resume_create->updated_at = $now;
 				$resume_create->save();
 			}
-
 			transfer($link['RESUMES'],$lang['RESUME_UPLOADED'],$lang['RESUME_UPLOADED']);
 			exit;
 		}
 	}
-
-
 	$page = new HtmlTemplate ('templates/' . $config['tpl_name'] . '/resume.tpl');
 	$page->SetParameter ('OVERALL_HEADER', create_header($lang['ADD_RESUME']));
 	$page->SetParameter ('RESUMES', resumes_count($_SESSION['user']['id']));
@@ -105,7 +99,6 @@ if(checkloggedin())
 	$page->SetParameter ('ERROR', $error);
 	$page->SetParameter ('OVERALL_FOOTER', create_footer());
 	$page->SetParameter('USER_SIDEBAR', create_user_sidebar());
-
 	$page->CreatePageEcho();
 }else{
 	headerRedirect($link['LOGIN']);
