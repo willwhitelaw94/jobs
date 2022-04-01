@@ -2,6 +2,7 @@
 global $mysqli;
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
 if(checkloggedin()) {
     $post_data=[];
     if(isset($_GET['postid'])){
@@ -12,6 +13,7 @@ if(checkloggedin()) {
     }
 
     $ses_userdata = get_user_data($_SESSION['user']['username']);
+
     $userid = '';
     $chatid = '';
     $chat_username = '';
@@ -22,6 +24,7 @@ if(checkloggedin()) {
     $session_user_id = $ses_userdata['id'];
     $userdata=[];
     if(isset($_GET['userid'])){
+
         $userid = base64_url_decode($_GET['userid']);
         $userdata = get_user_data(null,$userid);
         if($userdata){
@@ -44,6 +47,7 @@ if(checkloggedin()) {
     // echo $session_user_id;
     // die;    
    // dd($is_first_chat);
+
    $msg='';
    if(isset($_GET['postid'])){
     if($ses_userdata['user_type']=='employer'){
@@ -71,6 +75,7 @@ if(checkloggedin()) {
         $msg.='<div class="card-footer"><a href="'.$job_link.'">View Full Job Details</a></div>';
         $msg.='</div></div>';
     }else{
+
         $profile_link = $config['site_url'].'profile/' . $ses_userdata['username'];
         $salary_min = price_format($ses_userdata['salary_min'],$ses_userdata['country']);
         $salary_max = price_format($ses_userdata['salary_max'],$ses_userdata['country']);
@@ -99,7 +104,7 @@ if(checkloggedin()) {
         $msg.='</div></div>'; 
     }
    }
- 
+    
     // $sql = "select * from `".$config['db']['pre']."messages` where (to_id = '".$ses_userdata['id']."' AND from_id = '".$userid."' AND post_id = ".$postid.") order by message_id ASC limit 1";
     // $query = $mysqli->query($sql);
     // //$row = mysqli_fetch_assoc($query);
@@ -150,7 +155,9 @@ if(checkloggedin()) {
     //     </div>
     //     ';
     // }
-   
+   // echo "<pre>";
+   // print_r($config);
+   // die("======");
      
     $author_image = $ses_userdata['image'];
     if($config['quickchat_ajax_on_off'] == 'on' || $config['quickchat_socket_on_off'] == 'on') {

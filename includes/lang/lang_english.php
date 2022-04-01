@@ -653,4 +653,15 @@ $lang['DOCUMENT_DELETED']='Document Deleted';
 $lang['EDIT_DOCUMENT']='Edit Document';
 $lang['VIEW_DOCUMENT']='View Document';
 
+$lang['CREATE_WALLET']='Add Amount';
+$lang['WALLET']='Wallet';
+$lang['WALLET_HISTORY']='Payment History';
+$lang['WALLET_AMOUNT']='Amount';
+$lang['WALLET_ADD']='Add';
+$lang['ENTERAMOUNT'] = 'Please enter amount';
+$lang['WALLET_SUMMARY'] = 'Wallet Summary';
+$lang['WALLET_TOTAL_AMOUNT'] = 'Total Amount';
+$lang['WALLET_DEBIT'] = 'Debit';
+$lang['WALLET_CREDIT'] = 'Credit';
+
 

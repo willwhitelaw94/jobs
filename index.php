@@ -118,6 +118,10 @@ $router->map('GET|POST','/edit-profile/immunisation-info', 'immunisation-info.ph
 $router->map('GET|POST','/my-documents/[*:page]?/?', 'user-documents.php');
 $router->map('GET|POST','/add-document/?', 'add-user-document.php');
 $router->map('GET|POST','/edit-document/[i:id]?', 'add-user-document.php');
+
+$router->map('GET|POST','/wallet', 'wallet.php');
+$router->map('GET|POST','/create-wallet', 'create-wallet.php');
+
 // Wills Routes
 $router->map('GET|POST','/edit-profile/account', 'edit-account.php');
 $router->map('GET|POST','/accepted-jobs', 'accepted-job.php');

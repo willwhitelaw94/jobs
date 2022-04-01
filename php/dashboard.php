@@ -1,6 +1,11 @@
 <?php
 
 if (checkloggedin()) {
+
+    // echo "<pre>";
+    // print_r($link);
+    // die("+++++");
+
     update_lastactive();
     $ses_userdata = get_user_data($_SESSION['user']['username']);
 
@@ -19,7 +24,7 @@ if (checkloggedin()) {
                 $errors++;
                 $username_error = $lang['USERALPHA'];
                 $username_error = "<span class='status-not-available'> " . $username_error . " [A-Z,a-z,0-9]</span>";
-            } elseif ((strlen($_POST['username']) < 4) OR (strlen($_POST['username']) > 16)) {
+            } elseif ((strlen($_POST['username']) < 4) or (strlen($_POST['username']) > 16)) {
                 $errors++;
                 $username_error = $lang['USERLEN'];
                 $username_error = "<span class='status-not-available'> " . $username_error . ".</span>";
@@ -156,13 +161,12 @@ if (checkloggedin()) {
             transfer($link['DASHBOARD'], $lang['PROFILE_UPDATED'], $lang['PROFILE_UPDATED']);
             exit;
         }
-
     } else if (isset($_POST['password-submit'])) {
         if (!empty($_POST["password"]) && !empty($_POST["re_password"])) {
             if ($_POST["password"] != $_POST["re_password"]) {
                 $errors++;
                 $password_error = "<span class='status-not-available'> " . $lang['PASS_NOT_MATCH'] . ".</span>";
-            } elseif ((strlen($_POST['password']) < 5) OR (strlen($_POST['password']) > 21)) {
+            } elseif ((strlen($_POST['password']) < 5) or (strlen($_POST['password']) > 21)) {
                 $errors++;
                 $password_error = "<span class='status-not-available'> " . $lang['PASSLENG'] . ".</span>";
             }
@@ -201,9 +205,9 @@ if (checkloggedin()) {
         if ($errors == 0) {
             $now = date("Y-m-d H:i:s");
             $user_update = ORM::for_table($config['db']['pre'] . 'user')->find_one($_SESSION['user']['id']);
-            if($_POST["user-type"] == 1){
+            if ($_POST["user-type"] == 1) {
                 $user_update->user_type = 'user';
-            }else{
+            } else {
                 $user_update->user_type = 'employer';
             }
             $user_update->set('updated_at', $now);
@@ -223,9 +227,12 @@ if (checkloggedin()) {
     $currency_info = set_user_currency($country_code);
     $currency_sign = $currency_info['html_entity'];
 
+    // echo "<pre>";
+    // print_r($lang['DASHBOARD']);
+    // die("++++++++");
 
     // Output to template
-    $page = new HtmlTemplate ('templates/' . $config['tpl_name'] . '/dashboard.tpl');
+    $page = new HtmlTemplate('templates/' . $config['tpl_name'] . '/dashboard.tpl');
     $page->SetParameter('OVERALL_HEADER', create_header($lang['DASHBOARD']));
     $page->SetParameter('RESUBMITADS', resubmited_ads_count($_SESSION['user']['id']));
     $page->SetParameter('HIDDENADS', hidden_ads_count($_SESSION['user']['id']));
@@ -236,7 +243,7 @@ if (checkloggedin()) {
     $page->SetParameter('RESUMES', resumes_count($_SESSION['user']['id']));
     $page->SetParameter('COMPANIES', companies_count($_SESSION['user']['id']));
     $page->SetParameter('MYADS', active_ads_count($_SESSION['user']['id']));
-    $page->SetParameter ('FAVORITEUSERSS', favorite_users_count($_SESSION['user']['id']));
+    $page->SetParameter('FAVORITEUSERSS', favorite_users_count($_SESSION['user']['id']));
     $page->SetParameter('WCHAT', (isset($config['wchat_on_off'])) ? $config['wchat_on_off'] : "");
     $page->SetParameter('AUTHORUNAME', ucfirst($ses_userdata['username']));
     $page->SetParameter('AUTHORNAME', ucfirst($ses_userdata['name']));

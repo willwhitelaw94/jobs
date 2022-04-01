@@ -80,4 +80,8 @@ $link['INVOICE'] = $config['site_url'] . 'invoices';
 $link['TIMESHEET'] = $config['site_url'] . 'timesheets';
 $link['CONVERSATION_STARTER'] = $config['site_url'] . 'conversation-starter';
 
+$link['WALLET'] = $config['site_url'] . 'wallet';
+$link['CREATE_WALLET'] = $config['site_url'] . 'create-wallet';
+
+
 
