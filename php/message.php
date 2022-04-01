@@ -44,7 +44,6 @@ if(checkloggedin()) {
         
         $is_first_chat = ($result->num_rows > 0) ? 0 : 1;
     }
-
     // echo $userid;
     // echo $post_id;
     // echo $session_user_id;
@@ -108,7 +107,7 @@ if(checkloggedin()) {
         $msg.='</div></div>'; 
     }
    }
-
+<<<<<<< HEAD
     
     // $sql = "select * from `".$config['db']['pre']."messages` where (to_id = '".$ses_userdata['id']."' AND from_id = '".$userid."' AND post_id = ".$postid.") order by message_id ASC limit 1";
     // $query = $mysqli->query($sql);
@@ -163,6 +162,11 @@ if(checkloggedin()) {
    // echo "<pre>";
    // print_r($config);
    // die("======");
+=======
+
+  
+   
+>>>>>>> cf02cbf620e1302fa06d93b7ec05dda8d944705b
      
     $author_image = $ses_userdata['image'];
     if($config['quickchat_ajax_on_off'] == 'on' || $config['quickchat_socket_on_off'] == 'on') {

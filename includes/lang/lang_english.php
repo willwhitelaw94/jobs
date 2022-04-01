@@ -551,16 +551,16 @@ $lang['BANK_ACCOUNT'] = 'Bank Account';
 
 $lang['LANGUAGES'] = 'Languages';
 // Bank Details page
-$lang['BANK_DETAILS']='Bank  Details';
-$lang['ACCOUNTNAME']='Account Name';
-$lang['BANKNAME']='Bank Name';
-$lang['BSB']='BSB';
-$lang['ACCOUNTNUMBER']='Account Number';
+$lang['BANK_DETAILS'] = 'Bank  Details';
+$lang['ACCOUNTNAME'] = 'Account Name';
+$lang['BANKNAME'] = 'Bank Name';
+$lang['BSB'] = 'BSB';
+$lang['ACCOUNTNUMBER'] = 'Account Number';
 $lang['ENTERACCOUNTNAME'] = 'Please enter your account name';
 $lang['ENTERBANKNAME'] = 'Please enter your Bank name';
 $lang['ENTERBSBNAME'] = 'Please enter BSB name';
 $lang['ENTERACCOUNTNUMBER'] = 'Please enter your account number';
-$lang['ACC_PRIVACY_MSG']='Your bank details <strong> will not be displayed on your profile and only used to process your payemnts by the Trilogy</strong>';
+$lang['ACC_PRIVACY_MSG'] = 'Your bank details <strong> will not be displayed on your profile and only used to process your payemnts by the Trilogy</strong>';
 // End Bank Details page
 
 //Rate and Availability page
@@ -586,7 +586,7 @@ $lang['LANGUAGE_UPDATED'] = 'Language updated successfully';
 $lang['MY_CULTURAL_BACKGROUNDS'] = 'My Cultural Backgrounds';
 $lang['CULTURAL_BACKGROUNDS'] = 'Cultural Backgrounds';
 $lang['CULTURAL_BACKGROUNDS_UPDATED'] = 'Cultural Backgrounds updated';
-$lang['CULTURAL_BACK_MSG']='Select your cultural background, this will help clients search for Support Workers who share a similar cultural background.';
+$lang['CULTURAL_BACK_MSG'] = 'Select your cultural background, this will help clients search for Support Workers who share a similar cultural background.';
 //End Cultural-backgrounds page
 $lang['MY_RELIGION'] = 'My Religion';
 $lang['RELIGION'] = 'Religion';
@@ -608,57 +608,56 @@ $lang['EDUCATION_DELETED'] = 'Education Deleted.';
 $lang['ACTIVE'] = 'Active';
 $lang['VERIFIED'] = 'Verified';
 $lang['BANNED'] = 'Banned';
-$lang['INVALID_END_TIME']='Invalid end time';
-$lang['SKILLS']='Skills';
-$lang['MY_SKILLS']='My Skills';
-$lang['SKILLS_UPDATED']='Skills Updated';
-$lang['SKILLS_DELETED']='Skills Deleted';
-$lang['CUSTOM_FIELDS']='Custom Fields';
-$lang['MY_CONVERSATION']='My Conversation';
-$lang['CONVERSATION_STARTER']='Conversation Starter';
+$lang['INVALID_END_TIME'] = 'Invalid end time';
+$lang['SKILLS'] = 'Skills';
+$lang['MY_SKILLS'] = 'My Skills';
+$lang['SKILLS_UPDATED'] = 'Skills Updated';
+$lang['SKILLS_DELETED'] = 'Skills Deleted';
+$lang['CUSTOM_FIELDS'] = 'Custom Fields';
+$lang['MY_CONVERSATION'] = 'My Conversation';
+$lang['CONVERSATION_STARTER'] = 'Conversation Starter';
 
 //Custom Fields
-$lang['SAVE_FIELDS']='Save Fields';
-$lang['IMMUNISATION_INFO']='Immunisation Info';
+$lang['SAVE_FIELDS'] = 'Save Fields';
+$lang['IMMUNISATION_INFO'] = 'Immunisation Info';
 
 
-$lang['NO']='No';
-$lang['YES_ONE_DOSE']='Yes, One dose';
-$lang['YES_TWO_DOSE']='Yes, Two dose';
-$lang['YES_ONE_BOOSTER']='Yes, One booster';
-$lang['CERTIFICATE_REQ']='COVID-19 Certificate is required';
-$lang['IMMUNISATION_INFO_UPDATED']='Immunisation info updated.';
+$lang['NO'] = 'No';
+$lang['YES_ONE_DOSE'] = 'Yes, One dose';
+$lang['YES_TWO_DOSE'] = 'Yes, Two dose';
+$lang['YES_ONE_BOOSTER'] = 'Yes, One booster';
+$lang['CERTIFICATE_REQ'] = 'COVID-19 Certificate is required';
+$lang['IMMUNISATION_INFO_UPDATED'] = 'Immunisation info updated.';
 $lang['IMMUNISATION_DATE_REQ'] = 'Immunisation date required';
 
 //Document Section
 $lang['ADD_DOCUMENT'] = 'Add Document';
 $lang['SELECT_DOCUMENT'] = 'Select Document';
-$lang['EXPIRY_DATE']='Expiry Date';
-$lang['UPLOAD_DOCUMENT']='Upload Document';
-$lang['REGISTRATION_NUMBER']='Registration Number';
-$lang['Description']='Description';
-$lang['WRITE_DESCRIPTION']='Write Description';
-$lang['WRITE_REGISTRATION']='Enter Registration Number';
-$lang['WRITE_EXPIRY_DATE']='Enter Expiry Date';
-$lang['MY_DOCUMENT']='My Documents';
-$lang['DOCUMENT']='Documents';
-$lang['DOCUMENT_TYPE']='Document Type';
-$lang['REG_NUMBER']='Reg.No.';
-$lang['EXP_DATE']='Exp. Date';
-$lang['STATUS']='Status';
+$lang['EXPIRY_DATE'] = 'Expiry Date';
+$lang['UPLOAD_DOCUMENT'] = 'Upload Document';
+$lang['REGISTRATION_NUMBER'] = 'Registration Number';
+$lang['Description'] = 'Description';
+$lang['WRITE_DESCRIPTION'] = 'Write Description';
+$lang['WRITE_REGISTRATION'] = 'Enter Registration Number';
+$lang['WRITE_EXPIRY_DATE'] = 'Enter Expiry Date';
+$lang['MY_DOCUMENT'] = 'My Documents';
+$lang['DOCUMENT'] = 'Documents';
+$lang['DOCUMENT_TYPE'] = 'Document Type';
+$lang['REG_NUMBER'] = 'Reg.No.';
+$lang['EXP_DATE'] = 'Exp. Date';
+$lang['STATUS'] = 'Status';
 $lang['EXPIRY_DATE_REQ'] = 'Expiry date required';
 $lang['DOCUMENT_REQ'] = 'Document is required';
-$lang['DOCUMENT_UPDATED']='Document updated.';
-$lang['DOCUMENT_DELETED']='Document Deleted';
-$lang['EDIT_DOCUMENT']='Edit Document';
-$lang['VIEW_DOCUMENT']='View Document';
+$lang['DOCUMENT_UPDATED'] = 'Document updated.';
+$lang['DOCUMENT_DELETED'] = 'Document Deleted';
+$lang['EDIT_DOCUMENT'] = 'Edit Document';
+$lang['VIEW_DOCUMENT'] = 'View Document';
 
-
-$lang['CREATE_WALLET']='Add Amount';
-$lang['WALLET']='Wallet';
-$lang['WALLET_HISTORY']='Payment History';
-$lang['WALLET_AMOUNT']='Amount';
-$lang['WALLET_ADD']='Add';
+$lang['CREATE_WALLET'] = 'Add Amount';
+$lang['WALLET'] = 'Wallet';
+$lang['WALLET_HISTORY'] = 'Payment History';
+$lang['WALLET_AMOUNT'] = 'Amount';
+$lang['WALLET_ADD'] = 'Add';
 $lang['ENTERAMOUNT'] = 'Please enter amount';
 $lang['WALLET_SUMMARY'] = 'Wallet Summary';
 $lang['WALLET_TOTAL_AMOUNT'] = 'Total Amount';
@@ -666,12 +665,8 @@ $lang['WALLET_DEBIT'] = 'Debit';
 $lang['WALLET_CREDIT'] = 'Credit';
 
 
-
 //About
-$lang['ABOUT_ME']='About Me';
-$lang['ABOUT_ME_UPDATED']='About Me Updated';
-$lang['PREFERENCE']='Preference';
-$lang['PREFERENCE_UPDATED'] ='Preference Updated';
-
-$lang['MORE_FILTER'] = 'More Filters';
-
+$lang['ABOUT_ME'] = 'About Me';
+$lang['ABOUT_ME_UPDATED'] = 'About Me Updated';
+$lang['PREFERENCE'] = 'Preference';
+$lang['PREFERENCE_UPDATED'] = 'Preference Updated';
