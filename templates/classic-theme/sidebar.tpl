@@ -1,7 +1,7 @@
 <link href="{SITE_URL}templates/{TPL_NAME}/css/mystyle.css" rel="stylesheet"/>
 <style>
 .dashboard-nav ul li.active-submenu ul {
-    max-height: 350px !important;
+    max-height: 450px !important;
 }
 </style>
 <div class="dashboard-sidebar">
@@ -120,14 +120,15 @@
                                 <li class="IF('{PAGEURI}' == 'languages'){ active {:IF}"><a href="{LINK_LANGUAGES}">{LANG_LANGUAGES}</a></li>
                                 <li class="IF('{PAGEURI}' == 'cultural-backgrounds'){ active {:IF}"><a href="{LINK_CULTURAL_BACKGROUNDS}">{LANG_CULTURAL_BACKGROUNDS}</a></li>
                                 <li class="IF('{PAGEURI}' == 'religion'){ active {:IF}"><a href="{LINK_RELIGION}">{LANG_RELIGION}</a></li>
-                                <li class="IF('{PAGEURI}' == 'my-experiences'){ active {:IF}"><a href="{LINK_EXPERIENCES}"> {LANG_MY_EXPERIENCES}</a></li>
-                                <li class="IF('{PAGEURI}' == 'my-educations'){ active {:IF}"><a href="{LINK_EDUCATIONS}"> {LANG_MY_EDUCATIONS}</a></li>
-                                <li class="IF('{PAGEURI}' == 'my-skills'){ active {:IF}"><a href="{LINK_SKILLS}"> {LANG_SKILLS}</a></li>
-                                <li class="IF('{PAGEURI}' == 'immunisation-info'){ active {:IF}"><a href="{LINK_IMMUNISATION_INFO}"> {LANG_IMMUNISATION_INFO}</a></li>
+                                <li class="IF('{PAGEURI}' == 'my-experiences'){ active {:IF}"><a href="{LINK_EXPERIENCES}">{LANG_MY_EXPERIENCES}</a></li>
+                                <li class="IF('{PAGEURI}' == 'my-educations'){ active {:IF}"><a href="{LINK_EDUCATIONS}">{LANG_MY_EDUCATIONS}</a></li>
+                                <li class="IF('{PAGEURI}' == 'my-skills'){ active {:IF}"><a href="{LINK_SKILLS}">{LANG_SKILLS}</a></li>
+                                <li class="IF('{PAGEURI}' == 'immunisation-info'){ active {:IF}"><a href="{LINK_IMMUNISATION_INFO}">{LANG_IMMUNISATION_INFO}</a></li>
+                                <li class="IF('{PAGEURI}' == 'about-me'){ active {:IF}"><a href="{LINK_ABOUT_ME}">{LANG_ABOUT_ME}</a></li>
+                                <li class="IF('{PAGEURI}' == 'preference'){ active {:IF}"><a href="{LINK_PREFERENCE}">{LANG_PREFERENCE}</a></li>
                                 IF({CUSTOM_FIELD_ENABLE}){
                                     <li class="IF('{PAGEURI}' == 'user-custom-fields'){ active {:IF}"><a href="{LINK_USER_CUSTOM_FIELDS}">{LANG_CUSTOM_FIELDS} </a></li>
                                 {:IF}
-                               
                             </ul>
                         </li>
                         ELSEIF('{USERTYPE}' == "employer"){

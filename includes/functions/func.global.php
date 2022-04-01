@@ -1762,6 +1762,12 @@ function parent_culture($option_id){
     return $parent['cultural_background_id'];
 }
 
+function parent_preference($option_id){
+    global $config;
+    $parent= ORM::for_table($config['db']['pre'] . 'preference_options')->select('preference_id')->where('id',$option_id)->find_one();
+    return $parent['preference_id'];
+}
+
 function create_front_breadcrumbs($page_name)
 {
     global $config,$lang,$link;

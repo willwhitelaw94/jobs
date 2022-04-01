@@ -660,5 +660,10 @@ $lang['MYTIMESHEET']='My Timesheets';
 $lang['ADD_SHIFT']='Add New Shift';
 
 
+//About
+$lang['ABOUT_ME']='About Me';
+$lang['ABOUT_ME_UPDATED']='About Me Updated';
+$lang['PREFERENCE']='Preference';
+$lang['PREFERENCE_UPDATED'] ='Preference Updated';
 
-
+$lang['MORE_FILTER'] = 'More Filters';
