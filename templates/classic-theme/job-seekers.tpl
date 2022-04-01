@@ -114,7 +114,7 @@
             </div>
         </div>
     </div>
-
+<!--Modal More Filter--> 
     <div class="container">
         <div class="row">
             <div class="col-xl-3 col-lg-4">
@@ -167,22 +167,23 @@
                         </div>
                     </div>
                     <div class="sidebar-widget">
+                        <a class="popup-with-zoom-anim  button full-width ripple-effect" href="#moreFilter">More Filter search</a>
+                        <!-- <button class="button full-width ripple-effect">{LANG_ADVANCED_SEARCH}</button> -->
+                        
+                    </div>
+                    <div class="sidebar-widget">
                         <button class="button full-width ripple-effect">{LANG_ADVANCED_SEARCH}</button>
                     </div>
                 </div>
             </div>
             <div class="col-xl-9 col-lg-8">
-
                 <h3 class="page-title">{LANG_SEARCH_RESULTS}</h3>
-
                 <div class="notify-box margin-top-15">
                     <span class="font-weight-600">{USERSFOUND} {LANG_USERS_FOUND} </span>.
 
                         IF("{USERSFOUND}"== 0){ <span> Try Posting a <b><a href="#">Job</a></b> or fill the form below and we will find workers for you. </span> {:IF}
-
                 </div>
                 IF("{USERSFOUND}"== 0){
-
                 <div id="zf_div_ns8vUFATpUI0fnUHuNR1COcn6zVBuevaxaoaMQhU7Vw"></div><script type="text/javascript">(function() {
                         try{
                             var f = document.createElement("iframe");
@@ -291,6 +292,8 @@
 </form>
 
 
+
+
 <div class="gray section padding-top-65 padding-bottom-65">
     <div class="container">
         <div class="row">
@@ -301,7 +304,6 @@
                     <h3>How It Works?</h3>
                 </div>
             </div>
-
             <div class="col-xl-4 col-md-4">
                 <!-- Icon Box -->
                 <div class="icon-box with-line">
@@ -346,8 +348,6 @@
                     <p>Nanotechnology immersion along the information highway will close the loop on focusing solely.</p>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
@@ -355,10 +355,8 @@
 <div class="section  padding-bottom-75">
     <div class="container">
         <div class="row">
-
             <div class="col-xl-12">
                 <div class="counters-container">
-
                     <!-- Counter -->
                     <div class="single-counter">
                         <i class="icon-line-awesome-suitcase"></i>
@@ -367,7 +365,6 @@
                             <span class="counter-title">Jobs Posted</span>
                         </div>
                     </div>
-
                     <!-- Counter -->
                     <div class="single-counter">
                         <i class="icon-line-awesome-legal"></i>
@@ -376,7 +373,6 @@
                             <span class="counter-title">Tasks Posted</span>
                         </div>
                     </div>
-
                     <!-- Counter -->
                     <div class="single-counter">
                         <i class="icon-line-awesome-user"></i>
@@ -385,7 +381,6 @@
                             <span class="counter-title">Active Members</span>
                         </div>
                     </div>
-
                     <!-- Counter -->
                     <div class="single-counter">
                         <i class="icon-line-awesome-trophy"></i>
@@ -394,10 +389,108 @@
                             <span class="counter-title">Satisfaction Rate</span>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+
+<div class="zoom-anim-dialog mfp-hide popup-dialog big-dialog" id="moreFilter">
+    <div class="popup-tab-content padding-0">
+        <div class="popup_model_header_cl">
+            <h3>More Filter</h3>
+        </div>
+        <main class="l-index">
+            <div class="l-container">
+              <div class="accordion">
+                <ul class="accordion-list">
+                    <li class="accordion-item">
+                        <div class="accordion-container">
+                            <div class="js-accordion-header">
+                                <h2 class="accordion-title"><span>Languages</span></h2>
+                            </div>
+                            <div class="accordion-contents" style="display: none;">
+                                <div class="row">
+                                    {LOOP: LANGS}
+                                    <div class="col-md-3">
+                                        <div class="check_box_group">
+                                            <input type="checkbox" id="languages" name="languages" value="Bike">
+                                            <label for="languages">{LANGS.name}</label>
+                                        </div>
+                                    </div>
+                                    {/LOOP: LANGS} 
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </li>
+
+                    <li class="accordion-item">
+                        <div class="accordion-container">
+                            <div class="js-accordion-header">
+                                <h2 class="accordion-title"><span>Interests</span></h2>
+                            </div>
+                            <div class="accordion-contents" style="display: none;">
+                                <div class="row">
+                                    {LOOP: INTEREST}
+                                    <div class="col-md-3">
+                                        <div class="check_box_group">
+                                            <input type="checkbox" id="interests" name="interests" value="Bike">
+                                            <label for="interests">{INTEREST.name}</label>
+                                        </div>
+                                    </div>
+                                    {/LOOP: INTEREST}
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </li>
+                    <li class="accordion-item">
+                        <div class="accordion-container">
+                            <div class="js-accordion-header">
+                                <h2 class="accordion-title"><span>Religion</span></h2>
+                            </div>
+                            <div class="accordion-contents" style="display: none;">
+                                <div class="row">
+                                    {LOOP: RELIGION}
+                                    <div class="col-md-3">
+                                        <div class="check_box_group">
+                                            <input type="checkbox" id="religion" name="religion" value="Bike">
+                                            <label for="religion">{RELIGION.name}</label>
+                                        </div>
+                                    </div>
+                                    {/LOOP: RELIGION}
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="accordion-item">
+                        <div class="accordion-container">
+                            <div class="js-accordion-header">
+                                <h2 class="accordion-title"><span>Cultural Background</span></h2>
+                            </div>
+                            <div class="accordion-contents" style="display: none;">
+                                <div class="row">
+                                    {LOOP: CULTURAL_BACKGROUND}
+                                    <div class="col-md-4">
+                                        <div class="check_box_group">
+                                            <input type="checkbox" id="cultural_background" name="cultural_background" value="Bike">
+                                            <label for="cultural_background">{CULTURAL_BACKGROUND.name}</label>
+                                        </div>
+                                    </div>
+                                    {/LOOP: CULTURAL_BACKGROUND}
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+              </div>
+            </div>
+        </main>
     </div>
 </div>
 <!-- Counters / End -->
@@ -416,4 +509,117 @@
         }
     });
 </script>
+
+
+  <script>
+
+const $target = $('.js-accordion-header');
+const ACTIVE_CLASS = 'is-active';
+const visible = $('.accordion-contents:visible');
+
+$target.on('click', function () {
+  const $this = $(this);
+
+  $this.toggleClass(ACTIVE_CLASS);
+  $this.siblings('.accordion-contents').stop().slideToggle();
+
+  if ($this.hasClass(ACTIVE_CLASS)) {
+    // $target.removeClass(ACTIVE_CLASS);
+    // $this.addClass(ACTIVE_CLASS);
+    // visible.stop().slideUp(); comment this out if you want to close an accordion item if you open other items
+  }
+});
+
+  </script>
 {OVERALL_FOOTER}
+
+<style>
+
+    .accordion {
+ 
+    box-shadow: inherit !important;
+}
+    
+    .accordion-header.is-active:hover {
+      transform: scale(1);
+    }
+    
+    .accordion-title {
+      font-size: 28px;
+      letter-spacing: 0.08em;
+    }
+    
+    .accordion-contents {
+      padding: 5px 0px;
+    }
+    
+    .js-accordion-header .accordion-title {
+        font-size: 16px;
+    margin-bottom: 2px;
+
+    padding: 15px;
+    border-radius: 0px;
+    cursor: pointer;
+    background-color: white;
+    position: relative;
+}
+
+.js-accordion-header .accordion-title 
+
+.js-accordion-header .accordion-title:hover{    background-color: lightgrey;}
+
+main.l-index {
+    padding: 6px;
+    padding-top: 5px;
+    background-color: #f3f3f36b;
+}
+
+.accordion-container{border-radius: 0px !important;}
+
+#moreFilter .mfp-close {
+    position: absolute;
+    top: 0px !important;
+    right: 0;
+}
+
+.l-index .accordion-contents {
+    background-color: #e7e7e7;
+    margin-bottom: 2px;
+    padding: 10px 25px;
+}
+
+.is-active .accordion-title:before {
+    content: "";
+    position: absolute;
+    background-color: #e7e7e7;
+    height: 15px;
+    width: 15px;
+    bottom: -12px;
+    transform: rotate(45deg);
+}
+
+.popup_model_header_cl {
+    padding: 15px 15px;
+    border-bottom: 1px solid #e3e3e3;
+}
+/* .popup_model_header_cl h3{} */
+
+.check_box_group input {
+    background-color: transparent !important;
+    box-shadow: inherit !important;
+    height: auto !important;
+    width: auto;
+}
+
+.check_box_group label{width: auto;
+    display: inline;}
+
+
+    .check_box_group {
+    margin-bottom: 4px;
+}
+
+.check_box_group label{    font-size: 14px;
+    margin-left: 5px;}
+    
+</style>
