@@ -4,7 +4,6 @@
     max-height: 350px !important;
 }
 </style>
-
 <div class="dashboard-sidebar">
     <div class="dashboard-sidebar-inner">
         <div class="dashboard-nav-container">
@@ -37,10 +36,11 @@
                    
                     IF('{USERTYPE}'){
                     <ul data-submenu-title="{LANG_MY_JOBS}">
+                          
                         IF('{USERTYPE}' == "user"){
+                            <li  class="IF('{URISEGMENT}' == 'my-clients'){ echo active {:IF}"><a href="{LINK_MYCLIENTS}"><i class="icon-feather-box"></i>{LANG_MYCLIENTS}<span class="nav-tag">{CLIENTS}</span></a></li>    
                         IF({RESUME_ENABLE}){
-                        <li class="IF('{URISEGMENT}' == 'my-resumes'){ active {:IF}"><a href="{LINK_RESUMES}"><i
-                                        class="fa fa-envelope-open"></i> {LANG_MY_RESUMES} <span class="nav-tag">{RESUMES}</span></a></li>
+                        <li class="IF('{URISEGMENT}' == 'my-resumes'){ active {:IF}"><a href="{LINK_RESUMES}"><i class="fa fa-envelope-open"></i> {LANG_MY_RESUMES} <span class="nav-tag">{RESUMES}</span></a></li>
                         {:IF}
 
                         <li><a href="{LINK_FAVJOBS}"><i class="icon-feather-heart"></i> {LANG_FAV_JOBS}
@@ -52,9 +52,7 @@
                                 <span class="nav-tag">0</span></a></li>
 
                         ELSEIF('{USERTYPE}' == "employer"){
-                        <li><a href="{LINK_MYCOMPANIES}"><i
-                                        class="icon-feather-box"></i> My Clients <span
-                                        class="nav-tag">{COMPANIES}</span></a></li>
+                      
                         <li><a href="{LINK_MYJOBS}"><i
                                         class="icon-feather-briefcase"></i> {LANG_MY_JOBS} <span
                                         class="nav-tag">{MYADS}</span></a></li>
@@ -82,10 +80,10 @@
                                 {LANG_BANK_DETAILS}</a></li>
 
 
-                        <li class="IF('{PAGEURI}' == 'timesheets'){ active {:IF}">
+                        <li class="IF('{URISEGMENT}' == 'timesheets'){ active {:IF}">
                             <a href="{LINK_TIMESHEET}">
                                 <i class="fa fa-clock-o"></i>
-                                Timesheets</a></li>
+                                {LANG_TIMESHEET}</a></li>
 
                         <li class="IF('{PAGEURI}' == 'timesheets'){ active {:IF}">
                             <a href="{LINK_INVOICE}">

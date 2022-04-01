@@ -50,6 +50,8 @@ if(isset($_POST['action'])){
     if ($_POST['action'] == "email_verify") {email_verify();}
     if ($_POST['action'] == "quickad_ajax_home_search") {quickad_ajax_home_search();}
     if ($_POST['action'] == "setUserVisibilityStatus") {setUserVisibilityStatus();}
+    if ($_POST['action'] == "getAgreementRateByid") {getAgreementRateByid();}
+    
 }
 
 function ajaxlogin(){
@@ -1796,4 +1798,31 @@ function setUserVisibilityStatus(){
     }
     die(json_encode($result));
    
+}
+
+function getAgreementRateByid()
+{
+    global $config;
+    $id = isset($_POST['agrid']) ? $_POST['agrid'] : 0;
+    $rows = ORM::for_table($config['db']['pre'].'user_agreements_rates')->table_alias('ar')
+        ->where('ar.agreement_id',$id)
+        ->where_raw('ar.id NOT IN(SELECT agreement_rate_id FROM '.$config['db']['pre'].'timesheets WHERE worker_id='.$_SESSION['user']['id'].')')
+        ->find_many();
+    //print_r($rows);    
+    if (count($rows) > 0) {
+        foreach ($rows as $info) {
+            $rateid = $info['id'];
+            $text= ucwords($info['description']).'- $'.$info['rate'].' '.ucwords(str_replace('-', ' ', $info['rate_type'])) ;
+            // if($selectid == $sub_id){
+            //     $selected_text = "selected";
+            // }
+            // else{
+            //     $selected_text = "";
+            // }
+            echo '<option value="'. $rateid .'">'.$text.'</option>';
+        }
+    }else{
+        echo 0;
+    }
+    die();
 }

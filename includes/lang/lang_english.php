@@ -652,5 +652,13 @@ $lang['DOCUMENT_UPDATED']='Document updated.';
 $lang['DOCUMENT_DELETED']='Document Deleted';
 $lang['EDIT_DOCUMENT']='Edit Document';
 $lang['VIEW_DOCUMENT']='View Document';
+//client page
+$lang['MYCLIENTS']='My clients';
+$lang['CLIENTS']='Clients';
+$lang['TIMESHEET']='Timesheet';
+$lang['MYTIMESHEET']='My Timesheets';
+$lang['ADD_SHIFT']='Add New Shift';
+
+
 
 
