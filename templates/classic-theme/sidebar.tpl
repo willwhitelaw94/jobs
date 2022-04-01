@@ -23,6 +23,8 @@
                         IF('{QUICKAJAXCHAT}'=='on'){
                         <li class="IF('{URISEGMENT}' == 'message'){ active {:IF}"><a href="{LINK_MESSAGE}"><i
                                         class="icon-feather-message-circle"></i> {LANG_MESSAGE}s</a></li>
+                        <li class=""><a href="{LINK_WALLET}"><i
+                        class="icon-feather-briefcase"></i> {LANG_WALLET}</a></li>
                         {:IF}
                         IF('{USERTYPE}' == "employer"){
                         IF({COMPANY_ENABLE}){

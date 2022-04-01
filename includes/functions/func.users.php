@@ -733,6 +733,7 @@ function esc_url($url) {
 }
 
 function create_user_sidebar(){
+
     global $config,$lang,$link;
     $uriSegments = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
     $pageUri = $uriSegments[3] ?? "";

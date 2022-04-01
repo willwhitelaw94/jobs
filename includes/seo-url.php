@@ -88,4 +88,8 @@ $link['MYCLIENTS'] = $config['site_url'] . 'my-clients';
 
 
 
+$link['WALLET'] = $config['site_url'] . 'wallet';
+$link['CREATE_WALLET'] = $config['site_url'] . 'create-wallet';
+
+
 
