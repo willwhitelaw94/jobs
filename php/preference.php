@@ -36,7 +36,7 @@ if(checkloggedin())
     }
 
 	$pre_tpl='';
-	$items = array();
+	$pre_item = array();
     if ($preference) {
         foreach ($preferenceWithOptions as $info)
         {   
@@ -92,7 +92,7 @@ if(checkloggedin())
 
 	$page = new HtmlTemplate ('templates/' . $config['tpl_name'] . '/preference.tpl');
     $page->SetParameter ('OVERALL_HEADER', create_header($lang['PREFERENCE']));
-	$page->SetLoop ('ITEM', $items);
+	$page->SetLoop ('PRE_ITEM', $pre_item);
 	$page->SetParameter('PRE',$pre_tpl);
     $page->SetParameter('WCHAT', (isset($config['wchat_on_off']))? $config['wchat_on_off']:"");
     $page->SetParameter ('OVERALL_FOOTER', create_footer());

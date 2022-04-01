@@ -265,7 +265,16 @@ foreach ($result as $info) {
     $states[$count]['tpl'] .= '<li class=""><a href="#" id="region'.$code.'" class="statedata" data-id="'.$code.'" data-name="'.$name.'"><span>'.$name.' <i class="fa fa-angle-right"></i></span></a></li>';
     $count++;
 }
+$languages=ORM::for_table($config['db']['pre'] . 'language')->find_array();
 
+$interests=ORM::for_table($config['db']['pre']. 'interests')->find_array();
+
+$religions = ORM::for_table($config['db']['pre'] . 'religions')->find_array();
+
+$cultural_backgrounds = ORM::for_table($config['db']['pre'] . 'cultural_backgrounds')->find_array();
+
+// echo"<pre>";
+// print_r($cultural_backgrounds);die;
 
 $cat_dropdown = get_categories_dropdown($lang);
 // Output to template
@@ -279,6 +288,10 @@ $page->SetParameter('DEFAULT_COUNTRY_ID', $country_code);
 $page->SetLoop ('POPULARCITY',$popular);
 $page->SetLoop ('STATELIST',$states);
 $page->SetLoop ('ITEM', $item);
+$page->SetLoop('LANGS',$languages);
+$page->SetLoop('INTEREST',$interests);
+$page->SetLoop('RELIGION',$religions);
+$page->SetLoop('CULTURAL_BACKGROUND',$cultural_backgrounds);
 $page->SetLoop ('CATEGORY',$GetCategory);
 $page->SetParameter ('MAINCAT', $category);
 $page->SetParameter ('SUBCAT', $subcat);
