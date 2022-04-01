@@ -653,6 +653,7 @@ $lang['DOCUMENT_DELETED']='Document Deleted';
 $lang['EDIT_DOCUMENT']='Edit Document';
 $lang['VIEW_DOCUMENT']='View Document';
 
+
 $lang['CREATE_WALLET']='Add Amount';
 $lang['WALLET']='Wallet';
 $lang['WALLET_HISTORY']='Payment History';
@@ -664,4 +665,11 @@ $lang['WALLET_TOTAL_AMOUNT'] = 'Total Amount';
 $lang['WALLET_DEBIT'] = 'Debit';
 $lang['WALLET_CREDIT'] = 'Credit';
 
+
+
+//About
+$lang['ABOUT_ME']='About Me';
+$lang['ABOUT_ME_UPDATED']='About Me Updated';
+$lang['PREFERENCE']='Preference';
+$lang['PREFERENCE_UPDATED'] ='Preference Updated';
 

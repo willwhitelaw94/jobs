@@ -37,15 +37,15 @@ if(checkloggedin()){
         $backgroundOptions = [];
         $c_backg= ORM::for_table('person')->create();
         foreach($backs as $main) {
-            array_push($backgrounds,'('.$user_id.','.$main.')'); #(1,2),(1,3)
+            array_push($backgrounds,'('.$user_id.','.$main.')');
         }
         $u_c_back = implode(',',$backgrounds);
         foreach($background_options as $background_option) {
             if(in_array(parent_culture($background_option), $backs)){
-                array_push($backgroundOptions,'('.$user_id.','.parent_culture($background_option).','.$background_option.')'); #(1,2,23)
+                array_push($backgroundOptions,'('.$user_id.','.parent_culture($background_option).','.$background_option.')');
             }  
         }
-        $u_c_backopt = implode(',',$backgroundOptions);  #(1,2,23), (1,2,24)
+        $u_c_backopt = implode(',',$backgroundOptions); 
         $userBackg = ORM::for_table($config['db']['pre'] . 'user_cultural_backgrounds')->where('user_id', $user_id)->find_array();
         if(count($userBackg)) {
             ORM::for_table($config['db']['pre'] . 'user_cultural_backgrounds')->where_equal('user_id', $user_id)->delete_many();

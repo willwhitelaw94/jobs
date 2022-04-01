@@ -1,5 +1,9 @@
 
 {OVERALL_HEADER}
+<style>
+.checkbox, .radio {
+    display: inline-block !important;
+}</style>
 {BREADCRUMBS}
 <div class="section gray padding-bottom-50">
     <div class="container">

@@ -4,6 +4,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 if(checkloggedin()) {
+    $client_comm=get_option('client_commission');
+    $worker_comm=get_option('worker_commission');
     $post_data=[];
     if(isset($_GET['postid'])){
         $postid = base64_url_decode($_GET['postid']);
@@ -42,12 +44,14 @@ if(checkloggedin()) {
         
         $is_first_chat = ($result->num_rows > 0) ? 0 : 1;
     }
+
     // echo $userid;
     // echo $post_id;
     // echo $session_user_id;
     // die;    
    // dd($is_first_chat);
 
+ 
    $msg='';
    if(isset($_GET['postid'])){
     if($ses_userdata['user_type']=='employer'){
@@ -80,7 +84,7 @@ if(checkloggedin()) {
         $salary_min = price_format($ses_userdata['salary_min'],$ses_userdata['country']);
         $salary_max = price_format($ses_userdata['salary_max'],$ses_userdata['country']);
         $created = date('d M Y', strtotime($ses_userdata['created_at']));
-        $discription = ($ses_userdata['discription'] != '')? $ses_userdata['discription'] : 'Looking For Job';
+        $discription = ($ses_userdata['description'] != '')? $ses_userdata['description'] : 'Looking For Job';
         $fullname = ($ses_userdata['name'] != '')? $ses_userdata['name'] : $ses_userdata['username'];
         if(!empty($ses_userdata['city'])){
             $address = $ses_userdata['city'].','.$ses_userdata['country'];
@@ -104,6 +108,7 @@ if(checkloggedin()) {
         $msg.='</div></div>'; 
     }
    }
+
     
     // $sql = "select * from `".$config['db']['pre']."messages` where (to_id = '".$ses_userdata['id']."' AND from_id = '".$userid."' AND post_id = ".$postid.") order by message_id ASC limit 1";
     // $query = $mysqli->query($sql);
@@ -180,7 +185,9 @@ if(checkloggedin()) {
         $page->SetParameter('USER_SIDEBAR',create_user_sidebar());
         $page->SetParameter('OVERALL_FOOTER', create_footer());
         $page->SetParameter('COPYRIGHT_TEXT', $config['copyright_text']);
-        $page->SetParameter('AGREEMENT_SECTION','');
+   
+        $page->SetParameter('WORKER_COMMISSION',$worker_comm);
+        $page->SetParameter('CLIENT_COMMISSION',$client_comm);
         $page->CreatePageEcho();
     }
     elseif($config['wchat_on_off'] == 'on') {
@@ -201,6 +208,8 @@ if(checkloggedin()) {
         $page->SetParameter('CHAT_USERSTATUS',$chat_userstatus);
         $page->SetParameter('FISRT_CHAT',$is_first_chat);
         $page->SetParameter('USER_SIDEBAR',create_user_sidebar());
+        $page->SetParameter('WORKER_COMMISSION',$worker_comm);
+        $page->SetParameter('CLIENT_COMMISSION',$client_comm);
         $page->SetParameter('COPYRIGHT_TEXT', $config['copyright_text']);
         $page->CreatePageEcho();
     }else

@@ -1762,6 +1762,12 @@ function parent_culture($option_id){
     return $parent['cultural_background_id'];
 }
 
+function parent_preference($option_id){
+    global $config;
+    $parent= ORM::for_table($config['db']['pre'] . 'preference_options')->select('preference_id')->where('id',$option_id)->find_one();
+    return $parent['preference_id'];
+}
+
 function create_front_breadcrumbs($page_name)
 {
     global $config,$lang,$link;
@@ -1831,9 +1837,9 @@ function agreement_msg($status){
     $worker_agreement_msg=[
     'default'=>'',
     'requested'=>'%s has requested that you send them an agreement. <a href="#">Click here</a> for instruction on how to send an agreement.',
-    'sent'=>'You sent %s an offer',
-    'declined'=>'%s has declined agreement ',
-    'accepted' =>'Congratulations, %s hs booked you',
+    'sent'=>'You have sent %s an offer',
+    'declined'=>'%s has declined your agreement ',
+    'accepted' =>'Congratulations, %s has booked you <a href="#view-agreement-popup" class="view-agreement" data-agreement_id="%d">(View Agreement)</a>',
     'changed' =>'You have changed %s\'s agreement',
     ];
     $client_agreement_msg=[
@@ -1841,8 +1847,8 @@ function agreement_msg($status){
     'requested'=>'You have requested an offer on %s',
     'sent'=>'%s sent you an offer for acceptance',
     'declined'=>'You have declined agreement of %s',
-    'accepted' =>'Congratulations, you have booked %s',
-    'changed' =>'%s\' has changed agreement',
+    'accepted' =>'Congratulations, you have booked %s <a href="#view-agreement-popup" class="view-agreement" data-agreement_id="%d"> (view agreement)</a>',
+    'changed' =>'%s has changed agreement',
     ];
     if($usertype=='employer'){
         return $client_agreement_msg[$status];
