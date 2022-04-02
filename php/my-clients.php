@@ -8,7 +8,7 @@ if(checkloggedin())
     if (!isset($_GET['page']))
             $_GET['page'] = 1;
 
-    $limit = 10;
+    $limit = 1;
     $page = $_GET['page'];
     $offset = ($page - 1) * $limit;
     $item = array();
@@ -76,7 +76,7 @@ if(checkloggedin())
     }
    
 
-    $pagging = pagenav($total_item, $_GET['page'], $limit, $link['MYCLIENTS'].'/'.$_GET['id']);
+    $pagging = pagenav($total_item, $_GET['page'], $limit, $link['MYCLIENTS']);
 
     $page = new HtmlTemplate ('templates/' . $config['tpl_name'] . '/my-clients.tpl');
     $page->SetParameter('OVERALL_HEADER', create_header($lang['MYCLIENTS']));

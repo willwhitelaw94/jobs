@@ -683,3 +683,23 @@ $lang['ABOUT_ME'] = 'About Me';
 $lang['ABOUT_ME_UPDATED'] = 'About Me Updated';
 $lang['PREFERENCE'] = 'Preference';
 $lang['PREFERENCE_UPDATED'] = 'Preference Updated';
+$lang['FILE_REQ'] = 'Upload file is required';
+
+//Status
+$lang['SUBMITTED']='Submitted';
+$lang['APPROVED']='Approved';
+$lang['PENDING']='Pending';
+$lang['DISBURSED']='Disbursed';
+$lang['DRAFT']='Draft';
+$lang['REJECTED']='Rejected';
+$lang['NO_SHIFT_FOUND']='No Shift Found';
+$lang['APPROVE']='Approve';
+$lang['REJECT']='Reject';
+
+$lang['NEW_SHIFT']='Add New Shift';
+$lang['EDIT_SHIFT']='Edit Shift';
+
+
+
+
+

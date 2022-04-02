@@ -51,6 +51,9 @@ if(isset($_POST['action'])){
     if ($_POST['action'] == "quickad_ajax_home_search") {quickad_ajax_home_search();}
     if ($_POST['action'] == "setUserVisibilityStatus") {setUserVisibilityStatus();}
     if ($_POST['action'] == "getAgreementRateByid") {getAgreementRateByid();}
+    if ($_POST['action'] == "updateTimesheetStatus") {updateTimesheetStatus();}
+    if ($_POST['action'] == "deleteTimesheet") {deleteTimesheet();}
+    
     
 }
 
@@ -1825,4 +1828,33 @@ function getAgreementRateByid()
         echo 0;
     }
     die();
+    
+}
+function updateTimesheetStatus(){
+    global $config;
+    $id=$_POST['id'];
+    $status=$_POST['status'];
+    //print_r($_POST);
+    $ts = ORM::for_table($config['db']['pre'].'timesheets')->find_one($id);
+   // echo ORM::get_last_query();
+   // print_r( $ts );
+    $ts->status=$status;
+    if($ts->save()){
+      echo json_encode(['status'=>true]);
+    }else{
+        echo json_encode(['status'=>false]);
+    }
+    die;
+
+}
+
+function deleteTimesheet(){
+    global $config;
+	$ts= ORM::for_table($config['db']['pre'].'timesheets')->find_one($_POST['id']);
+    if($ts->delete()){
+        echo json_encode(['status'=>true]);  
+    }else{
+        echo json_encode(['status'=>false]);
+    }
+    die;
 }
