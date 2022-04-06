@@ -28,7 +28,6 @@ if(checkloggedin()){
                 $u_m_lang->save();
             }
         }
-
         // foreach ($user_other_lang_ids as $lang_id) {
         //     if(!in_array($lang_id,$m_langs)){
         //         $ol=ORM::for_table($config['db']['pre'] . 'user_languages')->where(['user_id'=>$user_id,'language_other_id'=>$lang_id])->find_one();
@@ -47,7 +46,6 @@ if(checkloggedin()){
         transfer($link['LANGUAGES'], $lang['LANGUAGE_UPDATED'], $lang['LANGUAGE_UPDATED']);
         exit;
     }
-
     $ses_userdata = get_user_data($_SESSION['user']['username']);
     $page = new HtmlTemplate ('templates/' . $config['tpl_name'] . '/languages.tpl');
     $page->SetParameter('OVERALL_HEADER', create_header($lang['RATE_AVAILABILITY']));

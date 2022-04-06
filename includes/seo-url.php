@@ -62,6 +62,7 @@ $link['RATE_AVAILABILITY'] = $config['site_url'] . 'edit-profile/rate-and-availa
 $link['LANGUAGES'] = $config['site_url'] . 'edit-profile/languages';
 $link['CULTURAL_BACKGROUNDS'] = $config['site_url'] . 'edit-profile/cultural-backgrounds';
 $link['RELIGION'] = $config['site_url'] . 'edit-profile/religion';
+$link['INTERESTS'] = $config['site_url'] . 'edit-profile/interests';
 $link['EDUCATIONS'] = $config['site_url'] . 'edit-profile/my-educations';
 $link['ADD_EDUCATION'] = $config['site_url'] . 'edit-profile/add-education';
 $link['EDIT_EDUCATION'] = $config['site_url'] . 'edit-profile/edit-education';

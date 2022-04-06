@@ -114,6 +114,102 @@
             </div>
         </div>
     </div>
+<!--More Filter Searches-->
+    <div class="zoom-anim-dialog mfp-hide popup-dialog big-dialog" id="moreFilter">
+        <div class="popup-tab-content padding-0">
+            <div class="popup_model_header_cl">
+                <h3>More Filter</h3>
+            </div>
+            <main class="l-index">                
+                <div class="l-container">
+                    <div class="accordion">
+                        <ul class="accordion-list">
+                            <li class="accordion-item">
+                                <div class="accordion-container">
+                                    <div class="js-accordion-header">
+                                        <h2 class="accordion-title"><span>{LANG_LANGUAGES}</span></h2>
+                                    </div>
+                                    <div class="accordion-contents" style="display: none;">
+                                        <div class="row">
+                                            
+                                            {LOOP: LANGS}
+                                            <div class="col-md-3">
+                                                <div class="check_box_group">
+                                                    <input type="checkbox" class="languages_input" id="lang{LANGS.id}" value="{LANGS.id}" IF(in_array('{LANGS.id}',explode(", ",'{LANG_CHECKED}'))){ checked  {:IF}>                                
+                                                    <label>{LANGS.name}</label>
+                                                </div>
+                                            </div>
+                                            {/LOOP: LANGS} 
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="accordion-item">
+                                <div class="accordion-container">
+                                    <div class="js-accordion-header">
+                                        <h2 class="accordion-title"><span>{LANG_INTERESTS}</span></h2>
+                                    </div>
+                                    <div class="accordion-contents" style="display: none;">
+                                        <div class="row">
+                                            {LOOP: INTEREST}
+                                            <div class="col-md-3">
+                                                <div class="check_box_group">
+                                                    <input type="checkbox" class="interests_input" id="inte{INTEREST.id}" value="{INTEREST.id}" IF(in_array('{INTEREST.id}',explode(", ",'{INTE_CHECKED}'))){ checked  {:IF}>
+                                                    <label>{INTEREST.name}</label>
+                                                </div>
+                                            </div>
+                                            {/LOOP: INTEREST}
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="accordion-item">
+                                <div class="accordion-container">
+                                    <div class="js-accordion-header">
+                                        <h2 class="accordion-title"><span>{LANG_RELIGION}</span></h2>
+                                    </div>
+                                    <div class="accordion-contents" style="display: none;">
+                                        <div class="row">
+                                            {LOOP: RELIGION}
+                                            <div class="col-md-3">
+                                                <div class="check_box_group">
+                                                    <input type="checkbox" class="religions_input" id="reli{RELIGION.id}" value="{RELIGION.id}" IF(in_array('{RELIGION.id}',explode(", ",'{RELI_CHECKED}'))){ checked  {:IF}>
+                                                    <label>{RELIGION.name}</label>
+                                                </div>
+                                            </div>
+                                            {/LOOP: RELIGION}
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="accordion-item">
+                                <div class="accordion-container">
+                                    <div class="js-accordion-header">
+                                        <h2 class="accordion-title"><span>{LANG_CULTURAL_BACKGROUNDS}</span></h2>
+                                    </div>
+                                    <div class="accordion-contents" style="display: none;">
+                                        <div class="row">
+                                            {LOOP: CULTURAL_BACKGROUND}
+                                            <div class="col-md-4">
+                                                <div class="check_box_group">
+                                                    <input type="checkbox" class="cultural_backgrounds_input" id="cult_back{CULTURAL_BACKGROUND.id}" value="{CULTURAL_BACKGROUND.id}" IF(in_array('{CULTURAL_BACKGROUND.id}',explode(", ",'{CULT_BACK_CHECKED}'))){ checked  {:IF}>
+                                                    <label>{CULTURAL_BACKGROUND.name}</label>
+                                                </div>
+                                            </div>
+                                            {/LOOP: CULTURAL_BACKGROUND}
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                  <input type="button" class="button ripple-effect first" style="margin-top:10px; width:20%; margin-left: 4%;" value="Search Filter">
+                </div>
+            </main>
+        </div>
+    </div>
+<!-- End More Filter Searches-->
 <!--Modal More Filter--> 
     <div class="container">
         <div class="row">
@@ -129,6 +225,11 @@
                     <div class="sidebar-widget">
                         <h3>{LANG_AGE}</h3>
                         <div class="range-widget">
+                            <input type="hidden" name="languages" id="lang_data" value="" >
+                            <input type="hidden" name="interests" id="inte_data" value="">
+                            <input type="hidden" name="religions" id="reli_data" value="">
+                            <input type="hidden" name="cultural_backgrounds" id="cult_back" value="">
+                            
                             <div class="range-inputs">
                                 <input type="text" placeholder="{LANG_MIN}" name="age_range1" value="{AGE_RANGE1}">
                                 <input type="text" placeholder="{LANG_MAX}" name="age_range2" value="{AGE_RANGE2}">
@@ -168,11 +269,10 @@
                     </div>
                     <div class="sidebar-widget">
                         <a class="popup-with-zoom-anim  button full-width ripple-effect" href="#moreFilter">More Filter search</a>
-                        <!-- <button class="button full-width ripple-effect">{LANG_ADVANCED_SEARCH}</button> -->
-                        
+                        <!-- <button class="button full-width ripple-effect">{LANG_ADVANCED_SEARCH}</button> -->    
                     </div>
                     <div class="sidebar-widget">
-                        <button class="button full-width ripple-effect">{LANG_ADVANCED_SEARCH}</button>
+                        <button class="button full-width ripple-effect second">{LANG_ADVANCED_SEARCH}</button>
                     </div>
                 </div>
             </div>
@@ -213,7 +313,6 @@
                             }, false);
                         }catch(e){}
                     })();</script>
-
                 {:IF}
 
                 <div class="listings-container margin-top-35">
@@ -283,21 +382,15 @@
                         </div>
                     </div>
                     {:IF}
-
                 </div>
-
             </div>
         </div>
     </div>
 </form>
 
-
-
-
 <div class="gray section padding-top-65 padding-bottom-65">
     <div class="container">
         <div class="row">
-
             <div class="col-xl-12">
                 <!-- Section Headline -->
                 <div class="section-headline centered margin-top-0 margin-bottom-5">
@@ -318,7 +411,6 @@
                     <p>Build your Carer profile and add your locations, availability and rate range.</p>
                 </div>
             </div>
-
             <div class="col-xl-4 col-md-4">
                 <!-- Icon Box -->
                 <div class="icon-box with-line">
@@ -333,7 +425,6 @@
                     <p>Browse Jobs in your region..</p>
                 </div>
             </div>
-
             <div class="col-xl-4 col-md-4">
                 <!-- Icon Box -->
                 <div class="icon-box">
@@ -396,103 +487,6 @@
 </div>
 
 
-<div class="zoom-anim-dialog mfp-hide popup-dialog big-dialog" id="moreFilter">
-    <div class="popup-tab-content padding-0">
-        <div class="popup_model_header_cl">
-            <h3>More Filter</h3>
-        </div>
-        <main class="l-index">
-            <div class="l-container">
-              <div class="accordion">
-                <ul class="accordion-list">
-                    <li class="accordion-item">
-                        <div class="accordion-container">
-                            <div class="js-accordion-header">
-                                <h2 class="accordion-title"><span>Languages</span></h2>
-                            </div>
-                            <div class="accordion-contents" style="display: none;">
-                                <div class="row">
-                                    {LOOP: LANGS}
-                                    <div class="col-md-3">
-                                        <div class="check_box_group">
-                                            <input type="checkbox" id="languages" name="languages" value="Bike">
-                                            <label for="languages">{LANGS.name}</label>
-                                        </div>
-                                    </div>
-                                    {/LOOP: LANGS} 
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </li>
-
-                    <li class="accordion-item">
-                        <div class="accordion-container">
-                            <div class="js-accordion-header">
-                                <h2 class="accordion-title"><span>Interests</span></h2>
-                            </div>
-                            <div class="accordion-contents" style="display: none;">
-                                <div class="row">
-                                    {LOOP: INTEREST}
-                                    <div class="col-md-3">
-                                        <div class="check_box_group">
-                                            <input type="checkbox" id="interests" name="interests" value="Bike">
-                                            <label for="interests">{INTEREST.name}</label>
-                                        </div>
-                                    </div>
-                                    {/LOOP: INTEREST}
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </li>
-                    <li class="accordion-item">
-                        <div class="accordion-container">
-                            <div class="js-accordion-header">
-                                <h2 class="accordion-title"><span>Religion</span></h2>
-                            </div>
-                            <div class="accordion-contents" style="display: none;">
-                                <div class="row">
-                                    {LOOP: RELIGION}
-                                    <div class="col-md-3">
-                                        <div class="check_box_group">
-                                            <input type="checkbox" id="religion" name="religion" value="Bike">
-                                            <label for="religion">{RELIGION.name}</label>
-                                        </div>
-                                    </div>
-                                    {/LOOP: RELIGION}
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="accordion-item">
-                        <div class="accordion-container">
-                            <div class="js-accordion-header">
-                                <h2 class="accordion-title"><span>Cultural Background</span></h2>
-                            </div>
-                            <div class="accordion-contents" style="display: none;">
-                                <div class="row">
-                                    {LOOP: CULTURAL_BACKGROUND}
-                                    <div class="col-md-4">
-                                        <div class="check_box_group">
-                                            <input type="checkbox" id="cultural_background" name="cultural_background" value="Bike">
-                                            <label for="cultural_background">{CULTURAL_BACKGROUND.name}</label>
-                                        </div>
-                                    </div>
-                                    {/LOOP: CULTURAL_BACKGROUND}
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-              </div>
-            </div>
-        </main>
-    </div>
-</div>
 <!-- Counters / End -->
 
 <script type="text/javascript">
@@ -510,9 +504,7 @@
     });
 </script>
 
-
-  <script>
-
+<script>
 const $target = $('.js-accordion-header');
 const ACTIVE_CLASS = 'is-active';
 const visible = $('.accordion-contents:visible');
@@ -529,8 +521,75 @@ $target.on('click', function () {
     // visible.stop().slideUp(); comment this out if you want to close an accordion item if you open other items
   }
 });
+</script>
+<script>
+    jQuery("input.first[type=button]").click(function(){
+    jQuery("#ListingForm").submit();
+    return false;
+});
 
-  </script>
+</script>
+<script>
+    //Languages Function
+    $(".languages_input").on('click', function() {
+    // console.log($(this).val());/
+    let languagesInputs = $(".languages_input:checked");
+    let languages = '';
+    if(languagesInputs.length) {
+        languagesInputs.each( (ind, el) => {
+            languages += $(el).val() + ", ";
+        });
+    }
+    $("#lang_data").val(languages.slice(0, -2));
+    console.log(languages.slice(0, -2));
+    // console.log(languagesInputs);
+    });
+    
+    // Interests Function
+    $(".interests_input").on('click', function() {
+    // console.log($(this).val());/
+    let interestsInputs = $(".interests_input:checked");
+    let interests = '';
+    if(interestsInputs.length) {
+        interestsInputs.each( (ind, el) => {
+            interests += $(el).val() + ", ";
+        });
+    }
+    $("#inte_data").val(interests.slice(0, -2));
+    console.log(interests.slice(0, -2));
+    // console.log(interestsInputs);
+    });
+
+    //Religion Function
+    $(".religions_input").on('click', function() {
+    // console.log($(this).val());/
+    let religionsInputs = $(".religions_input:checked");
+    let religions = '';
+    if(religionsInputs.length) {
+        religionsInputs.each( (ind, el) => {
+            religions += $(el).val() + ", ";
+        });
+    }
+    $("#reli_data").val(religions.slice(0, -2));
+    console.log(religions.slice(0, -2));
+    // console.log(religionsInputs);
+    });
+
+    //Cultural-Background Function
+    $(".cultural_backgrounds_input").on('click', function() {
+    // console.log($(this).val());/
+    let cultural_backgroundsInputs = $(".cultural_backgrounds_input:checked");
+    let cultural_backgrounds = '';
+    if(cultural_backgroundsInputs.length) {
+        cultural_backgroundsInputs.each( (ind, el) => {
+            cultural_backgrounds += $(el).val() + ", ";
+        });
+    }
+    $("#cult_back").val(cultural_backgrounds.slice(0, -2));
+    console.log(cultural_backgrounds.slice(0, -2));
+    // console.log(cultural_backgroundsInputs);
+    });
+</script>
 {OVERALL_FOOTER}
 
 <style>

@@ -55,7 +55,7 @@ foreach ($queryRecords as $row) {
     $name = $row['name'];
     $expiry_date = $row['expiry_date'];
         if ($expiry_date == "1"){
-            $expiry_date = '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>';
+            $expiry_date = '<i class="fa fa-check" aria-hidden="true" style="color:#7dc855"></i>';
         }
         elseif($expiry_date == "0")
         {
@@ -67,7 +67,7 @@ foreach ($queryRecords as $row) {
         }
     $upload = $row['upload'];
         if ($upload == "1"){
-            $upload = '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>';
+            $upload = '<i class="fa fa-check" aria-hidden="true" style="color:#7dc855"></i>';
         }
         elseif($upload == "0")
         {
@@ -79,7 +79,7 @@ foreach ($queryRecords as $row) {
         }
     $registration = $row['registration_number'];
         if ($registration == "1"){
-            $registration = '<i class="fa fa-check" aria-hidden="true" style="color:green"></i>';
+            $registration = '<i class="fa fa-check" aria-hidden="true" style="color:#7dc855"></i>';
         }
         elseif($registration == "0")
         {

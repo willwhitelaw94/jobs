@@ -109,6 +109,7 @@ $router->map('GET|POST','/edit-profile/rate-and-availability', 'rate-and-availab
 $router->map('GET|POST','/edit-profile/languages', 'languages.php');
 $router->map('GET|POST','/edit-profile/cultural-backgrounds', 'cultural-backgrounds.php');
 $router->map('GET|POST','/edit-profile/religion', 'religion.php');
+$router->map('GET|POST','/edit-profile/interests', 'interests.php');
 $router->map('GET|POST','/edit-profile/my-skills', 'my-skills.php');
 $router->map('GET|POST','/edit-profile/user-custom-fields', 'user-custom-fields.php');
 $router->map('GET|POST','/edit-profile/user-custom-fields', 'user-custom-fields.php');
