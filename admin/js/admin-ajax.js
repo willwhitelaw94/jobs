@@ -738,7 +738,46 @@ function getsubcat(catid,action,selectid){
     });
 }
 
+/*ajax filter*/
 
+$(document).on("submit", "#search_filter", function (e) {
+    var action = $(this).data('ajax-action');
+    var base_url = $(this).data('url');
+    var action_url = base_url + 'admin/datatable-json/'+action;
+    event.preventDefault();
+    formdata = new FormData($(this)[0]);
+    $.ajax({
+        url: action_url,
+        data: formdata,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        dataType: "json",
+        success: function (response) {
+            var table_data = "";
+            $.each( response.data, function( key, value ) {
+              var tr = "<tr>";
+              $.each(value, function(key2, value2){
+                   tr += value2;
+              });
+              tr += "</tr>";
+              table_data += tr;
+            });
+            $('#ajax-services').html(table_data);
+            $('#ajax_datatable_info').html("Showing 1-"+ response.recordsFiltered +" of " + response.recordsTotal);
+        }
+    });
+});
+
+$(document).on("change", ".category_filter", function (e) {
+    let val = $(this).val();
+    var base_url = $(this).data('url');
+    var action = $(this).data('ajax-action');
+    var action_url = base_url + 'admin/'+action;
+    $.post(action_url,{id:val}, function(response){
+        $('#filter_subctaegory').html(response);
+    });
+});
 
 /*Sidepanel custom js for ajax call*/
 

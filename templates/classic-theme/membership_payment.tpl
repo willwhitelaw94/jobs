@@ -298,7 +298,7 @@
                 </div>
                 <div class="boxed-widget-inner">
                     <ul>
-                        IF("{PLAN_TYPE}"=="membership"){ {LANG_PACKAGE_SUMMARY}
+                        IF("{PLAN_TYPE}"=="membership"){
                         <li>{LANG_MEMBERSHIP} <span>{ORDER_TITLE}</span></li>
                         <li>{LANG_START_DATE} <span>{START_DATE}</span></li>
                         <li>{LANG_EXPIRY_DATE} <span>{EXPIRY_DATE}</span></li>

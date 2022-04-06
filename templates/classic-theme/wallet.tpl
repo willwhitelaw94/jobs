@@ -43,7 +43,7 @@
 
                 <div class="dashboard-box js-accordion-item active ">
                     <!-- Headline -->
-                    <div class="headline js-accordion-header">
+                    <div class="headline">
                         <h3><i class="icon-feather-user"></i> {LANG_WALLET_HISTORY}</h3>
                     </div>
                     <div class="container margin-top-20">
