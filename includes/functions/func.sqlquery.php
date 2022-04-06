@@ -2365,6 +2365,23 @@ function applied_jobs_count($id){
     return $num_rows;
 }
 
+function clients_count($id){
+    global $config;
+    $num_rows = ORM::for_table($config['db']['pre'].'user_applied')
+        ->table_alias('a')
+       ->select_expr('COUNT(DISTINCT(p.user_id)) AS clients')
+        //->where('a.user_id' , $id)
+        ->where(array(
+            'p.status' => 'active',
+            'p.hide' => '0',
+            'a.user_id' => $id
+        ))
+        ->join($config['db']['pre'] . 'product', array('a.job_id', '=', 'p.id'), 'p')
+        ->find_one();
+   
+    return $num_rows['clients'];
+}
+
 function favorite_ads_count($id){
     global $config;
     $num_rows = ORM::for_table($config['db']['pre'].'favads')

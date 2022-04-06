@@ -733,6 +733,7 @@ function esc_url($url) {
 }
 
 function create_user_sidebar(){
+
     global $config,$lang,$link;
     $uriSegments = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
     $pageUri = $uriSegments[3] ?? "";
@@ -747,6 +748,7 @@ function create_user_sidebar(){
     $page->SetParameter('RESUMES', resumes_count($_SESSION['user']['id']));
     $page->SetParameter('COMPANIES', companies_count($_SESSION['user']['id']));
     $page->SetParameter('MYADS', active_ads_count($_SESSION['user']['id']));
+    $page->SetParameter('CLIENTS', clients_count($_SESSION['user']['id']));
     $page->SetParameter ('FAVORITEUSERSS', favorite_users_count($_SESSION['user']['id']));
     $page->SetParameter ('URISEGMENT',$uriSegments[2]);
     $page->SetParameter ('PAGEURI',$pageUri);

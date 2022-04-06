@@ -70,6 +70,10 @@
                                         <textarea name="description" class="with-border" placeholder="{LANG_WRITE_DESCRIPTION}">{DETAILS}</textarea>
                                     </div>
                                 </div>
+                                IF({ID}!=''){
+                                    <input type="hidden" name="id" value="{ID}">
+
+                                {:IF}
                             </div>
                             <button type="submit" name="submit" class="button ripple-effect">{LANG_SAVE_CHANGES}</button>
                         </form>

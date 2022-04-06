@@ -569,7 +569,7 @@ function agreementAction(){
     $user_type= $_SESSION['user']['user_type'];
     $post_id = $_POST['post_id'];
     $chatid=$_POST['chatid'];
-    
+   // echo $post_id;
     $job_data=ORM::for_table($config['db']['pre'].'product')->select_many('id','product_name','slug')->find_one($post_id);
    // echo ORM::get_last_query();
    // print_r($job_data);die;
@@ -599,8 +599,7 @@ function agreementAction(){
     ->where('post_id',$post_id)
     ->where_raw('( `receiver_id` = '.$GLOBALS['sesId'].' OR `user_id`= '.$GLOBALS['sesId'].')')
     ->limit(5)->order_by_desc('id')->find_many();
-
-  
+   
     if($user_type=='user'){
       $worker_id=$GLOBALS['sesId'];
     }else{
@@ -608,8 +607,7 @@ function agreementAction(){
     }
 
     $agr_data = ORM::for_table($config['db']['pre'].'user_agreements')->where(['post_id'=>$post_id,'worker_id'=>$worker_id])->find_one();
-  //  echo ORM::get_last_query();
-    //print_r( $agr_data );die;
+  
     $ac_feed_tpl = ' 
     <div class="activity_feed">
     <h5>Activity Feed</h5>';
@@ -623,8 +621,7 @@ function agreementAction(){
          $ac_feed_tpl.='<p>'.$msg.'</p> <small>'.timeAgo($act_log['log_time']).'</small><hr>';   
     }
     $ac_feed_tpl.='</div>';
-    // echo ORM::get_last_query();
-    // print_r($activity_log);die;
+ 
 
     if($query->num_rows > 0){
         $resp['replied']=1;
@@ -696,7 +693,7 @@ function agreementAction(){
                    case 'sent':
                    case 'changed':
                        $agreed_rate = ORM::for_table($config['db']['pre'].'user_agreements_rates')->where('agreement_id',$agr_data['id'])->order_by_asc('id')->find_array();
-                     //  print_r( $agreed_rate);die;
+                  
                        $emp_tpl.= $ready_to_book;
                        $emp_tpl.=
                         '<div class="warning_section notification success closeable">
@@ -825,6 +822,17 @@ function updateAgreementStatus(){
         $agr_data->updated_at=$now;
     }
    if($agr_data->save()){
+       if($status=='accepted'){
+            $applied_job = ORM::for_table($config['db']['pre'].'user_applied')->where(['user_id'=>$worker_id,'job_id'=>$postid])->find_one();
+            if(!$applied_job){
+                $apply_job = ORM::for_table($config['db']['pre'].'user_applied')->create();
+                $apply_job->user_id=$worker_id;
+                $apply_job->job_id=$postid;
+                $apply_job->message='Job applied after accepting agreement';
+                $apply_job->created_at=date('Y-m-d H:i:s');
+                $apply_job->save();
+            }
+       }
        $data=['log_name'=>'agreement','status'=> $status,'receiver_id'=> $_POST['userid'],'post_id'=>$postid];
        create_activity_log($data);
        $resp['status']=1;
@@ -893,10 +901,7 @@ function getAgreementRate(){
     $agr_rates= ORM::for_table($config['db']['pre'] . 'user_agreements_rates')->where('agreement_id',$agreementid)->find_many();
     $post_data=ORM::for_table($config['db']['pre'] . 'product')->find_one($agr_data['post_id'])->as_array();
     $agreed_services=$agr_data['agreed_services'];
-    // $client_data=get_user_data(null, $agr_data['client_id']);
-    // $worker_data=get_user_data(null, $agr_data['worker_id']);
-    // $client_name=($client_data['name'] != '')? $client_data['name'] : $client_data['username'];
-    // $worker_name=($worker_data['name'] != '')? $worker_data['name'] : $worker_data['username'];
+  
     if($_SESSION['user']['user_type']=='employer'){
         $client_data=get_user_data(null, $agr_data['client_id']);
         $chat_user_name=($client_data['name'] != '')? $client_data['name'] : $client_data['username'];

@@ -22,15 +22,56 @@ $columns = array(
     7 =>'transaction_time'
 );
 
+$isWhere = false;
 $where = $sqlTot = $sqlRec = "";
 
 // check search value exist
 if( !empty($params['search']['value']) ) {
+
     $where .=" WHERE ";
     $where .=" ( amount LIKE '".$params['search']['value']."%' ";
     $where .=" OR transaction_gatway LIKE '".$params['search']['value']."%' ";
     $where .=" OR u.username LIKE '".$params['search']['value']."%' ";
-    $where .=" OR status LIKE '".$params['search']['value']."%' )";
+    $where .=" OR t.status LIKE '".$params['search']['value']."%' )";
+    $isWhere = true;
+}
+
+if(isset($_POST['search_type']) && $_POST['search_type'] == "filter"){
+    $where .=" WHERE ";
+    $flag = "";
+    if(!empty($_POST['username'])){
+        if(!empty($flag)) {
+            $where .= $flag;
+        }
+        $where .=' u.username = "'.$_POST['username']. '" ';
+        $flag = " AND ";
+        $isWhere = true;
+    }
+    if(!empty($_POST['status'])){
+         if(!empty($flag)) {
+            $where .= $flag;
+        }
+        $where .=' t.status = "'.$_POST['status']. '" ';
+        $flag = " AND ";
+        $isWhere = true;
+    }
+    if(!empty($_POST['pay_method'])){
+         if(!empty($flag)) {
+            $where .= $flag;
+        }
+        $where .=' t.transaction_gatway = "'.$_POST['pay_method']. '" ';
+        $flag = " AND ";
+        $isWhere = true;
+    }
+    if(!empty($_POST['date'])){
+         if(!empty($flag)) {
+            $where .= $flag;
+        }
+        $date = explode("-", $_POST['date']);
+        $where .=' t.transaction_time BETWEEN '.strtotime($date[0]).'  AND  '.strtotime($date[1]) .' ' ;
+        $flag = " AND ";
+        $isWhere = true;
+    }
 }
 
 // getting total number records without any search
@@ -39,18 +80,23 @@ INNER JOIN `".$config['db']['pre']."user` as u ON u.id = t.seller_id ";
 $sqlTot .= $sql;
 $sqlRec .= $sql;
 //concatenate search sql if value exist
-if(isset($where) && $where != '') {
+if(isset($where) && $where != '' && $isWhere) {
 
     $sqlTot .= $where;
     $sqlRec .= $where;
 }
 
+if(empty($params['order'][0]['column'])){
+    $sqlRec .=  "ORDER BY id asc LIMIT 0, 10";
+}else{
+    $sqlRec .=  " ORDER BY ". $columns[$params['order'][0]['column']]." ".$params['order'][0]['dir']." LIMIT ".$params['start']." ,".$params['length']." ";
+}
 
-$sqlRec .=  " ORDER BY ". $columns[$params['order'][0]['column']]." ".$params['order'][0]['dir']." LIMIT ".$params['start']." ,".$params['length']." ";
 
 $queryTot = $pdo->query($sqlTot);
 $totalRecords = $queryTot->rowCount();
 $queryRecords = $pdo->query($sqlRec);
+
 
 //iterate on results row and create new index array of data
 foreach ($queryRecords as $row) {

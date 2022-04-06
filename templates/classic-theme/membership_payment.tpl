@@ -294,14 +294,20 @@
         <div class="col-xl-4 col-lg-4 margin-top-0 margin-bottom-60">
             <div class="boxed-widget summary margin-top-0">
                 <div class="boxed-widget-headline">
-                    <h3>{LANG_PACKAGE_SUMMARY}</h3>
+                    <h3>IF("{PLAN_TYPE}"=="wallet"){ {LANG_WALLET_SUMMARY} {:IF}IF("{PLAN_TYPE}"=="membership"){ {LANG_PACKAGE_SUMMARY} {:IF}</h3>
                 </div>
                 <div class="boxed-widget-inner">
                     <ul>
+                        IF("{PLAN_TYPE}"=="membership"){
                         <li>{LANG_MEMBERSHIP} <span>{ORDER_TITLE}</span></li>
                         <li>{LANG_START_DATE} <span>{START_DATE}</span></li>
                         <li>{LANG_EXPIRY_DATE} <span>{EXPIRY_DATE}</span></li>
                         <li class="total-costs">{LANG_TOTAL_COST} <span>{CURRENCY_SIGN}{AMOUNT} {CURRENCY_CODE}</span></li>
+                        {:IF}
+                        IF("{PLAN_TYPE}"=="wallet"){
+                        <li>{LANG_WALLET_AMOUNT} <span>{CURRENCY_SIGN}{AMOUNT}</span></li>
+                        <li class="total-costs">{LANG_WALLET_TOTAL_AMOUNT} <span>{CURRENCY_SIGN}{AMOUNT} {CURRENCY_CODE}</span></li>
+                        {:IF}
                     </ul>
                 </div>
             </div>

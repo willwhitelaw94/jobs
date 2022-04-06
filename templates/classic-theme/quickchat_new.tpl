@@ -5758,66 +5758,7 @@ IF('{QUICKCHAT_SOCKET_ON_OFF}'=='on'){
 						<!--AGREEMENT SECTION-->
 						<div class="col-lg-3 col-md-12 js-accordion agreement_section">  
 							<div class="agreement_content_area" id="agreement_container">
-								<!-- <div class="agreement_first_sec">
-									<h5>Lorem Ipsum is simply</h5>
-									<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,</p>
-								</div> -->
-								<!-- <div class="warning_section notification error closeable">
-									<div class="alert_icon_d"><i class="icon-feather-alert-triangle"></i></div> 
-									<div>
-										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-									</div> 
-								</div>  -->
-								<!-- <div class="btn_section">
-									<button class="button">Offer an agreement </button>
-								</div> -->
-								<!-- <div class="activity_feed">
-									<h5>Activity Feed</h5>
-									<div class="repeat_div">
-										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the</p>
-										<small>a few minute ago</small>
-										<hr>
-										<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the</p>
-										<small>a few minute ago</small>
-										<hr>
-									</div>
-								</div> -->
-								<!-- <div class="ready_to_book">
-									<h5>Ready to Book Diksha</h5>
-									<div class="first_group_wrpa">
-										<strong>Lorem Ipsum has been the industry </strong>
-										<p>n publishing and graphic design, Lorem ipsum is a placeholder <a href="#">Read More</a></p>
-									</div>
-								</div> -->
-								<!-- <div class="warning_section notification success closeable">
-									<div class="alert_icon_d"><i class="icon-feather-clock"></i></div> 
-									<div>
-										<p class="text-success">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-									</div> 
-								</div>  -->
-								<!-- <div class="flat_rate">
-									<h5>Flat Rate</h5>
-									<h4>$57.55 <small>Per Hour</small></h4>
-									<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-								
-									<p><b>Lorem Ipsum has been the industry</b></p>
-									<p class="a_tag_btn"><a href="#">Lorem Ipsum has been the <i class="icon-feather-chevron-right"></i></a></p>
-								</div> -->
-								<!-- <br>
-								<strong>Lorem Ipsum has been the industry </strong>
-								<p>n publishing and graphic design</p>
-								<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-								<div class="btn_ag_t">
-									<button class="button decline_agreement">Decline</button>
-									<a href="#accept-agreement-popup"  class="button custom-anchor-btn accept_agreement open-popup-link " style="text-decoration:none !important">Accept agreement</a>
-								</div> -->
-
-								<!-- <div class="warning_section notification warning   closeable">
-									<div class="alert_icon_d"><i class="icon-feather-clock"></i></div> 
-									<div>
-										<p>Details not correct ? the printing and the printing and the printing and.</p>
-									</div> 
-								</div>  -->
+							
 							</div>
 						</div>
 						<div class="col-lg-12 d-none" id="agreement_form_section">
@@ -6284,8 +6225,7 @@ $(document).ready(function() {
 				data: {postid: postid,userid:userid,status:status},
 				success: function(resp) {
 					if(resp.status){
-						console.log(resp.status)
-						console.log('diksha')
+					
 						$('.open-popup-link').magnificPopup({
 							type: 'inline',
 							midClick: true,
@@ -6361,11 +6301,8 @@ $(document).ready(function() {
 								midClick: true,
 								mainClass: 'mfp-fade'
 						    }).magnificPopup('open');
-							// repeater.setList(resp.rates);
-							// $('textarea[name="agreed_services"]').val(resp.agreed_services);
 						}
 						calculateNetRate();
-						
 					},
 					error:function(xhr){
 					    console.log(xhr)
