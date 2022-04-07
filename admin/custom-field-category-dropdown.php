@@ -1,5 +1,5 @@
-<div class="col-md-2">
-    <div class="btn-group quickad-services-holder quickad-margin-top-screenxs-sm">
+<div class="col-md-3">
+    <div class="btn-group quickad-services-holder quickad-margin-top-screenxs-sm" style="width: 100%">
         <button class="btn btn-default btn-block dropdown-toggle quickad-flexbox" data-toggle="dropdown">
             <div class="quickad-flex-cell">
                 <i class="glyphicon glyphicon-tag quickad-margin-right-md"></i>

@@ -143,7 +143,7 @@ require_once('includes.php');
                                                                     <div class="col-md-2">
                                                                         <div class="input-group-check">
                                                                             <label class="css-input css-checkbox css-checkbox-default m-t-0 m-b-0">
-                                                                                        <input type="checkbox" id="required-6" class="quickad-required"><span></span> Required Filter
+                                                                                        <input type="checkbox" id="TextFieldFil" class="quickad-required-filter"><span></span> Required Filter
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -181,7 +181,7 @@ require_once('includes.php');
                                                                     <div class="col-md-2">
                                                                         <div class="input-group-check">
                                                                             <label class="css-input css-checkbox css-checkbox-default m-t-0 m-b-0">
-                                                                                <input type="checkbox" id="required-6" class="quickad-required"><span></span> Required Filter
+                                                                                <input type="checkbox" id="TextAreaFil" class="quickad-required-filter"><span></span> Required Filter
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -222,7 +222,7 @@ require_once('includes.php');
                                                                     <div class="col-md-2">
                                                                         <div class="input-group-check">
                                                                             <label class="css-input css-checkbox css-checkbox-default m-t-0 m-b-0">
-                                                                                <input type="checkbox" id="required-6" class="quickad-required"><span></span> Required Filter
+                                                                                <input type="checkbox" id="CheckboxFil" class="quickad-required-filter"><span></span> Required Filter
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -264,7 +264,7 @@ require_once('includes.php');
                                                                     <div class="col-md-2">
                                                                         <div class="input-group-check">
                                                                             <label class="css-input css-checkbox css-checkbox-default m-t-0 m-b-0">
-                                                                                <input type="checkbox" id="required-6" class="quickad-required"><span></span> Required Filter
+                                                                                <input type="checkbox" id="RadioFil" class="quickad-required-filter"><span></span> Required Filter
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -306,7 +306,7 @@ require_once('includes.php');
                                                                     <div class="col-md-2">
                                                                         <div class="input-group-check">
                                                                             <label class="css-input css-checkbox css-checkbox-default m-t-0 m-b-0">
-                                                                                <input type="checkbox" id="required-6" class="quicked-required"><span></span> Required Filter
+                                                                                <input type="checkbox" id="DropDownFil" class="quickad-required-filter"><span></span> Required Filter
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -437,6 +437,9 @@ if(count($results) != 0){
         $required = $result['custom_required'];
         $required = ($required === "0")? false : true ;
 
+        $custom_filter = $result['custom_filter'];
+        $custom_filter = ($custom_filter === "0")? false : true ;
+
         if($type == "text"){
             $type = 'text-field';
         }
@@ -479,6 +482,7 @@ if(count($results) != 0){
         $data[$i]['required'] = $required;
         $data[$i]['id']     = $id;
         $data[$i]['custom_class'] = $cusclass;
+        $data[$i]['custom_filter']     = $custom_filter;
        
         
        //$data[$i]['services']     = $category;

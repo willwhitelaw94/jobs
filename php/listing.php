@@ -63,6 +63,9 @@ if($subcat != ''){
     $custom_fields = get_customFields_by_catid('','',false);
 }
 
+// echo  "<pre>";
+// print_r($custom_fields);die;
+
 $custom = array();
 if(isset($_GET['custom']) && !empty($_GET['custom'])){
     $custom = $_GET['custom'];
@@ -504,6 +507,15 @@ foreach($rows as $row){
     $salary_types[$row['id']]['title'] = get_salaryType_title_by_id($row['id']);
 }
 
+//$custom_filter_data = ORM::for_table($config['db']['pre'].'custom_fields')->find_many();
+// foreach($custom_filter_data as $custom_filter){
+//     $custom_filter_data[$custom_filter['id']]['id'] = $custom_filter['id'];
+//     $custom_filter_data[$custom_filter['id']]['custom_filter'] = $custom_filter['custom_filter'];
+// }
+
+// echo "<pre>";
+// print_r($custom_filter_data);die;
+
 // Output to template
 $page = new HtmlTemplate ('templates/' . $config['tpl_name'] . '/ad-listing.tpl');
 $page->SetParameter ('OVERALL_HEADER', create_header($Pagetitle));
@@ -537,6 +549,7 @@ $page->SetParameter ('FILTER', $filter);
 $page->SetParameter ('SORT', $sorting);
 $page->SetParameter ('ORDER', $order);
 $page->SetParameter ('NO_RESULT_ID', $noresult_id);
+$page->SetParameter ('NO_RESULT_ID', $custom_filter_data);
 if(isset($_SESSION['user']['id']))
 {
     $page->SetParameter('USER_ID',$_SESSION['user']['id']);
@@ -564,6 +577,9 @@ if(count($_GET) >= 1){
 }else{
     $page->SetLoop ('PAGES', pagenav($total,$page_number,$limit,$link['LISTING']));
 }
+// echo "<pre>";
+// var_dump($custom_fields);die;
+
 $page->SetLoop ('CUSTOMFIELDS',$custom_fields);
 $page->SetLoop ('POSTTYPES',$post_types);
 $page->SetLoop ('SALARYTYPES',$salary_types);

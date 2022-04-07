@@ -129,14 +129,21 @@ require_once('includes.php');
                                                             <div class="quickad-flex-cell" style="width: 100%">
                                                                 <p><b>Text Field</b><a class="quickad-js-delete glyphicon glyphicon-trash text-danger quickad-margin-left-sm" href="#" title="Remove field"></a></p>
                                                                 <div class="row">
-                                                                    <div class="col-md-8">
+                                                                    <div class="col-md-7">
                                                                         <div class="input-group">
                                                                             <input class="quickad-label form-control" type="text" value="" placeholder="Enter a label">
                                                                             <label class="input-group-addon">
                                                                                 <label class="css-input css-checkbox css-checkbox-default m-t-0 m-b-0">
-                                                                                    <input type="checkbox" id="TextFieldReq" class="quickad-required"><span></span> Required field
+                                                                                    <input type="checkbox" id="TextFieldReq" class="quickad-required-filter"><span></span> Required field
                                                                                 </label>
                                                                                 <i class="visible-xs-inline-block glyphicon glyphicon-warning"></i>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div class="input-group-check">
+                                                                            <label class="css-input css-checkbox css-checkbox-default m-t-0 m-b-0">
+                                                                                <input type="checkbox" id="TextFieldFil" class="quickad-required-filter"><span></span> Required Filter
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -156,7 +163,7 @@ require_once('includes.php');
                                                             <div class="quickad-flex-cell" style="width: 100%">
                                                                 <p><b>Text Area</b><a class="quickad-js-delete glyphicon glyphicon-trash text-danger quickad-margin-left-sm" href="#" title="Remove field"></a></p>
                                                                 <div class="row">
-                                                                    <div class="col-md-8">
+                                                                    <div class="col-md-7">
                                                                         <div class="input-group">
                                                                             <input class="quickad-label form-control" type="text" value="" placeholder="Enter a label">
                                                                             <label class="input-group-addon">
@@ -170,7 +177,7 @@ require_once('includes.php');
                                                                     <div class="col-md-2">
                                                                         <div class="input-group-check">
                                                                             <label class="css-input css-checkbox css-checkbox-default m-t-0 m-b-0">
-                                                                                <input type="checkbox" id="required-6" class="quicked-required"><span></span> Required Filter
+                                                                                <input type="checkbox" id="TextAreaFil" class="quickad-required-filter"><span></span> Required Filter
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -189,7 +196,7 @@ require_once('includes.php');
                                                             <div class="quickad-flex-cell" style="width: 100%">
                                                                 <p><b>Checkbox Group</b><a class="quickad-js-delete glyphicon glyphicon-trash text-danger quickad-margin-left-sm" href="#" title="Remove field"></a></p>
                                                                 <div class="row">
-                                                                    <div class="col-md-8">
+                                                                    <div class="col-md-7">
                                                                         <div class="input-group">
                                                                             <input class="quickad-label form-control" type="text" value="" placeholder="Enter a label">
                                                                             <label class="input-group-addon">
@@ -207,7 +214,7 @@ require_once('includes.php');
                                                                     <div class="col-md-2">
                                                                         <div class="input-group-check">
                                                                             <label class="css-input css-checkbox css-checkbox-default m-t-0 m-b-0">
-                                                                                <input type="checkbox" id="required-6" class="quickad-required"><span></span> Required Filter
+                                                                                <input type="checkbox" id="CheckboxFil" class="quickad-required-filter"><span></span> Required Filter
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -226,7 +233,7 @@ require_once('includes.php');
                                                             <div class="quickad-flex-cell" style="width: 100%">
                                                                 <p><b>Radio Button Group</b><a class="quickad-js-delete glyphicon glyphicon-trash text-danger quickad-margin-left-sm" href="#" title="Remove field"></a></p>
                                                                 <div class="row">
-                                                                    <div class="col-md-8">
+                                                                    <div class="col-md-7">
                                                                         <div class="input-group">
                                                                             <input class="quickad-label form-control" type="text" value="" placeholder="Enter a label">
                                                                             <label class="input-group-addon">
@@ -244,7 +251,7 @@ require_once('includes.php');
                                                                     <div class="col-md-2">
                                                                         <div class="input-group-check">
                                                                             <label class="css-input css-checkbox css-checkbox-default m-t-0 m-b-0">
-                                                                                <input type="checkbox" id="required-6" class="quickad-required"><span></span> Required Filter
+                                                                                <input type="checkbox" id="RadioFil" class="quickad-required-filter"><span></span> Required Filter
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -263,7 +270,7 @@ require_once('includes.php');
                                                             <div class="quickad-flex-cell" style="width: 100%">
                                                                 <p><b>Drop Down</b><a class="quickad-js-delete glyphicon glyphicon-trash text-danger quickad-margin-left-sm" href="#" title="Remove field"></a></p>
                                                                 <div class="row">
-                                                                    <div class="col-md-8">
+                                                                    <div class="col-md-7">
                                                                         <div class="input-group">
                                                                             <input class="quickad-label form-control" type="text" value="" placeholder="Enter a label">
                                                                             <label class="input-group-addon">
@@ -281,7 +288,7 @@ require_once('includes.php');
                                                                     <div class="col-md-2">
                                                                         <div class="input-group-check">
                                                                             <label class="css-input css-checkbox css-checkbox-default m-t-0 m-b-0">
-                                                                                <input type="checkbox" id="required-6" class="quickad-required"><span></span> Required Filter
+                                                                                <input type="checkbox" id="DropDownFil" class="quickad-required-filter"><span></span> Required Filter
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -397,6 +404,8 @@ $data = array();
 $i = 0;
 if(count($results) != 0){
     foreach($results as $result){
+        // echo "<pre>";
+        // print_r($result);die;
         $id = $result['custom_id'];
         $title = stripslashes($result['custom_title']);
         $type = $result['custom_type'];
@@ -405,6 +414,9 @@ if(count($results) != 0){
 
         $required = $result['custom_required'];
         $required = ($required === "0")? false : true ;
+
+        $custom_filter = $result['custom_filter'];
+        $custom_filter = ($custom_filter === "0")? false : true ;
 
         if($type == "text"){
             $type = 'text-field';
@@ -448,6 +460,7 @@ if(count($results) != 0){
         $data[$i]['required'] = $required;
         $data[$i]['id']     = $id;
         $data[$i]['services']     = $category;
+        $data[$i]['custom_filter']     = $custom_filter;
 
         $i++;
     }

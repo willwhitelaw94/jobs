@@ -845,11 +845,13 @@ function get_customFields_by_catid($maincatid=null,$subcatid=null,$require=true,
     }else{
         $query = "SELECT * FROM `".$config['db']['pre']."custom_fields` WHERE custom_anycat = 'any' order by custom_id ASC";
     }
+    // die($query);
     $result = $pdo->query($query);
     foreach ($result as $info)
     {
         $custom_fields[$info['custom_id']]['id'] = $info['custom_id'];
         $custom_fields[$info['custom_id']]['type'] = $info['custom_type'];
+        $custom_fields[$info['custom_id']]['custom_filter'] = $info['custom_filter'];
         $custom_fields[$info['custom_id']]['name'] = $info['custom_name'];
         $custom_fields[$info['custom_id']]['title'] = stripslashes($info['custom_title']);
         $custom_fields[$info['custom_id']]['maxlength'] = $info['custom_max'];

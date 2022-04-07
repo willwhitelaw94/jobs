@@ -2813,10 +2813,12 @@ function save_custom_fields_with_auto_translation()
     $fields = json_decode($_POST['fields'], true);
     $count = 0;
     foreach($fields as $custom) {
+        print_r($custom);die;
         $id = $custom['id'];
         $type = $custom['type'];
         $title = $custom['label'];
         $required = empty($custom['required'])? 0 : $custom['required'];
+        $custom_filter = empty($custom['custom_filter'])? 0 : $custom['custom_filter'];
         $allcat = $custom['allcat'];
         $maincat = $custom['maincat'];
         $category = $custom['services'];
@@ -2880,8 +2882,6 @@ function save_custom_fields_with_auto_translation()
                             $query2 = mysqli_query($con,$sql2) OR error(mysqli_error($con));
                         }
                     }
-
-
                 }
 
                 $custom_option[$i] = $opt_id;
@@ -2894,7 +2894,7 @@ function save_custom_fields_with_auto_translation()
         if(check_allow()){
             $exist = get_customField_exist_id($id);
             if($exist > 0){
-                $query = "UPDATE `" . $config['db']['pre'] . "custom_fields` SET `custom_anycat` = '".$allcat."',`custom_catid` = '".$maincat."',`custom_subcatid` = '".$category."',`custom_title` = '".$title."', `custom_type` = '".$type."',`custom_required` = '".$required."',`custom_options` = '".$options."' WHERE custom_id = '".$id."' LIMIT 1";
+                $query = "UPDATE `" . $config['db']['pre'] . "custom_fields` SET `custom_anycat` = '".$allcat."',`custom_catid` = '".$maincat."',`custom_subcatid` = '".$category."',`custom_title` = '".$title."', `custom_type` = '".$type."',`custom_required` = '".$required."',`custom_filter` = '".$custom_filter."',`custom_options` = '".$options."' WHERE custom_id = '".$id."' LIMIT 1";
                 $con->query($query) OR error(mysqli_error($con));
             }else{
                 $lang_code = array();
@@ -2916,7 +2916,7 @@ function save_custom_fields_with_auto_translation()
                 $trans_lang = implode(',', $lang_code);
                 $trans_name = implode(',', $lang_title);
 
-                $query = "INSERT INTO `" . $config['db']['pre'] . "custom_fields` SET translation_lang = '$trans_lang', translation_name = '$trans_name', `custom_anycat` = '".$allcat."',`custom_catid` = '".$maincat."',`custom_subcatid` = '".$category."',`custom_title` = '".$title."', `custom_type` = '".$type."',`custom_required` = '".$required."',`custom_options` = '".$options."' ";
+                $query = "INSERT INTO `" . $config['db']['pre'] . "custom_fields` SET translation_lang = '$trans_lang', translation_name = '$trans_name', `custom_anycat` = '".$allcat."',`custom_catid` = '".$maincat."',`custom_subcatid` = '".$category."',`custom_title` = '".$title."', `custom_type` = '".$type."',`custom_required` = '".$required."',`custom_filter` = '".$custom_filter."',`custom_options` = '".$options."' ";
                 $con->query($query) OR error(mysqli_error($con));
 
                 $id = $con->insert_id;
@@ -2953,6 +2953,8 @@ function save_custom_fields()
         $type = $custom['type'];
         $title = $custom['label'];
         $required = empty($custom['required'])? 0 : $custom['required'];
+        $custom_filter = empty($custom['custom_filter'])? 0 : $custom['custom_filter'];
+        //print_r($custom_filter);die;
         $allcat = $custom['allcat'];
         $maincat = $custom['maincat'];
         $category = $custom['services'];
@@ -3002,7 +3004,7 @@ function save_custom_fields()
         if(check_allow()){
             $exist = get_customField_exist_id($id);
             if($exist > 0){
-                $query = "UPDATE `" . $config['db']['pre'] . "custom_fields` SET `custom_anycat` = '".$allcat."',`custom_catid` = '".$maincat."',`custom_subcatid` = '".$category."',`custom_title` = '".$title."', `custom_type` = '".$type."',`custom_required` = '".$required."',`custom_options` = '".$options."' WHERE custom_id = '".$id."' LIMIT 1";
+                $query = "UPDATE `" . $config['db']['pre'] . "custom_fields` SET `custom_anycat` = '".$allcat."',`custom_catid` = '".$maincat."',`custom_subcatid` = '".$category."',`custom_title` = '".$title."', `custom_type` = '".$type."',`custom_required` = '".$required."',`custom_filter` = '".$custom_filter."',`custom_options` = '".$options."' WHERE custom_id = '".$id."' LIMIT 1";
                 $con->query($query) OR error(mysqli_error($con));
             }else{
                 $lang_code = array();
@@ -3025,7 +3027,7 @@ function save_custom_fields()
                 $trans_lang = implode(',', $lang_code);
                 $trans_name = implode(',', $lang_title);
 
-                $query = "INSERT INTO `" . $config['db']['pre'] . "custom_fields` SET translation_lang = '$trans_lang', translation_name = '$trans_name', `custom_anycat` = '".$allcat."',`custom_catid` = '".$maincat."',`custom_subcatid` = '".$category."',`custom_title` = '".$title."', `custom_type` = '".$type."',`custom_required` = '".$required."',`custom_options` = '".$options."' ";
+                $query = "INSERT INTO `" . $config['db']['pre'] . "custom_fields` SET translation_lang = '$trans_lang', translation_name = '$trans_name', `custom_anycat` = '".$allcat."',`custom_catid` = '".$maincat."',`custom_subcatid` = '".$category."',`custom_title` = '".$title."', `custom_type` = '".$type."',`custom_required` = '".$required."',`custom_filter` = '".$custom_filter."',`custom_options` = '".$options."' ";
                 $con->query($query) OR error(mysqli_error($con));
 
                 $id = $con->insert_id;
@@ -4069,6 +4071,7 @@ function save_user_custom_fields()
         $type = $custom['type'];
         $title = $custom['label'];
         $required = empty($custom['required'])? 0 : $custom['required'];
+        $custom_filter = empty($custom['custom_filter'])? 0 : $custom['custom_filter'];
         $cusclass = $custom['custom_class'];
         // $allcat = $custom['allcat'];
         // $maincat = $custom['maincat'];
@@ -4119,7 +4122,7 @@ function save_user_custom_fields()
         if(check_allow()){
             $exist = get_userCustomField_exist_id($id);
             if($exist > 0){
-                $query = "UPDATE `" . $config['db']['pre'] . "user_custom_fields` SET `custom_title` = '".$title."', `custom_type` = '".$type."',`custom_required` = '".$required."',`custom_options` = '".$options."',`custom_class`='".$cusclass."' WHERE custom_id = '".$id."' LIMIT 1";
+                $query = "UPDATE `" . $config['db']['pre'] . "user_custom_fields` SET `custom_title` = '".$title."', `custom_type` = '".$type."',`custom_required` = '".$required."',`custom_filter` = '".$custom_filter."',`custom_options` = '".$options."',`custom_class`='".$cusclass."' WHERE custom_id = '".$id."' LIMIT 1";
                 $con->query($query) OR error(mysqli_error($con));
             }else{
                 $lang_code = array();
@@ -4142,7 +4145,7 @@ function save_user_custom_fields()
                 $trans_lang = implode(',', $lang_code);
                 $trans_name = implode(',', $lang_title);
 
-                $query = "INSERT INTO `" . $config['db']['pre'] . "user_custom_fields` SET translation_lang = '$trans_lang', translation_name = '$trans_name',`custom_title` = '".$title."', `custom_type` = '".$type."',`custom_required` = '".$required."',`custom_options` = '".$options."',`custom_class`='".$cusclass."' ";
+                $query = "INSERT INTO `" . $config['db']['pre'] . "user_custom_fields` SET translation_lang = '$trans_lang', translation_name = '$trans_name',`custom_title` = '".$title."', `custom_type` = '".$type."',`custom_required` = '".$required."',`custom_filter` = '".$custom_filter."',`custom_options` = '".$options."',`custom_class`='".$cusclass."' ";
                 $con->query($query) OR error(mysqli_error($con));
 
                 $id = $con->insert_id;

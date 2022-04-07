@@ -174,19 +174,19 @@
                         </div>
                     </div>
                     {LOOP: CUSTOMFIELDS}
-                        IF("{CUSTOMFIELDS.type}"=="text-field"){
+                        IF("{CUSTOMFIELDS.type}"=="text-field" && "{CUSTOMFIELDS.custom_filter}"=="1"){
                         <div class="sidebar-widget">
                             <h3 class="label-title">{CUSTOMFIELDS.title}</h3>
                             {CUSTOMFIELDS.textbox}
                         </div>
                     {:IF}
-                        IF("{CUSTOMFIELDS.type}"=="textarea"){
+                        IF("{CUSTOMFIELDS.type}"=="textarea" && "{CUSTOMFIELDS.custom_filter}"=="1"){
                         <div class="sidebar-widget">
                             <h3 class="label-title">{CUSTOMFIELDS.title}</h3>
                             {CUSTOMFIELDS.textarea}
                         </div>
                     {:IF}
-                        IF("{CUSTOMFIELDS.type}"=="drop-down"){
+                        IF("{CUSTOMFIELDS.type}"=="drop-down" && "{CUSTOMFIELDS.custom_filter}"=="1"){
                         <div class="sidebar-widget">
                             <h3 class="label-title">{CUSTOMFIELDS.title}</h3>
                             <select class="selectpicker with-border" name="custom[{CUSTOMFIELDS.id}]">
@@ -195,13 +195,13 @@
                             </select>
                         </div>
                     {:IF}
-                        IF("{CUSTOMFIELDS.type}"=="radio-buttons"){
+                        IF("{CUSTOMFIELDS.type}"=="radio-buttons" && "{CUSTOMFIELDS.custom_filter}"=="1"){
                         <div class="sidebar-widget">
                             <h3 class="label-title">{CUSTOMFIELDS.title}</h3>
                             {CUSTOMFIELDS.radio}
                         </div>
                     {:IF}
-                        IF("{CUSTOMFIELDS.type}"=="checkboxes"){
+                        IF("{CUSTOMFIELDS.type}"=="checkboxes" && "{CUSTOMFIELDS.custom_filter}"=="1"){
                         <div class="sidebar-widget">
                             <h3 class="label-title">{CUSTOMFIELDS.title}</h3>
                             {CUSTOMFIELDS.checkbox}

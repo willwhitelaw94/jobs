@@ -266,8 +266,9 @@ jQuery(function($) {
                     field.type     = $this.data('type');
                     field.label    = $this.find('.quickad-label').val();
                     field.required = $this.find('.quickad-required').prop('checked');
+                    field.custom_filter = $this.find('.quickad-required-filter').prop('checked');
                     field.id       = $this.data('quickad-field-id');
-                    field.custom_class      = $this.find('.quickad-class').val();
+                    field.custom_class = $this.find('.quickad-class').val();
                     // field.allcat = $this.find('.quickad-services-holder .quickad-check-all-entities:checked')
                     //     .map(function() { return this.value; })
                     //     .get();
@@ -308,10 +309,11 @@ jQuery(function($) {
      * @param id
      * @param label
      * @param required
+     * @param custom_filter
      * @param services
      * @returns {*|jQuery}
      */
-    function addField(type, id, label, required, customclass, translation) {
+    function addField(type, id, label, required, customclass, custom_filter, translation) {
         var $new_field = $('ul#quickad-templates > li[data-type=' + type + ']').clone();
         // Set id, label and required.
         if (typeof id == 'undefined') {
@@ -322,6 +324,9 @@ jQuery(function($) {
         }
         if (typeof required == 'undefined') {
             required = false;
+        }
+        if (typeof custom_filter == 'undefined') {
+            custom_filter = false;
         }
         if (typeof translation == 'undefined') {
             var transclass = "hide";
@@ -336,6 +341,12 @@ jQuery(function($) {
                 checked : required
             })
             .next('label').attr('for', 'required-' + id)
+            .end().end()
+            .find('.quickad-required-filter').prop({
+                id      : 'custom_filter-' + id,
+                checked : custom_filter
+            })
+            .next('label').attr('for', 'required_filter-' + id)
             .end().end()
             .find('.quickad-label').val(label)
             .end()
@@ -434,7 +445,7 @@ jQuery(function($) {
             var custom_fields = jQuery.parseJSON(quickadL10n.custom_fields);
             $.each(custom_fields, function (i, field) {
               //  var services = field.services.split(',');
-                var $new_field = addField(field.type, field.id, field.label, field.required,field.custom_class,true);
+                var $new_field = addField(field.type, field.id, field.label, field.required, field.custom_class, field.custom_filter,true);
 
                 // add children
                 if (field.items) {
