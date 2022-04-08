@@ -549,7 +549,7 @@ $lang['PROFILE_DETAILS'] = 'Profile Details';
 $lang['PUBLIC_PROFILE'] = 'Public Profile';
 $lang['BANK_ACCOUNT'] = 'Bank Account';
 
-$lang['LANGUAGES'] = 'Languages';
+
 // Bank Details page
 $lang['BANK_DETAILS'] = 'Bank  Details';
 $lang['ACCOUNTNAME'] = 'Account Name';
@@ -576,6 +576,7 @@ $lang['END_TIME'] = 'End time';
 //End Rate and Availability page
 
 //Languages page
+$lang['LANGUAGES'] = 'Languages';
 $lang['MY_LANGUAGES'] = 'My Languages';
 $lang['MAIN_LANGUAGES'] = 'Main Languages';
 $lang['OTHER_LANGUAGES'] = 'Other Languages';
@@ -589,9 +590,14 @@ $lang['CULTURAL_BACKGROUNDS_UPDATED'] = 'Cultural Backgrounds updated';
 $lang['CULTURAL_BACK_MSG'] = 'Select your cultural background, this will help clients search for Support Workers who share a similar cultural background.';
 //End Cultural-backgrounds page
 $lang['MY_RELIGION'] = 'My Religion';
-$lang['RELIGION'] = 'Religion';
+$lang['RELIGION'] = 'Religions';
 $lang['RELIGION_UPDATED'] = 'Religion Updated';
 $lang['RELIGIONREQ'] = 'Please choose your religion';
+
+$lang['MY_INTERESTS'] = 'My Interests';
+$lang['INTERESTS'] = 'Interests';
+$lang['INTEREST_UPDATED'] = 'Interest Updated';
+$lang['INTERESTREQ'] = 'Please choose your religion';
 
 $lang['NOTIFICATIONS'] = 'Notifications';
 $lang['ACC_SETTINGS'] = 'Account Settings';
@@ -698,6 +704,9 @@ $lang['REJECT']='Reject';
 
 $lang['NEW_SHIFT']='Add New Shift';
 $lang['EDIT_SHIFT']='Edit Shift';
+
+$lang['CLOSING_BALANCE']='Closing Balance';
+
 
 
 

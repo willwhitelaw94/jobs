@@ -47,8 +47,11 @@ if(checkloggedin())
             $debit = '<span class="badge red">$ '.$row['amount'].'</span>';
         }
 
+        $remaning_amount = '<span class="badge">$ '.$row['amount'].'</span>';
+
         $transactions[$count]['debit'] = $debit;
         $transactions[$count]['credit'] = $credit;
+        $transactions[$count]['closing_balance'] = $remaning_amount;
 
         $count++;
     }

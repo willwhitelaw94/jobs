@@ -15,7 +15,7 @@ if (checkloggedin()) {
     }
 
     $custom_fields = get_user_customFields(true,$custom_fields, $custom_data);
-    //print_r($custom_fields);
+    // print_r($custom_fields);die;
     foreach ($custom_fields as $key => $value) {
         if ($value['userent']){
             $custom_db_fields[$value['id']] = $value['title'];

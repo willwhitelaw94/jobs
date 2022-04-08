@@ -1,4 +1,6 @@
 <?php
+
+
 // if job seekers is disable
 if(!$config['job_seeker_enable']){
     error($lang['PAGE_NOT_FOUND'], __LINE__, __FILE__, 1);
@@ -13,7 +15,7 @@ else{
 $limit = 10;
 $keywords = isset($_GET['keywords']) ? str_replace("-"," ",$_GET['keywords']) : "";
 
-$category = $subcat = $gender = $range1 = $range2 = $age_range1 = $age_range2 = "";
+$category = $subcat = $gender = $range1 = $range2 = $age_range1 = $age_range2 = $languages = $interests = $religions = $cultural_backgrounds = "";
 
 if(isset($_GET['subcat']) && !empty($_GET['subcat'])){
 
@@ -33,7 +35,6 @@ if(isset($_GET['subcat']) && !empty($_GET['subcat'])){
         $category = get_category_id_by_slug($_GET['cat']);
     }
 }
-
 
 if(isset($_GET['city']) && !empty($_GET['city'])){
     $city = $_GET['city'];
@@ -96,15 +97,15 @@ elseif(isset($_GET['location']) && !empty($_GET['location']))
 
     if($placetype == "country"){
        // $where.= "AND (u.country_code = '$placeid') ";
-       $where.= "AND (exists(SELECT country_code FROM `".$config['db']['pre']."user_cities` WHERE country_code='".$placeid."' and user_id = u.id) OR (u.country_code = '$placeid'))";
+       $where.= "AND (exists(SELECT country_code FROM `".$config['db']['pre']."user_cities` WHERE country_code= '".$placeid."' and user_id = u.id) OR (u.country_code = '$placeid'))";
 
     }elseif($placetype == "state"){
         //$where.= "AND (u.state_code = '$placeid') ";
-        $where.= "AND exists(SELECT state_code FROM `".$config['db']['pre']."user_cities` WHERE state_code='".$placeid."' and user_id = u.id)";
+        $where.= "AND exists(SELECT state_code FROM `".$config['db']['pre']."user_cities` WHERE state_code= $placeid and user_id = u.id)";
 
     }else{
        // $where.= "AND (u.city_code = '$placeid') ";
-        $where.= "AND exists(SELECT city_code FROM `".$config['db']['pre']."user_cities` WHERE city_code=$placeid and user_id = u.id)";
+        $where.= "AND exists(SELECT city_code FROM `".$config['db']['pre']."user_cities` WHERE city_code= $placeid and user_id = u.id)";
     }
 }
 else{
@@ -121,6 +122,34 @@ if(!empty($_GET['gender'])){
     $gender = $_GET['gender'];
     $where.= "AND (u.sex = '$gender') ";
 }
+
+//Start Searching Code
+//print_r($_GET);
+if(!empty($_GET['languages'])){  
+    
+    $languages = $_GET['languages'];
+    //$lang = explode(', ', $languages);
+    $where.= "AND exists(SELECT language_id FROM `".$config['db']['pre']."user_languages` WHERE language_id IN ( $languages ) and user_id = u.id ) ";
+}
+
+if(!empty($_GET['interests'])){  
+    
+    $interests = $_GET['interests'];
+    $where.= "AND exists(SELECT interest_id FROM `".$config['db']['pre']."user_interests` WHERE interest_id IN ( $interests ) and user_id = u.id ) ";
+}
+
+if(!empty($_GET['religions'])){  
+    
+    $religions = $_GET['religions'];
+    $where.= "AND exists(SELECT religion_id FROM `".$config['db']['pre']."user_religions` WHERE religion_id IN ( $religions ) and user_id = u.id ) ";
+}
+
+if(!empty($_GET['cultural_backgrounds'])){  
+    
+    $cultural_backgrounds = $_GET['cultural_backgrounds'];
+    $where.= "AND exists(SELECT cultural_background_id FROM `".$config['db']['pre']."user_cultural_backgrounds` WHERE cultural_background_id IN ( $cultural_backgrounds ) and user_id = u.id ) ";
+}
+
 if($_SESSION['user']['user_type']=='employer'){
     $total = mysqli_num_rows(mysqli_query($mysqli, "SELECT 1 FROM `".$config['db']['pre']."user` u where u.status = '1' AND u.user_type = 'user' AND  u.available_to_work = '0' AND  u.online = '1' $where"));
 
@@ -133,7 +162,7 @@ if($_SESSION['user']['user_type']=='employer'){
          where u.status = '1' AND u.user_type = 'user' AND  u.available_to_work = '0' $where ORDER BY $order_by LIMIT ".($page_number-1)*$limit.",$limit";
 }
 
-
+//print_r($query);die;
 //echo $query;die;
 $count = 0;
 $noresult_id = "";
@@ -265,7 +294,7 @@ foreach ($result as $info) {
     $states[$count]['tpl'] .= '<li class=""><a href="#" id="region'.$code.'" class="statedata" data-id="'.$code.'" data-name="'.$name.'"><span>'.$name.' <i class="fa fa-angle-right"></i></span></a></li>';
     $count++;
 }
-$languages=ORM::for_table($config['db']['pre'] . 'language')->find_array();
+$languages=ORM::for_table($config['db']['pre'] . 'language')->where('type','main')->find_array();
 
 $interests=ORM::for_table($config['db']['pre']. 'interests')->find_array();
 
@@ -273,8 +302,13 @@ $religions = ORM::for_table($config['db']['pre'] . 'religions')->find_array();
 
 $cultural_backgrounds = ORM::for_table($config['db']['pre'] . 'cultural_backgrounds')->find_array();
 
-// echo"<pre>";
-// print_r($cultural_backgrounds);die;
+$lang_check = $_REQUEST['languages'];
+$inte_check = $_REQUEST['interests'];
+$reli_check = $_REQUEST['religions'];
+$cul_back_check = $_REQUEST['cultural_backgrounds'];
+
+//$lang_checked = explode(',', $lang_check);
+// print_r($cul_back_check);die;
 
 $cat_dropdown = get_categories_dropdown($lang);
 // Output to template
@@ -299,6 +333,10 @@ $page->SetParameter ('MAINCATEGORY', $mainCategory);
 $page->SetParameter ('SUBCATEGORY', $subCategory);
 $page->SetParameter ('KEYWORDS', $keywords);
 $page->SetParameter ('GENDER', $gender);
+$page->SetParameter ('LANG_CHECKED', $lang_check);
+$page->SetParameter ('INTE_CHECKED', $inte_check);
+$page->SetParameter ('RELI_CHECKED', $reli_check);
+$page->SetParameter ('CULT_BACK_CHECKED', $cul_back_check);
 $page->SetParameter ('RANGE1', $range1);
 $page->SetParameter ('RANGE2', $range2);
 $page->SetParameter ('AGE_RANGE1', $age_range1);

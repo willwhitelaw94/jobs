@@ -1,4 +1,11 @@
 {OVERALL_HEADER}
+<style>
+    p {
+ 
+    padding-bottom: 0px; 
+  
+}
+</style>
 {BREADCRUMBS}
 <div class="section gray padding-bottom-50">
     <div class="container">
@@ -6,122 +13,183 @@
             <div class="col-lg-3 col-md-12">
                 {USER_SIDEBAR}
             </div>
-        <div class="col-lg-9 col-md-12">
-            <!-- Row -->
-            <div class="row">
-                <form method="post" accept-charset="UTF-8" enctype="multipart/form-data" id="shift-form">
-                    <!-- Dashboard Box -->
-                    <div class="col-xl-12">
-                        <div class="dashboard-box margin-top-0">
-                            <!-- Headline -->
-                            <div class="headline">
-                                <h3><i class="icon-feather-folder-plus"></i>{TITLE}</h3>
-                            </div>
-
-                            <div class="content with-padding padding-bottom-10">
-                                
-                                <div class="row">
-                                    <div class="col-xl-6">
-                                        <div class="submit-field">
-                                            <h5>Agreement <span class="required">*</span></h5>
-                                            <select class="selectpicker with-border agreement" id="agreement" title="Select a Agreement" name="agreement" >
-                                            {LOOP: ITEM}
-                                            <option value="{ITEM.id}" data-subtext="{ITEM.client_name}" IF('{AGREEMENT_ID}'=='{ITEM.id}'){ selected {:IF}>{ITEM.product_name}</option>
-                                            {/LOOP: ITEM}
-                                            </select>
-                                            <label id="agreement-error" class="error" for="agreement"></label>
+            <div class="col-lg-9 col-md-12">
+                <!-- Row -->
+                <div class="row">
+                    <form method="post" accept-charset="UTF-8" enctype="multipart/form-data" id="shift-form">
+                        <!-- Dashboard Box -->
+                        <div class="col-xl-12">
+                            <div class="dashboard-box margin-top-0">
+                                <!-- Headline -->
+                                <div class="headline">
+                                    <h3><i class="icon-feather-folder-plus"></i>{TITLE}</h3>
+                                </div>
+                                <div class="content with-padding padding-bottom-10">
+                                    <div class="row">
+                                        <div class="col-xl-6">
+                                            <div class="submit-field">
+                                                <h5>Agreement <span class="required">*</span></h5>
+                                                <select class="selectpicker with-border agreement" id="agreement" title="Select a Agreement" name="agreement" >
+                                                {LOOP: ITEM}
+                                                <option value="{ITEM.id}" data-subtext="{ITEM.client_name}" IF('{AGREEMENT_ID}'=='{ITEM.id}'){ selected {:IF}>{ITEM.product_name}</option>
+                                                {/LOOP: ITEM}
+                                                </select>
+                                                <label id="agreement-error" class="error" for="agreement"></label>
+                                            </div>
                                         </div>
-                                    </div>
-
-                                    <div class="col-xl-6">
-                                        <div class="submit-field">
-                                            <h5>Rate  <span class="required">*</span></h5>
-                                            <select class="selectpicker with-border" id="agreement_rate" title="Select a Rate" name="agreement_rate" >
-                                                <!-- <option>Saturday - $45/hr</option> -->
-                                               
-                                                IF(AGRRATELIST!=''){
-                                                   {LOOP: AGRRATELIST}
-                                                   <option value="{AGRRATELIST.id}"  IF('{AGREEMENT_RATE_ID}'=='{AGRRATELIST.id}'){ selected {:IF}>{AGRRATELIST.text}</option>
-                                                   {/LOOP: AGRRATELIST}
-                                                {:IF}    
-                                            </select>
-                                            <label id="agreement_rate-error" class="error" for="agreement_rate"></label>
+                                        <div class="col-xl-6">
+                                            <div class="submit-field">
+                                                <h5>Rate  <span class="required">*</span></h5>
+                                                <select class="selectpicker with-border" id="agreement_rate" title="Select a Rate" name="agreement_rate" >
+                                                    <!-- <option>Saturday - $45/hr</option> -->
+                                                
+                                                    IF(AGRRATELIST!=''){
+                                                    {LOOP: AGRRATELIST}
+                                                    <option value="{AGRRATELIST.id}"  IF('{AGREEMENT_RATE_ID}'=='{AGRRATELIST.id}'){ selected {:IF}>{AGRRATELIST.text}</option>
+                                                    {/LOOP: AGRRATELIST}
+                                                    {:IF}    
+                                                </select>
+                                                <label id="agreement_rate-error" class="error" for="agreement_rate"></label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <div class="submit-field">
-                                            <h5>When did you complete your shift? <span class="required">*</span></h5>
+                                        <div class="col-xl-6">
+                                            <div class="submit-field">
+                                                <h5>When did you complete your shift? <span class="required">*</span></h5>
+                                                <div class="row">
+                                                    <div class="col-xl-6">
+                                                        <div class="input-with-icon">
+                                                            <input class="with-border" type="text" name="start_time" placeholder="Start" id="start_time" value="{START_TIME}">
+                                                            <i class="fa fa-clock-o"></i>
+                                                        </div>
+                                                        <label id="start_time-error" class="error" for="start_time"></label> 
+                                                    </div>
+                                                    <div class="col-xl-6">
+                                                        <div class="input-with-icon">
+                                                            <input class="with-border" type="text" name="end_time" placeholder="Finish" id="end_time" value="{END_TIME}">
+                                                            <i class="fa fa-clock-o"></i>
+                                                        </div>
+                                                        <label id="end_time-error" class="error" for="end_time"></label>
+                                                    </div>
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12">
+                                            <div class="submit-field">
+                                                <h5>Details of Shift  <span class="required">*</span></h5>
+                                                <textarea cols="30" rows="5" class="with-border" name="shift_details">{SHIFT_DETAILS}</textarea>
+                                                <div class="uploadButton margin-top-30">
+                                                    <input class="uploadButton-input" type="file" accept="image/*, application/pdf" id="upload"  name='attachment'/>
+                                                    <label class="uploadButton-button ripple-effect" for="upload">Upload Files</label>
+                                                    <span class="uploadButton-file-name">Images or documents that might be helpful in describing your project</span>
+                                                </div>
+                                            
+                                                IF("{ATTACHMENT_ERROR}"!=""){ {ATTACHMENT_ERROR} {:IF}
+                                            </div>
+                                            
+                                            IF("{ATTACHMENT_FILE}"!=""){ 
+                                                <a href="{SITE_URL}storage/timeshhet/{ATTACHMENT_FILE}" title="{DOCUMENT_FILE}" style="margin-left:10px;">
+                                                    <i class="fa fa-download">&nbsp;Download-Certificate</i>
+                                                </a>
+                                            {:IF}
+                                            <div class="feedback-yes-no margin-top-0">
+                                                <div class="radio">
+                                                    <input id="radio-1"  name="incidence_occured" type="radio" checked value="0" IF('{INCIDENCE_OCCURED}'=='0' || '{INCIDENCE_OCCURED}'==''){ checked  {:IF}>
+                                                    <label for="radio-1"><span class="radio-label"></span> No Reportable Incidents</label>
+                                                </div>
+
+                                                <div class="radio">
+                                                    <input id="radio-2"  name="incidence_occured" type="radio" value="1" IF('{INCIDENCE_OCCURED}'=='1'){ checked  {:IF}>
+                                                    <label for="radio-2"><span class="radio-label"></span> An Incident Occured</label>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="id" value="{ID}" name='id'>
+                                        </div>
+                                        <div class="col-xl-12 IF('{INCIDENCE_OCCURED}'!='1'){ d-none {:IF} " id="incident_detail">
                                             <div class="row">
+                                                <input type="hidden" name="incident_id" value="{INCEDENT_ID}">
                                                 <div class="col-xl-6">
-                                                    <div class="input-with-icon">
-                                                        <input class="with-border" type="text" name="start_time" placeholder="Start" id="start_time" value="{START_TIME}">
-                                                        <i class="fa fa-clock-o"></i>
+                                                    <h4>Incidents</h4>
+                                                    <div class="notification error closeable">
+                                                        <p><b>Carevacinity will investigate every reported incident.</b>If you are simply keeping a record of something, consider adding it as a shift note instead.</p>
                                                     </div>
-                                                    <label id="start_time-error" class="error" for="start_time"></label> 
+                                                    <div class="submit-field">
+                                                        <h5>Date of incident</h5>
+                                                        <input type="text" class="with-border margin-bottom-0" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-autoclose="true" data-date-language="en" name="date" value="{INC_DATE}">
+                                                        
+                                                    </div>
+                                                    <div class="submit-field">
+                                                        <h5>Time of incident</h5>
+                                                        <input class="with-border" type="text" name="time" placeholder="10:00 AM"  value="{INC_TIME}"> 
+                                                    </div>
+                                                    <div class="submit-field">
+                                                        <h5>Location of incident</h5>
+                                                        <input class="with-border" type="text" name="location" placeholder="Local park outside the client's house"  value="{INC_LOCATION}"> 
+                                                    </div>
                                                 </div>
+
                                                 <div class="col-xl-6">
-                                                    <div class="input-with-icon">
-                                                        <input class="with-border" type="text" name="end_time" placeholder="Finish" id="end_time" value="{END_TIME}">
-                                                        <i class="fa fa-clock-o"></i>
+                                                    <h4>Incident Details</h4>
+                                                    <div class="submit-field">
+                                                        <h5>Who was involved in the incident?</h5>
+                                                        <input class="with-border" type="text" name="involved_in_incident" placeholder="The client, the client's carer and next door neighbour"  value="{INVOLVE_IN_INCIDENT}"> 
                                                     </div>
-                                                    <label id="end_time-error" class="error" for="end_time"></label>
+                                                    <div class="submit-field">
+                                                        <h5>What happened before the incident?</h5>
+                                                        <input class="with-border" type="text" name="before_incident" placeholder="We decided to go for work"  value="{BEFORE_INCIDENT}"> 
+                                                    </div>
+                                                    <div class="submit-field">
+                                                        <h5>What are the details of the incident?</h5>
+                                                        <textarea name="incident_details" id="" class="with-border" placeholder="While walking, the client tripped and fell over due to uneven ground">{INCIDENT_DETAILS}</textarea>
+                                                        
+                                                    </div>
+                                                    <div class="submit-field">
+                                                        <h5>What immediate action did you take?</h5>
+                                                        <textarea name="immediate_action" id="" class="with-border" rows="5" placeholder="I assisted the client and check them for injuries. The client require first aid so we decided  to go back home.the client could not walk back so we called taxi.">{IMMEDEATE_ACTION}</textarea> 
+                                                    </div>
+                                                    <div class="submit-field">
+                                                        <h5>What injuries and damaged accured as the result if incident?</h5>
+                                                        <textarea name="incident_result" id="" class="with-border" placeholder="Their left hand and both knees were grazed">{INCIDENT_RESULT}</textarea>
+                                                    </div>
                                                 </div>
                                             </div>
-                                          
                                         </div>
                                     </div>
-                                    <div class="col-xl-12">
-                                        <div class="submit-field">
-                                            <h5>Details of Shift  <span class="required">*</span></h5>
-                                            <textarea cols="30" rows="5" class="with-border" name="shift_details">{SHIFT_DETAILS}</textarea>
-                                            <div class="uploadButton margin-top-30">
-                                                <input class="uploadButton-input" type="file" accept="image/*, application/pdf" id="upload"  name='attachment'/>
-                                                <label class="uploadButton-button ripple-effect" for="upload">Upload Files</label>
-                                                <span class="uploadButton-file-name">Images or documents that might be helpful in describing your project</span>
-                                            </div>
-                                           
-                                            IF("{ATTACHMENT_ERROR}"!=""){ {ATTACHMENT_ERROR} {:IF}
-                                        </div>
-                                          
-                                        IF("{ATTACHMENT_FILE}"!=""){ 
-                                            <a href="{SITE_URL}storage/timeshhet/{ATTACHMENT_FILE}" title="{DOCUMENT_FILE}" style="margin-left:10px;">
-                                                <i class="fa fa-download">&nbsp;Download-Certificate</i>
-                                            </a>
-                                        {:IF}
-                                        <div class="feedback-yes-no margin-top-0">
-                                            <div class="radio">
-                                                <input id="radio-1" name="incidence_occured" type="radio" checked value="0" IF('{INCIDENCE_OCCURED}'=='0' || '{INCIDENCE_OCCURED}'==''){ checked  {:IF}>
-                                                <label for="radio-1"><span class="radio-label"></span> No Reportable Incidents</label>
-                                            </div>
+                                    <div>
 
-                                            <div class="radio">
-                                                <input id="radio-2" name="incidence_occured" type="radio" value="1" IF('{INCIDENCE_OCCURED}'=='1'){ checked  {:IF}>
-                                                <label for="radio-2"><span class="radio-label"></span> An Incident Occured</label>
-                                            </div>
-                                        </div>
-                                       
-                                        <input type="hidden" name="id" value="{ID}" name='id'>
-                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xl-12">
-                        <button type="submit" name="submit" class="button ripple-effect big margin-top-30"><i class="icon-feather-plus"></i> Post Timesheet</button>
-                    </div>
-                </form>
-
+                        <div class="col-xl-12">
+                            <button type="submit" name="submit" class="button ripple-effect big margin-top-30"><i class="icon-feather-plus"></i> Post Timesheet</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- Row / End -->
             </div>
-            <!-- Row / End -->
+        </div>
+        <div id="submit-form-popup" class="zoom-anim-dialog mfp-hide dialog-with-tabs popup-dialog cust_mskd_ew">
+            <ul class="popup-tabs-nav b_cl_hg">
+                <li><h4>Success - your timesheet has been sent to consumer for approval</h4></li>
+            </ul>
+            <div class="popup-tabs-container">
+                <div class="wrap_accept_model">
+                    <h5>Nect steps</h5>
+                    <p>Once the timesheet approved, Carevacinity will invoice clients for their funding organizations. Carevacinity payment term are within 14 days from the date invoice is sent. If payment is not received within this time or you would like to receive your payment faster, Express pay can also be used.</p>
+                    <p><a href="#">For more information about Carevacinity's payment process click here.</a></p>
+                    <div class="accept_btn_click">
+                        <button class="btn_one_cl support_description_filled" >Learn more about Express pay</button>
+                        <button class="button ripple-effect" data-value="0" >Ok</button>
+                    </div>
+                </div>
             </div>
-
-        </div>
-        </div>
+	    </div>
     </div>
 </div>
 {OVERALL_FOOTER}
 <script src="{SITE_URL}templates/{TPL_NAME}/js/jquery.validate.min.js"></script>
+
 <script>
 
 $(function($) {
@@ -148,76 +216,85 @@ $(function($) {
     return this.optional(element) || (aDate <= bDate);
 
     }, 'Invalid value');
-   var $shiftForm = $("#shift-form"),$form=
-		$shiftForm.validate({
-			rules: {
-                agreement:{
-                    required: true,
-                },
-				agreement_rate:{
-					required: true,
-				},
-                start_time:{
-                    required: true,   
-                },
-				end_time: {
-					required: true,
-                    greaterThan:'#start_time',
-				},
-                shift_details:{
-                    required: true,   
+    var $shiftForm = $("#shift-form"),$form=
+    $shiftForm.validate({
+        rules: {
+            agreement:{
+                required: true,
+            },
+            agreement_rate:{
+                required: true,
+            },
+            start_time:{
+                required: true,   
+            },
+            end_time: {
+                required: true,
+                greaterThan:'#start_time',
+            },
+            shift_details:{
+                required: true,   
+            },
+            date: {
+                required: function(element){
+                    return $("input[name='incidence_occured']:checked").val()==1;
                 }
-			},
-			messages: {
-                agreement:{
-                    required: "Please choose any one agreement" 
-                },
-                agreement_rate:{
-                    required: "Please choose any one agreement rate" 
-                },
-				start_time: {
-					required: "Please enter Start time"
-				},
-				end_time: {
-					required: "Please enter end time",
-                    greaterThan: 'Start time would not be in future.'
-				},
-                shift_details:{
-                    required: 'Please provide shift details',   
+            },
+            time: {
+                required: function(element){
+                    return $("input[name='incidence_occured']:checked").val()==1;
                 }
-			},
-			submitHandler: function (form,e) {
-				submitForm();
-				return false;
-				//e.preventDefault();
-				// $.ajax({
-                //    type: $(form).attr('method'),
-                //    url: siteurl+plugin_directory+"?action=sendAgreement",
-                //    data: $(form).serialize(),
-				//    dataType: "json",
-
-                // })
-                // .done(function (response) {
-				// 	if(response.status){
-				// 		$('#agreement-form')[0].reset();
-				// 		$('#chat_section').removeClass('d-none');
-				// 		$('.agreement_section').removeClass('d-none');
-				// 		$('#agreement_form_section').addClass('d-none');
-				// 	}else{
-
-				// 	}
-				// 	console.log(response)
-                // }).error(function(response){
-                //    console.log(response)
-
-                // });
-			
-			}
-		});
-        // $shiftForm.on("blur", "input,textarea", function(e){
-		// 	$shiftForm.validate();
-		// 	$form.element(this)
-		// });
+            },
+            location: {
+                required: function(element){
+                    return $("input[name='incidence_occured']:checked").val()==1;
+                }
+            },
+          
+        },   
+        messages: {
+            agreement:{
+                required: "Please choose any one agreement" 
+            },
+            agreement_rate:{
+                required: "Please choose any one agreement rate" 
+            },
+            start_time: {
+                required: "Please enter Start time"
+            },
+            end_time: {
+                required: "Please enter end time",
+                greaterThan: 'Start time would not be in future.'
+            },
+            shift_details:{
+                required: 'Please provide shift details',   
+            },
+            date:{
+                required: 'Please enter incident date',   
+            },
+            time:{
+                required: 'Please enter incident time',   
+            },
+            location:{
+                required: 'Please enter incident location detail',   
+            }
+            
+        },
+        submitHandler: function (form,e) {
+            submitForm();
+           
+            return false;	
+        }
+    });   
+    
+    $('input[type=radio][name=incidence_occured]').change(function() {
+        if (this.value == 1) {
+            $('#incident_detail').removeClass('d-none');
+        }
+        else {
+            $('#incident_detail').addClass('d-none');
+        }
+    });
 });
 
    

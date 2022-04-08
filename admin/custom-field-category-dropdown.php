@@ -1,4 +1,4 @@
-<div class="col-md-4">
+<div class="col-md-2">
     <div class="btn-group quickad-services-holder quickad-margin-top-screenxs-sm">
         <button class="btn btn-default btn-block dropdown-toggle quickad-flexbox" data-toggle="dropdown">
             <div class="quickad-flex-cell">

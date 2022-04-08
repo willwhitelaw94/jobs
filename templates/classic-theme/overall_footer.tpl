@@ -425,6 +425,8 @@ $('#snackbar-user-status label').click(function() {
     });   
 }); 
 </script>
+<link href="{SITE_URL}templates/{TPL_NAME}/css/bootstrap-datepicker3.min.css" rel="stylesheet"/>
+<script src="{SITE_URL}templates/{TPL_NAME}/js/bootstrap-datepicker.min.js"></script>
 <!--
 <script>
     (function() {

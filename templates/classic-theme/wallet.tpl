@@ -55,6 +55,7 @@
                                         <th class="big-width">{LANG_DESCRIPTION}</th>
                                         <th class="small-width">{LANG_WALLET_CREDIT}</th>
                                         <th class="small-width">{LANG_WALLET_DEBIT}</th>
+                                        <th class="small-width">{LANG_CLOSING_BALANCE}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -64,6 +65,7 @@
                                         <td>{TRANSACTIONS.description}</td>
                                         <td>{TRANSACTIONS.credit}</td>
                                         <td>{TRANSACTIONS.debit}</td>
+                                        <td>{TRANSACTIONS.closing_balance}</td>
                                     </tr>
                                     {/LOOP: TRANSACTIONS}
                                 </tbody>

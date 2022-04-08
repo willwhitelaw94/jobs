@@ -43,10 +43,10 @@
                         <div class="row">
                             <div class="col-xl-4">
                                 <form method="get" action="">
-                                <div class="input-with-icon">
-                                    <input class="with-border" type="text" name="keywords" value="{KEYWORDS}" placeholder="{LANG_SEARCH}...">
-                                    <i class="icon-feather-search"></i>
-                                </div>
+                                    <div class="input-with-icon">
+                                        <input class="with-border" type="text" name="keywords" value="{KEYWORDS}" placeholder="{LANG_SEARCH}...">
+                                        <i class="icon-feather-search"></i>
+                                    </div>
                                 </form>
                             </div>
                             <div class="col-xl-8 text-right">

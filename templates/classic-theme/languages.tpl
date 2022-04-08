@@ -32,8 +32,7 @@
                                                 <small class="checkmark_list"></small>
                                             </label>
                                         </div>
-                                        {/LOOP: MAINLANGS} 
-                                
+                                        {/LOOP: MAINLANGS}                                
                                     {:IF} 
                                      <!-- <div class="col-12" >
                                     <h3>{LANG_OTHER_LANGUAGES} :</h3>
@@ -65,7 +64,6 @@
         </div>
     </div>
 </div>
-
 <link media="all" rel="stylesheet" type="text/css"
       href="{SITE_URL}templates/{TPL_NAME}/assets/plugins/simditor/styles/simditor.css"/>
 <script src="{SITE_URL}templates/{TPL_NAME}/assets/plugins/simditor/scripts/mobilecheck.js"></script>

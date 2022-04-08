@@ -66,6 +66,8 @@
                                                 
                                             ELSEIF("{ITEM.status}"=="rejected"){  
                                                 <li><strong><i class="text-danger fa fa-times-circle"></i></strong><span>{LANG_REJECTED}</span></li>
+                                                <li><strong></strong><span>{LANG_PENDING}</span></li>
+                                                <li><strong></strong><span>{LANG_DISBURSED}</span></li>
                                               
                                             {ELSE}
                                                 <li class="d-none reject_{ITEM.id}"><strong><i class="text-danger fa fa-times-circle"></i></strong><span>{LANG_REJECTED}</span></li>
@@ -171,8 +173,6 @@ $(function(){
             }
         });
     })
-
-
 });
 
 </script>
