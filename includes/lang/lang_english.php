@@ -705,6 +705,9 @@ $lang['REJECT']='Reject';
 $lang['NEW_SHIFT']='Add New Shift';
 $lang['EDIT_SHIFT']='Edit Shift';
 
+$lang['CLOSING_BALANCE']='Closing Balance';
+
+
 
 
 

@@ -80,32 +80,47 @@
 <script src="assets/js/slidepanel/app.min.js"></script>
 <script src="assets/js/slidepanel/app.min.js"></script>
 <script src="../includes/assets/js/repeater.min.js"></script>
-
+<!-------------------------Add New Js and Css----------------------------------->
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<!-------------------------End New Js and Css----------------------------------->
 <script>
-var start = moment().subtract(29, "days");
-var end = moment();
+    var start = moment().subtract(29, "days");
+    var end = moment();
 
-function cb(start, end) {
-    $(".kt_daterangepicker").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
-}
-
-$(".kt_daterangepicker").daterangepicker({
-    startDate: start,
-    endDate: end,
-    ranges: {  
-    "Today": [moment(), moment()],
-    "Yesterday": [moment().subtract(1, "days"), moment().subtract(1, "days")],
-    "Last 7 Days": [moment().subtract(6, "days"), moment()],
-    "Last 30 Days": [moment().subtract(29, "days"), moment()],
-    "This Month": [moment().startOf("month"), moment().endOf("month")],
-    "Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
+    function cb(start, end) {
+        $(".kt_daterangepicker").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
     }
-}, cb);
 
-cb(start, end);
+    $(".kt_daterangepicker").daterangepicker({
+        startDate: start,
+        endDate: end,
+        autoUpdateInput: false,
+        locale: {
+            format: 'DD/MM/YYYY',
+            cancelLabel: 'Clear'
+        },
+        ranges: {
+            "Today": [moment(), moment()],
+            "Yesterday": [moment().subtract(1, "days"), moment().subtract(1, "days")],
+            "Last 7 Days": [moment().subtract(6, "days"), moment()],
+            "Last 30 Days": [moment().subtract(29, "days"), moment()],
+            "This Month": [moment().startOf("month"), moment().endOf("month")],
+            "Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
+        }
+    }, cb);
+
+    $('.kt_daterangepicker').on('apply.daterangepicker', function(ev, picker) {
+        $(this).val(picker.startDate.format('DD-MM-YYYY') + ' to ' + picker.endDate.format('DD-MM-YYYY'));
+    });
+
+    $('.kt_daterangepicker').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
+    });
+
+    cb(start, end);
 </script>
-

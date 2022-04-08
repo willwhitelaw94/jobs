@@ -13,10 +13,9 @@ require_once('../includes/functions/func.admin.php');
 $mysqli = db_connect();
 
 if (isset($_POST['id']) && $_POST['id'] != "") {
-    $sub_category = ORM::for_table($config['db']['pre'] . 'catagory_sub')->where('main_cat_id', $_POST['id'])->find_array();
+    $sub_category = ORM::for_table($config['db']['pre'] . 'catagory_sub')->where_in('main_cat_id', $_POST['id'])->find_array();
     $subcategory = '<label>Subcategory</label>';
-    $subcategory .= '<select class="form-control" name="subcategory">';
-    $subcategory .= '<option value="">Select Sub category</option>';
+    $subcategory .= '<select class="form-control selectpicker" name="subcategory[]" multiple>';
     foreach ($sub_category as $sub) {
         $subcategory .= '<option value="' . $sub['sub_cat_id'] . '">' . $sub['sub_cat_name'] . '</option>';
     }

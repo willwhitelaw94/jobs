@@ -769,13 +769,14 @@ $(document).on("submit", "#search_filter", function (e) {
     });
 });
 
-$(document).on("change", ".category_filter", function (e) {
+$(document).on("change", "#filter_category", function (e) {
     let val = $(this).val();
     var base_url = $(this).data('url');
     var action = $(this).data('ajax-action');
     var action_url = base_url + 'admin/'+action;
     $.post(action_url,{id:val}, function(response){
         $('#filter_subctaegory').html(response);
+         $(".selectpicker").selectpicker();
     });
 });
 

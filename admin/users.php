@@ -9,6 +9,16 @@ $category = ORM::for_table($config['db']['pre'] . 'catagory_main')->find_array()
         overflow-x: auto;
         white-space: nowrap;
     }
+
+    .wraper_card_cust .filter-option-inner-inner {
+        font-weight: 300;
+        font-size: 14px
+    }
+
+    .dropdown-menu .inner li a {
+        font-weight: 300;
+        font-size: 14px
+    }
 </style>
 
 <main class="app-layout-content">
@@ -25,68 +35,79 @@ $category = ORM::for_table($config['db']['pre'] . 'catagory_main')->find_array()
             </div>
             <div class="card-block">
                 <div id="js-table-list">
-                    <div class="card" style="padding:20px;background:#f9f6f6;">
+                    <div class="card wraper_card_cust" style="padding:20px;background:#f9f6f6;">
                         <form method="get" data-ajax-action="users.php" data-url="<?= $config['site_url']; ?>" id="search_filter">
                             <input type="hidden" class="form-control" name="search_type" value="filter" />
                             <div class="row">
-                                <div class="col-md-10">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label>Type</label>
-                                            <select class="form-control" name="user_type">
-                                                <option value="">Select Type</option>
-                                                <option value="user">Job Seeker</option>
-                                                <option value="employer">Employer</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>Status</label>
-                                            <select class="form-control" name="status">
-                                                <option value="">Select Status</option>
-                                                <option value="0">Active</option>
-                                                <option value="1">Verify</option>
-                                                <option value="2">Ban</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>Sex</label>
-                                            <select class="form-control" name="sex">
-                                                <option value="">Select Gender</option>
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>Joined Date</label>
-                                            <input class="form-control form-control-solid kt_daterangepicker" name="date" placeholder="Pick date rage" />
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <label>Work Status</label>
-                                            <select class="form-control" name="available_to_work">
-                                                <option value="">Select Work Status</option>
-                                                <option value="1">Online</option>
-                                                <option value="0">Offline</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>Category</label>
-                                            <select class="form-control category_filter" name="category" data-url="<?= $config['site_url']; ?>" data-ajax-action="users_category.php">
-                                                <option value="">Select Category</option>
-                                                <?php foreach ($category as $cat) { ?>
-                                                    <option value="<?= $cat['cat_id']; ?>"><?= $cat['cat_name']; ?></option>
-                                                <?php } ?>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3" id="filter_subctaegory">
+                                <div class="col-md-3">
+                                    <label>Type</label>
+                                    <select class="form-control selectpicker" name="user_type[]" multiple>
+                                        <option value='"user"'>Job Seeker</option>
+                                        <option value='"employer"'>Employer</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Status</label>
+                                    <select class="form-control selectpicker" name="status[]" multiple>
+                                        <option value='"0"'>Active</option>
+                                        <option value='"1"'>Verify</option>
+                                        <option value='"2"'>Ban</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Sex</label>
+                                    <select class="form-control selectpicker" name="sex[]" multiple>
+                                        <option value='"Male"'>Male</option>
+                                        <option value='"Female"'>Female</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Joined Date</label>
+                                    <input class="form-control form-control-solid kt_daterangepicker" autocomplete="off" name="date" placeholder="Pick date rage" />
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Wallet amount</label>
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-addon pointer">
+                                            <span class="glyphicon">$</span>
+                                        </span>
+                                        <input type="number" name="wallet_min_amount" class="form-control">
 
-                                        </div>
+                                        <span class="input-group-addon pointer ">
+                                            <span class="glyphicon">TO</span>
+                                        </span>
+                                        <input type="number" name="wallet_max_amount" class="form-control">
+                                        <span class="input-group-addon pointer ">
+                                            <span class="glyphicon">$</span>
+                                        </span>
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                    <label>Work Status</label>
+                                    <select class="form-control selectpicker" name="available_to_work[]" multiple>
+                                        <option value='"1"'>Online</option>
+                                        <option value='"0"'>Offline</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Category</label>
+                                    <select class="form-control selectpicker" name="category[]" data-url="<?= $config['site_url']; ?>" id="filter_category" data-ajax-action="users_category.php" multiple>
+                                        <?php foreach ($category as $cat) { ?>
+                                            <option value='<?= $cat['cat_id']; ?>'><?= $cat['cat_name']; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-3" id="filter_subctaegory">
+
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <div class="col-md-5"></div>
                                 <div class="col-md-2">
-                                    <input type="submit" class="btn btn-primary form-control" style="margin-top:71px;" value="Search">
+                                    <input type="submit" class="btn btn-primary form-control" value="Search">
                                 </div>
                             </div>
                         </form>
@@ -147,9 +168,8 @@ $category = ORM::for_table($config['db']['pre'] . 'catagory_main')->find_array()
 </div>
 <!-- End Site Action -->
 
-<?php include("footer.php"); ?>
-
-
+<?php include("footer.php");
+?>
 <script>
     $(function() {
         // Init page helpers (Table Tools helper)

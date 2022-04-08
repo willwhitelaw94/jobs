@@ -1,6 +1,19 @@
 <?php
 require_once('includes.php');
+$companies = ORM::for_table($config['db']['pre'] . 'companies')->find_array();
+$category = ORM::for_table($config['db']['pre'] . 'catagory_main')->find_array();
 ?>
+<style>
+    .wraper_card_cust .filter-option-inner-inner {
+        font-weight: 300;
+        font-size: 14px
+    }
+
+    .dropdown-menu .inner li a {
+        font-weight: 300;
+        font-size: 14px
+    }
+</style>
 <!-- Page JS Plugins CSS -->
 <link rel="stylesheet" href="assets/js/plugins/datatables/jquery.dataTables.min.css" />
 <main class="app-layout-content">
@@ -8,26 +21,54 @@ require_once('includes.php');
     <!-- Page Content -->
     <div class="container-fluid p-y-md">
         <!-- Partial Table -->
-        <div class="card">
+        <div class="card wraper_card_cust">
             <div class="card-header">
                 <h4>Re-Submitted Jobs</h4>
             </div>
             <div class="card-block">
                 <div id="js-table-list">
-                    <table class="js-table-checkable table table-vcenter table-hover" id="ajax_datatable"  data-jsonfile="post_resubmit.php">
+                    <form method="get" data-ajax-action="post_resubmit.php" data-url="<?= $config['site_url']; ?>" id="search_filter">
+                        <input type="hidden" class="form-control" name="search_type" value="filter" />
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Posted Date</label>
+                                        <input class="form-control form-control-solid kt_daterangepicker" autocomplete="off" name="created_at" placeholder="Pick date rage" />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Category</label>
+                                        <select class="form-control selectpicker" name="category[]" data-url="<?= $config['site_url']; ?>" id="filter_category" data-ajax-action="users_category.php" multiple>
+                                            <?php foreach ($category as $cat) { ?>
+                                                <option value='<?= $cat['cat_id']; ?>'><?= $cat['cat_name']; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4" id="filter_subctaegory">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="submit" class="btn btn-primary form-control" style="margin-top:28px;" value="Search">
+                            </div>
+                        </div>
+                    </form>
+                    <br>
+                    <table class="js-table-checkable table table-vcenter table-hover" id="ajax_datatable" data-jsonfile="post_resubmit.php">
                         <thead>
-                        <tr>
-                            <th class="text-center w-5 sortingNone">
-                                <label class="css-input css-checkbox css-checkbox-default m-t-0 m-b-0">
-                                    <input type="checkbox" id="check-all" name="check-all"><span></span>
-                                </label>
-                            </th>
-                            <th>Title</th>
-                            <th class="hidden-xs w-30">Location</th>
-                            <th class="hidden-xs hidden-sm" style="width:100px">Posted</th>
-                            <th class="hidden-xs hidden-sm" style="width:100px">Status</th>
-                            <th class="text-center" style="width: 128px;">Actions</th>
-                        </tr>
+                            <tr>
+                                <th class="text-center w-5 sortingNone">
+                                    <label class="css-input css-checkbox css-checkbox-default m-t-0 m-b-0">
+                                        <input type="checkbox" id="check-all" name="check-all"><span></span>
+                                    </label>
+                                </th>
+                                <th>Title</th>
+                                <th class="hidden-xs w-30">Location</th>
+                                <th class="hidden-xs hidden-sm" style="width:100px">Posted</th>
+                                <th class="hidden-xs hidden-sm" style="width:100px">Status</th>
+                                <th class="text-center" style="width: 128px;">Actions</th>
+                            </tr>
                         </thead>
                         <tbody id="ajax-services">
 
@@ -55,8 +96,7 @@ require_once('includes.php');
         <i class="back-icon ion-android-close animation-scale-up" aria-hidden="true"></i>
     </button>
     <div class="site-action-buttons">
-        <button type="button" data-ajax-response="deletemarked" data-ajax-action="deleteResubmitItem"
-                class="btn-raised btn btn-danger btn-floating animation-slide-bottom">
+        <button type="button" data-ajax-response="deletemarked" data-ajax-action="deleteResubmitItem" class="btn-raised btn btn-danger btn-floating animation-slide-bottom">
             <i class="icon ion-android-delete" aria-hidden="true"></i>
         </button>
     </div>
@@ -66,8 +106,7 @@ require_once('includes.php');
 <?php include("footer.php"); ?>
 
 <script>
-    $(function()
-    {
+    $(function() {
         // Init page helpers (Table Tools helper)
         App.initHelpers('table-tools');
 
@@ -78,4 +117,3 @@ require_once('includes.php');
 </body>
 
 </html>
-
