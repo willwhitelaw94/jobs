@@ -267,6 +267,41 @@
                             <label for="Other"><span class="radio-label"></span>{LANG_GENDER_OTHER}</label>
                         </div>
                     </div>
+                    {LOOP: CUSTOMFIELDS}
+                        IF("{CUSTOMFIELDS.type}"=="text-field" && "{CUSTOMFIELDS.custom_filter}"=="1"){
+                            <div class="sidebar-widget">
+                                <h3 class="label-title">{CUSTOMFIELDS.title}</h3>
+                                {CUSTOMFIELDS.textbox}
+                            </div>
+                        {:IF}
+                        IF("{CUSTOMFIELDS.type}"=="textarea" && "{CUSTOMFIELDS.custom_filter}"=="1"){
+                            <div class="sidebar-widget">
+                                <h3 class="label-title">{CUSTOMFIELDS.title}</h3>
+                                {CUSTOMFIELDS.textarea}
+                            </div>
+                        {:IF}
+                        IF("{CUSTOMFIELDS.type}"=="drop-down" && "{CUSTOMFIELDS.custom_filter}"=="1"){
+                            <div class="sidebar-widget">
+                                <h3 class="label-title">{CUSTOMFIELDS.title}</h3>
+                                <select class="selectpicker with-border" name="custom[{CUSTOMFIELDS.id}]">
+                                    <option value="" selected>{LANG_SELECT} {CUSTOMFIELDS.title}</option>
+                                    {CUSTOMFIELDS.selectbox}
+                                </select>
+                            </div>
+                        {:IF} 
+                        IF("{CUSTOMFIELDS.type}"=="radio-buttons" && "{CUSTOMFIELDS.custom_filter}"=="1"){
+                            <div class="sidebar-widget">
+                                <h3 class="label-title">{CUSTOMFIELDS.title}</h3>
+                                {CUSTOMFIELDS.radio}
+                            </div>
+                        {:IF}
+                        IF("{CUSTOMFIELDS.type}"=="checkboxes" && "{CUSTOMFIELDS.custom_filter}"=="1"){
+                            <div class="sidebar-widget">
+                                <h3 class="label-title">{CUSTOMFIELDS.title}</h3>
+                                {CUSTOMFIELDS.checkbox}
+                            </div>
+                        {:IF}
+                    {/LOOP: CUSTOMFIELDS}
                     <div class="sidebar-widget">
                         <a class="popup-with-zoom-anim  button full-width ripple-effect" href="#moreFilter">More Filter search</a>
                         <!-- <button class="button full-width ripple-effect">{LANG_ADVANCED_SEARCH}</button> -->    

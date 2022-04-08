@@ -1131,6 +1131,7 @@ function get_user_customFields($require=true,$fields=array(),$data=array()){
     {    
         $custom_fields[$info['custom_id']]['id'] = $info['custom_id'];
         $custom_fields[$info['custom_id']]['type'] = $info['custom_type'];
+        $custom_fields[$info['custom_id']]['custom_filter'] = $info['custom_filter'];
         $custom_fields[$info['custom_id']]['title'] = stripslashes($info['custom_title']);
 
         if($config['lang_code'] != 'en' && $config['userlangsel'] == '1'){

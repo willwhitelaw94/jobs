@@ -328,6 +328,7 @@ jQuery(function($) {
         if (typeof custom_filter == 'undefined') {
             custom_filter = false;
         }
+
         if (typeof translation == 'undefined') {
             var transclass = "hide";
         }else{
@@ -342,9 +343,10 @@ jQuery(function($) {
             })
             .next('label').attr('for', 'required-' + id)
             .end().end()
+
             .find('.quickad-required-filter').prop({
-                id      : 'custom_filter-' + id,
-                checked : custom_filter
+                    id      : 'custom_filter-' + id,
+                    checked :  custom_filter 
             })
             .next('label').attr('for', 'required_filter-' + id)
             .end().end()

@@ -41,6 +41,12 @@ if(isset($_GET['city']) && !empty($_GET['city'])){
 }else{
     $city = "";
 }
+// Get Custom Data
+$custom = array();
+if(isset($_GET['custom']) && !empty($_GET['custom'])){
+    $custom = $_GET['custom'];
+}
+//print_r($_GET['custom']);die;
 
 $total = 0;
 
@@ -124,7 +130,61 @@ if(!empty($_GET['gender'])){
 }
 
 //Start Searching Code
-//print_r($_GET);
+if(isset($_GET['custom'])) {
+    $whr_count = 1;
+    $custom_where = "";
+    $custom_join = "";
+    foreach ($_GET['custom'] as $key => $value) {
+        if (empty($value)) {
+            unset($_GET['custom'][$key]);
+        }
+        if (!empty($_GET['custom'])) {
+            // custom value is not empty.
+
+            if ($key != "" && $value != "") {
+                $c_as = "c".$whr_count;
+                $custom_join .= " JOIN `".$config['db']['pre']."user_custom_data` AS $c_as ON $c_as.user_id = u.id AND `$c_as`.`field_id` = '$key' ";
+                if (is_array($value)) {
+                    $custom_where = " AND ( ";
+                    $cond_count = 0;
+                    foreach ($value as $val) {
+                        if ($cond_count == 0) {
+                            $custom_where .= " find_in_set('$val',$c_as.field_data) <> 0 ";
+                        } else {
+                            $custom_where .= " AND find_in_set('$val',$c_as.field_data) <> 0 ";
+                        }
+                        $cond_count++;
+                    }
+                    $custom_where .= " )";
+                }else{
+                    $custom_where .= " AND `$c_as`.`field_data` = '$value' ";
+                }
+
+                $whr_count++;
+            }
+        }
+    }
+    if($custom_where != "")
+        $where .= $custom_where;
+
+    if (!empty($_GET['custom'])) {
+        $sql = "SELECT  u.*
+                FROM `".$config['db']['pre']."user` AS u
+                $custom_join
+                WHERE status = '1'";
+                    }else{
+                        $sql = "SELECT  u.*
+                FROM `".$config['db']['pre']."user` AS u
+                WHERE status = '1'  ";
+                    }
+                $q = "$sql $where";
+                $totalWithoutFilter = mysqli_num_rows(mysqli_query($mysqli, $q));
+}
+else{
+    $totalWithoutFilter = mysqli_num_rows(mysqli_query($mysqli, "SELECT 1 FROM ".$config['db']['pre']."user as u where u.status = '1' $where"));
+}
+
+//more searches
 if(!empty($_GET['languages'])){  
     
     $languages = $_GET['languages'];
@@ -150,16 +210,39 @@ if(!empty($_GET['cultural_backgrounds'])){
     $where.= "AND exists(SELECT cultural_background_id FROM `".$config['db']['pre']."user_cultural_backgrounds` WHERE cultural_background_id IN ( $cultural_backgrounds ) and user_id = u.id ) ";
 }
 
-if($_SESSION['user']['user_type']=='employer'){
-    $total = mysqli_num_rows(mysqli_query($mysqli, "SELECT 1 FROM `".$config['db']['pre']."user` u where u.status = '1' AND u.user_type = 'user' AND  u.available_to_work = '0' AND  u.online = '1' $where"));
+if(isset($_GET['custom']))
+{   if($_SESSION['user']['user_type']=='employer'){
+      $where1= "WHERE u.status = '1' AND u.user_type = 'user' AND  u.available_to_work = '0' AND  u.online = '1'";
+    }else{
+        $where1= "WHERE u.status = '1' AND u.user_type = 'user' AND  u.available_to_work = '0'";
+    }
+    if (!empty($_GET['custom'])) {
+        $sql = "SELECT u.* FROM `".$config['db']['pre']."user` AS u 
+        $custom_join $where1
+       ";
+    }else{
+         $sql = "SELECT  u.* FROM `".$config['db']['pre']."user` AS u $where1";
+    }
 
-    $query = "SELECT u.* FROM `".$config['db']['pre']."user` u
-         where u.status = '1' AND u.user_type = 'user' AND  u.available_to_work = '0' AND  u.online = '1'  $where ORDER BY $order_by LIMIT ".($page_number-1)*$limit.",$limit";
-}else{
-    $total = mysqli_num_rows(mysqli_query($mysqli, "SELECT 1 FROM `".$config['db']['pre']."user` u where u.status = '1' AND u.user_type = 'user' AND  u.available_to_work = '0' $where"));
+    $total = mysqli_num_rows(mysqli_query($mysqli, "$sql $where"));
+    $query =  $sql . " $where ORDER BY $sort $order_by LIMIT ".($page_number-1)*$limit.",$limit";
 
-    $query = "SELECT u.* FROM `".$config['db']['pre']."user` u
-         where u.status = '1' AND u.user_type = 'user' AND  u.available_to_work = '0' $where ORDER BY $order_by LIMIT ".($page_number-1)*$limit.",$limit";
+
+}
+else{
+
+    if($_SESSION['user']['user_type']=='employer'){
+        $total = mysqli_num_rows(mysqli_query($mysqli, "SELECT 1 FROM `".$config['db']['pre']."user` u where u.status = '1' AND u.user_type = 'user' AND  u.available_to_work = '0' AND  u.online = '1' $where"));
+    
+        $query = "SELECT u.* FROM `".$config['db']['pre']."user` u
+             where u.status = '1' AND u.user_type = 'user' AND  u.available_to_work = '0' AND  u.online = '1'  $where ORDER BY $order_by LIMIT ".($page_number-1)*$limit.",$limit";
+    }else{
+        $total = mysqli_num_rows(mysqli_query($mysqli, "SELECT 1 FROM `".$config['db']['pre']."user` u where u.status = '1' AND u.user_type = 'user' AND  u.available_to_work = '0' $where"));
+    
+        $query = "SELECT u.* FROM `".$config['db']['pre']."user` u
+             where u.status = '1' AND u.user_type = 'user' AND  u.available_to_work = '0' $where ORDER BY $order_by LIMIT ".($page_number-1)*$limit.",$limit";
+    }
+
 }
 
 //print_r($query);die;
@@ -302,6 +385,11 @@ $religions = ORM::for_table($config['db']['pre'] . 'religions')->find_array();
 
 $cultural_backgrounds = ORM::for_table($config['db']['pre'] . 'cultural_backgrounds')->find_array();
 
+$user_custom_fields = get_user_customFields(true,$custom_fields, $custom_data);
+
+// echo "<pre>";
+// print_r($user_custom_fields);
+
 $lang_check = $_REQUEST['languages'];
 $inte_check = $_REQUEST['interests'];
 $reli_check = $_REQUEST['religions'];
@@ -326,6 +414,7 @@ $page->SetLoop('LANGS',$languages);
 $page->SetLoop('INTEREST',$interests);
 $page->SetLoop('RELIGION',$religions);
 $page->SetLoop('CULTURAL_BACKGROUND',$cultural_backgrounds);
+$page->SetLoop ('CUSTOMFIELDS',$user_custom_fields);
 $page->SetLoop ('CATEGORY',$GetCategory);
 $page->SetParameter ('MAINCAT', $category);
 $page->SetParameter ('SUBCAT', $subcat);

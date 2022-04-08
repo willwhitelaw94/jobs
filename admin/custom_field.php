@@ -134,7 +134,7 @@ require_once('includes.php');
                                                                             <input class="quickad-label form-control" type="text" value="" placeholder="Enter a label">
                                                                             <label class="input-group-addon">
                                                                                 <label class="css-input css-checkbox css-checkbox-default m-t-0 m-b-0">
-                                                                                    <input type="checkbox" id="TextFieldReq" class="quickad-required-filter"><span></span> Required field
+                                                                                    <input type="checkbox" id="TextFieldReq" class="quickad-required"><span></span> Required field
                                                                                 </label>
                                                                                 <i class="visible-xs-inline-block glyphicon glyphicon-warning"></i>
                                                                             </label>

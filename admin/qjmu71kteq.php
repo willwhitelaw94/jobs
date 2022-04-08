@@ -2949,12 +2949,12 @@ function save_custom_fields()
     $cf_per_service = ($_POST['cf_per_service']) ? '1' : '0';
     $count = 0;
     foreach($fields as $custom) {
+        //var_dump($custom);die;
         $id = $custom['id'];
         $type = $custom['type'];
         $title = $custom['label'];
         $required = empty($custom['required'])? 0 : $custom['required'];
         $custom_filter = empty($custom['custom_filter'])? 0 : $custom['custom_filter'];
-        //print_r($custom_filter);die;
         $allcat = $custom['allcat'];
         $maincat = $custom['maincat'];
         $category = $custom['services'];

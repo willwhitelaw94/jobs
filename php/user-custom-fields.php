@@ -21,8 +21,9 @@ if (checkloggedin()) {
             $custom_db_fields[$value['id']] = $value['title'];
             $custom_db_data[$value['id']] = str_replace(',', '&#44;', $value['default']);
         }
-    }    
- 
+    }  
+    // echo "<pre>";  
+    // print_r($custom_fields);die;
     if(isset($_POST['submit'])){
       //  dd($_POST);
         add_post_user_customField_data($user_id);
