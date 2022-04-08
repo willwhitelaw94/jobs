@@ -153,11 +153,14 @@ if(isset($_SESSION['admin']['id'])){
                             <a href="user_custom_field.php"><i class="ion-android-options"></i>User-Custom Fields <span class="label label-info">Unique</span></a>
                         </li>
                         <li class="nav-item nav-item-has-subnav">
-                            <a href="#"><i class="fa fa-weixin"></i> Chat </a>
+                            <a href="#"><i class="ion-android-chat"></i> Chat </a>
                             <ul class="nav nav-subnav">
                                 <li><a href="chating.php">Messages</a></li>
                                 <li><a href="chat_setting.php">Setting</a></li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="timesheet.php"><i class="fa fa-clock"></i>Timesheets</a>
                         </li>
                         <li class="nav-item">
                             <a href="themes.php"><i class="fa fa-television"></i> Change Theme</a>

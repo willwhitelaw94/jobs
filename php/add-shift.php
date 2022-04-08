@@ -39,15 +39,18 @@ if (checkloggedin()) {
             $rate_item[$data['id']]['text'] = $text;
         }
         $incedent_data = ORM::for_table($config['db']['pre'] . 'incidents')->where('timesheet_id', $_GET['id'])->find_one();
-        $incident_id = $incedent_data['id'];
-        $inc_time = date("h:i A", strtotime($incedent_data['time']));
-        $inc_date = date("Y-m-d", strtotime($incedent_data['date']));
-        $inc_location = $incedent_data['location'];
-        $involved_in_incident = $incedent_data['involved_in_incident'];
-        $before_incident = $incedent_data['before_incident'];
-        $incident_details = $incedent_data['incident_details'];
-        $immediate_action = $incedent_data['immediate_action'];
-        $incident_result = $incedent_data['incident_result'];
+        if(!empty($incedent_data)){
+            $incident_id = $incedent_data['id'];
+            $inc_time = date("h:i A", strtotime($incedent_data['time']));
+            $inc_date = date("Y-m-d", strtotime($incedent_data['date']));
+            $inc_location = $incedent_data['location'];
+            $involved_in_incident = $incedent_data['involved_in_incident'];
+            $before_incident = $incedent_data['before_incident'];
+            $incident_details = $incedent_data['incident_details'];
+            $immediate_action = $incedent_data['immediate_action'];
+            $incident_result = $incedent_data['incident_result'];
+        }
+       
     }
 
     $agr_data =  ORM::for_table($config['db']['pre'] . 'user_agreements')->table_alias('a')
