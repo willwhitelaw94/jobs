@@ -6,28 +6,59 @@ require_once('includes.php');
 // initilize all variable
 $params = $columns = $totalRecords = $data = array();
 $params = $_REQUEST;
-if($params['draw'] == 1)
+if ($params['draw'] == 1)
     $params['order'][0]['dir'] = "desc";
 //define index of column
 $columns = array(
-    0 =>'p.id',
-    1 =>'p.product_name',
-    2 =>'c.name',
-    3 =>'p.created_at',
-    4 =>'p.status'
+    0 => 'p.id',
+    1 => 'p.product_name',
+    2 => 'c.name',
+    3 => 'p.created_at',
+    4 => 'p.status'
 );
-
+$isWhere = false;
 $where = $sqlTot = $sqlRec = "";
 
 // check search value exist
-if( !empty($params['search']['value']) ){
-    $where .=" WHERE ";
-    $where .=" ( p.product_name LIKE '".$params['search']['value']."%' ";
-    $where .=" OR c.name LIKE '".$params['search']['value']."%' ";
-    $where .=" OR cat.cat_name LIKE '".$params['search']['value']."%' )";
+if (!empty($params['search']['value'])) {
+    $where .= " WHERE ";
+    $where .= " ( p.product_name LIKE '" . $params['search']['value'] . "%' ";
+    $where .= " OR c.name LIKE '" . $params['search']['value'] . "%' ";
+    $where .= " OR cat.cat_name LIKE '" . $params['search']['value'] . "%' )";
+    $isWhere = true;
 }
 
-
+if (isset($_POST['search_type']) && $_POST['search_type'] == "filter") {
+    $where .= " WHERE ";
+    $flag = "";
+    if (!empty($_POST['created_at'])) {
+        if (!empty($flag)) {
+            $where .= $flag;
+        }
+        $date = explode("to", $_POST['created_at']);
+        $where .= ' p.created_at BETWEEN "' . date('Y-m-d', strtotime($date[0])) . '"  AND  "' . date('Y-m-d', strtotime($date[1])) . '" ';
+        $flag = " AND ";
+        $isWhere = true;
+    }
+    if (!empty($_POST['category'])) {
+        if (!empty($flag)) {
+            $where .= $flag;
+        }
+        $user_category = implode(',', $_POST['category']);
+        $where .= ' p.category IN (' . $user_category . ') ';
+        $flag = " AND ";
+        $isWhere = true;
+    }
+    if (!empty($_POST['subcategory'])) {
+        if (!empty($flag)) {
+            $where .= $flag;
+        }
+        $user_subcategory = implode(',', $_POST['subcategory']);
+        $where .= ' p.sub_category IN (' . $user_subcategory . ') ';
+        $flag = " AND ";
+        $isWhere = true;
+    }
+}
 
 
 // getting total number records without any search
@@ -38,20 +69,28 @@ cat.cat_name as catname,
 scat.sub_cat_id as subcatid,
 scat.sub_cat_name as subcatname,
 c.logo as company_image
-FROM `".$config['db']['pre']."product_resubmit` as p
-LEFT JOIN `".$config['db']['pre']."companies` as c ON c.id = p.company_id
-LEFT JOIN `".$config['db']['pre']."cities` as ct ON ct.id = p.city
-LEFT JOIN `".$config['db']['pre']."catagory_main` as cat ON cat.cat_id = p.category
-LEFT JOIN `".$config['db']['pre']."catagory_sub` as scat ON scat.sub_cat_id = p.sub_category ";
+FROM `" . $config['db']['pre'] . "product_resubmit` as p
+LEFT JOIN `" . $config['db']['pre'] . "companies` as c ON c.id = p.company_id
+LEFT JOIN `" . $config['db']['pre'] . "cities` as ct ON ct.id = p.city
+LEFT JOIN `" . $config['db']['pre'] . "catagory_main` as cat ON cat.cat_id = p.category
+LEFT JOIN `" . $config['db']['pre'] . "catagory_sub` as scat ON scat.sub_cat_id = p.sub_category ";
 $sqlTot .= $sql;
 $sqlRec .= $sql;
 //concatenate search sql if value exist
-if(isset($where) && $where != '') {
+if (isset($where) && $where != '' && $isWhere) {
     $sqlTot .= $where;
     $sqlRec .= $where;
 }
 
-$sqlRec .=  " ORDER BY ". $columns[$params['order'][0]['column']]."   ".$params['order'][0]['dir']."  LIMIT ".$params['start']." ,".$params['length']." ";
+if (empty($params['order'][0]['column'])) {
+    $sqlRec .=  " ORDER BY id asc LIMIT 0, 10";
+} else {
+    $sqlRec .=  " ORDER BY " . $columns[$params['order'][0]['column']] . "   " . $params['order'][0]['dir'] . "  LIMIT " . $params['start'] . " ," . $params['length'] . " ";
+}
+
+// echo "<pre>";
+// print_r($sqlRec);
+// die("++++");
 
 $queryTot = $pdo->query($sqlTot);
 $totalRecords = $queryTot->rowCount();
@@ -68,46 +107,46 @@ foreach ($queryRecords as $row) {
     $featured = $row['featured'];
     $urgent = $row['urgent'];
     $highlight = $row['highlight'];
-    $company_image = !empty($row['company_image'])?$row['company_image']:'default.png';
-    $image = !empty($row['screen_shot'])?$row['screen_shot']:$company_image;
+    $company_image = !empty($row['company_image']) ? $row['company_image'] : 'default.png';
+    $image = !empty($row['screen_shot']) ? $row['screen_shot'] : $company_image;
 
     $image_tag = '';
-    if($config['job_image_field']){
-        $image_tag = '<div class="pull-left m-r"><img class="img-avatar img-avatar-squre" src="../storage/products/'.$image.'"></div>';
+    if ($config['job_image_field']) {
+        $image_tag = '<div class="pull-left m-r"><img class="img-avatar img-avatar-squre" src="../storage/products/' . $image . '"></div>';
     }
 
 
     $premium = '';
-    if ($featured == "1"){
-        $premium = $premium.'<span class="badge fs-12">featured</span>';
+    if ($featured == "1") {
+        $premium = $premium . '<span class="badge fs-12">featured</span>';
     }
 
-    if($urgent == "1") {
-        $premium = $premium.'<span class="badge btn-danger fs-12">Urgent</span>';
+    if ($urgent == "1") {
+        $premium = $premium . '<span class="badge btn-danger fs-12">Urgent</span>';
     }
 
-    if($highlight == "1") {
-        $premium = $premium.'<span class="badge btn-primary fs-12">Highlight</span>';
+    if ($highlight == "1") {
+        $premium = $premium . '<span class="badge btn-primary fs-12">Highlight</span>';
     }
 
     $status = '<span class="label label-info">Re-Submit</span>';
 
     $row0 = '<td>
                 <label class="css-input css-checkbox css-checkbox-default">
-                    <input type="checkbox" class="service-checker" value="'.$id.'" id="row_'.$id.'" name="row_'.$id.'"><span></span>
+                    <input type="checkbox" class="service-checker" value="' . $id . '" id="row_' . $id . '" name="row_' . $id . '"><span></span>
                 </label>
             </td>';
-    $row1 = '<td class="text-center">'.$image_tag.'
-                <p class="font-500 m-b-0"><a href="post_detail.php?id='.$product_id.'&resubmit=1" target="_blank">'.$title.'</a></p>
-                <p class="m-b-0">'.$premium.'</p>
-                <p class="text-muted m-b-0">'.$ad_category.'</p>
+    $row1 = '<td class="">' . $image_tag . '
+                <p class="font-500 m-b-0"><a href="post_detail.php?id=' . $product_id . '&resubmit=1" target="_blank">' . $title . '</a></p>
+                <p class="m-b-0">' . $premium . '</p>
+                <p class="text-muted m-b-0">' . $ad_category . '</p>
             </td>';
-    $row2 = '<td class="hidden-xs">'.$row['cityname'].'</td>';
-    $row3 = '<td class="hidden-xs hidden-sm">'.$ad_created_at.'</td>';
-    $row4 = '<td class="hidden-xs hidden-sm">'.$status.'</td>';
+    $row2 = '<td class="hidden-xs">' . $row['cityname'] . '</td>';
+    $row3 = '<td class="hidden-xs hidden-sm">' . $ad_created_at . '</td>';
+    $row4 = '<td class="hidden-xs hidden-sm">' . $status . '</td>';
     $row5 = '<td class="text-center">
                 <div class="btn-group">
-                    <a href="post_detail.php?id='.$product_id.'&resubmit=1" class="btn btn-xs btn-default"><i class="ion-eye"></i></a>
+                    <a href="post_detail.php?id=' . $product_id . '&resubmit=1" class="btn btn-xs btn-default"><i class="ion-eye"></i></a>
                     <a href="javascript:void(0)" class="btn btn-xs btn-default item-approve" data-ajax-action="approveResubmitItem"><i class="ion-android-done"></i></a>
                     <a href="javascript:void(0)" class="btn btn-xs btn-default item-js-delete" data-ajax-action="deleteResubmitItem"><i class="ion-close"></i></a>
                 </div>
@@ -125,11 +164,10 @@ foreach ($queryRecords as $row) {
 }
 
 $json_data = array(
-    "draw"            => intval( $params['draw'] ),
-    "recordsTotal"    => intval( $totalRecords ),
+    "draw"            => intval($params['draw']),
+    "recordsTotal"    => intval($totalRecords),
     "recordsFiltered" => intval($totalRecords),
     "data"            => $data   // total data array
 );
 
 echo json_encode($json_data);  // send data as json format
-?>

@@ -7,70 +7,134 @@ require_once('../includes/classes/class.country.php');
 require_once('../includes/functions/func.global.php');
 require_once('../includes/functions/func.sqlquery.php');
 require_once('../includes/functions/func.users.php');
-require_once('../includes/lang/lang_'.$config['lang'].'.php');
+require_once('../includes/lang/lang_' . $config['lang'] . '.php');
 require_once('../includes/seo-url.php');
 
 sec_session_start();
-if (isset($_GET['action'])){
-    if ($_GET['action'] == "email_contact_seller") { email_contact_seller(); }
-    if ($_GET['action'] == "deleteMyAd") { deleteMyAd(); }
-    if ($_GET['action'] == "deleteResume") { deleteResume(); }
-    if ($_GET['action'] == "deleteDocument") { deleteDocument(); }
-    if ($_GET['action'] == "deleteExperience") { deleteExperience(); }
-    if ($_GET['action'] == "deleteCompany") { deleteCompany(); }
-    if ($_GET['action'] == "deleteResumitAd") { deleteResumitAd(); }
+if (isset($_GET['action'])) {
+    if ($_GET['action'] == "email_contact_seller") {
+        email_contact_seller();
+    }
+    if ($_GET['action'] == "deleteMyAd") {
+        deleteMyAd();
+    }
+    if ($_GET['action'] == "deleteResume") {
+        deleteResume();
+    }
+    if ($_GET['action'] == "deleteDocument") {
+        deleteDocument();
+    }
+    if ($_GET['action'] == "deleteExperience") {
+        deleteExperience();
+    }
+    if ($_GET['action'] == "deleteCompany") {
+        deleteCompany();
+    }
+    if ($_GET['action'] == "deleteResumitAd") {
+        deleteResumitAd();
+    }
 
-    if ($_GET['action'] == "openlocatoionPopup") { openlocatoionPopup(); }
-    if ($_GET['action'] == "getlocHomemap") { getlocHomemap(); }
-    if ($_GET['action'] == "searchCityFromCountry") {searchCityFromCountry();}
+    if ($_GET['action'] == "openlocatoionPopup") {
+        openlocatoionPopup();
+    }
+    if ($_GET['action'] == "getlocHomemap") {
+        getlocHomemap();
+    }
+    if ($_GET['action'] == "searchCityFromCountry") {
+        searchCityFromCountry();
+    }
 
-    if ($_GET['action'] == "submitBlogComment") {submitBlogComment();}
+    if ($_GET['action'] == "submitBlogComment") {
+        submitBlogComment();
+    }
 }
 
-if(isset($_POST['action'])){
-    if ($_POST['action'] == "removeImage") { removeImage(); }
-    if ($_POST['action'] == "hideItem") { hideItem(); }
-    if ($_POST['action'] == "removeAdImg") { removeAdImg(); }
-    if ($_POST['action'] == "setFavAd") {setFavAd();}
-    if ($_POST['action'] == "removeFavAd") {removeFavAd();}
-    if ($_POST['action'] == "setFavUser") {setFavUser();}
-    if ($_POST['action'] == "getsubcatbyidList") { getsubcatbyidList(); }
-    if ($_POST['action'] == "getsubcatbyid") {getsubcatbyid();}
-    if ($_POST['action'] == "getsubcatbymultipleid") {getsubcatbymultipleid();}
-    if ($_POST['action'] == "getCustomFieldByCatID") {getCustomFieldByCatID();}
+if (isset($_POST['action'])) {
+    if ($_POST['action'] == "removeImage") {
+        removeImage();
+    }
+    if ($_POST['action'] == "hideItem") {
+        hideItem();
+    }
+    if ($_POST['action'] == "removeAdImg") {
+        removeAdImg();
+    }
+    if ($_POST['action'] == "setFavAd") {
+        setFavAd();
+    }
+    if ($_POST['action'] == "removeFavAd") {
+        removeFavAd();
+    }
+    if ($_POST['action'] == "setFavUser") {
+        setFavUser();
+    }
+    if ($_POST['action'] == "getsubcatbyidList") {
+        getsubcatbyidList();
+    }
+    if ($_POST['action'] == "getsubcatbyid") {
+        getsubcatbyid();
+    }
+    if ($_POST['action'] == "getsubcatbymultipleid") {
+        getsubcatbymultipleid();
+    }
+    if ($_POST['action'] == "getCustomFieldByCatID") {
+        getCustomFieldByCatID();
+    }
 
-    if ($_POST['action'] == "getStateByCountryID") {getStateByCountryID();}
-    if ($_POST['action'] == "getCityByStateID") {getCityByStateID();}
-    if ($_POST['action'] == "getCityidByCityName") {getCityidByCityName();}
-    if ($_POST['action'] == "ModelGetStateByCountryID") {ModelGetStateByCountryID();}
-    if ($_POST['action'] == "ModelGetCityByStateID") {ModelGetCityByStateID();}
-    if ($_POST['action'] == "searchStateCountry") {searchStateCountry();}
-    if ($_POST['action'] == "searchCityStateCountry") {searchCityStateCountry();}
-    if ($_POST['action'] == "ajaxlogin") {ajaxlogin();}
-    if ($_POST['action'] == "email_verify") {email_verify();}
-    if ($_POST['action'] == "quickad_ajax_home_search") {quickad_ajax_home_search();}
-    if ($_POST['action'] == "setUserVisibilityStatus") {setUserVisibilityStatus();}
-    if ($_POST['action'] == "getAgreementRateByid") {getAgreementRateByid();}
-    if ($_POST['action'] == "updateTimesheetStatus") {updateTimesheetStatus();}
-    if ($_POST['action'] == "deleteTimesheet") {deleteTimesheet();}
-    
-    
+    if ($_POST['action'] == "getStateByCountryID") {
+        getStateByCountryID();
+    }
+    if ($_POST['action'] == "getCityByStateID") {
+        getCityByStateID();
+    }
+    if ($_POST['action'] == "getCityidByCityName") {
+        getCityidByCityName();
+    }
+    if ($_POST['action'] == "ModelGetStateByCountryID") {
+        ModelGetStateByCountryID();
+    }
+    if ($_POST['action'] == "ModelGetCityByStateID") {
+        ModelGetCityByStateID();
+    }
+    if ($_POST['action'] == "searchStateCountry") {
+        searchStateCountry();
+    }
+    if ($_POST['action'] == "searchCityStateCountry") {
+        searchCityStateCountry();
+    }
+    if ($_POST['action'] == "ajaxlogin") {
+        ajaxlogin();
+    }
+    if ($_POST['action'] == "email_verify") {
+        email_verify();
+    }
+    if ($_POST['action'] == "quickad_ajax_home_search") {
+        quickad_ajax_home_search();
+    }
+    if ($_POST['action'] == "setUserVisibilityStatus") {
+        setUserVisibilityStatus();
+    }
+    if ($_POST['action'] == "getAgreementRateByid") {
+        getAgreementRateByid();
+    }
+    if ($_POST['action'] == "updateTimesheetStatus") {
+        updateTimesheetStatus();
+    }
+    if ($_POST['action'] == "deleteTimesheet") {
+        deleteTimesheet();
+    }
 }
 
-function ajaxlogin(){
-    global $config,$lang;
+function ajaxlogin()
+{
+    global $config, $lang;
     $loggedin = userlogin($_POST['username'], $_POST['password']);
 
-    if(!is_array($loggedin))
-    {
+    if (!is_array($loggedin)) {
         echo $lang['USERNOTFOUND'];
-    }
-    elseif($loggedin['status'] == 2)
-    {
+    } elseif ($loggedin['status'] == 2) {
         echo $lang['ACCOUNTBAN'];
-    }
-    else
-    {
+    } else {
         $user_browser = $_SERVER['HTTP_USER_AGENT']; // Get the user-agent string of the user.
         $user_id = preg_replace("/[^0-9]+/", "", $loggedin['id']); // XSS protection as we might print this value
         $_SESSION['user']['id']  = $user_id;
@@ -83,49 +147,46 @@ function ajaxlogin(){
         echo "success";
     }
     die();
-
 }
 
-function email_verify(){
-    global $config,$lang;
+function email_verify()
+{
+    global $config, $lang;
 
-    if(checkloggedin())
-    {
+    if (checkloggedin()) {
         /*SEND CONFIRMATION EMAIL*/
-        email_template("signup_confirm",$_SESSION['user']['id']);
+        email_template("signup_confirm", $_SESSION['user']['id']);
 
         $respond = $lang['SENT'];
-        echo '<a class="button gray" href="javascript:void(0);">'.$respond.'</a>';
+        echo '<a class="button gray" href="javascript:void(0);">' . $respond . '</a>';
         die();
-
-    }
-    else
-    {
-        header("Location: ".$config['site_url']."login");
+    } else {
+        header("Location: " . $config['site_url'] . "login");
         exit;
     }
 }
 
-function removeImage(){
+function removeImage()
+{
     global $config;
-    if(isset($_POST['product_id'])){
+    if (isset($_POST['product_id'])) {
         $id = $_POST['product_id'];
-        $info = ORM::for_table($config['db']['pre'].'product')->select('screen_shot')->find_one($_POST['product_id']);
+        $info = ORM::for_table($config['db']['pre'] . 'product')->select('screen_shot')->find_one($_POST['product_id']);
 
-        $screnshots = explode(',',$info['screen_shot']);
-        if($key = array_search($_POST['imagename'],$screnshots) != -1){
+        $screnshots = explode(',', $info['screen_shot']);
+        if ($key = array_search($_POST['imagename'], $screnshots) != -1) {
             unset($screnshots[$key]);
-            $screens = implode(',',$screnshots);
-            $product = ORM::for_table($config['db']['pre'].'product')->find_one($id);
+            $screens = implode(',', $screnshots);
+            $product = ORM::for_table($config['db']['pre'] . 'product')->find_one($id);
             $product->screen_shot = $screens;
             $product->save();
         }
     }
-
 }
 
-function email_contact_seller(){
-    global $config,$lang,$link;
+function email_contact_seller()
+{
+    global $config, $lang, $link;
     if (isset($_POST['sendemail'])) {
 
         $item_id = $_POST['id'];
@@ -135,35 +196,35 @@ function email_contact_seller(){
         $item_author_name = $iteminfo['author_name'];
         $item_author_email = $iteminfo['author_email'];
 
-        $ad_link = $link['POST-DETAIL']."/".$item_id;
+        $ad_link = $link['POST-DETAIL'] . "/" . $item_id;
         $page = new HtmlTemplate();
         $page->html = $config['email_sub_contact_seller'];
-        $page->SetParameter ('ADTITLE', $item_title);
-        $page->SetParameter ('ADLINK', $ad_link);
-        $page->SetParameter ('SELLER_NAME', $item_author_name);
-        $page->SetParameter ('SELLER_EMAIL', $item_author_email);
+        $page->SetParameter('ADTITLE', $item_title);
+        $page->SetParameter('ADLINK', $ad_link);
+        $page->SetParameter('SELLER_NAME', $item_author_name);
+        $page->SetParameter('SELLER_EMAIL', $item_author_email);
         $page->SetParameter('SENDER_NAME', $_POST['name']);
         $page->SetParameter('SENDER_EMAIL', $_POST['email']);
         $page->SetParameter('SENDER_PHONE', $_POST['phone']);
-        $email_subject = $page->CreatePageReturn($lang,$config,$link);
+        $email_subject = $page->CreatePageReturn($lang, $config, $link);
 
         $page = new HtmlTemplate();
         $page->html = $config['email_message_contact_seller'];;
-        $page->SetParameter ('ADTITLE', $item_title);
-        $page->SetParameter ('ADLINK', $ad_link);
-        $page->SetParameter ('SELLER_NAME', $item_author_name);
-        $page->SetParameter ('SELLER_EMAIL', $item_author_email);
+        $page->SetParameter('ADTITLE', $item_title);
+        $page->SetParameter('ADLINK', $ad_link);
+        $page->SetParameter('SELLER_NAME', $item_author_name);
+        $page->SetParameter('SELLER_EMAIL', $item_author_email);
         $page->SetParameter('SENDER_NAME', $_POST['name']);
         $page->SetParameter('SENDER_EMAIL', $_POST['email']);
         $page->SetParameter('SENDER_PHONE', $_POST['phone']);
         $page->SetParameter('MESSAGE', $_POST['message']);
-        $email_body = $page->CreatePageReturn($lang,$config,$link);
+        $email_body = $page->CreatePageReturn($lang, $config, $link);
 
-        email($item_author_email,$item_author_name,$email_subject,$email_body);
+        email($item_author_email, $item_author_name, $email_subject, $email_body);
 
         echo 'success';
         die();
-    }else{
+    } else {
         echo 0;
         die();
     }
@@ -175,8 +236,8 @@ function getStateByCountryID()
     $country_code = isset($_POST['id']) ? $_POST['id'] : 0;
     $selectid = isset($_POST['selectid']) ? $_POST['selectid'] : "";
 
-    $rows = ORM::for_table($config['db']['pre'].'subadmin1')
-        ->select_many('id','code','name')
+    $rows = ORM::for_table($config['db']['pre'] . 'subadmin1')
+        ->select_many('id', 'code', 'name')
         ->where(array(
             'country_code' => $country_code,
             'active' => 1
@@ -191,13 +252,12 @@ function getStateByCountryID()
             $name = $info['name'];
             $state_id = $info['id'];
             $state_code = $info['code'];
-            if($selectid == $state_code){
+            if ($selectid == $state_code) {
                 $selected_text = "selected";
-            }
-            else{
+            } else {
                 $selected_text = "";
             }
-            $list .= '<option value="'.$state_code.'" '.$selected_text.'>'.$name.'</option>';
+            $list .= '<option value="' . $state_code . '" ' . $selected_text . '>' . $name . '</option>';
         }
 
         echo $list;
@@ -210,8 +270,8 @@ function getCityByStateID()
     $state_id = isset($_POST['id']) ? $_POST['id'] : 0;
     $selectid = isset($_POST['selectid']) ? $_POST['selectid'] : "";
 
-    $rows = ORM::for_table($config['db']['pre'].'cities')
-        ->select_many('id','name')
+    $rows = ORM::for_table($config['db']['pre'] . 'cities')
+        ->select_many('id', 'name')
         ->where(array(
             'subadmin1_code' => $state_id,
             'active' => 1
@@ -224,13 +284,12 @@ function getCityByStateID()
         foreach ($rows as $info) {
             $name = $info['name'];
             $id = $info['id'];
-            if($selectid == $id){
+            if ($selectid == $id) {
                 $selected_text = "selected";
-            }
-            else{
+            } else {
                 $selected_text = "";
             }
-            $list .= '<option value="'.$id.'" '.$selected_text.'>'.$name.'</option>';
+            $list .= '<option value="' . $id . '" ' . $selected_text . '>' . $name . '</option>';
         }
         echo $list;
     }
@@ -243,7 +302,7 @@ function getCityidByCityName()
     $state = isset($_POST['state']) ? $_POST['state'] : "";
     $city_name = isset($_POST['city']) ? $_POST['city'] : "";
 
-    $info = ORM::for_table($config['db']['pre'].'subadmin1')
+    $info = ORM::for_table($config['db']['pre'] . 'subadmin1')
         ->select('code')
         ->where('active', '1')
         ->where_raw('(`name` = ? OR `asciiname` = ?)', array($state, $state))
@@ -251,7 +310,7 @@ function getCityidByCityName()
 
     $state_code = $info['code'];
 
-    $info2 = ORM::for_table($config['db']['pre'].'cities')
+    $info2 = ORM::for_table($config['db']['pre'] . 'cities')
         ->select('id')
         ->where(array(
             'subadmin1_code' => $state_code,
@@ -270,12 +329,12 @@ function getCityidByCityName()
 
 function ModelGetStateByCountryID()
 {
-    global $config,$lang;
+    global $config, $lang;
     $country_code = isset($_POST['id']) ? $_POST['id'] : 0;
     $countryName = get_countryName_by_id($country_code);
 
-    $result = ORM::for_table($config['db']['pre'].'subadmin1')
-        ->select_many('id','code','asciiname')
+    $result = ORM::for_table($config['db']['pre'] . 'subadmin1')
+        ->select_many('id', 'code', 'asciiname')
         ->where(array(
             'country_code' => $country_code,
             'active' => 1
@@ -291,28 +350,27 @@ function ModelGetStateByCountryID()
             $name = $row['asciiname'];
             $id = $row['code'];
 
-            if($count == 1)
-            {
-                $list .=  '<li class="selected"><a href="#" class="selectme" data-id="'.$country_code.'" data-name="'.$lang['ALL'].' '.$countryName.'" data-type="country"><strong>'.$lang['ALL'].' '.$countryName.'</strong></a></li>';
+            if ($count == 1) {
+                $list .=  '<li class="selected"><a href="#" class="selectme" data-id="' . $country_code . '" data-name="' . $lang['ALL'] . ' ' . $countryName . '" data-type="country"><strong>' . $lang['ALL'] . ' ' . $countryName . '</strong></a></li>';
             }
-            $list .= '<li class=""><a href="#" id="region'.$id.'" class="statedata" data-id="'.$id.'" data-name="'.$name.'"><span>'.$name.' <i class="fa fa-angle-right"></i></span></a></li>';
+            $list .= '<li class=""><a href="#" id="region' . $id . '" class="statedata" data-id="' . $id . '" data-name="' . $name . '"><span>' . $name . ' <i class="fa fa-angle-right"></i></span></a></li>';
 
             $count++;
         }
-        echo $list."</ul>";
+        echo $list . "</ul>";
     }
 }
 
 function ModelGetCityByStateID()
 {
-    global $config,$lang;
+    global $config, $lang;
     $state_id = isset($_POST['id']) ? $_POST['id'] : '0';
     $stateName = get_stateName_by_id($state_id);
     //$state_code = substr($state_id,3);
-    $country_code = substr($state_id,0,2);
+    $country_code = substr($state_id, 0, 2);
 
-    $result = ORM::for_table($config['db']['pre'].'cities')
-        ->select_many('id','asciiname')
+    $result = ORM::for_table($config['db']['pre'] . 'cities')
+        ->select_many('id', 'asciiname')
         ->where(array(
             'subadmin1_code' => $state_id,
             'country_code' => $country_code,
@@ -323,7 +381,7 @@ function ModelGetCityByStateID()
 
     //echo ORM::get_last_query();
 
-    if($result){
+    if ($result) {
         $total = count($result);
         $list = '<ul class="column col-md-12 col-sm-12 cities">';
         $count = 1;
@@ -331,26 +389,23 @@ function ModelGetCityByStateID()
             foreach ($result as $row) {
                 $name = $row['asciiname'];
                 $id = $row['id'];
-                if($count == 1)
-                {
-                    $list .=  '<li class="selected"><a href="#" id="changeState"><strong><i class="fa fa-angle-left"></i> '.$lang['CHANGE_REGION'].'</strong></a></li>';
-                    $list .=  '<li class="selected"><a href="#" class="selectme" data-id="'.$state_id.'" data-name="'.$stateName.', '.$lang['REGION'].'" data-type="state"><strong>'.$lang['WHOLE'].' '.$stateName.'</strong></a></li>';
+                if ($count == 1) {
+                    $list .=  '<li class="selected"><a href="#" id="changeState"><strong><i class="fa fa-angle-left"></i> ' . $lang['CHANGE_REGION'] . '</strong></a></li>';
+                    $list .=  '<li class="selected"><a href="#" class="selectme" data-id="' . $state_id . '" data-name="' . $stateName . ', ' . $lang['REGION'] . '" data-type="state"><strong>' . $lang['WHOLE'] . ' ' . $stateName . '</strong></a></li>';
                 }
 
-                $list .= '<li class=""><a href="#" id="region'.$id.'" class="selectme" data-id="'.$id.'" data-name="'.$name.', '.$lang['CITY'].'" data-type="city"><span>'.$name.' <i class="fa fa-angle-right"></i></span></a></li>';
+                $list .= '<li class=""><a href="#" id="region' . $id . '" class="selectme" data-id="' . $id . '" data-name="' . $name . ', ' . $lang['CITY'] . '" data-type="city"><span>' . $name . ' <i class="fa fa-angle-right"></i></span></a></li>';
                 $count++;
             }
 
-            echo $list."</ul>";
+            echo $list . "</ul>";
         }
-
-    }else{
+    } else {
         echo '<ul class="column col-md-12 col-sm-12 cities">
-            <li class="selected"><a href="#" id="changeState"><strong><i class="fa fa-arrow-left"></i>'.$lang['CHANGE_REGION'].'</strong></a></li>
-            <li><a> '.$lang['NO-CITY_AVAILABLE'].'</a></li>
+            <li class="selected"><a href="#" id="changeState"><strong><i class="fa fa-arrow-left"></i>' . $lang['CHANGE_REGION'] . '</strong></a></li>
+            <li><a> ' . $lang['NO-CITY_AVAILABLE'] . '</a></li>
             </ul>';
     }
-
 }
 
 function searchCityFromCountry()
@@ -361,20 +416,20 @@ function searchCityFromCountry()
 
     $perPage = 10;
     $page = isset($_GET['page']) ? $_GET['page'] : "1";
-    $start = ($page-1)*$perPage;
-    if($start < 0) $start = 0;
+    $start = ($page - 1) * $perPage;
+    if ($start < 0) $start = 0;
 
-    $total = ORM::for_table($config['db']['pre'].'cities')
+    $total = ORM::for_table($config['db']['pre'] . 'cities')
         ->where(array(
             'country_code' => 'sortname',
             'active' => 1
         ))
-        ->where_like('asciiname', ''.$dataString.'%')
+        ->where_like('asciiname', '' . $dataString . '%')
         ->count();
 
     $sql = "SELECT c.id, c.asciiname, c.latitude, c.longitude, c.subadmin1_code, s.name AS statename
-FROM `".$config['db']['pre']."cities` AS c
-INNER JOIN `".$config['db']['pre']."subadmin1` AS s ON s.code = c.subadmin1_code and s.active = 1
+FROM `" . $config['db']['pre'] . "cities` AS c
+INNER JOIN `" . $config['db']['pre'] . "subadmin1` AS s ON s.code = c.subadmin1_code and s.active = 1
  WHERE (c.name like '%$dataString%' or c.asciiname like '%$dataString%') and c.country_code = '$sortname' and c.active = 1
  ORDER BY
   CASE
@@ -385,13 +440,13 @@ INNER JOIN `".$config['db']['pre']."subadmin1` AS s ON s.code = c.subadmin1_code
     $query =  $sql . " limit " . $start . "," . $perPage;
     $pdo = ORM::get_db();
     $rows = $pdo->query($query);
-    if(empty($_GET["rowcount"])) {
+    if (empty($_GET["rowcount"])) {
         $pdo = ORM::get_db();
         $result = $pdo->query($sql);
         $_GET["rowcount"] = $rowcount = $result->rowCount();
     }
 
-    $pages  = ceil($_GET["rowcount"]/$perPage);
+    $pages  = ceil($_GET["rowcount"] / $perPage);
 
     $items = '';
     $i = 0;
@@ -405,24 +460,24 @@ INNER JOIN `".$config['db']['pre']."subadmin1` AS s ON s.code = c.subadmin1_code
         $statename = $row['statename'];
 
         $MyCity[$i]["id"]   = $cityid;
-        $MyCity[$i]["text"] = $cityname.", ".$statename;
+        $MyCity[$i]["text"] = $cityname . ", " . $statename;
         $MyCity[$i]["latitude"]   = $latitude;
         $MyCity[$i]["longitude"]   = $longitude;
         $i++;
     }
 
-    echo $json = '{"items" : '.json_encode($MyCity, JSON_UNESCAPED_SLASHES).',"totalEntries" : '.$total.'}';
+    echo $json = '{"items" : ' . json_encode($MyCity, JSON_UNESCAPED_SLASHES) . ',"totalEntries" : ' . $total . '}';
     die();
 }
 
 function searchStateCountry()
 {
-    global $config,$lang;
+    global $config, $lang;
     $dataString = isset($_POST['dataString']) ? $_POST['dataString'] : "";
     $sortname = check_user_country();
     $query = "SELECT c.id, c.asciiname, c.subadmin1_code, s.name AS statename
-FROM `".$config['db']['pre']."cities` AS c
-INNER JOIN `".$config['db']['pre']."subadmin1` AS s ON s.code = c.subadmin1_code and s.active = 1
+FROM `" . $config['db']['pre'] . "cities` AS c
+INNER JOIN `" . $config['db']['pre'] . "subadmin1` AS s ON s.code = c.subadmin1_code and s.active = 1
  WHERE (c.name like '%$dataString%' or c.asciiname like '%$dataString%') and c.country_code = '$sortname' and c.active = 1
  ORDER BY
   CASE
@@ -436,7 +491,7 @@ INNER JOIN `".$config['db']['pre']."subadmin1` AS s ON s.code = c.subadmin1_code
     $pdo = ORM::get_db();
     $result = $pdo->query($query);
     $total = count($result);
-    $list = '<ul class="searchResgeo"><li><a href="#" class="title selectme" data-id="" data-name="" data-type="">'.$lang['ANY_CITY'].'</span></a></li>';
+    $list = '<ul class="searchResgeo"><li><a href="#" class="title selectme" data-id="" data-name="" data-type="">' . $lang['ANY_CITY'] . '</span></a></li>';
     if ($total > 0) {
         foreach ($result as $row) {
             $cityid = $row['id'];
@@ -444,25 +499,24 @@ INNER JOIN `".$config['db']['pre']."subadmin1` AS s ON s.code = c.subadmin1_code
             $stateid = $row['subadmin1_code'];
             $statename = $row['statename'];
 
-            $list .= '<li><a href="#" class="title selectme" data-id="'.$cityid.'" data-name="'.$cityname.'" data-type="city">'.$cityname.', <span class="color-9">'.$statename.'</span></a></li>';
+            $list .= '<li><a href="#" class="title selectme" data-id="' . $cityid . '" data-name="' . $cityname . '" data-type="city">' . $cityname . ', <span class="color-9">' . $statename . '</span></a></li>';
         }
         $list .= '</ul>';
         echo $list;
-    }
-    else{
-        echo '<ul class="searchResgeo"><li><span class="noresult">'.$lang['NO_RESULT_FOUND'].'</span></li>';
+    } else {
+        echo '<ul class="searchResgeo"><li><span class="noresult">' . $lang['NO_RESULT_FOUND'] . '</span></li>';
     }
 }
 
 function searchCityStateCountry()
 {
-    global $config,$lang;
+    global $config, $lang;
     $dataString = isset($_POST['dataString']) ? $_POST['dataString'] : "";
     $sortname = check_user_country();
 
     $query = "SELECT c.id, c.asciiname, c.subadmin1_code, s.name AS statename
-FROM `".$config['db']['pre']."cities` AS c
-INNER JOIN `".$config['db']['pre']."subadmin1` AS s ON s.code = c.subadmin1_code and s.active = 1
+FROM `" . $config['db']['pre'] . "cities` AS c
+INNER JOIN `" . $config['db']['pre'] . "subadmin1` AS s ON s.code = c.subadmin1_code and s.active = 1
  WHERE c.name like '%$dataString%' and c.country_code = '$sortname' and c.active = 1
  ORDER BY
   CASE
@@ -484,13 +538,12 @@ INNER JOIN `".$config['db']['pre']."subadmin1` AS s ON s.code = c.subadmin1_code
             $countryid = $sortname;
             $statename = $row['statename'];
 
-            $list .= '<li><a href="#" class="title selectme" data-cityid="'.$cityid.'" data-stateid="'.$stateid.'"data-countryid="'.$countryid.'" data-name="'.$cityname.', '.$statename.'">'.$cityname.', <span class="color-9">'.$statename.'</span></a></li>';
+            $list .= '<li><a href="#" class="title selectme" data-cityid="' . $cityid . '" data-stateid="' . $stateid . '"data-countryid="' . $countryid . '" data-name="' . $cityname . ', ' . $statename . '">' . $cityname . ', <span class="color-9">' . $statename . '</span></a></li>';
         }
         $list .= '</ul>';
         echo $list;
-    }
-    else{
-        echo '<ul class="searchResgeo"><li><span class="noresult">'.$lang['NO_RESULT_FOUND'].'</span></li>';
+    } else {
+        echo '<ul class="searchResgeo"><li><span class="noresult">' . $lang['NO_RESULT_FOUND'] . '</span></li>';
     }
 }
 
@@ -499,17 +552,17 @@ function hideItem()
     global $config;
     $id = $_POST['id'];
     if (trim($id) != '') {
-        $info = ORM::for_table($config['db']['pre'].'product')
+        $info = ORM::for_table($config['db']['pre'] . 'product')
             ->select('hide')
             ->find_one($id);
         $status = $info['hide'];
         $pdo = ORM::get_db();
-        if($status == "0"){
-            $query = "UPDATE `".$config['db']['pre']."product` set hide='1' WHERE `id` = '".$id."' and `user_id` = '".$_SESSION['user']['id']."' ";
+        if ($status == "0") {
+            $query = "UPDATE `" . $config['db']['pre'] . "product` set hide='1' WHERE `id` = '" . $id . "' and `user_id` = '" . $_SESSION['user']['id'] . "' ";
             $query_result = $pdo->query($query);
             echo 1;
-        }else{
-            $query = "UPDATE `".$config['db']['pre']."product` set hide='0' WHERE `id` = '".$id."' and `user_id` = '".$_SESSION['user']['id']."' ";
+        } else {
+            $query = "UPDATE `" . $config['db']['pre'] . "product` set hide='0' WHERE `id` = '" . $id . "' and `user_id` = '" . $_SESSION['user']['id'] . "' ";
             $query_result = $pdo->query($query);
             echo 2;
         }
@@ -518,60 +571,58 @@ function hideItem()
         echo 0;
         die();
     }
-
 }
 
-function removeAdImg(){
+function removeAdImg()
+{
     global $config;
     $id = $_POST['id'];
     $img = $_POST['img'];
 
-    $info = ORM::for_table($config['db']['pre'].'product')->select('screen_shot')->find_one($id);
+    $info = ORM::for_table($config['db']['pre'] . 'product')->select('screen_shot')->find_one($id);
 
     if (!empty($info)) {
         $screen = "";
         $uploaddir =  "storage/products/";
-        $screen_sm = explode(',',$info['screen_shot']);
+        $screen_sm = explode(',', $info['screen_shot']);
         $count = 0;
-        foreach ($screen_sm as $value)
-        {
+        foreach ($screen_sm as $value) {
             $value = trim($value);
 
-            if($value == $img){
+            if ($value == $img) {
                 //Delete Image From Storage ----
-                $filename1 = $uploaddir.$value;
-                if(file_exists($filename1)){
-                    $filename1 = $uploaddir.$value;
-                    $filename2 = $uploaddir."small_".$value;
+                $filename1 = $uploaddir . $value;
+                if (file_exists($filename1)) {
+                    $filename1 = $uploaddir . $value;
+                    $filename2 = $uploaddir . "small_" . $value;
                     unlink($filename1);
                     unlink($filename2);
                 }
-            }
-            else{
-                if($count == 0){
+            } else {
+                if ($count == 0) {
                     $screen .= $value;
-                }else{
-                    $screen .= ",".$value;
+                } else {
+                    $screen .= "," . $value;
                 }
                 $count++;
             }
         }
-        $product = ORM::for_table($config['db']['pre'].'product')->find_one($id);
+        $product = ORM::for_table($config['db']['pre'] . 'product')->find_one($id);
         $product->screen_shot = $screen;
         $product->save();
 
         echo 1;
         die();
-    }
-    else{
+    } else {
         echo 0;
         die();
     }
 }
 
-function setFavUser(){
+function setFavUser()
+{
     global $config;
-    $num_rows = ORM::for_table($config['db']['pre'].'fav_users')
+    $num_rows = ORM::for_table($config['db']['pre'] . 'fav_users')
         ->where(array(
             'user_id' => $_POST['userId'],
             'fav_user_id' => $_POST['id']
@@ -579,7 +630,7 @@ function setFavUser(){
         ->count();
 
     if ($num_rows == 0) {
-        $insert_favads = ORM::for_table($config['db']['pre'].'fav_users')->create();
+        $insert_favads = ORM::for_table($config['db']['pre'] . 'fav_users')->create();
         $insert_favads->user_id = $_POST['userId'];
         $insert_favads->fav_user_id = $_POST['id'];
         $insert_favads->save();
@@ -588,9 +639,8 @@ function setFavUser(){
             echo 1;
         else
             echo 0;
-    }
-    else{
-        $result = ORM::for_table($config['db']['pre'].'fav_users')
+    } else {
+        $result = ORM::for_table($config['db']['pre'] . 'fav_users')
             ->where(array(
                 'user_id' => $_POST['userId'],
                 'fav_user_id' => $_POST['id'],
@@ -607,7 +657,7 @@ function setFavUser(){
 function setFavAd()
 {
     global $config;
-    $num_rows = ORM::for_table($config['db']['pre'].'favads')
+    $num_rows = ORM::for_table($config['db']['pre'] . 'favads')
         ->where(array(
             'user_id' => $_POST['userId'],
             'product_id' => $_POST['id']
@@ -615,7 +665,7 @@ function setFavAd()
         ->count();
 
     if ($num_rows == 0) {
-        $insert_favads = ORM::for_table($config['db']['pre'].'favads')->create();
+        $insert_favads = ORM::for_table($config['db']['pre'] . 'favads')->create();
         $insert_favads->user_id = $_POST['userId'];
         $insert_favads->product_id = $_POST['id'];
         $insert_favads->save();
@@ -624,9 +674,8 @@ function setFavAd()
             echo 1;
         else
             echo 0;
-    }
-    else{
-        $result = ORM::for_table($config['db']['pre'].'favads')
+    } else {
+        $result = ORM::for_table($config['db']['pre'] . 'favads')
             ->where(array(
                 'user_id' => $_POST['userId'],
                 'product_id' => $_POST['id'],
@@ -643,7 +692,7 @@ function setFavAd()
 function removeFavAd()
 {
     global $config;
-    $result = ORM::for_table($config['db']['pre'].'favads')
+    $result = ORM::for_table($config['db']['pre'] . 'favads')
         ->where(array(
             'user_id' => $_POST['userId'],
             'product_id' => $_POST['id'],
@@ -661,10 +710,9 @@ function removeFavAd()
 function deleteMyAd()
 {
     global $config;
-    if(isset($_POST['id']))
-    {
+    if (isset($_POST['id'])) {
 
-        $info = ORM::for_table($config['db']['pre'].'product')
+        $info = ORM::for_table($config['db']['pre'] . 'product')
             ->select('screen_shot')
             ->where(array(
                 'id' => $_POST['id'],
@@ -676,31 +724,28 @@ function deleteMyAd()
             $file = dirname(__DIR__) . "/storage/products/" . $info['screen_shot'];
             if (file_exists($file))
                 unlink($file);
-
         }
 
-        ORM::for_table($config['db']['pre'].'product')
+        ORM::for_table($config['db']['pre'] . 'product')
             ->where(array(
                 'id' => $_POST['id'],
                 'user_id' => $_SESSION['user']['id'],
             ))
             ->delete_many();
-        
+
         echo 1;
         die();
-    }else {
+    } else {
         echo 0;
         die();
     }
-
 }
 
 function deleteResume()
 {
     global $config;
-    if(isset($_POST['id']))
-    {
-        $row = ORM::for_table($config['db']['pre'].'resumes')
+    if (isset($_POST['id'])) {
+        $row = ORM::for_table($config['db']['pre'] . 'resumes')
             ->select('filename')
             ->where(array(
                 'id' => $_POST['id'],
@@ -714,7 +759,7 @@ function deleteResume()
                 unlink($file);
         }
 
-        ORM::for_table($config['db']['pre'].'resumes')
+        ORM::for_table($config['db']['pre'] . 'resumes')
             ->where(array(
                 'id' => $_POST['id'],
                 'user_id' => $_SESSION['user']['id'],
@@ -724,7 +769,7 @@ function deleteResume()
 
         echo 1;
         die();
-    }else {
+    } else {
         echo 0;
         die();
     }
@@ -733,9 +778,8 @@ function deleteResume()
 function deleteDocument()
 {
     global $config;
-    if(isset($_POST['id']))
-    {
-        $row = ORM::for_table($config['db']['pre'].'user_documents')
+    if (isset($_POST['id'])) {
+        $row = ORM::for_table($config['db']['pre'] . 'user_documents')
             ->select('file_path')
             ->where(array(
                 'id' => $_POST['id'],
@@ -749,7 +793,7 @@ function deleteDocument()
                 unlink($file);
         }
 
-        ORM::for_table($config['db']['pre'].'user_documents')
+        ORM::for_table($config['db']['pre'] . 'user_documents')
             ->where(array(
                 'id' => $_POST['id'],
                 'user_id' => $_SESSION['user']['id'],
@@ -759,17 +803,17 @@ function deleteDocument()
 
         echo 1;
         die();
-    }else {
+    } else {
         echo 0;
         die();
     }
 }
 
-function deleteExperience(){
+function deleteExperience()
+{
     global $config;
-    if(isset($_POST['id']))
-    {
-        ORM::for_table($config['db']['pre'].'experiences')
+    if (isset($_POST['id'])) {
+        ORM::for_table($config['db']['pre'] . 'experiences')
             ->where(array(
                 'id' => $_POST['id'],
                 'user_id' => $_SESSION['user']['id'],
@@ -778,17 +822,17 @@ function deleteExperience(){
 
         echo 1;
         die();
-    }else {
+    } else {
         echo 0;
         die();
     }
 }
 
-function deleteCompany(){
+function deleteCompany()
+{
     global $config;
-    if(isset($_POST['id']))
-    {
-        $row = ORM::for_table($config['db']['pre'].'companies')
+    if (isset($_POST['id'])) {
+        $row = ORM::for_table($config['db']['pre'] . 'companies')
             ->select('logo')
             ->where(array(
                 'id' => $_POST['id'],
@@ -804,21 +848,21 @@ function deleteCompany(){
         }
 
         // delete jobs
-        ORM::for_table($config['db']['pre'].'product')
-        ->where(array(
-            'company_id' => $_POST['id'],
-            'user_id' => $_SESSION['user']['id'],
-        ))
-        ->delete_many();
+        ORM::for_table($config['db']['pre'] . 'product')
+            ->where(array(
+                'company_id' => $_POST['id'],
+                'user_id' => $_SESSION['user']['id'],
+            ))
+            ->delete_many();
 
-        ORM::for_table($config['db']['pre'].'product_resubmit')
-        ->where(array(
-            'company_id' => $_POST['id'],
-            'user_id' => $_SESSION['user']['id'],
-        ))
-        ->delete_many();
+        ORM::for_table($config['db']['pre'] . 'product_resubmit')
+            ->where(array(
+                'company_id' => $_POST['id'],
+                'user_id' => $_SESSION['user']['id'],
+            ))
+            ->delete_many();
 
-        ORM::for_table($config['db']['pre'].'companies')
+        ORM::for_table($config['db']['pre'] . 'companies')
             ->where(array(
                 'id' => $_POST['id'],
                 'user_id' => $_SESSION['user']['id'],
@@ -828,7 +872,7 @@ function deleteCompany(){
 
         echo 1;
         die();
-    }else {
+    } else {
         echo 0;
         die();
     }
@@ -837,9 +881,8 @@ function deleteCompany(){
 function deleteResumitAd()
 {
     global $config;
-    if(isset($_POST['id']))
-    {
-        $info = ORM::for_table($config['db']['pre'].'product')
+    if (isset($_POST['id'])) {
+        $info = ORM::for_table($config['db']['pre'] . 'product')
             ->select('screen_shot')
             ->where(array(
                 'id' => $_POST['id'],
@@ -847,7 +890,7 @@ function deleteResumitAd()
             ))
             ->find_one();
 
-        $info1 = ORM::for_table($config['db']['pre'].'product_resubmit')
+        $info1 = ORM::for_table($config['db']['pre'] . 'product_resubmit')
             ->select('screen_shot')
             ->where(array(
                 'id' => $_POST['id'],
@@ -863,7 +906,7 @@ function deleteResumitAd()
             }
         }
 
-        ORM::for_table($config['db']['pre'].'product_resubmit')
+        ORM::for_table($config['db']['pre'] . 'product_resubmit')
             ->where(array(
                 'product_id' => $_POST['id'],
                 'user_id' => $_SESSION['user']['id'],
@@ -872,11 +915,10 @@ function deleteResumitAd()
 
         echo 1;
         die();
-    }else {
+    } else {
         echo 0;
         die();
     }
-
 }
 
 function getsubcatbyid()
@@ -885,8 +927,8 @@ function getsubcatbyid()
     $id = isset($_POST['catid']) ? $_POST['catid'] : 0;
     $selectid = isset($_POST['selectid']) ? $_POST['selectid'] : "";
 
-    $rows = ORM::for_table($config['db']['pre'].'catagory_sub')
-        ->where('main_cat_id',$id)
+    $rows = ORM::for_table($config['db']['pre'] . 'catagory_sub')
+        ->where('main_cat_id', $id)
         ->find_many();
 
     if (count($rows) > 0) {
@@ -896,27 +938,27 @@ function getsubcatbyid()
             $sub_id = $info['sub_cat_id'];
             $photo_show = $info['photo_show'];
             $price_show = $info['price_show'];
-            if($selectid == $sub_id){
+            if ($selectid == $sub_id) {
                 $selected_text = "selected";
-            }
-            else{
+            } else {
                 $selected_text = "";
             }
-            echo '<option value="'.$sub_id.'" data-photo-show="'.$photo_show.'" data-price-show="'.$price_show.'" '.$selected_text.'>'.$name.'</option>';
+            echo '<option value="' . $sub_id . '" data-photo-show="' . $photo_show . '" data-price-show="' . $price_show . '" ' . $selected_text . '>' . $name . '</option>';
         }
-    }else{
+    } else {
         echo 0;
     }
     die();
 }
 
-function getsubcatbymultipleid(){
+function getsubcatbymultipleid()
+{
     global $config;
     $ids = isset($_POST['catid']) ? $_POST['catid'] : [0];
     $selectid = isset($_POST['selectid']) ? $_POST['selectid'] : "";
-    $selectid = explode(',',$_POST['selectid']);
-    $rows = ORM::for_table($config['db']['pre'].'catagory_sub')
-        ->where_in('main_cat_id',$ids)
+    $selectid = explode(',', $_POST['selectid']);
+    $rows = ORM::for_table($config['db']['pre'] . 'catagory_sub')
+        ->where_in('main_cat_id', $ids)
         ->find_many();
     if (count($rows) > 0) {
 
@@ -925,15 +967,14 @@ function getsubcatbymultipleid(){
             $sub_id = $info['sub_cat_id'];
             $photo_show = $info['photo_show'];
             $price_show = $info['price_show'];
-            if(in_array($sub_id,$selectid)){
+            if (in_array($sub_id, $selectid)) {
                 $selected_text = "selected";
-            }
-            else{
+            } else {
                 $selected_text = "";
             }
-            echo '<option value="'.$sub_id.'" data-photo-show="'.$photo_show.'" data-price-show="'.$price_show.'" '.$selected_text.'>'.$name.'</option>';
+            echo '<option value="' . $sub_id . '" data-photo-show="' . $photo_show . '" data-price-show="' . $price_show . '" ' . $selected_text . '>' . $name . '</option>';
         }
-    }else{
+    } else {
         echo 0;
     }
     die();
@@ -947,8 +988,8 @@ function getsubcatbyidList()
     $id = isset($_POST['catid']) ? $_POST['catid'] : 0;
     $selectid = isset($_POST['selectid']) ? $_POST['selectid'] : "";
 
-    $rows = ORM::for_table($config['db']['pre'].'catagory_sub')
-        ->where('main_cat_id',$id)
+    $rows = ORM::for_table($config['db']['pre'] . 'catagory_sub')
+        ->where('main_cat_id', $id)
         ->find_many();
 
     if (count($rows) > 0) {
@@ -959,24 +1000,22 @@ function getsubcatbyidList()
             $sub_id = $info['sub_cat_id'];
             $photo_show = $info['photo_show'];
             $price_show = $info['price_show'];
-            if($selectid == $sub_id){
+            if ($selectid == $sub_id) {
                 $selected_text = "link-active";
-            }
-            else{
+            } else {
                 $selected_text = "";
             }
 
-            if($config['lang_code'] != 'en' && $config['userlangsel'] == '1'){
-                $subcat = get_category_translation("sub",$info['sub_cat_id']);
+            if ($config['lang_code'] != 'en' && $config['userlangsel'] == '1') {
+                $subcat = get_category_translation("sub", $info['sub_cat_id']);
                 $name = $subcat['title'];
-            }else{
+            } else {
                 $name = $info['sub_cat_name'];
             }
 
-            echo '<li data-ajax-subcatid="'.$sub_id.'" data-photo-show="'.$photo_show.'" data-price-show="'.$price_show.'" class="'.$selected_text.'"><a href="#">'.$name.'</a></li>';
+            echo '<li data-ajax-subcatid="' . $sub_id . '" data-photo-show="' . $photo_show . '" data-price-show="' . $price_show . '" class="' . $selected_text . '"><a href="#">' . $name . '</a></li>';
         }
-
-    }else{
+    } else {
         echo 0;
     }
     die();
@@ -984,12 +1023,12 @@ function getsubcatbyidList()
 
 function getCustomFieldByCatID()
 {
-    global $config,$lang;
+    global $config, $lang;
     $maincatid = isset($_POST['catid']) ? $_POST['catid'] : 0;
     $subcatid = isset($_POST['subcatid']) ? $_POST['subcatid'] : 0;
 
     if ($maincatid > 0) {
-        $custom_fields = get_customFields_by_catid($maincatid,$subcatid);
+        $custom_fields = get_customFields_by_catid($maincatid, $subcatid);
         $showCustomField = (count($custom_fields) > 0) ? 1 : 0;
     } else {
         die();
@@ -1002,38 +1041,34 @@ function getCustomFieldByCatID()
             $type = $row['type'];
             $required = $row['required'];
 
-            if($type == "text-field"){
+            if ($type == "text-field") {
                 $tpl .= '<div class="submit-field">
-                            <h5>'.$name.' '.($required === "1" ? '<span class="required">*</span>' : "").'</h5>
-                            '.$row['textbox'].'
+                            <h5>' . $name . ' ' . ($required === "1" ? '<span class="required">*</span>' : "") . '</h5>
+                            ' . $row['textbox'] . '
                         </div>';
-            }
-            elseif($type == "textarea"){
+            } elseif ($type == "textarea") {
                 $tpl .= '<div class="submit-field">
-                            <h5>'.$name.' '.($required === "1" ? '<span class="required">*</span>' : "").'</h5>
-                            '.$row['textarea'].'
+                            <h5>' . $name . ' ' . ($required === "1" ? '<span class="required">*</span>' : "") . '</h5>
+                            ' . $row['textarea'] . '
                         </div>';
-            }
-            elseif($type == "radio-buttons"){
+            } elseif ($type == "radio-buttons") {
                 $tpl .= '<div class="submit-field">
-                            <h5>'.$name.' '.($required === "1" ? '<span class="required">*</span>' : "").'</h5>
-                            '.$row['radio'].'
+                            <h5>' . $name . ' ' . ($required === "1" ? '<span class="required">*</span>' : "") . '</h5>
+                            ' . $row['radio'] . '
                         </div>';
-            }
-            elseif($type == "checkboxes"){
+            } elseif ($type == "checkboxes") {
                 $tpl .= '<div class="submit-field">
-                            <h5>'.$name.' '.($required === "1" ? '<span class="required">*</span>' : "").'</h5>
-                            '.$row['checkbox'].'
+                            <h5>' . $name . ' ' . ($required === "1" ? '<span class="required">*</span>' : "") . '</h5>
+                            ' . $row['checkbox'] . '
                         </div>';
-            }
-            elseif($type == "drop-down"){
+            } elseif ($type == "drop-down") {
                 $tpl .= '<div class="submit-field">
-                            <h5>'.$name.' '.($required === "1" ? '<span class="required">*</span>' : "").'</h5>
-                            <select class="form-control selectpicker with-border quick-custom-field" name="custom['.$id.']" data-name="'.$id.'" data-req="'.$required.'">
-                                        <option value="" selected>'.$lang['SELECT'].' '.$name.'</option>
-                                        '.$row['selectbox'].'
+                            <h5>' . $name . ' ' . ($required === "1" ? '<span class="required">*</span>' : "") . '</h5>
+                            <select class="form-control selectpicker with-border quick-custom-field" name="custom[' . $id . ']" data-name="' . $id . '" data-req="' . $required . '">
+                                        <option value="" selected>' . $lang['SELECT'] . ' ' . $name . '</option>
+                                        ' . $row['selectbox'] . '
                                     </select>
-                                    <div class="quick-error">'.$lang['FIELD_REQUIRED'].'</div>
+                                    <div class="quick-error">' . $lang['FIELD_REQUIRED'] . '</div>
                         </div>';
             }
         }
@@ -1051,40 +1086,35 @@ function getlocHomemap()
     $appr = 'active';
     $country = check_user_country();
 
-    if(isset($_GET['serachStr'])){
+    if (isset($_GET['serachStr'])) {
         $serachStr = $_GET['serachStr'];
-    }
-    else{
+    } else {
         $serachStr = '';
     }
 
-    if(isset($_GET['state'])){
+    if (isset($_GET['state'])) {
         $state = $_GET['state'];
-    }
-    else{
+    } else {
         $state = '';
     }
-    if(!empty($_GET['city'])){
+    if (!empty($_GET['city'])) {
         $city = $_GET['city'];
-    }
-    else{
-        if(!empty($_GET['locality'])){
+    } else {
+        if (!empty($_GET['locality'])) {
             $city = $_GET['locality'];
-        }else{
+        } else {
             $city = '';
         }
     }
-    if(isset($_GET['searchBox'])){
+    if (isset($_GET['searchBox'])) {
         $searchBox = $_GET['searchBox'];
-    }
-    else{
+    } else {
         $searchBox = '';
     }
 
-    if(isset($_GET['catid'])){
+    if (isset($_GET['catid'])) {
         $catid = $_GET['catid'];
-    }
-    else{
+    } else {
         $catid = '';
     }
 
@@ -1096,48 +1126,44 @@ function getlocHomemap()
     if ($city != '') {
 
         if ($serachStr != '') {
-            $where .= " product_name LIKE '%".validate_input($serachStr)."%'";
+            $where .= " product_name LIKE '%" . validate_input($serachStr) . "%'";
         }
 
         if ($searchBox != '') {
-            $where .= " category = '".validate_input($searchBox)."'";
+            $where .= " category = '" . validate_input($searchBox) . "'";
         }
 
         if ($catid != '') {
-            $where .= " sub_category = '".validate_input($catid)."'";
+            $where .= " sub_category = '" . validate_input($catid) . "'";
         }
 
         if ($country != '') {
-            $where .= " country = '".validate_input($country)."'";
+            $where .= " country = '" . validate_input($country) . "'";
         }
 
         /*$query = "SELECT p.*,c.id AS cityid
         FROM `".$config['db']['pre']."cities` AS c
         INNER JOIN `".$config['db']['pre']."product` AS p ON p.city = c.id Where (c.name like '%$city%' or c.asciiname like '%$city%') AND p.status = 'active' $where";*/
-
-    }
-    else{
+    } else {
 
         if ($serachStr != '') {
-            $where .= " product_name LIKE '%".validate_input($serachStr)."%'";
+            $where .= " product_name LIKE '%" . validate_input($serachStr) . "%'";
         }
 
         if ($searchBox != '') {
-            $where .= " category = '".validate_input($searchBox)."'";
+            $where .= " category = '" . validate_input($searchBox) . "'";
         }
 
         if ($catid != '') {
-            $where .= " sub_category = '".validate_input($catid)."'";
+            $where .= " sub_category = '" . validate_input($catid) . "'";
         }
 
         if ($country != '') {
-            $where .= " country = '".validate_input($country)."'";
+            $where .= " country = '" . validate_input($country) . "'";
         }
-
-
     }
 
-    $results = ORM::for_table($config['db']['pre'].'product')
+    $results = ORM::for_table($config['db']['pre'] . 'product')
         ->where('status', $appr)
         ->where_raw($where)
         ->find_many();
@@ -1146,7 +1172,7 @@ function getlocHomemap()
     $i = 0;
     if (count($results) > 0) {
 
-        foreach($results as $result){
+        foreach ($results as $result) {
             $id = $result['id'];
             $featured = $result['featured'];
             $urgent = $result['urgent'];
@@ -1158,10 +1184,10 @@ function getlocHomemap()
             $location = $result['location'];
             $latlong = $result['latlong'];
             $desc = $result['description'];
-            $url = $config['site_url'].$id;
+            $url = $config['site_url'] . $id;
 
-            $fetch = ORM::for_table($config['db']['pre'].'catagory_main')
-                ->where('cat_id',$cat)
+            $fetch = ORM::for_table($config['db']['pre'] . 'catagory_main')
+                ->where('cat_id', $cat)
                 ->find_one();
 
             $catIcon = $fetch['icon'];
@@ -1173,7 +1199,7 @@ function getlocHomemap()
 
             $p = explode(',', $pics);
             $pic = $p[0];
-            $pic = $config['site_url'].'storage/products/'.$pic;
+            $pic = $config['site_url'] . 'storage/products/' . $pic;
 
             $data[$i]['id'] = $id;
             $data[$i]['latitude'] = $lat;
@@ -1199,7 +1225,7 @@ function getlocHomemap()
 function openlocatoionPopup()
 {
     global $config;
-    $result = ORM::for_table($config['db']['pre'].'product')->find_one($_POST['id']);
+    $result = ORM::for_table($config['db']['pre'] . 'product')->find_one($_POST['id']);
 
     $data = array();
     $i = 0;
@@ -1217,14 +1243,14 @@ function openlocatoionPopup()
         $cityname = get_cityName_by_id($result['city']);
         $country = get_countryName_by_id($result['country']);
 
-        $location = $cityname.", ".$country;
+        $location = $cityname . ", " . $country;
 
         $latlong = $result['latlong'];
         $desc = strip_tags(htmlentities($result['description']));
-        $url = $link['POST-DETAIL']."/".$id;
+        $url = $link['POST-DETAIL'] . "/" . $id;
 
-        $fetch = ORM::for_table($config['db']['pre'].'catagory_main')
-            ->where('cat_id',$cat)
+        $fetch = ORM::for_table($config['db']['pre'] . 'catagory_main')
+            ->where('cat_id', $cat)
             ->find_one();
         $catIcon = $fetch['icon'];
         $catname = $fetch['cat_name'];
@@ -1236,11 +1262,11 @@ function openlocatoionPopup()
 
         $picture = explode(',', $pics);
         $pic_count = count($picture);
-        if($picture[0] != ""){
+        if ($picture[0] != "") {
             $pic = $picture[0];
-            $pic = $config['site_url'].'storage/products/thumb/'.$pic;
+            $pic = $config['site_url'] . 'storage/products/thumb/' . $pic;
             $pic = '<img class="activator" src="' . $pic . '">';
-        }else{
+        } else {
             $pic = "";
         }
 
@@ -1269,7 +1295,7 @@ function openlocatoionPopup()
 
 function quickad_ajax_home_search()
 {
-    global $config,$lang,$link,$cats;
+    global $config, $lang, $link, $cats;
     $pdo = ORM::get_db();
     $searchmode = "titlematch";
     $qString      = '';
@@ -1283,8 +1309,8 @@ function quickad_ajax_home_search()
     $lpsearchMode = "titlematch";
     $catIcon_type = "icon";
 
-    if( isset($searchmode) ){
-        if( !empty($searchmode) && $searchmode=="keyword" ){
+    if (isset($searchmode)) {
+        if (!empty($searchmode) && $searchmode == "keyword") {
             $lpsearchMode = "keyword";
         }
     }
@@ -1296,7 +1322,7 @@ function quickad_ajax_home_search()
         foreach ($categories as $cat) {
             $catIcon = $cat['icon'];
             if (!empty($catIcon)) {
-                if($catIcon_type == "image")
+                if ($catIcon_type == "image")
                     $catIcon = '<img src="' . $catIcon . '" />';
                 else
                     $catIcon = '<i class="' . $catIcon . '" ></i>';
@@ -1315,15 +1341,14 @@ function quickad_ajax_home_search()
             "suggestions" => $output
         ));
         die($query_suggestion);
-    }
-    else {
+    } else {
         //$catTerms = get_maincategory();
 
 
-        if( $lpsearchMode == "keyword" ){
+        if ($lpsearchMode == "keyword") {
 
             $sql = "SELECT DISTINCT *
-FROM `".$config['db']['pre']."catagory_main`
+FROM `" . $config['db']['pre'] . "catagory_main`
  WHERE cat_name like '%$qString%'
  ORDER BY
   CASE
@@ -1331,10 +1356,10 @@ FROM `".$config['db']['pre']."catagory_main`
     WHEN cat_name LIKE '$qString%' THEN 2
     ELSE 3
   END ";
-        }else{
+        } else {
 
             $sql = "SELECT DISTINCT *
-FROM `".$config['db']['pre']."catagory_main`
+FROM `" . $config['db']['pre'] . "catagory_main`
  WHERE cat_name like '$qString%'
  ORDER BY
   CASE
@@ -1342,7 +1367,6 @@ FROM `".$config['db']['pre']."catagory_main`
     WHEN cat_name LIKE '$qString%' THEN 2
     ELSE 3
   END ";
-
         }
 
         $rows = $pdo->query($sql);
@@ -1361,10 +1385,10 @@ FROM `".$config['db']['pre']."catagory_main`
         }
 
 
-        if( $lpsearchMode == "keyword" ){
+        if ($lpsearchMode == "keyword") {
 
             $sql = "SELECT DISTINCT *
-FROM `".$config['db']['pre']."catagory_sub`
+FROM `" . $config['db']['pre'] . "catagory_sub`
  WHERE sub_cat_name like '%$qString%'
  ORDER BY
   CASE
@@ -1372,10 +1396,10 @@ FROM `".$config['db']['pre']."catagory_sub`
     WHEN sub_cat_name LIKE '$qString%' THEN 2
     ELSE 3
   END ";
-        }else{
+        } else {
 
             $sql = "SELECT DISTINCT *
-FROM `".$config['db']['pre']."catagory_sub`
+FROM `" . $config['db']['pre'] . "catagory_sub`
  WHERE sub_cat_name like '$qString%'
  ORDER BY
   CASE
@@ -1383,18 +1407,17 @@ FROM `".$config['db']['pre']."catagory_sub`
     WHEN sub_cat_name LIKE '$qString%' THEN 2
     ELSE 3
   END ";
-
         }
         $rows = $pdo->query($sql);
         foreach ($rows as $info) {
             $subcatTerms[$info['sub_cat_id']]['id'] = $info['sub_cat_id'];
 
-            if($config['lang_code'] != 'en' && $config['userlangsel'] == '1'){
-                $subcategory = get_category_translation("sub",$info['sub_cat_id']);
+            if ($config['lang_code'] != 'en' && $config['userlangsel'] == '1') {
+                $subcategory = get_category_translation("sub", $info['sub_cat_id']);
 
                 $subcatTerms[$info['sub_cat_id']]['name'] = $subcategory['title'];
                 $subcatTerms[$info['sub_cat_id']]['slug'] = $subcategory['slug'];
-            }else{
+            } else {
                 $subcatTerms[$info['sub_cat_id']]['name'] = $info['sub_cat_name'];
                 $subcatTerms[$info['sub_cat_id']]['slug'] =  $info['slug'];
             }
@@ -1412,7 +1435,7 @@ FROM `".$config['db']['pre']."catagory_sub`
             foreach ($catTerms as $cat) {
                 $catIcon = $cat['icon'];
                 if (!empty($catIcon)) {
-                    if($catIcon_type == "image")
+                    if ($catIcon_type == "image")
                         $catIcon = '<img src="' . $catIcon . '" />';
                     else
                         $catIcon = '<i class="' . $catIcon . '" ></i>';
@@ -1422,18 +1445,17 @@ FROM `".$config['db']['pre']."catagory_sub`
 
                 $catTernName  = $cat['name'];
                 $catTernName  = strtolower($catTernName);
-                if( $lpsearchMode == "keyword" ){
+                if ($lpsearchMode == "keyword") {
                     preg_match("/[$qString]/", "$catTernName", $lpMatches, PREG_OFFSET_CAPTURE);
                     $lpresCnt = count($lpMatches);
-                    if( $lpresCnt > 0 ){
+                    if ($lpresCnt > 0) {
                         $catTermMatch = true;
                     }
-
-                }else{
+                } else {
                     $catTermMatch = strpos($catTernName, $qString);
                 }
 
-                if ( $catTermMatch !== false ) {
+                if ($catTermMatch !== false) {
                     $CATOutput[$cat['id']] = '<li class="qucikad-ajaxsearch-li-cats" data-catid="' . $cat['id'] . '">' . $catIcon . '<span class="qucikad-as-cat">' . $cat['name'] . '</span></li>';
                 }
             }
@@ -1442,30 +1464,28 @@ FROM `".$config['db']['pre']."catagory_sub`
                 $tagTermMatch = false;
                 $tagTernName  = strtolower($subcat['name']);
 
-                if( $lpsearchMode == "keyword" ){
+                if ($lpsearchMode == "keyword") {
                     preg_match("/[$qString]/", "$tagTernName", $lpMatches, PREG_OFFSET_CAPTURE);
                     $lpresCnt = count($lpMatches);
-                    if( $lpresCnt > 0 ){
+                    if ($lpresCnt > 0) {
                         $tagTermMatch = true;
                     }
-                }else{
+                } else {
                     $tagTermMatch = strpos($tagTernName, $qString);
                 }
 
-                if ( $tagTermMatch !== false ) {
+                if ($tagTermMatch !== false) {
                     $TAGOutput[$subcat['id']] = '<li class="qucikad-ajaxsearch-li-tags" data-tagid="' . $subcat['id'] . '"><span class="qucikad-as-tag">' . $subcat['name'] . '</span></li>';
                 }
             }
+        } else {
 
-        }
-        else {
-
-            if( !empty($catTerms) ){
+            if (!empty($catTerms)) {
                 foreach ($catTerms as $cat) {
 
                     $catIcon = $cat['icon'];
                     if (!empty($catIcon)) {
-                        if($catIcon_type == "image")
+                        if ($catIcon_type == "image")
                             $catIcon = '<img src="' . $catIcon . '" />';
                         else
                             $catIcon = '<i class="' . $catIcon . '" ></i>';
@@ -1475,30 +1495,29 @@ FROM `".$config['db']['pre']."catagory_sub`
 
                     $catTernName  = $cat['name'];
                     $catTernName  = strtolower($catTernName);
-                    if( $lpsearchMode == "keyword" ){
+                    if ($lpsearchMode == "keyword") {
                         preg_match("/[$qString]/", "$catTernName", $lpMatches, PREG_OFFSET_CAPTURE);
                         $lpresCnt = count($lpMatches);
-                        if( $lpresCnt > 0 ){
+                        if ($lpresCnt > 0) {
                             $catTermMatch = true;
                         }
-
-                    }else{
+                    } else {
                         $catTermMatch = strpos($catTernName, $qString);
                     }
 
-                    if ( $catTermMatch !== false ) {
+                    if ($catTermMatch !== false) {
                         $CATOutput[$cat['id']] = '<li class="qucikad-ajaxsearch-li-cats" data-catid="' . $cat['id'] . '">' . $catIcon . '<span class="qucikad-as-cat">' . $cat['name'] . '</span></li>';
                     }
                 }
             }
 
-            if( !empty($subcatTerms) ) {
+            if (!empty($subcatTerms)) {
 
                 foreach ($subcatTerms as $subcat) {
 
                     $catIcon = $subcat['main_cat_icon'];
                     if (!empty($catIcon)) {
-                        if($catIcon_type == "image")
+                        if ($catIcon_type == "image")
                             $catIcon = '<img class="qucikad-as-caticon" src="' . $catIcon . '" />';
                         else
                             $catIcon = '<i class="qucikad-as-caticon ' . $catIcon . '"  ></i>';
@@ -1506,56 +1525,54 @@ FROM `".$config['db']['pre']."catagory_sub`
                     $tagTermMatch = false;
                     $tagTernName  = strtolower($subcat['name']);
 
-                    if( $lpsearchMode == "keyword" ){
+                    if ($lpsearchMode == "keyword") {
                         preg_match("/[$qString]/", "$tagTernName", $lpMatches, PREG_OFFSET_CAPTURE);
                         $lpresCnt = count($lpMatches);
-                        if( $lpresCnt > 0 ){
+                        if ($lpresCnt > 0) {
                             $tagTermMatch = true;
                         }
-                    }else{
+                    } else {
                         $tagTermMatch = strpos($tagTernName, $qString);
                     }
 
-                    if ( $tagTermMatch !== false ) {
+                    if ($tagTermMatch !== false) {
                         //$TAGOutput[$subcat['id']]    = '<li class="qucikad-ajaxsearch-li-tags" data-tagid="' . $subcat['id'] . '"><span class="qucikad-as-tag">' . $subcat['name'] . '</span></li>';
 
                         $TagCatOutput[] = '<li class="cats-n-tags" data-tagid="' . $subcat['id'] . '" data-catid="' . $subcat['main_cat_id'] . '">' . $catIcon . '<span class="qucikad-as-tag">' . $subcat['name'] . '</span><span> in </span><span class="qucikad-as-cat">' . $subcat['main_cat_name'] . '</span></li>';
                     }
                 }
-
             }
         }
 
         $machTitles = false;
         $country_code = check_user_country();
 
-        if( $lpsearchMode == "keyword" ){
+        if ($lpsearchMode == "keyword") {
 
             $sql = "SELECT DISTINCT p.*,u.group_id,g.show_in_home_search
-FROM `".$config['db']['pre']."product` as p
-LEFT JOIN `".$config['db']['pre']."user` as u ON u.id = p.user_id
-LEFT JOIN `".$config['db']['pre']."usergroups` as g ON g.group_id = u.group_id
- WHERE p.product_name like '%$qString%' and p.status = 'active' and p.hide = '0' and p.country = '".$country_code."' and g.show_in_home_search = 'yes'
+FROM `" . $config['db']['pre'] . "product` as p
+LEFT JOIN `" . $config['db']['pre'] . "user` as u ON u.id = p.user_id
+LEFT JOIN `" . $config['db']['pre'] . "usergroups` as g ON g.group_id = u.group_id
+ WHERE p.product_name like '%$qString%' and p.status = 'active' and p.hide = '0' and p.country = '" . $country_code . "' and g.show_in_home_search = 'yes'
  ORDER BY
   CASE
     WHEN p.product_name = '$qString' THEN 1
     WHEN p.product_name LIKE '$qString%' THEN 2
     ELSE 3
   END ";
-        }else{
+        } else {
 
             $sql = "SELECT DISTINCT p.*,u.group_id,g.show_in_home_search
-FROM `".$config['db']['pre']."product` as p
-INNER JOIN `".$config['db']['pre']."user` as u ON u.id = p.user_id
-INNER JOIN `".$config['db']['pre']."usergroups` as g ON g.group_id = u.group_id
- WHERE p.product_name like '$qString%' and p.status = 'active' and p.hide = '0' and p.country = '".$country_code."' and g.show_in_home_search = 'yes'
+FROM `" . $config['db']['pre'] . "product` as p
+INNER JOIN `" . $config['db']['pre'] . "user` as u ON u.id = p.user_id
+INNER JOIN `" . $config['db']['pre'] . "usergroups` as g ON g.group_id = u.group_id
+ WHERE p.product_name like '$qString%' and p.status = 'active' and p.hide = '0' and p.country = '" . $country_code . "' and g.show_in_home_search = 'yes'
  ORDER BY
   CASE
     WHEN p.product_name = '$qString' THEN 1
     WHEN p.product_name LIKE '$qString%' THEN 2
     ELSE 3
   END ";
-
         }
 
         $result = $pdo->query($sql);
@@ -1565,16 +1582,15 @@ INNER JOIN `".$config['db']['pre']."usergroups` as g ON g.group_id = u.group_id
                 $listTitle  = $info['product_name'];
                 $listTitle  = strtolower($listTitle);
                 $pro_url = create_slug($info['product_name']);
-                $permalink = $link['POST-DETAIL'].'/' . $info['id'] . '/'.$pro_url;
+                $permalink = $link['POST-DETAIL'] . '/' . $info['id'] . '/' . $pro_url;
                 $cityname = get_cityName_by_id($info['city']);
 
-                if(check_user_upgrades($info['user_id']))
-                {
+                if (check_user_upgrades($info['user_id'])) {
                     $sub_info = get_user_membership_detail($info['user_id']);
                     $sub_title = $sub_info['sub_title'];
                     $sub_image = $sub_info['sub_image'];
-                    $premium_badge = "<img src='".$sub_image."' alt='".$sub_title."' width='20px'/>";
-                }else{
+                    $premium_badge = "<img src='" . $sub_image . "' alt='" . $sub_title . "' width='20px'/>";
+                } else {
                     $sub_title = '';
                     $sub_image = '';
                     $premium_badge = '';
@@ -1582,21 +1598,20 @@ INNER JOIN `".$config['db']['pre']."usergroups` as g ON g.group_id = u.group_id
 
 
                 $listThumb = '';
-                $picture =   explode(',' ,$info['screen_shot']);
+                $picture =   explode(',', $info['screen_shot']);
                 if (!empty($picture[0])) {
-                    if(file_exists("../storage/products/thumb/".$picture[0])){
-                        $image = $config['site_url']."storage/products/thumb/" . $picture[0];
-                    }else{
-                        $image = $config['site_url']."storage/products/thumb/default.png";
+                    if (file_exists("../storage/products/thumb/" . $picture[0])) {
+                        $image = $config['site_url'] . "storage/products/thumb/" . $picture[0];
+                    } else {
+                        $image = $config['site_url'] . "storage/products/thumb/default.png";
                     }
-                    $listThumb = "<img src='".$image."' width='50' height='50'/>";
+                    $listThumb = "<img src='" . $image . "' width='50' height='50'/>";
                 } else {
-                    $listThumb = '<img src="'.$config['site_url'].'storage/products/thumb/default.png" alt="" width="50" height="50">';
+                    $listThumb = '<img src="' . $config['site_url'] . 'storage/products/thumb/default.png" alt="" width="50" height="50">';
                 }
 
-                $TitleOutput[] = '<li class="qucikad-ajaxsearch-li-title" data-url="' . $permalink . '">' . $listThumb . '<span class="qucikad-as-title"><a href="' . $permalink . '">' . $listTitle . ' '.
-                    $premium_badge.' <span class="lp-loc">' . $cityname . '</span></a></span></li>';
-
+                $TitleOutput[] = '<li class="qucikad-ajaxsearch-li-title" data-url="' . $permalink . '">' . $listThumb . '<span class="qucikad-as-title"><a href="' . $permalink . '">' . $listTitle . ' ' .
+                    $premium_badge . ' <span class="lp-loc">' . $cityname . '</span></a></span></li>';
             }
         }
 
@@ -1634,8 +1649,9 @@ INNER JOIN `".$config['db']['pre']."usergroups` as g ON g.group_id = u.group_id
     }
 }
 
-function submitBlogComment(){
-    global $config,$lang;
+function submitBlogComment()
+{
+    global $config, $lang;
     $comment_error = $name = $email = $user_id = $comment = null;
     $result = array();
     $is_admin = '0';
@@ -1643,7 +1659,7 @@ function submitBlogComment(){
     if (checkloggedin()) {
         $is_login = true;
     }
-    $avatar = $config['site_url'].'storage/profile/default_user.png';
+    $avatar = $config['site_url'] . 'storage/profile/default_user.png';
     if (!($is_login || isset($_SESSION['admin']['id']))) {
         if (empty($_POST['user_name']) || empty($_POST['user_email'])) {
             $comment_error = $lang['ALL_FIELDS_REQ'];
@@ -1669,16 +1685,16 @@ function submitBlogComment(){
             $user_id = $_SESSION['admin']['id'];
             $name = $info['name'];
             $email = $info['email'];
-            if(!empty($info['image'])){
-                $avatar = $config['site_url'].'storage/profile/'.$info['image'];
+            if (!empty($info['image'])) {
+                $avatar = $config['site_url'] . 'storage/profile/' . $info['image'];
             }
         } else {
             $user_id = $_SESSION['user']['id'];
             $user_data = get_user_data(null, $user_id);
             $name = $user_data['name'];
             $email = $user_data['email'];
-            if(!empty($user_data['image'])){
-                $avatar = $config['site_url'].'storage/profile/'.$user_data['image'];
+            if (!empty($user_data['image'])) {
+                $avatar = $config['site_url'] . 'storage/profile/' . $user_data['image'];
             }
         }
     } else if ($is_login) {
@@ -1686,8 +1702,8 @@ function submitBlogComment(){
         $user_data = get_user_data(null, $user_id);
         $name = $user_data['name'];
         $email = $user_data['email'];
-        if(!empty($user_data['image'])){
-            $avatar = $config['site_url'].'storage/profile/'.$user_data['image'];
+        if (!empty($user_data['image'])) {
+            $avatar = $config['site_url'] . 'storage/profile/' . $user_data['image'];
         }
     } else if (isset($_SESSION['admin']['id'])) {
         $is_admin = '1';
@@ -1695,10 +1711,10 @@ function submitBlogComment(){
         $user_id = $_SESSION['admin']['id'];
         $name = $info['name'];
         $email = $info['email'];
-        if(!empty($info['image'])){
-            $avatar = $config['site_url'].'storage/profile/'.$info['image'];
+        if (!empty($info['image'])) {
+            $avatar = $config['site_url'] . 'storage/profile/' . $info['image'];
         }
-    }else{
+    } else {
         $comment_error = $lang['LOGIN_POST_COMMENT'];
     }
 
@@ -1720,18 +1736,18 @@ function submitBlogComment(){
     }
 
     if (!$comment_error) {
-        if($is_admin){
+        if ($is_admin) {
             $approve = '1';
-        }else{
-            if($config['blog_comment_approval'] == 1){
+        } else {
+            if ($config['blog_comment_approval'] == 1) {
                 $approve = '0';
-            }else if($config['blog_comment_approval'] == 2){
-                if($is_login){
+            } else if ($config['blog_comment_approval'] == 2) {
+                if ($is_login) {
                     $approve = '1';
-                }else{
+                } else {
                     $approve = '0';
                 }
-            }else{
+            } else {
                 $approve = '1';
             }
         }
@@ -1751,26 +1767,26 @@ function submitBlogComment(){
         $id = $blog_cmnt->id();
         $date = date('d, M Y');
         $approve_txt = '';
-        if($approve == '0'){
-            $approve_txt = '<em><small>'.$lang['COMMENT_REVIEW'].'</small></em>';
+        if ($approve == '0') {
+            $approve_txt = '<em><small>' . $lang['COMMENT_REVIEW'] . '</small></em>';
         }
 
-        $html = '<li id="li-comment-'.$id.'"';
-        if($_POST['comment_parent'] != 0) {
+        $html = '<li id="li-comment-' . $id . '"';
+        if ($_POST['comment_parent'] != 0) {
             $html .= 'class="children-2"';
         }
         $html .= '>
-                   <div class="comments-box" id="comment-'.$id.'">
+                   <div class="comments-box" id="comment-' . $id . '">
                         <div class="comments-avatar">
-                            <img src="'.$avatar.'" alt="'.$name.'">
+                            <img src="' . $avatar . '" alt="' . $name . '">
                         </div>
                         <div class="comments-text">
                             <div class="avatar-name">
-                                <h5>'.$name.'</h5>
-                                <span>'.$date.'</span>
+                                <h5>' . $name . '</h5>
+                                <span>' . $date . '</span>
                             </div>
-                            '.$approve_txt.'
-                            <p>'.nl2br(stripcslashes($comment)).'</p>
+                            ' . $approve_txt . '
+                            <p>' . nl2br(stripcslashes($comment)) . '</p>
                         </div>
                     </div>
                 </li>';
@@ -1778,83 +1794,83 @@ function submitBlogComment(){
         $result['success'] = true;
         $result['html'] = $html;
         $result['id'] = $id;
-    }else{
+    } else {
         $result['success'] = false;
         $result['error'] = $comment_error;
     }
     die(json_encode($result));
 }
 
-function setUserVisibilityStatus(){
+function setUserVisibilityStatus()
+{
     global $config;
-    $visibilty = $_POST['visibility'] ? '1' :'0';
- 
-    $user_id = !empty($_POST['user_id']) ? $_POST['user_id'] : $_SESSION['user']['id'];
-    $user=ORM::for_table($config['db']['pre'].'user')->find_one($user_id);
-   
-    $user->set('online',$visibilty);
+    $visibilty = $_POST['visibility'] ? '1' : '0';
 
-    if($user->save()){
+    $user_id = !empty($_POST['user_id']) ? $_POST['user_id'] : $_SESSION['user']['id'];
+    $user = ORM::for_table($config['db']['pre'] . 'user')->find_one($user_id);
+
+    $user->set('online', $visibilty);
+
+    if ($user->save()) {
         $result['success'] = true;
-    }else{
-        $result['success'] = false;  
+    } else {
+        $result['success'] = false;
     }
     die(json_encode($result));
-   
 }
 
 function getAgreementRateByid()
 {
     global $config;
     $id = isset($_POST['agrid']) ? $_POST['agrid'] : 0;
-    $rows = ORM::for_table($config['db']['pre'].'user_agreements_rates')->table_alias('ar')
-        ->where('ar.agreement_id',$id)
-        ->where_raw('ar.id NOT IN(SELECT agreement_rate_id FROM '.$config['db']['pre'].'timesheets WHERE worker_id='.$_SESSION['user']['id'].')')
+    $rows = ORM::for_table($config['db']['pre'] . 'user_agreements_rates')->table_alias('ar')
+        ->where('ar.agreement_id', $id)
+        ->where_raw('ar.id NOT IN(SELECT agreement_rate_id FROM ' . $config['db']['pre'] . 'timesheets WHERE worker_id=' . $_SESSION['user']['id'] . ')')
         ->find_many();
-    //print_r($rows);    
+
     if (count($rows) > 0) {
         foreach ($rows as $info) {
             $rateid = $info['id'];
-            $text= ucwords($info['description']).'- $'.$info['rate'].' '.ucwords(str_replace('-', ' ', $info['rate_type'])) ;
+            $text = ucwords($info['description']) . '- $' . $info['rate'] . ' ' . ucwords(str_replace('-', ' ', $info['rate_type']));
             // if($selectid == $sub_id){
             //     $selected_text = "selected";
             // }
             // else{
             //     $selected_text = "";
             // }
-            echo '<option value="'. $rateid .'">'.$text.'</option>';
+            echo '<option value="' . $rateid . '">' . $text . '</option>';
         }
-    }else{
+    } else {
         echo 0;
     }
     die();
-    
 }
-function updateTimesheetStatus(){
+function updateTimesheetStatus()
+{
     global $config;
-    $id=$_POST['id'];
-    $status=$_POST['status'];
+    $id = $_POST['id'];
+    $status = $_POST['status'];
     //print_r($_POST);
-    $ts = ORM::for_table($config['db']['pre'].'timesheets')->find_one($id);
-   // echo ORM::get_last_query();
-   // print_r( $ts );
-    $ts->status=$status;
-    if($ts->save()){
-      echo json_encode(['status'=>true]);
-    }else{
-        echo json_encode(['status'=>false]);
+    $ts = ORM::for_table($config['db']['pre'] . 'timesheets')->find_one($id);
+    // echo ORM::get_last_query();
+    // print_r( $ts );
+    $ts->status = $status;
+    if ($ts->save()) {
+        echo json_encode(['status' => true]);
+    } else {
+        echo json_encode(['status' => false]);
     }
     die;
-
 }
 
-function deleteTimesheet(){
+function deleteTimesheet()
+{
     global $config;
-	$ts= ORM::for_table($config['db']['pre'].'timesheets')->find_one($_POST['id']);
-    if($ts->delete()){
-        echo json_encode(['status'=>true]);  
-    }else{
-        echo json_encode(['status'=>false]);
+    $ts = ORM::for_table($config['db']['pre'] . 'timesheets')->find_one($_POST['id']);
+    if ($ts->delete()) {
+        echo json_encode(['status' => true]);
+    } else {
+        echo json_encode(['status' => false]);
     }
     die;
 }

@@ -43,15 +43,17 @@ if (isset($_POST['search_type']) && $_POST['search_type'] == "filter") {
         if (!empty($flag)) {
             $where .= $flag;
         }
-        $where .= ' ' . $config['db']['pre'] . 'user.user_type = "' . $_POST['user_type'] . '" ';
+        $user_type = implode(',', $_POST['user_type']);
+        $where .= ' ' . $config['db']['pre'] . 'user.user_type IN (' . $user_type . ') ';
         $flag = " AND ";
         $isWhere = true;
     }
-    if (!empty($_POST['status'])) {
+    if (!empty($_POST['status']) || $_POST['status'] == '0') {
         if (!empty($flag)) {
             $where .= $flag;
         }
-        $where .= ' ' . $config['db']['pre'] . 'user.status = "' . $_POST['status'] . '" ';
+        $user_status = implode(',', $_POST['status']);
+        $where .= ' ' . $config['db']['pre'] . 'user.status IN (' . $user_status . ') ';
         $flag = " AND ";
         $isWhere = true;
     }
@@ -59,24 +61,26 @@ if (isset($_POST['search_type']) && $_POST['search_type'] == "filter") {
         if (!empty($flag)) {
             $where .= $flag;
         }
-        $where .= ' ' . $config['db']['pre'] . 'user.sex = "' . $_POST['sex'] . '" ';
+        $user_sex = implode(',', $_POST['sex']);
+        $where .= ' ' . $config['db']['pre'] . 'user.sex IN (' . $user_sex  . ') ';
         $flag = " AND ";
         $isWhere = true;
     }
-    // if (!empty($_POST['date'])) {
-    //     if (!empty($flag)) {
-    //         $where .= $flag;
-    //     }
-    //     $date = explode("-", $_POST['date']);
-    //     $where .= ' ' . $config['db']['pre'] . 'user.created_at BETWEEN "' . date('Y-m-d', strtotime($date[0])) . '"  AND  "' . date('Y-m-d', strtotime($date[1])) . '" ';
-    //     $flag = " AND ";
-    //     $isWhere = true;
-    // }
-    if ($_POST['available_to_work'] == "1" || $_POST['available_to_work'] == "0") {
+    if (!empty($_POST['date'])) {
         if (!empty($flag)) {
             $where .= $flag;
         }
-        $where .= ' ' . $config['db']['pre'] . 'user.available_to_work = "' . $_POST['available_to_work'] . '" ';
+        $date = explode("to", $_POST['date']);
+        $where .= ' ' . $config['db']['pre'] . 'user.created_at BETWEEN "' . date('Y-m-d', strtotime($date[0])) . '"  AND  "' . date('Y-m-d', strtotime($date[1])) . '" ';
+        $flag = " AND ";
+        $isWhere = true;
+    }
+    if (!empty($_POST['available_to_work']) || $_POST['available_to_work'] == "0") {
+        if (!empty($flag)) {
+            $where .= $flag;
+        }
+        $user_work = implode(',', $_POST['available_to_work']);
+        $where .= ' ' . $config['db']['pre'] . 'user.available_to_work IN (' . $user_work . ') ';
         $flag = " AND ";
         $isWhere = true;
     }
@@ -84,7 +88,8 @@ if (isset($_POST['search_type']) && $_POST['search_type'] == "filter") {
         if (!empty($flag)) {
             $where .= $flag;
         }
-        $where .= ' ' . $config['db']['pre'] . 'user.category = "' . $_POST['category'] . '" ';
+        $user_category = implode(',', $_POST['category']);
+        $where .= ' ' . $config['db']['pre'] . 'user.category IN (' . $user_category . ') ';
         $flag = " AND ";
         $isWhere = true;
     }
@@ -92,9 +97,35 @@ if (isset($_POST['search_type']) && $_POST['search_type'] == "filter") {
         if (!empty($flag)) {
             $where .= $flag;
         }
-        $where .= ' ' . $config['db']['pre'] . 'user.subcategory = "' . $_POST['subcategory'] . '" ';
+        $user_subcategory = implode(',', $_POST['subcategory']);
+        $where .= ' ' . $config['db']['pre'] . 'user.subcategory IN (' . $user_subcategory . ') ';
         $flag = " AND ";
         $isWhere = true;
+    }
+    if (!empty($_POST['wallet_min_amount']) && !empty($_POST['wallet_max_amount'])) {
+        if (!empty($flag)) {
+            $where .= $flag;
+        }
+        $where .= ' ' . $config['db']['pre'] . 'wallet.amount BETWEEN "' . $_POST['wallet_min_amount'] . '"  AND  "' . $_POST['wallet_max_amount'] . '" ';
+        $flag = " AND ";
+        $isWhere = true;
+    } else {
+        if (!empty($_POST['wallet_min_amount'])) {
+            if (!empty($flag)) {
+                $where .= $flag;
+            }
+            $where .= ' ' . $config['db']['pre'] . 'wallet.amount <="' . $_POST['wallet_min_amount'] . '" ';
+            $flag = " AND ";
+            $isWhere = true;
+        }
+        if (!empty($_POST['wallet_max_amount'])) {
+            if (!empty($flag)) {
+                $where .= $flag;
+            }
+            $where .= ' ' . $config['db']['pre'] . 'wallet.amount >="' . $_POST['wallet_max_amount'] . '" ';
+            $flag = " AND ";
+            $isWhere = true;
+        }
     }
 }
 
@@ -120,7 +151,6 @@ if (empty($params['order'][0]['column'])) {
 
 $queryTot = $pdo->query($sqlTot);
 $totalRecords = $queryTot->rowCount();
-$totalRecords = "10";
 $queryRecords = $pdo->query($sqlRec);
 
 

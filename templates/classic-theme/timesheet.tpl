@@ -15,7 +15,7 @@
                         <div class="dashboard-box margin-top-0">
                             <!-- Headline -->
                              <div class="headline">
-                               <h3><i class="icon-feather-clock"></i> {LANG_MYTIMESHEET} &ndash; <a href="{LINK_ADD_SHIFT}">{LANG_ADD_SHIFT}</a></h3>
+                               <h3><i class="icon-feather-clock"></i> {LANG_MYTIMESHEET} IF("{USER_TYPE}"=="user"){ &ndash; <a href="{LINK_ADD_SHIFT}">{LANG_ADD_SHIFT}</a>  {:IF}</h3>
                             </div> 
 
                             <div class="content">
@@ -50,7 +50,7 @@
                                         <!-- Task Details -->
                                         <ul class="dashboard-task-info">
                                             <li><strong>${ITEM.due}</strong><span>Due</span></li>
-                                            <li><strong><i class="text-success fa fa-check-circle"></i></strong><span>{LANG_SUBMITTED}</span></li>
+                                            <li><strong><i class="text-success fa fa-check-circle"></i></strong><span>{LANG_SUBMITTED}<br>34/34/4567</span></li>
                                             IF("{ITEM.status}"=="approved"){
                                                 <li><strong><i class="text-success fa fa-check-circle"></i></strong><span>{LANG_APPROVED}</span></li>
                                                 <li><strong><i class=""></i></strong><span>{LANG_PENDING}</span></li>
